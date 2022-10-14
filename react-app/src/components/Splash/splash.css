@@ -1,0 +1,81 @@
+.main-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #56538c;
+}
+
+.splash-upper{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 50px;
+    color: white;
+}
+
+
+
+.mid-btn-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.main-body-sign-up-btn {
+   background-color:  #d24b03;
+   border: none;
+   height: 52px;
+   width: 200px;
+   border-radius: 5px;
+   font-size: 22px;
+   font-weight: bold;
+   color: white;
+   cursor:pointer;
+}
+
+.main-body-sign-up-btn:hover {
+    background-color:  #b33f00;
+    transition-duration: .25s;
+
+ }
+
+.spl-lower-main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #56538c;
+    height:100%;
+    width: 100%;
+    padding: 50px;
+}
+
+.spl-steve-img-1{
+    height: 306px;
+    width: 350px;
+}
+
+.spl-lower-title-text{
+    padding-top: 50px;
+    color: white;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.spl-lower-p{
+    padding-top: 14px;
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    width: 310px;
+}
+
+.spl-bottom-padding-div {
+    height: 100px;
+}

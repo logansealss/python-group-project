@@ -1,0 +1,46 @@
+.bottom-nav-main {
+    display: flex;
+    height: 50px;
+    width: 100%;
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 2px solid rgb(236, 236, 236);
+    background-color: white;
+}
+
+.bottom-nav-info {
+    padding-left: 40px;
+}
+
+.bottom-nav-linked-in-div {
+    padding-top: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bottom-nav-gh-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bottom-nav-linked-in {
+    height: 60px;
+    width: auto;
+    padding-right: 20px;
+}
+
+.bottom-nav-github {
+    height: 35px;
+    width: auto;
+    padding-right: 40px;
+}
+
+.bottom-nav-right-div {
+    display: flex;
+    flex-direction: row;
+}
