@@ -1,7 +1,7 @@
 FROM python:3.9
 
 # Set the following enviroment variables
-# ENV REACT_APP_BASE_URL=<<heroku.app.address>>
+ENV REACT_APP_BASE_URL=https://task-maker-jjl.herokuapp.com/
 ENV FLASK_APP=app
 ENV FLASK_ENV=production
 ENV SQLALCHEMY_ECHO=True
