@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import gitHubImg from '../../../img/github-sign.png';
-import liImg from '../../../img/linkedin-transparent-17.png';
+import gitHubImg from '../../img/github-sign.png';
+import liImg from '../../img/linkedin-transparent-17.png';
 import './botNavi.css';
 
 export default function BotNavi() {

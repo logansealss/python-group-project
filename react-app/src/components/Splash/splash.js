@@ -15,7 +15,9 @@ export default function Splash() {
                 The smart to-do app for busy people.
             </div>
             <div className='mid-btn-div'>
-                <button className='main-body-sign-up-btn'> Sign Up Free</button>
+                <Link className='main-su-btn-link-wrap' to="/signup">
+                    <button className='main-body-sign-up-btn'> Sign Up Free</button>
+                </Link>
             </div>
             <div className='spl-lower-main'>
                 <img className='spl-steve-img-1' src={steveShop} />

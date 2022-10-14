@@ -6,14 +6,15 @@ import ProfileBtn from './profileBtn';
 import tmLogoWhite from '../../img/tm-logo-white.png';
 import './navi.css';
 
-function Navi({ isLoaded }) {
+function Navi({ loaded }) {
     const sessionUser = useSelector(state => state.session.user);
 
     let sessionLinks;
     if (sessionUser) {
         sessionLinks = (
             <div className='main-nav-profile-btn'>
-            <ProfileBtn user={sessionUser} />
+            {/* <ProfileBtn user={sessionUser} /> */}
+            Configure for logged in user!!!
             </div>
         );
     } else {
@@ -39,7 +40,7 @@ function Navi({ isLoaded }) {
                 </NavLink>
             </div>
             <div className='sessionLinks-div'>
-                {isLoaded && sessionLinks}
+                {loaded && sessionLinks}
             </div>
             </div>
         </div>
