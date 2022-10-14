@@ -79,3 +79,53 @@
 .spl-bottom-padding-div {
     height: 100px;
 }
+
+.spl-bot-info-main{
+    border-top: 2px solid #69696d;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 50px;
+    column-gap: 200px;
+}
+
+.spl-info-contributor-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 200px;
+    text-align: center;
+}
+
+.spl-bot-info-name-div{
+    width: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    color: #69696d;
+    padding-bottom: 20px;
+}
+
+.spl-bot-info-icon-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    column-gap: 16px;
+    row-gap: 10px;
+    width: 100%;
+}
+
+.spl-bot-info-linkedin{
+    height: 35px;
+    width:auto
+}
+
+.spl-bot-info-gh{
+    height: 36px;
+    width:auto
+}
+
+.spl-bot-cont-link{
+    text-decoration: none;
+    color:#84848c;
+}

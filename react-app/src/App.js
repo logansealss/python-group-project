@@ -12,43 +12,42 @@ import User from './components/User';
 import { authenticate } from './store/session';
 
 function App() {
-  const [loaded, setLoaded] = useState(false);
-  const dispatch = useDispatch();
+    const [loaded, setLoaded] = useState(false);
+    const dispatch = useDispatch();
 
-  useEffect(() => {
-    (async() => {
-      await dispatch(authenticate());
-      setLoaded(true);
-    })();
-  }, [dispatch]);
+    useEffect(() => {
+        (async () => {
+            await dispatch(authenticate());
+            setLoaded(true);
+        })();
+    }, [dispatch]);
 
-  if (!loaded) {
-    return null;
-  }
+    if (!loaded) {
+        return null;
+    }
 
-  return (
-    <BrowserRouter>
-      <Switch>
-        <Route path='/login' exact={true}>
-          <LoginForm />
-        </Route>
-        <Route path='/sign-up' exact={true}>
-          <SignUpForm />
-        </Route>
-        <ProtectedRoute path='/users' exact={true} >
-          <UsersList/>
-        </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
-          <User />
-        </ProtectedRoute>
-        <Route path='/' exact={true} >
-            <Navi loaded={loaded}/>
-            <Splash />
-            <BotNavi />
-        </Route>
-      </Switch>
-    </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <Switch>
+                <Route path='/login' exact={true}>
+                    <LoginForm />
+                </Route>
+                <Route path='/sign-up' exact={true}>
+                    <SignUpForm />
+                </Route>
+                <ProtectedRoute path='/users' exact={true} >
+                    <UsersList />
+                </ProtectedRoute>
+                <ProtectedRoute path='/users/:userId' exact={true} >
+                    <User />
+                </ProtectedRoute>
+                <Route path='/' exact={true} >
+                    <Navi loaded={loaded} />
+                    <Splash />
+                </Route>
+            </Switch>
+        </BrowserRouter>
+    );
 }
 
 export default App;
