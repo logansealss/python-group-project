@@ -1,0 +1,250 @@
+.su-main-page-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+}
+
+.su-left-pane-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    background-color: #56538c;
+    padding-top: 50px;
+}
+
+.su-left-main-logo {
+    height: 83px;
+    width: 179px;
+}
+
+.su-left-pane-content{
+    margin-top: 240px;
+}
+
+.su-left-pane-content-p {
+    padding-top: 20px;
+    color: white;
+    opacity: .5;
+    font-weight: bold;
+    font-size: 26px;
+    width: 420px;
+}
+
+.su-left-pane-imgs {
+    display: flex;
+    flex-direction: row;
+    column-gap: 26px;
+}
+
+.su-lp-img-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 100%;
+    height: 103px;
+    width: 100px;
+    overflow: hidden;
+}
+
+.su-p1 {
+    background-color: #43814f;
+}
+
+.su-p2 {
+    background-color: #66648d;
+}
+
+.su-p3 {
+    background-color: #5c58b9;
+}
+
+.su-lp-img {
+    margin-top: 10px;
+}
+
+
+.su-right-pane-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 50%;
+    height: 100%;
+
+}
+
+.su-login-btn-div{
+    padding-top: 40px;
+    display: flex;
+    justify-content: flex-end;
+    width: 400px;
+    height: 200px
+}
+
+.su-login-btn{
+    margin-top: 10px;
+    height: 33px;
+    width: 67px;
+    color:#464646;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #c0c0e7;
+}
+
+.su-login-btn:hover{
+    background-color: #9494b5;
+}
+
+.su-login-btn:active{
+    transform: scale(0.95)
+}
+
+.su-title-div {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.su-logo-div {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.su-form-main-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.su-log-in-title {
+    font-weight: bolder;
+    font-size: 30px;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+.su-login-err-div {
+    height: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: rgb(244, 74, 68)
+}
+
+.su-div-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.su-input-div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.su-input-inner-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.su-pseudo-input {
+    display: flex;
+    justify-content: center;
+    width: 400px;
+    height: 48px;
+    border-radius: 4px;
+    margin-top: 1px;
+
+}
+
+.su-valid {
+    border: 1px solid rgb(211, 211, 211);
+}
+
+.su-hasError{
+    border: 1px solid #ea4200;
+    background-color: #ffeade;
+}
+
+/* .su-pseudo-input:hover {
+    border: 1px solid rgb(83, 83, 83);
+} */
+
+.su-pseudo-input.su-valid:focus-within {
+    border: 1px solid rgb(72, 69, 188);
+    box-shadow: 0px 0px 4px 2px rgba(72, 69, 188, 0.25);
+    transition-duration: 0.25s;
+}
+
+.su-pseudo-input.su-hasError:focus-within {
+    box-shadow: 0px 0px 4px 2px rgba(255, 93, 71, 0.25);
+    transition-duration: 0.25s;
+}
+
+.su-input-label {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.su-input-field {
+    width: 90%;
+    border: none;
+    font-size: 20px;
+    background-color: transparent;
+
+}
+
+.su-input-label-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.su-field-error {
+    color: #ea4200;
+    font-size: 16px;
+}
+
+.su-signup-btn-div {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.su-signup-btn {
+    margin-top: 15px;
+    height: 48px;
+    width: 400px;
+    border-radius: 4px;
+    border: none;
+    background-color: #5652b8;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.su-signup-btn:hover {
+    background-color: #2b287a;
+}
+
+
+
+.su-signup-btn:active {
+    transform: scale(0.95);
+}

@@ -1,0 +1,163 @@
+.main-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #56538c;
+}
+
+.splash-upper{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 50px;
+    color: white;
+}
+
+
+
+.mid-btn-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.main-body-sign-up-btn {
+   background-color:  #d24b03;
+   border: none;
+   height: 52px;
+   width: 200px;
+   border-radius: 5px;
+   font-size: 22px;
+   font-weight: bold;
+   color: white;
+   cursor:pointer;
+}
+
+.main-body-sign-up-btn:hover {
+    background-color:  #b33f00;
+    transition-duration: .25s;
+
+ }
+
+.spl-lower-main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #56538c;
+    height:100%;
+    width: 100%;
+    padding: 50px;
+}
+
+.spl-steve-img-1{
+    height: 306px;
+    width: 350px;
+}
+
+.spl-lower-title-text{
+    padding-top: 50px;
+    color: white;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.spl-lower-p{
+    padding-top: 14px;
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    width: 310px;
+}
+
+.spl-bottom-padding-div {
+    height: 100px;
+}
+
+.spl-bot-info-main{
+    border-top: 2px solid #69696d;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.spl-bot-info-panel-rt{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 50px;
+    column-gap: 150px;
+}
+
+.spl-info-contributor-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 200px;
+    text-align: center;
+}
+
+.spl-bot-info-name-div{
+    width: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    color: #69696d;
+    padding-bottom: 20px;
+}
+
+.spl-bot-info-icon-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    column-gap: 16px;
+    row-gap: 10px;
+    width: 100%;
+}
+
+.spl-bot-info-linkedin{
+    height: 35px;
+    width:auto
+}
+
+.spl-bot-info-gh{
+    height: 36px;
+    width:auto
+}
+
+.spl-bot-cont-link{
+    text-decoration: none;
+    color:#84848c;
+}
+
+.spl-bot-info-graphic-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding-top: 65px;
+    padding-bottom: 80px;
+    padding-right: 130px;
+}
+
+.spl-bot-mc-div{
+    position: relative;
+}
+
+.spl-bot-milk-carton{
+    padding-top: 60px;
+}
+
+.spl-bot-mc-sp-text{
+    position: absolute;
+    bottom: 12px;
+    left: 8px;
+    font-size: 26px;
+    font-family: 'Nanum Brush Script', cursive;
+}

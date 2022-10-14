@@ -1,0 +1,228 @@
+.li-main-page-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+}
+
+.li-left-pane-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    background-color: #56538c;
+    padding-top: 50px;
+}
+
+.li-left-main-logo {
+    height: 83px;
+    width: 179px;
+}
+
+.li-left-pane-content{
+    margin-top: 240px;
+}
+
+.li-left-pane-content-quote {
+    padding-top: 20px;
+    color: white;
+    opacity: .5;
+    font-weight: bold;
+    font-size: 26px;
+    width: 420px;
+}
+
+.li-left-pane-content-author {
+    padding-top: 20px;
+    color: white;
+    opacity: .5;
+    font-weight: bold;
+    font-size: 16px;
+    width: 420px;
+    text-align: right;
+}
+
+.li-right-pane-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 50%;
+    height: 100%;
+
+}
+
+.li-signup-btn-div{
+    padding-top: 40px;
+    display: flex;
+    justify-content: flex-end;
+    width: 400px;
+    height: 200px
+}
+
+.li-signup-btn{
+    margin-top: 10px;
+    height: 33px;
+    width: 130px;
+    color:#464646;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #c0c0e7;
+}
+
+.li-signup-btn:hover{
+    background-color: #9494b5;
+}
+
+.li-signup-btn:active{
+    transform: scale(0.95)
+}
+
+.li-title-div {
+    padding-top: 60px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.li-logo-div {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.li-form-main-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.li-log-in-title {
+    font-weight: bolder;
+    font-size: 30px;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+.li-login-err-div {
+    height: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: rgb(244, 74, 68)
+}
+
+.li-div-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.li-input-div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.li-input-inner-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.li-pseudo-input {
+    display: flex;
+    justify-content: center;
+    width: 400px;
+    height: 48px;
+    border-radius: 4px;
+    margin-top: 1px;
+
+}
+
+.li-valid {
+    border: 1px solid rgb(211, 211, 211);
+}
+
+.li-hasError{
+    border: 1px solid #ea4200;
+    background-color: #ffeade;
+}
+
+/* .li-pseudo-input:hover {
+    border: 1px solid rgb(83, 83, 83);
+} */
+
+.li-pseudo-input.li-valid:focus-within {
+    border: 1px solid rgb(72, 69, 188);
+    box-shadow: 0px 0px 4px 2px rgba(72, 69, 188, 0.25);
+    transition-duration: 0.25s;
+}
+
+.li-pseudo-input.li-hasError:focus-within {
+    box-shadow: 0px 0px 4px 2px rgba(255, 93, 71, 0.25);
+    transition-duration: 0.25s;
+}
+
+.li-input-label {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.li-input-field {
+    width: 90%;
+    border: none;
+    font-size: 20px;
+    background-color: transparent;
+
+}
+
+.li-input-label-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.li-field-error {
+    color: #ea4200;
+    font-size: 16px;
+}
+
+.li-login-btn-div {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.li-login-btn {
+    margin-top: 15px;
+    height: 48px;
+    width: 400px;
+    border-radius: 4px;
+    border: none;
+    background-color: #5652b8;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.li-login-btn:hover {
+    background-color: #2b287a;
+}
+
+
+
+.li-login-btn:active {
+    transform: scale(0.95);
+}
