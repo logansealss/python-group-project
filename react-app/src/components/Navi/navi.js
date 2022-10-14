@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileBtn from './profileBtn';
-// import LoginFormModal from '../LoginFormModal';
+import LogoutButton from '../auth/LogoutButton';
 import tmLogoWhite from '../../img/tm-logo-white.png';
 import './navi.css';
 
@@ -13,8 +13,7 @@ function Navi({ loaded }) {
     if (sessionUser) {
         sessionLinks = (
             <div className='main-nav-profile-btn'>
-            {/* <ProfileBtn user={sessionUser} /> */}
-            Configure for logged in user!!!
+            <LogoutButton classProp='spl-sign-up-btn'/>
             </div>
         );
     } else {

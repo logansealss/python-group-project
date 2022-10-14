@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import * as sessionActions from "../../../store/session";
-import tmLogoWhite from '../../../img/tm-logo-white.png';
-import quotes from '../../../data/quotes.json'
+import * as sessionActions from "../../store/session";
+import tmLogoWhite from '../../img/tm-logo-white.png';
+import quotes from '../../data/quotes.json'
 
 import './login.css';
 
-function SignupFormPage() {
+function LoginFormPage() {
     const dispatch = useDispatch();
     const sessionUser = useSelector((state) => state.session.user);
-    const [credential, setUsername] = useState("");
+    const [credential, setCredential] = useState("");
     const [password, setPassword] = useState("");
     const [renderErrors, setRenderErrors] = useState(false);
     const [backendErrors, setBackendErrors] = useState([]);
@@ -70,7 +70,10 @@ function SignupFormPage() {
     if (sessionUser) return <Redirect to="/" />;
 
     const demoUserBtnClick = (e) => {
-
+        setPassErr('');
+        setCredentialErr('');
+        setCredential('demo@aa.io');
+        setPassword('password');
     }
 
     const emailCheck = (str) => {
@@ -86,7 +89,7 @@ function SignupFormPage() {
         if (!credentialErr &&
             !passErr
         ) {
-            return dispatch(sessionActions.login({ username: credential, password }))
+            return dispatch(sessionActions.login(credential, password))
                 .catch(async (res) => {
                     const data = await res.json();
                     if (data && data.errors) setBackendErrors(data.errors);
@@ -145,7 +148,7 @@ function SignupFormPage() {
                                         className="li-input-field"
                                         type="text"
                                         value={credential}
-                                        onChange={(e) => setUsername(e.target.value)}
+                                        onChange={(e) => setCredential(e.target.value)}
                                     />
                                 </div>
                             </div>
@@ -175,6 +178,13 @@ function SignupFormPage() {
                             >
                                 Log in
                             </button>
+                            <button
+                                className="li-login-btn"
+                                type="submit"
+                                onClick={demoUserBtnClick}
+                            >
+                                Demo user log in
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -183,4 +193,4 @@ function SignupFormPage() {
     );
 }
 
-export default SignupFormPage;
+export default LoginFormPage;
