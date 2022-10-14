@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import LoginForm from './components/auth/LoginForm';
+import LoginFormPage from './components/LoginFormPage/login';
 import SignUpForm from './components/auth/SignUpForm';
 import Navi from './components/Navi/navi';
-import BotNavi from './components/BotNavi/botNavi';
+// import BotNavi from './components/BotNavi/botNavi';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import Splash from './components/Splash/splash';
 import UsersList from './components/UsersList';
@@ -30,7 +30,7 @@ function App() {
         <BrowserRouter>
             <Switch>
                 <Route path='/login' exact={true}>
-                    <LoginForm />
+                    <LoginFormPage />
                 </Route>
                 <Route path='/sign-up' exact={true}>
                     <SignUpForm />
