@@ -35,109 +35,104 @@ export default function Splash() {
             </div>
             <div className='spl-bot-info-main'>
                 <div className='spl-bot-info-graphic-div'>
-                    <img src={milkCarton}/>
-                    <img src={spBubble}/>
-                </div>
-                <div className='spl-info-contributor-div'>
-                    <div className='spl-bot-info-name-div'>John Carrera</div>
-                    <div className='spl-bot-info-icon-div'>
-                        <a
-                            href='https://www.linkedin.com/in/john-carrera-778b53231/'
-                            className='spl-bot-cont-link'
-                        >
-                            {/* <img
-                                src={liImg}
-                                className='spl-bot-info-linkedin'
-                            /> */}
-                            Linkedin
-                        </a>
-
-                        <a
-                            href='https://github.com/JohnCarrera'
-                            className='spl-bot-cont-link'
-                        >
-                            GitHub
-                        </a>
-                        <a
-                            href='https://www.john-carrera.com'
-                            className='spl-bot-cont-link'
-                        >
-                            Website
-                        </a>
-                        <a
-                            href='https://www.john-carrera.com/tech/portfolio'
-                            className='spl-bot-cont-link'
-                        >
-                            Portfolio
-                        </a>
+                    <img className='spl-bot-milk-carton' src={milkCarton} />
+                    <div className='spl-bot-mc-div'>
+                        <img className='spl-bot-sp-bubble' src={spBubble} />
+                        <div className='spl-bot-mc-sp-text'>
+                            Code!
+                        </div>
                     </div>
                 </div>
-                <div className='spl-info-contributor-div'>
-                    <div className='spl-bot-info-name-div'>Jack Fisher</div>
-                    <div className='spl-bot-info-icon-div'>
-                        <a
-                            href='https://www.linkedin.com/in/john-carrera-778b53231/'
-                            className='spl-bot-cont-link'
-                        >
-                            {/* <img
-                                src={liImg}
-                                className='spl-bot-info-linkedin'
-                            /> */}
-                            Linkedin
-                        </a>
+                <div className='spl-bot-info-panel-rt'>
+                    <div className='spl-info-contributor-div'>
+                        <div className='spl-bot-info-name-div'>John Carrera</div>
+                        <div className='spl-bot-info-icon-div'>
+                            <a
+                                href='https://www.linkedin.com/in/john-carrera-778b53231/'
+                                className='spl-bot-cont-link'
+                            >
+                                Linkedin
+                            </a>
 
-                        <a
-                            href='https://github.com/JohnCarrera'
-                            className='spl-bot-cont-link'
-                        >
-                            GitHub
-                        </a>
-                        <a
-                            href='https://www.john-carrera.com'
-                            className='spl-bot-cont-link'
-                        >
-                            Website
-                        </a>
-                        <a
-                            href='https://www.john-carrera.com/tech/portfolio'
-                            className='spl-bot-cont-link'
-                        >
-                            Portfolio
-                        </a>
+                            <a
+                                href='https://github.com/JohnCarrera'
+                                className='spl-bot-cont-link'
+                            >
+                                GitHub
+                            </a>
+                            <a
+                                href='https://www.john-carrera.com'
+                                className='spl-bot-cont-link'
+                            >
+                                Website
+                            </a>
+                            <a
+                                href='https://www.john-carrera.com/tech/portfolio'
+                                className='spl-bot-cont-link'
+                            >
+                                Portfolio
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div className='spl-info-contributor-div'>
-                    <div className='spl-bot-info-name-div'>Logan Seals</div>
-                    <div className='spl-bot-info-icon-div'>
-                        <a
-                            href='https://www.linkedin.com/in/john-carrera-778b53231/'
-                            className='spl-bot-cont-link'
-                        >
-                            {/* <img
-                                src={liImg}
-                                className='spl-bot-info-linkedin'
-                            /> */}
-                            Linkedin
-                        </a>
+                    <div className='spl-info-contributor-div'>
+                        <div className='spl-bot-info-name-div'>Jack Fisher</div>
+                        <div className='spl-bot-info-icon-div'>
+                            <a
+                                href='https://www.linkedin.com/in/jackson-fisher-8631a7a1/'
+                                className='spl-bot-cont-link'
+                            >
+                                Linkedin
+                            </a>
 
-                        <a
-                            href='https://github.com/JohnCarrera'
-                            className='spl-bot-cont-link'
-                        >
-                            GitHub
-                        </a>
-                        <a
-                            href='https://www.john-carrera.com'
-                            className='spl-bot-cont-link'
-                        >
-                            Website
-                        </a>
-                        <a
-                            href='https://www.john-carrera.com/tech/portfolio'
-                            className='spl-bot-cont-link'
-                        >
-                            Portfolio
-                        </a>
+                            <a
+                                href='https://github.com/fisjac'
+                                className='spl-bot-cont-link'
+                            >
+                                GitHub
+                            </a>
+                            <a
+                                href='https://www.jackfisher.com'
+                                className='spl-bot-cont-link'
+                            >
+                                Website
+                            </a>
+                            <a
+                                href='https://www.jackfisher.com/portfolio'
+                                className='spl-bot-cont-link'
+                            >
+                                Portfolio
+                            </a>
+                        </div>
+                    </div>
+                    <div className='spl-info-contributor-div'>
+                        <div className='spl-bot-info-name-div'>Logan Seals</div>
+                        <div className='spl-bot-info-icon-div'>
+                            <a
+                                href='https://www.linkedin.com/in/logan-seals-b91454251/'
+                                className='spl-bot-cont-link'
+                            >
+                                Linkedin
+                            </a>
+
+                            <a
+                                href='https://github.com/logansealss'
+                                className='spl-bot-cont-link'
+                            >
+                                GitHub
+                            </a>
+                            <a
+                                href='https://www.logan-seals.com'
+                                className='spl-bot-cont-link'
+                            >
+                                Website
+                            </a>
+                            <a
+                                href='https://www.logan-seals.com/portfolio'
+                                className='spl-bot-cont-link'
+                            >
+                                Portfolio
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
