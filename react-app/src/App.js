@@ -32,7 +32,7 @@ function App() {
                 <Route path='/login' exact={true}>
                     <LoginFormPage />
                 </Route>
-                <Route path='/sign-up' exact={true}>
+                <Route path='/signup' exact={true}>
                     <SignupFormPage />
                 </Route>
                 <ProtectedRoute path='/users' exact={true} >

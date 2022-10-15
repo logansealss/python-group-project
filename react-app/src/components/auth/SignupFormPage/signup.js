@@ -136,15 +136,15 @@ function SignupFormPage() {
                 <img alt='' className="su-left-main-logo" src={tmLogoWhite} />
                 </Link>
                 <div className="su-left-pane-content">
-                    <div className="su-left-pane-img alt=''s">
-                        <div className="su-lp-img alt=''-div su-p2">
-                            <img alt='' className="su-lp-img alt=''" src={person2} />
+                    <div className="su-left-pane-imgs">
+                        <div className="su-lp-img-div su-p2">
+                            <img alt='' className="su-lp-img" src={person2} />
                         </div>
-                        <div className="su-lp-img alt=''-div su-p1">
-                            <img alt='' className="su-lp-img alt=''" src={person1} />
+                        <div className="su-lp-img-div su-p1">
+                            <img alt='' className="su-lp-img" src={person1} />
                         </div>
-                        <div className="su-lp-img alt=''-div su-p3">
-                            <img alt='' className="su-lp-img alt=''" src={person3} />
+                        <div className="su-lp-img-div su-p3">
+                            <img alt='' className="su-lp-img" src={person3} />
                         </div>
                     </div>
                     <p className="su-left-pane-content-p">
