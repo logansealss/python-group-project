@@ -10,6 +10,7 @@ import Splash from './components/Splash/splash';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import TaskAppNav from './components/TaskApp/taskAppNav';
+import TaskApp from './components/TaskApp/taskApp';
 import { authenticate } from './store/session';
 
 function App() {
@@ -41,7 +42,7 @@ function App() {
                     <SignupFormPage />
                 </Route>
                 <Route path='/app'>
-                    <TaskAppNav />
+                    <TaskApp/>
                 </Route>
             </Switch>
         </BrowserRouter>

@@ -1,0 +1,9 @@
+.ta-main-body-div{
+    position:absolute;
+    top: 41px;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    background-color: #ddddeb;
+    min-width: 100%;
+}

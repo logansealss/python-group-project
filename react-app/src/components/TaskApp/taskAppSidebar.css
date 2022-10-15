@@ -1,0 +1,8 @@
+.tasb-main-div{
+    position: absolute;
+    top:0px;
+    bottom: 0;
+    height: 100%;
+    width: 180px;
+    background-color: blue;
+}

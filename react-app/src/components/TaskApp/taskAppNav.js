@@ -12,13 +12,9 @@ export default function TaskAppNav() {
     const [searchInput, setSearchInput] = useState('');
     const [searchIconFocusStyle, setSearchIconFocusStyle] = useState('');
 
-    // useEffect(() => {
-
-    // }, [searchInput])
-
-
     function handlesearchSubmit(e) {
         e.preventDefault()
+        console.log('search submit!');
     }
 
     return (
