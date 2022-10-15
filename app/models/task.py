@@ -19,4 +19,16 @@ class Task(db.Model):
     list = db.relationship("List", back_populates="tasks")
     tags = db.relationship("Tag", secondary=task_tags, back_populates="tasks")
 
-    ## TODO create to_dict function
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'userId': self.user_id,
+            'listId': self.list_id,
+            'name': self.name,
+            'priority': self.priority,
+            'startDate': self.start_date,
+            'dueDate': self.due_date,
+            'duration': self.duration,
+            'note': self.note,
+            'completed': self.completed
+        }

@@ -12,4 +12,10 @@ class Tag(db.Model):
     user = db.relationship("User", back_populates="tags")
     tasks = db.relationship("Task", secondary=task_tags, back_populates="tags")    
     
-    ## TODO create to_dict function
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'userId': self.user_id,
+            'name': self.name,
+            'color': self.color
+        }

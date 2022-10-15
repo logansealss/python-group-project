@@ -10,4 +10,9 @@ class List(db.Model):
     tasks = db.relationship("Task", back_populates="list")
     user = db.relationship("User", back_populates="lists")
 
-    ## TODO create to_dict function
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'userId': self.user_id,
+            'name': self.name
+        }
