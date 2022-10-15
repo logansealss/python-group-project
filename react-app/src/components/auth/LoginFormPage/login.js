@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import * as sessionActions from "../../store/session";
-import tmLogoWhite from '../../img/tm-logo-white.png';
-import quotes from '../../data/quotes.json'
+import * as sessionActions from "../../../store/session";
+import tmLogoWhite from '../../../img/tm-logo-white.png';
+import quotes from '../../../data/quotes.json'
 
 import './login.css';
 
@@ -15,7 +15,6 @@ function LoginFormPage() {
     const [password, setPassword] = useState("");
     const [renderErrors, setRenderErrors] = useState(false);
     const [backendErrors, setBackendErrors] = useState([]);
-    const [errCount, setErrCount] = useState();
 
     //individual field error states
     const [credentialErr, setCredentialErr] = useState('');
@@ -102,7 +101,7 @@ function LoginFormPage() {
         <div className="li-main-page-div">
             <div className="li-left-pane-main">
                 <Link to='/'>
-                    <img className="li-left-main-logo" src={tmLogoWhite} />
+                    <img alt='' className="li-left-main-logo" src={tmLogoWhite} />
                 </Link>
                 <div className="li-left-pane-content">
                     <p className="li-left-pane-content-quote">

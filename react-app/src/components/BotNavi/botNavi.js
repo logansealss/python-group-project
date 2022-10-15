@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import gitHubImg from '../../img/github-sign.png';
 import liImg from '../../img/linkedin-transparent-17.png';
 import './botNavi.css';
@@ -13,7 +12,7 @@ export default function BotNavi() {
             <div className='bottom-nav-right-div'>
                 <div className='bottom-nav-linked-in-div'>
                     <a href='https://www.linkedin.com/in/john-carrera-778b53231/'>
-                        <img
+                        <img alt=''
                             src={liImg}
                             className='bottom-nav-linked-in'
                         />
@@ -21,7 +20,7 @@ export default function BotNavi() {
                 </div>
                 <div className='bottom-nav-gh-div'>
                     <a href='https://github.com/JohnCarrera'>
-                        <img
+                        <img alt=''
                             src={gitHubImg}
                             className='bottom-nav-github'
                         />

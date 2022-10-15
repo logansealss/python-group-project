@@ -7,7 +7,6 @@ import tmLogoWhite from '../../../img/tm-logo-white.png';
 import person1 from '../../../img/hp_person2.png';
 import person2 from '../../../img/hp_person3.png';
 import person3 from '../../../img/hp_person4.png';
-
 import './signup.css';
 
 function SignupFormPage() {
@@ -21,7 +20,6 @@ function SignupFormPage() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [renderErrors, setRenderErrors] = useState(false);
     const [backendErrors, setBackendErrors] = useState([]);
-    const [errCount, setErrCount] = useState();
 
     //individual field error states
     const [emailErr, setEmailErr] = useState('');
@@ -39,13 +37,6 @@ function SignupFormPage() {
     const [pwErrClass, setPwErrClass] = useState('su-hasError');
     const [cpErrClass, setCpErrClass] = useState('su-hasError');
 
-
-
-    //was originally checking for truthiness of sessionUser which returns an empty
-    //object if there is no session user. This is a truthy statement so it is impossible to get to
-    // the signup page without instantly being redirected whether or not there is a logged in user.
-    // it seems that the logout button actually sets this to null, so the logic works after phase 3
-    //if (Object.keys(sessionUser).length) return <Redirect to="/" />;  this is the temp fix
     useEffect(() => {
 
         if (!email.length || !emailCheck(email)) {
@@ -93,17 +84,6 @@ function SignupFormPage() {
             setConfPassErr('');
             setCpErrClass('su-valid')
         }
-        //  if (!email.length) {
-        //     setEmailErr('*email required');
-        //  } else {
-        //     setEmailErr('');
-        //  }
-        //  if (!email.length) {
-        //     setEmailErr('*email required');
-        //  } else {
-        //     setEmailErr('');
-        //  }
-
     }, [
         username,
         email,
@@ -115,10 +95,6 @@ function SignupFormPage() {
     ]);
 
     if (sessionUser) return <Redirect to="/" />;
-
-    const demoUserBtnClick = (e) => {
-
-    }
 
     const emailCheck = (str) => {
         return /\S+@\S+\.\S+/.test(str);
@@ -137,7 +113,7 @@ function SignupFormPage() {
             !passErr &&
             !confPassErr
         ) {
-            return dispatch(sessionActions.signup({ email, username, password, firstName, lastName }))
+            return dispatch(sessionActions.signup(username, email, password))
                 .catch(async (res) => {
                     const data = await res.json();
                     if (data && data.errors) setBackendErrors(data.errors);
@@ -154,22 +130,21 @@ function SignupFormPage() {
     }
 
     return (
-
         <div className="su-main-page-div">
             <div className="su-left-pane-main">
                 <Link to='/'>
-                <img className="su-left-main-logo" src={tmLogoWhite} />
+                <img alt='' className="su-left-main-logo" src={tmLogoWhite} />
                 </Link>
                 <div className="su-left-pane-content">
-                    <div className="su-left-pane-imgs">
-                        <div className="su-lp-img-div su-p2">
-                            <img className="su-lp-img" src={person2} />
+                    <div className="su-left-pane-img alt=''s">
+                        <div className="su-lp-img alt=''-div su-p2">
+                            <img alt='' className="su-lp-img alt=''" src={person2} />
                         </div>
-                        <div className="su-lp-img-div su-p1">
-                            <img className="su-lp-img" src={person1} />
+                        <div className="su-lp-img alt=''-div su-p1">
+                            <img alt='' className="su-lp-img alt=''" src={person1} />
                         </div>
-                        <div className="su-lp-img-div su-p3">
-                            <img className="su-lp-img" src={person3} />
+                        <div className="su-lp-img alt=''-div su-p3">
+                            <img alt='' className="su-lp-img alt=''" src={person3} />
                         </div>
                     </div>
                     <p className="su-left-pane-content-p">

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import LoginFormPage from './components/LoginFormPage/login';
-import SignUpForm from './components/auth/SignUpForm';
+import LoginFormPage from './components/auth/LoginFormPage/login';
+import SignupFormPage from './components/auth/SignupFormPage/signup';
 import Navi from './components/Navi/navi';
 // import BotNavi from './components/BotNavi/botNavi';
 import ProtectedRoute from './components/auth/ProtectedRoute';
@@ -33,7 +33,7 @@ function App() {
                     <LoginFormPage />
                 </Route>
                 <Route path='/sign-up' exact={true}>
-                    <SignUpForm />
+                    <SignupFormPage />
                 </Route>
                 <ProtectedRoute path='/users' exact={true} >
                     <UsersList />
