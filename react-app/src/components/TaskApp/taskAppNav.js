@@ -30,7 +30,7 @@ export default function TaskAppNav() {
             />
             <div className='tan-search-pseudo-input'>
             <img
-                className='tan-search-mag-icon tan-search-icon-style'
+                className={`tan-search-mag-icon tan-search-icon-style ${searchIconFocusStyle}`}
                 src={magGlass}
             />
             <form onSubmit={handlesearchSubmit}>
@@ -39,11 +39,12 @@ export default function TaskAppNav() {
                     type='text'
                     value={searchInput}
                     onChange={(e) => setSearchInput(e.target.value)}
-                    onFocus={setSearchIconFocusStyle('tan-search-icon-focus-style')}
+                    onFocus={() => {setSearchIconFocusStyle('tan-search-icon-focus-style')}}
+                    onBlur={() => {setSearchIconFocusStyle('')}}
                 />
             </form>
             <img
-                className='tan-search-down-caret-icon tan-search-icon-style'
+                className={`tan-search-down-caret-icon tan-search-icon-style ${searchIconFocusStyle}`}
                 src={downCaret}
             />
             </div>
