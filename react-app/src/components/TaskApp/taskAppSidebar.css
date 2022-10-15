@@ -1,8 +1,11 @@
 .tasb-main-div{
-    position: absolute;
-    top:0px;
-    bottom: 0;
-    height: 100%;
-    width: 180px;
-    background-color: blue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    min-width: 180px;
+}
+
+.tasb-top-logo{
+    width: 160px;
 }

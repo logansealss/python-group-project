@@ -1,0 +1,10 @@
+
+@media screen and (max-width: 1020px) {
+    .tad-main-panel{
+        visibility: hidden;
+    }
+}
+
+.tad-main-panel{
+    border: 1px solid red;
+}
