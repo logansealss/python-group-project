@@ -113,7 +113,9 @@ function SignupFormPage() {
             !passErr &&
             !confPassErr
         ) {
-            return dispatch(sessionActions.signup(username, email, password))
+            return dispatch(sessionActions.signup(
+                firstName, lastName, username, email, password
+                ))
                 .catch(async (res) => {
                     const data = await res.json();
                     if (data && data.errors) setBackendErrors(data.errors);
