@@ -1,10 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import steveShop from '../../img/hp_steve_3.png';
-import gitHubImg from '../../img/github-sign.png';
-import liImg from '../../img/linkedin-transparent-17.png';
 import spBubble from '../../img/spBubble.png'
 import milkCarton from '../../img/milkCarton.png'
 import './splash.css';
@@ -25,7 +22,7 @@ export default function Splash() {
                     </Link>
                 </div>
                 <div className='spl-lower-main'>
-                    <img className='spl-steve-img-1' src={steveShop} />
+                    <img alt='' className='spl-steve-img-1' src={steveShop} />
                     <div className='spl-lower-title-text'>Get things done, together.</div>
                     <p className='spl-lower-p'>
                         Share your lists and give tasks to
@@ -35,9 +32,9 @@ export default function Splash() {
             </div>
             <div className='spl-bot-info-main'>
                 <div className='spl-bot-info-graphic-div'>
-                    <img className='spl-bot-milk-carton' src={milkCarton} />
+                    <img alt='' className='spl-bot-milk-carton' src={milkCarton} />
                     <div className='spl-bot-mc-div'>
-                        <img className='spl-bot-sp-bubble' src={spBubble} />
+                        <img alt='' className='spl-bot-sp-bubble' src={spBubble} />
                         <div className='spl-bot-mc-sp-text'>
                             Code!
                         </div>
