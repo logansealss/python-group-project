@@ -35,12 +35,6 @@ function App() {
                 <Route path='/signup' exact={true}>
                     <SignupFormPage />
                 </Route>
-                <ProtectedRoute path='/users' exact={true} >
-                    <UsersList />
-                </ProtectedRoute>
-                <ProtectedRoute path='/users/:userId' exact={true} >
-                    <User />
-                </ProtectedRoute>
                 <Route path='/' exact={true} >
                     <Navi loaded={loaded} />
                     <Splash />
