@@ -1,28 +1,26 @@
-<<<<<<<< HEAD:migrations/versions/20221014_224404_create_users_table.py
 """create users table
 
 Revision ID: d6f58234b14c
 Revises:
 Create Date: 2022-10-14 22:44:04.009075
 ========
-"""create user table
+create user table
 
 Revision ID: aeb079ca2ffc
 Revises:
 Create Date: 2022-10-14 22:50:18.188568
->>>>>>>> dev:migrations/versions/20221014_225018_create_user_table.py
-
 """
+
+
+
 from alembic import op
 import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-<<<<<<<< HEAD:migrations/versions/20221014_224404_create_users_table.py
-revision = 'd6f58234b14c'
-========
+
+# revision = 'd6f58234b14c'
 revision = 'aeb079ca2ffc'
->>>>>>>> dev:migrations/versions/20221014_225018_create_user_table.py
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -36,8 +34,6 @@ def upgrade():
     sa.Column('last_name', sa.String(length=60), nullable=False),
     sa.Column('username', sa.String(length=40), nullable=False),
     sa.Column('email', sa.String(length=255), nullable=False),
-    sa.Column('first_name', sa.String(length=50), nullable=False),
-    sa.Column('last_name', sa.String(length=50), nullable=False),
     sa.Column('hashed_password', sa.String(length=255), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
