@@ -25,21 +25,14 @@ function LoginFormPage() {
     const [crErrClass, setCrErrClass] = useState('li-hasError');
     const [pwErrClass, setPwErrClass] = useState('li-hasError');
 
+    const [quote, setQuote] = useState(randomizeQuote());
+
     function randomizeQuote() {
         const randInt = Math.ceil(Math.random() * Object.keys(quotes).length)
-        quote = quotes[`${randInt}`].quote
-        author = quotes[`${randInt}`].author
+       let quote = quotes[`${randInt}`].quote
+       let author = quotes[`${randInt}`].author
+        return { quote, author}
     }
-
-
-    let quote;
-    let author;
-
-    randomizeQuote();
-
-    // useEffect(() => {
-    //     randomizeQuote();
-    // },[quote, author])
 
     useEffect(() => {
 
@@ -105,7 +98,7 @@ function LoginFormPage() {
         return errs;
     }
 
-    return (
+    return ( quote &&
         <div className="li-main-page-div">
             <div className="li-left-pane-main">
                 <Link to='/'>
@@ -113,9 +106,9 @@ function LoginFormPage() {
                 </Link>
                 <div className="li-left-pane-content">
                     <p className="li-left-pane-content-quote">
-                        "{quote}"
+                        "{quote.quote}"
                     </p>
-                    <p className="li-left-pane-content-author">-{author}</p>
+                    <p className="li-left-pane-content-author">-{quote.author}</p>
                 </div>
             </div>
             <div className="li-right-pane-main">
