@@ -6,5 +6,7 @@
 }
 
 .tad-main-panel{
-    border: 1px solid red;
+    background-color: white;
+    border-left: 2px solid #aaa;
+    border-radius: 6px;
 }

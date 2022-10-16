@@ -1,14 +1,14 @@
 .ta-main-body-div{
-   padding-right: 10px;
    position:absolute;
    top: 40px;
    bottom: 0;
    background-color: #ddddeb;
    min-width: 100%;
    display: grid;
-   grid-template-columns: 1fr 3fr 3fr;
+   grid-template-columns: 1fr 3fr 3fr 10px ;
    grid-template-rows: 1fr;
    padding-top: 10px;
+   transition: ease all .5s;
 }
 
 @media screen and (max-width: 1020px) {
