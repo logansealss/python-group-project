@@ -16,10 +16,10 @@ export default function TaskApp() {
         <div className='ta-main-body-div'>
             <TaskAppSidebar />
             <TaskAppMainPanel />
-                <Route path={`${path}/list`}>
+                <Route exact path={`${path}/:listId`}>
                     <TaskAppListDetailPanel />
                 </Route>
-                <Route path={`${path}/task`}>
+                <Route path={`${path}/:listId/:taskId`}>
                     <TaskAppDetailPanel />
                 </Route>
         </div>
