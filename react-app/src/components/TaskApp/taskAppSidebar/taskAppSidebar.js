@@ -1,27 +1,18 @@
 import React, { useState } from 'react'
 
+import Collapser from './Collapser'
+
 import logo from '../../../img/TM-logo-short-nobg.png'
-import downCaret from '../../../img/caret-down.svg'
+import plus_img from '../../../img/plus.svg'
 import './taskAppSidebar.css'
 
 
-function Collapser (props) {
-  return (
-    <div id='collapser'>
-      <div
-        id='collapse_button'
-        className={props.expanded && 'expanded'}
-        onClick={()=> props.setter(val => !val)}>
-        <img className='tasb-caret' src={downCaret} />
-      </div>
-      <div className='grow'>{props.title}</div>
-      <div className='flex'>
-        {props.obj}
-        <div><img className='tasb-caret' src={downCaret} /></div>
-      </div>
-      {props.expanded && props.children}
-  </div>
-  )
+function Plus () {
+  return (<img src={plus_img} className='plus_button'/>)
+};
+
+function Count (props) {
+  return (<div>{props.count}</div>)
 };
 
 export default function TaskAppSidebar () {
@@ -66,13 +57,4 @@ return  (
     ))}
   </div>
   )
-};
-
-
-function Plus () {
-  return (<div><i className="fa-solid fa-plus"></i></div>)
-};
-
-function Count (props) {
-  return (<div>{props.count}</div>)
 };
