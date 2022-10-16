@@ -1,0 +1,44 @@
+.tasb-main-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    min-width: 180px;
+}
+
+.tasb-top-logo{
+    width: 160px;
+}
+
+
+#LHS_banner {
+    width: 15%;
+   }
+
+   #collapser {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     margin-left: 15px;
+     margin-right: 4px;
+
+     height: 28px;
+
+     border-bottom: 1px solid rgba(0,0,0,.1);
+   }
+
+   #collapse_button {
+     cursor: pointer;
+   }
+   #collapse_button:active {
+     transform: rotate(90deg)
+
+   }
+
+   .grow {
+     flex-grow: 1;
+   }
+
+   .flex {
+     display:flex
+   }
