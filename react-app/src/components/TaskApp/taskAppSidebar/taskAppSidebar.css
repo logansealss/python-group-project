@@ -11,8 +11,13 @@
 }
 
 
-#LHS_banner {
-    width: 15%;
+.tasb-caret {
+    color: black;
+    height:12px;
+    width: auto;
+}
+
+#sidebar {
    }
 
    #collapser {
@@ -29,9 +34,11 @@
 
    #collapse_button {
      cursor: pointer;
+     transform: rotate(-90deg);
+     transition-duration: 0.5s;
    }
-   #collapse_button:active {
-     transform: rotate(90deg)
+   #collapse_button.expanded {
+     transform: rotate(0)
 
    }
 

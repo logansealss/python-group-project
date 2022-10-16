@@ -1,40 +1,67 @@
-import React from 'react'
+import React, { useState } from 'react'
+
 import logo from '../../../img/TM-logo-short-nobg.png'
+import downCaret from '../../../img/caret-down.svg'
 import './taskAppSidebar.css'
+
 
 function Collapser (props) {
   return (
     <div id='collapser'>
-      {props.children}
+      <div
+        id='collapse_button'
+        className={props.expanded && 'expanded'}
+        onClick={()=> props.setter(val => !val)}>
+        <img className='tasb-caret' src={downCaret} />
+      </div>
+      <div className='grow'>{props.title}</div>
+      <div className='flex'>
+        {props.obj}
+        <div><img className='tasb-caret' src={downCaret} /></div>
+      </div>
+      {props.expanded && props.children}
   </div>
   )
 };
 
 export default function TaskAppSidebar () {
+  const [allTasksExpanded, setAllTasksExpanded ] = useState(true)
+  const [listsExpanded, setListsExpanded ] = useState(false)
+  const [tagsExpanded, setTagsExpanded ] = useState(false)
 
 const items = {
-  'All Tasks': <Count count={3}/>,
-  'Lists': <Plus/>,
-  'Tags': <Plus/>
+  'All Tasks': {
+    obj: <Count count={3}/>,
+    expanded: allTasksExpanded,
+    setter: setAllTasksExpanded,
+    children:[]
+  },
+  'Lists':{
+    obj: <Plus/>,
+    expanded: listsExpanded,
+    setter: setListsExpanded,
+    children:[]
+  },
+  'Tags': {
+    obj: <Plus/>,
+    expanded: tagsExpanded,
+    setter: setTagsExpanded,
+    children:[]
+  },
 };
 
-// Dyanmic assignment of state variables and setters for collapse buttons
-// Object.keys(items).forEach(itemName => {
-  // [items[itemName]['toggle'], items[itemName]['setter']] = useState(false)
-// })
-
 return  (
-  <div id='LHS_banner'>
+  <div id='sidebar'>
+  <img className='tasb-top-logo' src={logo} />
   {Object.keys(items).map(itemName=> (
-    <Collapser>
-      <div
-        id='collapse_button'
-        ><i className="fa-solid fa-play"></i></div>
-      <div className='grow'>{itemName}</div>
-      <div className='flex'>
-        {items[itemName]}
-        <div><i className="fa-solid fa-play"></i></div>
-      </div>
+    <Collapser
+      title={itemName}
+      expanded={items[itemName]['expanded']}
+      setter={items[itemName]['setter']}
+      obj={items[itemName]['obj']}
+      >
+
+
     </Collapser>
     ))}
   </div>
