@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getSingleTask } from '../../store/tasks';
-import './taskAppDetailPanel.css';
+import './taskDetailPanel.css';
 
-export default function TaskAppDetailPanel() {
+export default function TaskDetailPanel() {
 
     const { taskId } = useParams();
     const dispatch = useDispatch();

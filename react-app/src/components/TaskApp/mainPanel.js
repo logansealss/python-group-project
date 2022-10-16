@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllTasks } from '../../store/tasks';
-import './taskAppMainPanel.css';
+import TaskRowItem from './taskRowItem';
+import './mainPanel.css';
 
-export default function TaskAppMainPanel() {
+export default function MainPanel() {
 
     const dispatch = useDispatch();
     const allTasks = useSelector(state => {
@@ -19,11 +20,9 @@ export default function TaskAppMainPanel() {
     return ( allTasks &&
         <div className='tam-main-div'>
             Tasks:
-            <ul>
                 {Object.values(allTasks).map(task => (
                     <li>{`${JSON.stringify(task)}`}</li>
                 ))}
-            </ul>
         </div>
     )
 }
