@@ -1,0 +1,19 @@
+.tri-main-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 33px;
+    width: 100%;
+}
+
+.tri-prio-indi{
+    width: 3px;
+    min-width: 3px;
+    height: 100%;
+    border-radius: 1px;
+    background-color: crimson;
+}
+
+.tri-p{
+
+}
