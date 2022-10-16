@@ -22,6 +22,7 @@ export const getAllTasks = () => async (dispatch) => {
 
     if (response.ok) {
         const allTasks = await response.json();
+        console.log('alltasks thunk: ', allTasks)
         dispatch(loadAll(allTasks));
         return allTasks;
     }
@@ -50,7 +51,7 @@ const initialState = {
                         singleTask: {}
                     };
 
-export default function reducer(state = initialState, action) {
+export const taskReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_ALL:
             return { ...state, allTasks: action.allTasks }

@@ -13,7 +13,8 @@ task_routes = Blueprint('task', __name__)
 def get_user_tasks():
     """
     returns a list of tasks in redux format using the task ID as
-    the key and the task dict as the value
+    the key and the task dict as the value => currently using
+    hard coded user value for testing!!
     """
 
     allTasks = Task.query.filter_by(user_id=1)
@@ -28,7 +29,7 @@ def get_user_tasks():
 @task_routes.route('/<int:id>')
 # @login_required
 def get_task_by_id(id):
-        """
+    """
     returns a single task's details as a dict
     """
     task = Task.query.get(id)
