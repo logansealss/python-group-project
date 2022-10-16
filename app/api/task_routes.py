@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from flask_login import current_user, login_required
-from app.models import db, User
+from app.models import db, User, Task, Tag
 
 task_routes = Blueprint('task', __name__)
 
@@ -11,6 +11,12 @@ task_routes = Blueprint('task', __name__)
 @task_routes.route('')
 # @login_required
 def get_user_tasks():
+
+    allTasks = Task.query.filter_by(user_id=1)
+    tasks = dict()
+    for task in allTasks:
+        tasks[f'{task['id']}'] = task.to_dict()
+    print(tasks)
     returnStr = f'these are the user\'s tasks'
     return returnStr
 
@@ -46,9 +52,3 @@ def delete_task_by_id(id):
 def remove_tag_from_task(task_id, tag_id):
     returnStr = f'removed tag {tag_id} from task {task_id}'
     return returnStr
-
-
-
-
-
-
