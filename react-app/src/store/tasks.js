@@ -28,6 +28,23 @@ export const getAllTasks = () => async (dispatch) => {
     return null;
 }
 
+
+export const getSingleTask = (id) => async (dispatch) => {
+    const response = await fetch(`/api/tasks/${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+
+    if (response.ok) {
+        const singleTask = await response.json();
+        dispatch(loadOne(singleTask));
+        return singleTask;
+    }
+    return null;
+}
+
 const initialState = {
                         allTasks: {},
                         singleTask: {}
