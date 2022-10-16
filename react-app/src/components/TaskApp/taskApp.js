@@ -2,9 +2,9 @@ import React from 'react';
 import { Route, useRouteMatch } from 'react-router-dom';
 import TaskAppSidebar from './taskAppSidebar/taskAppSidebar';
 import TaskAppNav from './taskAppNav';
-import TaskAppMainPanel from './taskAppMainPanel';
-import TaskAppDetailPanel from './taskAppDetailPanel';
-import TaskAppListDetailPanel from './taskAppListDetailPanel';
+import MainPanel from './mainPanel';
+import TaskDetailPanel from './taskDetailPanel';
+import ListDetailPanel from './listDetailPanel';
 import './taskApp.css';
 
 export default function TaskApp() {
@@ -15,12 +15,12 @@ export default function TaskApp() {
         <TaskAppNav />
         <div className='ta-main-body-div'>
             <TaskAppSidebar />
-            <TaskAppMainPanel />
+            <MainPanel />
                 <Route exact path={`${path}/:listId`}>
-                    <TaskAppListDetailPanel />
+                    <ListDetailPanel />
                 </Route>
                 <Route path={`${path}/:listId/:taskId`}>
-                    <TaskAppDetailPanel />
+                    <TaskDetailPanel />
                 </Route>
         </div>
     </>
