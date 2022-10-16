@@ -11,20 +11,28 @@ task_routes = Blueprint('task', __name__)
 @task_routes.route('')
 # @login_required
 def get_user_tasks():
+    """
+    returns a list of tasks in redux format using the task ID as
+    the key and the task dict as the value
+    """
 
     allTasks = Task.query.filter_by(user_id=1)
     tasks = dict()
-    for task in allTasks:
-        tasks[f'{task['id']}'] = task.to_dict()
-    print(tasks)
-    returnStr = f'these are the user\'s tasks'
-    return returnStr
+    for t in allTasks:
+        task = t.to_dict()
+        taskId = task['id']
+        tasks[taskId] = task
+
+    return tasks
 
 @task_routes.route('/<int:id>')
 # @login_required
 def get_task_by_id(id):
-    returnStr = f'this is task {id}'
-    return returnStr
+        """
+    returns a single task's details as a dict
+    """
+    task = Task.query.get(id)
+    return task.to_dict()
 
 @task_routes.route('', methods=['POST'])
 # @login_required
