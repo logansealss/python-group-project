@@ -1,7 +1,11 @@
 import React from 'react'
 
-export default function TaskRowItem() {
+export default function TaskRowItem({task}) {
   return (
-    <div>TaskRowItem</div>
+    <div className='tri-main-div'>
+        <div className='tri-task-name'>
+            {task.name}
+        </div>
+    </div>
   )
 }

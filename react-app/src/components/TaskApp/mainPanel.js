@@ -21,7 +21,7 @@ export default function MainPanel() {
         <div className='tam-main-div'>
             Tasks:
                 {Object.values(allTasks).map(task => (
-                    <li>{`${JSON.stringify(task)}`}</li>
+                    <TaskRowItem task={task} />
                 ))}
         </div>
     )
