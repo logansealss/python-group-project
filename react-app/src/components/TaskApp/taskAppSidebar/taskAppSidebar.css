@@ -6,6 +6,12 @@ overflow: hidden;
 min-width: 180px;
 }
 
+
+.logo_container {
+  display: flex;
+  justify-content: center;
+}
+
 .tasb-top-logo{
 width: 160px;
 }

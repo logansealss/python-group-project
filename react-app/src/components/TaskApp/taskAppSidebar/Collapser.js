@@ -1,7 +1,11 @@
+import BannerItem from './BannerItem'
+
 import downCaret from '../../../img/caret-down.svg'
+
 
 export default function Collapser (props) {
   return (
+    <>
     <div id='collapser'>
       <div
         id='collapse_button'
@@ -9,12 +13,11 @@ export default function Collapser (props) {
         onClick={()=> props.setter(val => !val)}>
         <img className='tasb-caret' src={downCaret} />
       </div>
-      <div className='grow'>{props.title}</div>
-      <div className='collapser_rhs_icons'>
-        {props.obj}
-        <div><img className='tasb-caret' src={downCaret} /></div>
-      </div>
-      {props.expanded && props.children}
+      {props.title}
   </div>
+  <div className='children_container'>
+    {props.expanded && props.children}
+  </div>
+  </>
   )
 };

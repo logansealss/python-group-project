@@ -21,11 +21,11 @@ export default function TaskAppSidebar () {
   const [tagsExpanded, setTagsExpanded ] = useState(false)
 
 const items = {
-  'All Tasks': {
+  'Tasks': {
     obj: <Count count={3}/>,
     expanded: allTasksExpanded,
     setter: setAllTasksExpanded,
-    children:[]
+    children: []
   },
   'Lists':{
     obj: <Plus/>,
@@ -43,7 +43,9 @@ const items = {
 
 return  (
   <div id='sidebar'>
-  <img className='tasb-top-logo' src={logo} />
+    <div className='logo_container'>
+      <img className='tasb-top-logo' src={logo} />
+    </div>
   {Object.keys(items).map(itemName=> (
     <Collapser
       title={itemName}
@@ -51,7 +53,6 @@ return  (
       setter={items[itemName]['setter']}
       obj={items[itemName]['obj']}
       >
-
 
     </Collapser>
     ))}
