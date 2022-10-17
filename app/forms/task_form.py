@@ -12,6 +12,7 @@ from app.models import User
 
 class TaskForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
+    list_id = IntegerField('List Id')
     priority = IntegerField('Priority')
     start_date = DateTimeField('Start Time')
     due_date = DateTimeField('Due Date')
