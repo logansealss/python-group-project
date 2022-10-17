@@ -45,7 +45,6 @@ width: auto;
   align-items: center;
 
   width: 100%;
-
 }
 
 #collapse_button {
@@ -55,6 +54,14 @@ width: auto;
 }
 #collapse_button.expanded {
   transform: rotate(0)
+}
+
+#collapser_action {
+  display: flex;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 #banner_item{

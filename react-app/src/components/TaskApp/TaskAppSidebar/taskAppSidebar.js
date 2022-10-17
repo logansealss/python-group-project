@@ -6,11 +6,14 @@ import BannerItem from './BannerItem'
 import logo from '../../../img/TM-logo-short-nobg.png'
 import plus_img from '../../../img/plus.svg'
 import './taskAppSidebar.css'
+import ModalWrapper from '../../../context/Modal'
 
 
 function Plus () {
   return (
-  <img src={plus_img} className='plus_button'/>
+    <ModalWrapper form={<div>New Modal</div>}>
+      <img src={plus_img} className='plus_button'/>
+    </ModalWrapper>
   )
 };
 
@@ -27,7 +30,7 @@ const items = {
   'Tasks': {
     expanded: allTasksExpanded,
     setter: setAllTasksExpanded,
-    title: <BannerItem id='subgroup'>Tasks</BannerItem>,
+    title: 'Tasks',
     children: ['All Tasks', 'Today', 'Tomorrow'].map(title=> (
       <BannerItem key={title} obj={<Count count={14}/>}>{title}</BannerItem>
     ))
@@ -35,13 +38,15 @@ const items = {
   'Lists':{
     expanded: listsExpanded,
     setter: setListsExpanded,
-    title: <BannerItem obj={<Plus/>} id='subgroup'>Lists</BannerItem>,
+    title: 'Lists',
+    obj: <Plus/>,
     children:[]
   },
   'Tags': {
     expanded: tagsExpanded,
     setter: setTagsExpanded,
-    title: <BannerItem obj={<Plus/>} id='subgroup'>Tags</BannerItem>,
+    title: 'Tags',
+    obj: <Plus/>,
     children:[]
   },
 };

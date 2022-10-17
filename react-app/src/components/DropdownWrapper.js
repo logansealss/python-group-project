@@ -1,16 +1,13 @@
-import React, { useEffect, useState, useRef } from 'react'
-
+import React, { useEffect, useState } from 'react'
 import './dropdown.css'
 
 export default function DropDownWrapper(props) {
     const [showMenu, setShowMenu] = useState(false);
 
-    const openMenu = (e) => {
-        e.preventDefault();
-
-            if (showMenu) return;
-            setShowMenu(true);
-    };
+  const openMenu = (e) => {
+    if (showMenu) return;
+    setShowMenu(true);
+  };
 
     useEffect(() => {
         if (!showMenu) return;
@@ -22,22 +19,27 @@ export default function DropDownWrapper(props) {
         return () => document.removeEventListener("click", closeMenu);
     }, [showMenu]);
 
-    return (
-        <>
-            {React.cloneElement(
-                props.children,
-                {
-                    'onClick': openMenu,
-                    'style': { 'cursor': 'pointer' }
-                }
-            )}
-            {showMenu && (
-                <div
-                    className='dropdown_container'
-                    style={{ 'top': props.offset }}
-                >
-                    {props.menu}
-                </div>)}
-        </>
-    );
+  return (
+    <>
+    {React.cloneElement(
+      props.children,
+      {
+        'onClick': openMenu,
+        'style': {
+          'cursor': 'pointer'}
+      }
+      )}
+
+    {showMenu && (
+    <div
+        className={`dropdown_container ${props.left ? 'left' : 'right'}`}
+        style={{'top': props.offset}}
+        >
+        {props.menu}
+      </div>
+    )
+    }
+
+    </>
+  );
 };
