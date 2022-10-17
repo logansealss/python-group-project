@@ -21,20 +21,18 @@ export default function Collapser (props) {
             >
               <img className='tasb-caret' src={downCaret} />
           </div>
-          <div id='banner_item'>
-            <div className='grow'>
-              {props.title}
-            </div>
+          <div className='title'>
+            {props.title}
           </div>
         </div>
         <div className='collapser_rhs_icons'>
-          {props.obj}
           <DropDownWrapper
-            offset='10px'
+            offset='14px'
             menu={<div className='dropdown_menu'>My new menu</div>}
             >
-            <img className='tasb-caret' src={downCaret} />
+            <img id= 'dropdown_caret' className='tasb-caret' src={downCaret} />
           </DropDownWrapper>
+          {props.obj}
           </div>
         </div>
       <div id='children_container'>

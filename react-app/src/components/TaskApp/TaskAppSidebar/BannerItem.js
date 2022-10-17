@@ -7,15 +7,16 @@ export default function BannerItem (props) {
   return (
     <>
     <div id='banner_item'>
-      <div className='grow'>{props.children}</div>
+      <div className='title'>{props.children}</div>
         <div className='collapser_rhs_icons'>
-            {props.obj}
           <DropDownWrapper
-            offset='0px'
+            offset='14px'
+            left={true}
             menu={<div className='dropdown_menu'>My new menu</div>}
             >
-            <img className='tasb-caret' src={downCaret} />
+            <img id='dropdown_caret' className='tasb-caret' src={downCaret} />
           </DropDownWrapper>
+          {props.obj}
 
       </div>
     </div>
