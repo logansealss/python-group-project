@@ -35,7 +35,6 @@ def get_task_by_id(id):
 
     # task does not exist
     if task is None:
-        print("task is none")
         return {
             "message": "Task couldn't be found",
             "statusCode": 404}, 404
@@ -122,7 +121,6 @@ def update_task_by_id(id):
 
     # task does not exist
     if task is None:
-        print("task is none")
         return {
             "message": "Task couldn't be found",
             "statusCode": 404}, 404
@@ -180,7 +178,6 @@ def delete_task_by_id(id):
 
     # task does not exist
     if task is None:
-        print("task is none")
         return {
             "message": "Task couldn't be found",
             "statusCode": 404}, 404
