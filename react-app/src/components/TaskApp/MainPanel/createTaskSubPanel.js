@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import dueDateIcon from '../../../img/calendar-day.svg';
 import startDateIcon from '../../../img/square-caret-right.svg';
 import prioIcon from '../../../img/exclamation.svg';
@@ -10,12 +10,44 @@ import './createTaskSubPanel.css';
 
 export default function CreateTaskSubPanel() {
 
+    const inputRef = useRef(null);
+    const formRef = useRef(null);
+
     const [ctInput, setCtInput] = useState('');
-    const [renderAddTaskGrpClass, setRenderAddTaskGrpClass] = useState('ctsp-ratgc-false');
+    const [taskName, setTaskName] = useState('');
+    const [dueDate, setDueDate] = useState('');
+    const [startDate, setStartDate] = useState('');
+    const [list, setList] = useState('');
+    const [prio, setPrio] = useState('');
+    const [repeat, setRepeat] = useState('');
+    const [location, setLocation] = useState('');
+    const [estimate, setEstimate] = useState('');
+    const [renderAddTaskGrpClass, setRenderAddTaskGrpClass] = useState('ctsp-ratgc-true');
+    const [renderTaskFormIconClass, setRenderTaskFormIconClass] = useState('ctsp-ratig-false')
+
+    const ctDiv =  document.getElementsByClassName('ctsp-main-div');
 
     useEffect(() => {
+        if (ctInput.length){
+            setRenderTaskFormIconClass('ctsp-ratig-true');
+        } else {
+            setRenderTaskFormIconClass('ctsp-ratig-false');
+        }
+        if (ctInput.includes) { }
 
     }, [ctInput]);
+
+    // const handleDynamicNameInputClick = () => {
+    //     inputRef.current.focus();
+    // }
+
+    // const formRenderClickListener = document.addEventListener('click', formRenderClickHandler)
+
+    // function formRenderClickHandler(e) {
+    //     if (renderAddTaskGrpClass === 'ctsp-ratgc-true' && e.target !== ctDiv){
+    //         setRenderAddTaskGrpClass('ctsp-ratgc-false');
+    //     }
+    // }
 
     const handleCtSubmit = (e) => {
         e.preventDefault();
@@ -23,36 +55,51 @@ export default function CreateTaskSubPanel() {
         setCtInput('');
     }
 
+    const keyDownFn = (e) => {
+        if (e.key === '#'){}
+    }
+
     return (
-        <div className='ctsp-main-div'>
-            <div className='ctsp-ct-input-main'>
-                <form
-                    onSubmit={handleCtSubmit}
-                    className='ctsp-form-el'
-                >
+        <form
+            onSubmit={handleCtSubmit}
+            className='ctsp-form-el'
+        >
+            <div
+                className='ctsp-main-div'
+            >
+                {/* <div className='ctsp-ct-input-main'> */}
                     <div className='ctsp-ct-pseudo-input'>
+                        {/* <div
+                            className='ctsp-dynamic-name-display'
+                            onClick={handleDynamicNameInputClick}
+                        >
+                            {ctInput}
+                        </div> */}
+
                         <input
                             className='ctsp-ct-input'
+                            ref={inputRef}
                             type='text'
                             placeholder='Add a task...'
                             value={ctInput}
                             onChange={(e) => setCtInput(e.target.value)}
                             onFocus={() => { setRenderAddTaskGrpClass('ctsp-ratgc-true') }}
-                            onBlur={() => { !ctInput.length && setRenderAddTaskGrpClass('ctsp-ratgc-false') }}
+                            // onBlur={() => { !ctInput.length && setRenderAddTaskGrpClass('ctsp-ratgc-false') }}
+                            onKeyDown={keyDownFn}
                         />
                     </div>
                     <div
                         className={`ctsp-add-task-grp ${renderAddTaskGrpClass}`}
-                        onClick={() => { !ctInput.length && setRenderAddTaskGrpClass('ctsp-ratgc-false') }}
+
                     >
-                        <div className='ctsp-add-task-grp-icons'>
-                            <img className='ctsp-at-icon-style' src={dueDateIcon} />
-                            <img className='ctsp-at-icon-style' src={startDateIcon} />
-                            <img className='ctsp-at-icon-style' src={listIcon} />
-                            <img className='ctsp-at-icon-style' src={prioIcon} />
-                            <img className='ctsp-at-icon-style' src={repeatIcon} />
-                            <img className='ctsp-at-icon-style' src={locationPin} />
-                            <img className='ctsp-at-icon-style' src={clockIcon} />
+                        <div className={`ctsp-add-task-grp-icons`}>
+                            <img className={`ctsp-at-icon-style ${renderTaskFormIconClass}`} src={dueDateIcon} />
+                            <img className={`ctsp-at-icon-style ${renderTaskFormIconClass}`} src={startDateIcon} />
+                            <img className={`ctsp-at-icon-style ${renderTaskFormIconClass}`} src={listIcon} />
+                            <img className={`ctsp-at-icon-style ${renderTaskFormIconClass}`} src={prioIcon} />
+                            <img className={`ctsp-at-icon-style ${renderTaskFormIconClass}`} src={repeatIcon} />
+                            <img className={`ctsp-at-icon-style ${renderTaskFormIconClass}`} src={locationPin} />
+                            <img className={`ctsp-at-icon-style ${renderTaskFormIconClass}`} src={clockIcon} />
                         </div>
                         <button
                             className='ctsp-ct-submit-btn'
@@ -63,8 +110,8 @@ export default function CreateTaskSubPanel() {
                         </button>
                     </div>
 
-                </form>
-            </div>
-        </div >
+                {/* </div> */}
+            </div >
+        </form>
     )
 }
