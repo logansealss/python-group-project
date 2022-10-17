@@ -27,8 +27,10 @@ const items = {
   'Tasks': {
     expanded: allTasksExpanded,
     setter: setAllTasksExpanded,
-    title: <BannerItem obj={<Count count={3}/>} id='subgroup'>Tasks</BannerItem>,
-    children: []
+    title: <BannerItem id='subgroup'>Tasks</BannerItem>,
+    children: ['All Tasks', 'Today', 'Tomorrow'].map(title=> (
+      <BannerItem key={title} obj={<Count count={14}/>}>{title}</BannerItem>
+    ))
   },
   'Lists':{
     expanded: listsExpanded,
@@ -39,7 +41,7 @@ const items = {
   'Tags': {
     expanded: tagsExpanded,
     setter: setTagsExpanded,
-    title: <BannerItem obj={<Plus/>} id='subgroup' >Tags</BannerItem>,
+    title: <BannerItem obj={<Plus/>} id='subgroup'>Tags</BannerItem>,
     children:[]
   },
 };
@@ -47,7 +49,7 @@ const items = {
 return  (
   <div id='sidebar'>
     <div className='logo_container'>
-      <img className='tasb-top-logo' src={logo} />
+      <img className='tasb-top-logo' src={logo}/>
     </div>
   {Object.keys(items).map(itemName=> (
     <Collapser
@@ -57,7 +59,7 @@ return  (
       setter={items[itemName]['setter']}
       obj={items[itemName]['obj']}
       >
-
+        {items[itemName]['children']}
     </Collapser>
     ))}
   </div>
