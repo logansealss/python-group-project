@@ -29,12 +29,11 @@ export default function DropDownWrapper(props) {
         'style': {'cursor': 'pointer'}
       }
       )}
-    {showMenu && (
+    {showMenu &&  (
       <div
         className='dropdown_container'
         style={{'top': props.offset}}
         >
-        <div className='dropdown_menu'>Sample Menu Box</div>
         {props.menu}
       </div>)}
     </>
