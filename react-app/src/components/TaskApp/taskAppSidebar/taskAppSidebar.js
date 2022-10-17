@@ -48,6 +48,7 @@ return  (
     </div>
   {Object.keys(items).map(itemName=> (
     <Collapser
+      key={itemName}
       title={itemName}
       expanded={items[itemName]['expanded']}
       setter={items[itemName]['setter']}

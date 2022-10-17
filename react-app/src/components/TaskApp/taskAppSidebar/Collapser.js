@@ -9,7 +9,7 @@ export default function Collapser (props) {
     <div id='collapser'>
       <div
         id='collapse_button'
-        className={props.expanded && 'expanded'}
+        className={props.expanded ? 'expanded' : ''}
         onClick={()=> props.setter(val => !val)}>
         <img className='tasb-caret' src={downCaret} />
       </div>
