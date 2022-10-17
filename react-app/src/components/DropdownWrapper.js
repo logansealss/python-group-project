@@ -3,6 +3,7 @@ import './dropdown.css'
 
 export default function DropDownWrapper(props) {
   const [showMenu, setShowMenu] = useState(false);
+  console.log(props.left)
 
   const openMenu = (e) => {
     if (showMenu) return;
