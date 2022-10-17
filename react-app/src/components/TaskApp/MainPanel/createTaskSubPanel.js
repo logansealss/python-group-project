@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
 import DropDownWrapper from '../../DropdownWrapper';
-import TaskIconModalWrapper from '../../../context/TaskIconModal/TaskIconModal';
 import dueDateIcon from '../../../img/calendar-day.svg';
 import startDateIcon from '../../../img/square-caret-right.svg';
 import prioIcon from '../../../img/exclamation.svg';
