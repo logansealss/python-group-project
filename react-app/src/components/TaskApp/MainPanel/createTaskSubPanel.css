@@ -116,7 +116,6 @@
 
 .ctsp-ratgc-true{
     visibility: visible;
-    overflow: hidden;
     opacity: 1;
     transition-duration: .35s;
 }
@@ -151,6 +150,15 @@
 
 .ctsp-ratig-false{
     visibility: hidden;
+}
+
+.test-dd-menu{
+    position:absolute;
+    transform: translate(calc(-45%));
+    background-color: lightgray;
+    border-radius: 4px;
+    height: 100px;
+    width: 100px;
 }
 
 .ctsp-at-icon-style:hover{
