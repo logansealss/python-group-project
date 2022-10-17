@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllTasks } from '../../store/tasks';
+import { getAllTasks } from '../../../store/tasks';
 import TaskRowItem from './taskRowItem';
+import CreateTaskSubPanel from './createTaskSubPanel';
 import './mainPanel.css';
 
 export default function MainPanel() {
@@ -17,11 +18,14 @@ export default function MainPanel() {
 
     if (!allTasks) return null;
 
-    return ( allTasks &&
+    return (allTasks &&
         <div className='tam-main-div'>
+            <CreateTaskSubPanel />
+            <div className='tam-task-list-div'>
                 {Object.values(allTasks).map(task => (
                     <TaskRowItem task={task} />
                 ))}
+            </div>
         </div>
     )
 }
