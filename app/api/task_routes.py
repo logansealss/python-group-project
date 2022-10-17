@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, request
 from flask_login import current_user, login_required
 
 from app.models import db, Task, Tag, List
@@ -15,14 +15,9 @@ def get_user_tasks():
     the key and the task dict as the value
     """
 
-    allTasks = Task.query.filter_by(user_id=current_user.id)
-    tasks = dict()
-    for t in allTasks:
-        task = t.to_dict()
-        taskId = task['id']
-        tasks[taskId] = task
+    user_tasks = Task.query.filter_by(user_id=current_user.id)
 
-    return tasks
+    return {task.id: task.to_dict() for task in user_tasks}
 
 @task_routes.route('/<int:id>')
 @login_required
@@ -65,7 +60,7 @@ def create_task():
                         start_date=form_data["start_date"],
                         due_date=form_data["due_date"],
                         duration=form_data["duration"],
-                        note=form_data["note"],
+                        note=form_data["note"] if form_data["note"] else None,
                         completed=form_data["completed"])
 
         db.session.add(new_task)

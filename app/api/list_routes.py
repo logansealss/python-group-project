@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, request
 from flask_login import current_user, login_required
 from sqlalchemy.orm import joinedload
 
@@ -103,7 +103,9 @@ def update_list_by_id(id):
 @list_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_list_by_id(id):
-
+    """
+    delete a list with the provided id
+    """
 
     list = List.query.get(id)
 
