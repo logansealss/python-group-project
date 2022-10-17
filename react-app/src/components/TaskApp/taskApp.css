@@ -1,0 +1,19 @@
+.ta-main-body-div{
+   position:absolute;
+   top: 40px;
+   bottom: 0;
+   background-color: #ddddeb;
+   min-width: 100%;
+   display: grid;
+   grid-template-columns: minmax(180px,210px) 3fr 3fr 10px ;
+   grid-template-rows: 1fr;
+   padding-top: 10px;
+   transition: ease all .5s;
+}
+
+@media screen and (max-width: 1020px) {
+    .ta-main-body-div{
+        grid-template-columns: minmax(180px,210px) 6fr 10px;
+        grid-template-rows: 1fr;
+    }
+}

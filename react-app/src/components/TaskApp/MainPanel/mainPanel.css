@@ -1,0 +1,19 @@
+.tam-main-div{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    align-items: center;
+    min-width: 420px;
+    min-height: 100%;
+}
+
+.tam-task-list-div{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+}

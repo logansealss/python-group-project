@@ -1,0 +1,104 @@
+.tan-main-div{
+    position: relative;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    width: 100%;
+    background-color: #56538c;
+    border-bottom: 2px solid #555;
+}
+.tan-icon-style{
+    filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(345deg) brightness(105%) contrast(101%);
+    opacity: 0.55;}
+
+.tan-search-icon-style {
+    filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(345deg) brightness(105%) contrast(101%);
+    opacity: 0.55;align-self: start;
+    transition-duration: .5s;
+}
+
+.tan-search-icon-focus-style {
+    filter: invert(64%) sepia(24%) saturate(0%) hue-rotate(254deg) brightness(92%) contrast(87%);
+    opacity: 1;
+    transition-duration: .5s;
+}
+
+
+.tan-hamburger-icon{
+    height: 20px;
+    width: auto;
+    padding-left: 20px;
+}
+
+.tan-search-pseudo-input{
+    position: absolute;
+    left: 180px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    min-width: 300px;
+    transition-duration: .5s;
+}
+
+.tan-search-pseudo-input:focus-within{
+    background-color: #fff;
+    transition-duration: .5s;
+}
+
+.tan-search-mag-icon{
+    position: absolute;
+    left: 10px;
+    top: 5px;
+    height: 18px;
+    width: auto;
+}
+
+.tan-search-input{
+    position: absolute;
+    left: 45px;
+    top: 1px;
+    height: 25px;
+    width: 220px;
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    opacity: 0.8;
+    font-size: 14px;
+    padding-top: 2px;
+    transition-duration: 0.5s;
+}
+
+.tan-search-input:focus{
+    color: #333;
+    opacity: 1;
+    transition-duration: 0.5s;
+}
+
+.tan-search-down-caret-icon{
+    position: absolute;
+    right: 10px;
+    top: 6.25px;
+    height: 15px;
+    width: auto;
+}
+
+.tan-settings-icon-grp{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 5px;
+    padding-right: 20px;
+}
+
+.tan-settings-gear-icon{
+    height: 24px;
+    width: auto;
+}
+.tan-settings-down-caret-icon{
+    height: 15px;
+    width: auto;
+}

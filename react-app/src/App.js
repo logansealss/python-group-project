@@ -9,6 +9,8 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import Splash from './components/Splash/splash';
 import UsersList from './components/UsersList';
 import User from './components/User';
+import TaskAppNav from './components/TaskApp/taskAppNav';
+import TaskApp from './components/TaskApp/taskApp';
 import { authenticate } from './store/session';
 
 function App() {
@@ -29,21 +31,18 @@ function App() {
     return (
         <BrowserRouter>
             <Switch>
+                <Route path='/' exact={true} >
+                    <Navi loaded={loaded} />
+                    <Splash />
+                </Route>
                 <Route path='/login' exact={true}>
                     <LoginFormPage />
                 </Route>
                 <Route path='/signup' exact={true}>
                     <SignupFormPage />
                 </Route>
-                <ProtectedRoute path='/users' exact={true} >
-                    <UsersList />
-                </ProtectedRoute>
-                <ProtectedRoute path='/users/:userId' exact={true} >
-                    <User />
-                </ProtectedRoute>
-                <Route path='/' exact={true} >
-                    <Navi loaded={loaded} />
-                    <Splash />
+                <Route path='/app'>
+                    <TaskApp/>
                 </Route>
             </Switch>
         </BrowserRouter>
