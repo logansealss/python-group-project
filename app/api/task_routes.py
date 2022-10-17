@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_required
 
 from app.models import db, Task, Tag, List
-from app.forms.task_form import TaskForm
+from app.forms.task_form import TaskForm, UpdateTaskForm
 from app.api.auth_routes import validation_errors_to_error_messages
 
 task_routes = Blueprint('task', __name__)
@@ -131,7 +131,7 @@ def update_task_by_id(id):
             "message": "Forbidden",
             "statusCode": 403}, 403
 
-    form = TaskForm()
+    form = UpdateTaskForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         form_data = form.data
