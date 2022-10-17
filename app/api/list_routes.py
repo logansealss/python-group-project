@@ -15,9 +15,10 @@ def get_user_lists():
     gets the lists associated with the current user
     """
 
-    lists = List.query.filter(List.user_id == current_user.id) \
+    user_lists = List.query.filter(List.user_id == current_user.id) \
         .options(joinedload(List.tasks)).all()
-    return jsonify([list.to_dict() for list in lists])
+
+    return {list.id: list.to_dict() for list in user_lists}
 
 @list_routes.route('/<int:id>')
 @login_required

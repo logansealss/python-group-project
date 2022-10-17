@@ -1,6 +1,8 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_required
-from app.models import db, User
+from sqlalchemy.orm import joinedload
+
+from app.models import db, Tag, List
 
 tag_routes = Blueprint('tag', __name__)
 
@@ -9,9 +11,12 @@ tag_routes = Blueprint('tag', __name__)
 #      model when necessary within the routes
 
 @tag_routes.route('')
-# @login_required
+@login_required
 def get_user_tags():
-    return 'these are the user\'s tags'
+    user_tags = Tag.query.filter(Tag.user_id == current_user.id) \
+                .options(joinedload(Tag.tasks)).all()
+
+    return {tag.id: tag.to_dict() for tag in user_tags}
 
 @tag_routes.route('/<int:id>')
 # @login_required
