@@ -19,7 +19,6 @@ export default function MainPanel() {
 
     return ( allTasks &&
         <div className='tam-main-div'>
-            Tasks:
                 {Object.values(allTasks).map(task => (
                     <TaskRowItem task={task} />
                 ))}
