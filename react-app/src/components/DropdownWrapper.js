@@ -25,13 +25,14 @@ export default function DropDownWrapper(props) {
       props.children,
       {
         'onClick': openMenu,
-        'style': {'cursor': 'pointer'}
+        'style': {
+          'cursor': 'pointer'}
       }
       )}
 
     {showMenu && (
     <div
-        className='dropdown_container'
+        className={`dropdown_container ${props.left ? 'left' : 'right'}`}
         style={{'top': props.offset}}
         >
         {props.menu}

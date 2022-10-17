@@ -1,15 +1,22 @@
 .dropdown_container {
   position: relative;
-  float: right;
   z-index: 1;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
 }
 
 .dropdown_menu {
   position: absolute;
+  transform: translateX(-100%);
   width: 100px;
   height:50px;
   background-color: white;
   border: 1px solid black;
   border-radius: 12px;
-  transform: translateX(-100%);
 }
