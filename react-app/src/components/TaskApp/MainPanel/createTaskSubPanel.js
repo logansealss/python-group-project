@@ -92,14 +92,14 @@ export default function CreateTaskSubPanel() {
                         className={`ctsp-add-task-grp ${renderAddTaskGrpClass}`}
 
                     >
-                        <div className={`ctsp-add-task-grp-icons`}>
-                            <img className={`ctsp-at-icon-style ${renderTaskFormIconClass}`} src={dueDateIcon} />
-                            <img className={`ctsp-at-icon-style ${renderTaskFormIconClass}`} src={startDateIcon} />
-                            <img className={`ctsp-at-icon-style ${renderTaskFormIconClass}`} src={listIcon} />
-                            <img className={`ctsp-at-icon-style ${renderTaskFormIconClass}`} src={prioIcon} />
-                            <img className={`ctsp-at-icon-style ${renderTaskFormIconClass}`} src={repeatIcon} />
-                            <img className={`ctsp-at-icon-style ${renderTaskFormIconClass}`} src={locationPin} />
-                            <img className={`ctsp-at-icon-style ${renderTaskFormIconClass}`} src={clockIcon} />
+                        <div className={`ctsp-add-task-grp-icons ${renderTaskFormIconClass}`}>
+                            <img className='ctsp-at-icon-style' src={dueDateIcon} />
+                            <img className='ctsp-at-icon-style' src={startDateIcon} />
+                            <img className='ctsp-at-icon-style' src={listIcon} />
+                            <img className='ctsp-at-icon-style' src={prioIcon} />
+                            <img className='ctsp-at-icon-style' src={repeatIcon} />
+                            <img className='ctsp-at-icon-style' src={locationPin} />
+                            <img className='ctsp-at-icon-style' src={clockIcon} />
                         </div>
                         <button
                             className='ctsp-ct-submit-btn'
