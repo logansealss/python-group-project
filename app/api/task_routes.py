@@ -53,6 +53,11 @@ def get_task_by_id(id):
 @task_routes.route('', methods=['POST'])
 @login_required
 def create_task():
+    """
+    creates a new task from the data provided in the body
+    of the request
+    """
+
     form = TaskForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
@@ -76,6 +81,9 @@ def create_task():
 @task_routes.route('/<int:task_id>/tags/<int:tag_id>', methods=['PUT'])
 @login_required
 def add_tag_to_task(task_id, tag_id):
+    """
+    adds a tag to a task
+    """
 
     task = Task.query.get(task_id)
     tag = Tag.query.get(tag_id)
@@ -107,6 +115,10 @@ def add_tag_to_task(task_id, tag_id):
 @task_routes.route('/<int:id>', methods=['PUT'])
 @login_required
 def update_task_by_id(id):
+    """
+    updates the task with the provided id to the information
+    passed in through the body of the request
+    """
 
     task = Task.query.get(id)
 
@@ -162,6 +174,10 @@ def update_task_by_id(id):
 @task_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_task_by_id(id):
+    """
+    delete a task with the provided id
+    """
+
     task = Task.query.get(id)
 
     # task does not exist
@@ -187,6 +203,9 @@ def delete_task_by_id(id):
 @task_routes.route('/<int:task_id>/tags/<int:tag_id>', methods=['DELETE'])
 @login_required
 def remove_tag_from_task(task_id, tag_id):
+    """
+    remove a tag from a task
+    """
 
     task = Task.query.get(task_id)
     tag = Tag.query.get(tag_id)

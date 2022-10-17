@@ -51,8 +51,8 @@ class Task(db.Model):
             'listId': self.list_id,
             'name': self.name,
             'priority': self.priority,
-            'startDate': self.start_date.strftime('%Y-%m-%d %H:%M:%S'),
-            'dueDate': self.due_date.strftime('%Y-%m-%d %H:%M:%S'),
+            'startDate': self.start_date.strftime('%Y-%m-%d %H:%M:%S') if self.start_date else None,
+            'dueDate': self.due_date.strftime('%Y-%m-%d %H:%M:%S') if self.due_date else None,
             'duration': self.duration,
             'note': self.note,
             'completed': self.completed
