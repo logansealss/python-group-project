@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import ReactDom from 'react-dom'
 import './dropdown.css'
 
 export default function DropDownWrapper(props) {
   const [showMenu, setShowMenu] = useState(false);
 
-  const openMenu = () => {
+  const openMenu = (e) => {
     if (showMenu) return;
     setShowMenu(true);
   };
@@ -30,15 +29,16 @@ export default function DropDownWrapper(props) {
       }
       )}
 
-    {showMenu && props.location && ReactDom.createPortal(
-      <div
+    {showMenu && (
+    <div
         className='dropdown_container'
         style={{'top': props.offset}}
         >
         {props.menu}
-      </div>,
-      props.location
-      )}
+      </div>
+    )
+    }
+
     </>
   );
 };
