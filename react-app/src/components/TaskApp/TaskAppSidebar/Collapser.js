@@ -16,7 +16,7 @@ export default function Collapser (props) {
           id='collapse_button'
           className={props.expanded ? 'expanded' : ''}
           >
-          <img className='tasb-caret' src={downCaret} />
+            <img className='tasb-caret' src={downCaret} />
         </div>
         {props.title}
       </div>

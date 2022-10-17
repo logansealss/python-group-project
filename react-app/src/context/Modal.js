@@ -24,7 +24,7 @@ export function ModalProvider({children}) {
   )
 }
 
-export function ModalWrapper(props) {
+export default function ModalWrapper(props) {
   const [showModal, setShowModal] = useState(false);
 
   return (
