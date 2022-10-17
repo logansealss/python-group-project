@@ -226,5 +226,5 @@ def remove_tag_from_task(task_id, tag_id):
             "statusCode": 200}
 
     return{
-        "message": "Task does not have the tag",
+        "message": "Task does not have the provided tag",
         "statusCode": 404}, 404
