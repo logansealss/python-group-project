@@ -28,14 +28,24 @@ width: auto;
 
 #collapser {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   margin-left: 15px;
   margin-right: 4px;
 
-  height: 28px;
+  /* height: 28px; */
 
   border-bottom: 1px solid rgba(0,0,0,.1);
+}
+
+#collapser_header {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+
 }
 
 #collapse_button {
@@ -45,12 +55,32 @@ width: auto;
 }
 #collapse_button.expanded {
   transform: rotate(0)
+}
 
+#banner_item{
+  display: flex;
+  align-items: center;
+  height: 28px;
+  flex-grow: 1;
+  justify-content: space-between;
+
+}
+
+#children_container {
+  box-sizing: border-box;
+  width: 100%;
+  padding-left: 7.5px;
 }
 
 .collapser_rhs_icons {
   display:flex;
   align-items: center;
+}
+
+.children_container {
+  display: flex;
+  flex-direction: column;
+
 }
 
 .plus_button {
