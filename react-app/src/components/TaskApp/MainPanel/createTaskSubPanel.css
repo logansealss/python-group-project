@@ -1,5 +1,5 @@
 .ctsp-main-div{
-    position: absolute;
+    padding-top:20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,19 +7,16 @@
 }
 
 .ctsp-ct-input-main{
-    border: 1px solid red;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
-    height: 100px;
 }
 
 .ctsp-ct-pseudo-input{
-    position: absolute;
-    /* display: flex;
-    flex-direction: column;
-    justify-content: center; */
-    left: 14.5px;
-    top: 50px;
-    right: 14.5px;
+    margin-left: 14.5px;
+    margin-right: 14.5px;
     height: 32px;
     border: 1px solid #ddd;
     border-radius: 3px;
@@ -37,6 +34,10 @@
     border-color: #56538c;
 }
 
+.ctsp-ct-pseudo-input:focus-within .ctsp-ct-input::placeholder{
+    color: #000;
+}
+
 .ctsp-ct-input{
     position: relative;
     left: 1px;
@@ -50,6 +51,86 @@
 }
 
 .ctsp-ct-submit-btn{
+    background-color: #56538c;
+    border: none;
+    border-bottom: 3px solid #56538c;
+    color: rgba(255, 255, 255, .98);
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 4px;
     height: 32px;
     width: 90px;
+    margin-right: 14.5px;
+}
+
+.ctsp-ct-submit-btn:hover{
+    cursor: pointer;
+    border-bottom: 3px solid #39375f;
+}
+
+.ctsp-ct-submit-btn:active:enabled{
+    transform: scale(.95);
+}
+
+.ctsp-ct-submit-btn:disabled{
+    color: rgba(255, 255, 255, .98);
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 4px;
+    height: 32px;
+    width: 90px;
+    margin-right: 14.5px;
+    background-color: #a7a6ba;
+    border:none;
+    border-bottom: 3px solid #a7a6ba;
+    cursor: default;
+}
+
+.ctsp-add-task-grp{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 100%;
+    height: 54px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.ctsp-ratgc-true{
+    visibility: visible;
+    overflow: hidden;
+    opacity: 1;
+    transition-duration: .35s;
+}
+
+.ctsp-ratgc-false{
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    transition-property: height;
+    transition-duration: .35s;
+}
+
+.ctsp-add-task-grp-icons{
+    display: flex;
+    flex-direction: row;
+    margin-top: 14.5px;
+    margin-bottom: 14.5px;
+    padding-left: 14.5px;
+    padding-bottom: 5px;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 8px;
+    width: 226px;
+}
+
+.ctsp-at-icon-style{
+    height: 20px;
+    width: auto;
+    opacity: 0.55;
+}
+
+.ctsp-form-el{
+    width: 100%;
 }

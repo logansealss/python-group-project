@@ -11,14 +11,9 @@
 }
 
 .tam-task-list-div{
-    position: relative;
-    left: 0;
-    bottom: 0;
-    top: 100px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
     width: 100%;
-    height: 100%;
 }
