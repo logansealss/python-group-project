@@ -27,19 +27,19 @@ const items = {
   'Tasks': {
     expanded: allTasksExpanded,
     setter: setAllTasksExpanded,
-    title: <BannerItem obj={<Count count={3}/>}>Tasks</BannerItem>,
+    title: <BannerItem obj={<Count count={3}/>} id='subgroup'>Tasks</BannerItem>,
     children: []
   },
   'Lists':{
     expanded: listsExpanded,
     setter: setListsExpanded,
-    title: <BannerItem obj={<Plus/>}>Lists</BannerItem>,
+    title: <BannerItem obj={<Plus/>} id='subgroup'>Lists</BannerItem>,
     children:[]
   },
   'Tags': {
     expanded: tagsExpanded,
     setter: setTagsExpanded,
-    title: <BannerItem obj={<Plus/>} >Tags</BannerItem>,
+    title: <BannerItem obj={<Plus/>} id='subgroup' >Tags</BannerItem>,
     children:[]
   },
 };
