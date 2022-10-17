@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, useRouteMatch } from 'react-router-dom';
-import TaskAppSidebar from './TaskAppSidebar/taskAppSidebar';
+import TaskAppSidebar from './TaskAppSidebar/taskAppSidebar.js';
 import TaskAppNav from './taskAppNav';
 import MainPanel from './MainPanel/mainPanel';
 import TaskDetailPanel from './taskDetailPanel';
