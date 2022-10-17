@@ -15,7 +15,7 @@
 }
 
 .ctsp-ct-pseudo-input{
-    margin-left: 14.5px;
+    margin-left: 13.5px;
     margin-right: 14.5px;
     height: 32px;
     border: 1px solid #ddd;
@@ -129,6 +129,11 @@
     height: 20px;
     width: auto;
     opacity: 0.55;
+}
+
+.ctsp-at-icon-style:hover{
+    opacity: 1;
+    cursor: pointer;
 }
 
 .ctsp-form-el{
