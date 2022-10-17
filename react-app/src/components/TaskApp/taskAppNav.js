@@ -1,9 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import { useDispatch } from 'react-redux'
+
+import DropDownWrapper from '../DropdownWrapper'
 import downCaret from '../../img/caret-down.svg'
 import hamburger from '../../img/bars.svg'
 import gear from '../../img/gear.svg'
 import magGlass from '../../img/magnifying-glass.svg'
+
 import './taskAppNav.css'
 
 export default function TaskAppNav() {
@@ -39,10 +42,17 @@ export default function TaskAppNav() {
                     onBlur={() => {setSearchIconFocusStyle('')}}
                 />
             </form>
-            <img
-                className={`tan-search-down-caret-icon tan-search-icon-style ${searchIconFocusStyle}`}
-                src={downCaret}
-            />
+            <DropDownWrapper
+                offset='35px'
+                menu={
+                    <div className='dropdown_menu'>Sample Menu Box</div>
+                    }
+                >
+                <img
+                    className={`tan-search-down-caret-icon tan-search-icon-style ${searchIconFocusStyle}`}
+                    src={downCaret}
+                />
+            </DropDownWrapper>
             </div>
             <div className='tan-settings-icon-grp'>
                 <img
