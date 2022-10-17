@@ -1,5 +1,5 @@
 import React from 'react';
-import moveIcon from '../../img/ellipsis-vertical.svg'
+import moveIcon from '../../../img/ellipsis-vertical.svg'
 import './taskRowItem.css';
 
 export default function TaskRowItem({ task }) {
