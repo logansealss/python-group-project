@@ -1,9 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_required
-from datetime import datetime as dt
 
-
-from app.models import db, User, Task, Tag, List
+from app.models import db, Task, Tag, List
 from app.forms.task_form import TaskForm
 from app.api.auth_routes import validation_errors_to_error_messages
 
@@ -163,7 +161,7 @@ def update_task_by_id(id):
         task.due_date = form_data["due_date"] if form_data["due_date"] else task.due_date
         task.duration = form_data["duration"] if form_data["duration"] else task.duration
         task.note = form_data["note"] if form_data["note"] else task.note
-        task.completed = form_data["completed"] if form_data["completed"] else task.completed
+        task.completed = form_data["completed"] if form_data["completed"] in [True, False] else task.completed
 
         db.session.commit()
 
