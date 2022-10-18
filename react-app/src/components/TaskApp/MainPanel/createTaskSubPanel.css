@@ -164,6 +164,7 @@
 .ctsp-at-icon-style:hover{
     opacity: 1;
     cursor: pointer;
+    fill: green !important;
 }
 
 .ctsp-form-el{
