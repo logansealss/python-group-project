@@ -30,10 +30,18 @@ export default function CreateTaskSubPanel() {
     const [repeat, setRepeat] = useState('');
     const [location, setLocation] = useState('');
     const [estimate, setEstimate] = useState('');
-    const [renderAddTaskGrpClass, setRenderAddTaskGrpClass] = useState('ctsp-ratgc-true');
-    const [renderTaskFormIconClass, setRenderTaskFormIconClass] = useState('ctsp-ratig-false')
+    const [renderAddTaskGrpClass, setRenderAddTaskGrpClass] = useState(
+        'ctsp-ratgc-true'
+        );
+    const [renderTaskFormIconClass, setRenderTaskFormIconClass] = useState(
+        'ctsp-ratig-false'
+        )
 
-    const ctDiv = document.getElementsByClassName('ctsp-main-div');
+    // const ctDiv = document.getElementsByClassName('ctsp-main-div');
+    // // const ctspNameDiv = document.getElementsByClassName('ctsp-name-div');
+
+    const [ctspNameDiv, setCtspNameDiv] = useState(
+        document.getElementsByClassName('ctsp-name-div')[0]);
 
     useEffect(() => {
         if (ctInput.length) {
@@ -41,21 +49,13 @@ export default function CreateTaskSubPanel() {
         } else {
             setRenderTaskFormIconClass('ctsp-ratig-false');
         }
-        if (ctInput.includes) { }
+
 
     }, [ctInput]);
 
-    // const handleDynamicNameInputClick = () => {
-    //     inputRef.current.focus();
-    // }
-
-    // const formRenderClickListener = document.addEventListener('click', formRenderClickHandler)
-
-    // function formRenderClickHandler(e) {
-    //     if (renderAddTaskGrpClass === 'ctsp-ratgc-true' && e.target !== ctDiv){
-    //         setRenderAddTaskGrpClass('ctsp-ratgc-false');
-    //     }
-    // }
+    useEffect(() => {
+        setCtspNameDiv(document.getElementsByClassName('ctsp-name-div')[0]);
+    },[])
 
     const handleCtSubmit = (e) => {
         e.preventDefault();
@@ -63,8 +63,24 @@ export default function CreateTaskSubPanel() {
         setCtInput('');
     }
 
+
+
+
+    const manageNameDiv = () => {
+        if(!ctspNameDiv.innerText){
+            ctspNameDiv.innerText = ctInput;
+            setCtInput('');
+        }
+    }
+
+
     const keyDownFn = (e) => {
-        if (e.key === '#') { }
+        if (e.key === '!') {
+            console.log('key pressed!:', e.key )
+            manageNameDiv();
+         }
+
+
     }
 
     return (
@@ -173,12 +189,11 @@ export default function CreateTaskSubPanel() {
                 </div>
                 {/* <div className='ctsp-ct-input-main'> */}
                 <div className='ctsp-ct-pseudo-input'>
-                    {/* <div
-                            className='ctsp-dynamic-name-display'
-                            onClick={handleDynamicNameInputClick}
-                        >
-                            {ctInput}
-                        </div> */}
+
+                    <input
+                        className='ctsp-name-div ctsp-ct-input'
+                        type='text'
+                    />
 
                     <input
                         className='ctsp-ct-input'

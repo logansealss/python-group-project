@@ -30,14 +30,13 @@
     padding-left: 10px;
 }
 
-.ctsp-dynamic-name-display{
-    text-align: center;
+.ctsp-name-input {
+    background-color: blue;
+    color: white;
     height: 100%;
-    width: fit-content;
-    font-size: 16px;
-    padding-top: 6px;
-    word-wrap: no-wrap;
-    white-space: nowrap;
+    white-space: nowrap ;
+    text-align: center;
+    padding-top: 7px
 }
 
 .ctsp-ct-pseudo-input:hover{

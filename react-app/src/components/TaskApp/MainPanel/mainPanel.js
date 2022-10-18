@@ -12,18 +12,6 @@ export default function MainPanel() {
     const { path, url } = useRouteMatch();
     const { listId } = useParams();
 
-    // const linkPath = createLinkPath();
-
-    // function createLinkPath() {
-    //     if (
-    //         path.includes('all') ||
-    //         path.includes('today') ||
-    //         path.includes('tomorrow')
-    //     ) {
-    //         return `${path}/${task.id}`
-    //     } else
-    // }
-
     const dispatch = useDispatch();
     const allTasks = useSelector(state => {
         return state.tasks.allTasks;
