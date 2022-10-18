@@ -25,7 +25,7 @@ export const getAllLists = () => async (dispatch) => {
     if (response.ok) {
         const allLists = await response.json();
         dispatch(loadAll(allLists));
-        return allLists;
+        return response;
     }
     return response;
 }
@@ -41,8 +41,8 @@ export const createList = (newList) => async dispatch => {
 
     if (response.ok) {
         const newList = await response.json();
-        const allLists = dispatch(loadNew(newList));
-        return allLists;
+        dispatch(loadNew(newList));
+        return response;
     };
     return response;
 }

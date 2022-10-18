@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function CreateListTagForm (props) {
-  console.log(props.thunk)
   const dispatch = useDispatch()
   const [name, setName] = useState('')
 
@@ -10,8 +9,6 @@ export default function CreateListTagForm (props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(userId)
-    console.log(name)
     const response = await dispatch(props.thunk({
       'user_id': userId,
       'name': name
@@ -19,6 +16,7 @@ export default function CreateListTagForm (props) {
     if (response.ok) {
       props.setShowModal(false);
     }
+
   };
 
 
