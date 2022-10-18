@@ -173,11 +173,45 @@
     fill: green !important;
 }
 
-
 .ctsp-form-el{
     width: 100%;
 }
 
+.ctsp-ut-icon-style{
+    height: 16px;
+    width: auto;
+}
+
+.ctsp-ut-caret-style{
+    height: 14px;
+    width: auto;
+    padding-left: 4px;
+}
+
+.ctsp-ut-btn > .ctsp-ut-icon-style{
+    opacity: .55;
+}
+
+.ctsp-ut-btn > .ctsp-ut-caret-style{
+    opacity: .45;
+}
+
+.ctsp-ut-btn:hover .ctsp-ut-icon-style{
+    opacity: .85;
+}
+
+.ctsp-ut-btn:hover .ctsp-ut-caret-style{
+    opacity: .75;
+    cursor: pointer;
+}
+
+.ctsp-ut-btn:hover{
+    cursor: pointer;
+}
+
+.ctsp-ut-btn:active{
+    box-shadow: inset 0 2px 3px rgba(0,0,0,0.25);
+}
 .ctsp-ut-main-div{
     display: flex;
     flex-direction: row;

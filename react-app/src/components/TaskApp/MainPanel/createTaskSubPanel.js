@@ -79,11 +79,11 @@ export default function CreateTaskSubPanel() {
                     <div className='ctsp-ut-grp-1'>
                         <div className='ctsp-btn-div-solo-single ctsp-ut-btn'>
                             <img
-                                className='ctsp-at-icon-style ctsp-ut-hover-style'
+                                className='ctsp-ut-icon-style ctsp-ut-hover-style'
                                 src={minusIcon}
                             />
                             <img
-                                className='ctsp-at-caret-style ctsp-ut-hover-style'
+                                className='ctsp-ut-caret-style ctsp-ut-hover-style'
                                 src={downCaret}
                             />
                         </div>
@@ -91,54 +91,82 @@ export default function CreateTaskSubPanel() {
                     <div className='ctsp-ut-grp-2'>
                         <div className='ctsp-btn-div-left ctsp-ut-btn' >
                             <img
-                                className='ctsp-at-icon-style ctsp-ut-hover-style'
+                                className='ctsp-ut-icon-style ctsp-ut-hover-style'
                                 src={checkIcon}
                             />
                         </div>
                         <div className='ctsp-btn-div-center-solo ctsp-ut-btn'>
                             <img
-                                className='ctsp-at-icon-style ctsp-ut-hover-style'
+                                className='ctsp-ut-icon-style ctsp-ut-hover-style'
                                 src={postponeIcon}
+                            />
+                            <img
+                                className='ctsp-ut-caret-style ctsp-ut-hover-style'
+                                src={downCaret}
                             />
                         </div>
                         <div className='ctsp-btn-div-rt ctsp-ut-btn'>
                             <img
-                                className='ctsp-at-icon-style ctsp-ut-hover-style'
+                                className='ctsp-ut-icon-style ctsp-ut-hover-style'
                                 src={userIcon}
+                            />
+                            <img
+                                className='ctsp-ut-caret-style ctsp-ut-hover-style'
+                                src={downCaret}
                             />
                         </div>
                     </div>
                     <div className='ctsp-ut-grp-3'>
                         <div className='ctsp-btn-div-left ctsp-ut-btn'>
                             <img
-                                className='ctsp-at-icon-style ctsp-ut-hover-style'
+                                className='ctsp-ut-icon-style ctsp-ut-hover-style'
                                 src={prioIcon}
+                            />
+                            <img
+                                className='ctsp-ut-caret-style ctsp-ut-hover-style'
+                                src={downCaret}
                             />
                         </div>
                         <div className='ctsp-btn-div-center-solo ctsp-ut-btn'>
                             <img
-                                className='ctsp-at-icon-style ctsp-ut-hover-style'
+                                className='ctsp-ut-icon-style ctsp-ut-hover-style'
                                 src={dueDateIcon}
+                            />
+                            <img
+                                className='ctsp-ut-caret-style ctsp-ut-hover-style'
+                                src={downCaret}
                             />
                         </div>
                         <div className='ctsp-btn-div-center ctsp-ut-btn'>
                             <img
-                                className='ctsp-at-icon-style ctsp-ut-hover-style'
+                                className='ctsp-ut-icon-style ctsp-ut-hover-style'
                                 src={listIcon}
+                            />
+                            <img
+                                className='ctsp-ut-caret-style ctsp-ut-hover-style'
+                                src={downCaret}
                             />
                         </div>
                         <div className='ctsp-btn-div-rt ctsp-ut-btn'>
                             <img
-                                className='ctsp-at-icon-style ctsp-ut-hover-style'
+                                className='ctsp-ut-icon-style ctsp-ut-hover-style'
                                 src={tagIcon}
+                            />
+                            <img
+                                className='ctsp-ut-caret-style ctsp-ut-hover-style'
+                                src={downCaret}
                             />
                         </div>
                     </div>
                     <div className='ctsp-ut-grp-4'>
                         <div className='ctsp-btn-div-solo-single ctsp-ut-btn'>
                             <img
-                                className='ctsp-at-icon-style ctsp-ut-hover-style'
+                                className='ctsp-ut-icon-style ctsp-ut-hover-style'
                                 src={EliIcon}
+                            />
+                            <img
+                                className='ctsp-ut-caret-style ctsp-ut-hover-style'
+                                src={downCaret}
                             />
                         </div>
                     </div>
