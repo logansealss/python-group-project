@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import DropDownWrapper from '../../DropdownWrapper';
 import dueDateIcon from '../../../img/calendar-day.svg';
 import startDateIcon from '../../../img/square-caret-right.svg';
 import prioIcon from '../../../img/exclamation.svg';
@@ -25,10 +26,10 @@ export default function CreateTaskSubPanel() {
     const [renderAddTaskGrpClass, setRenderAddTaskGrpClass] = useState('ctsp-ratgc-true');
     const [renderTaskFormIconClass, setRenderTaskFormIconClass] = useState('ctsp-ratig-false')
 
-    const ctDiv =  document.getElementsByClassName('ctsp-main-div');
+    const ctDiv = document.getElementsByClassName('ctsp-main-div');
 
     useEffect(() => {
-        if (ctInput.length){
+        if (ctInput.length) {
             setRenderTaskFormIconClass('ctsp-ratig-true');
         } else {
             setRenderTaskFormIconClass('ctsp-ratig-false');
@@ -56,7 +57,7 @@ export default function CreateTaskSubPanel() {
     }
 
     const keyDownFn = (e) => {
-        if (e.key === '#'){}
+        if (e.key === '#') { }
     }
 
     return (
@@ -68,47 +69,60 @@ export default function CreateTaskSubPanel() {
                 className='ctsp-main-div'
             >
                 {/* <div className='ctsp-ct-input-main'> */}
-                    <div className='ctsp-ct-pseudo-input'>
-                        {/* <div
+                <div className='ctsp-ct-pseudo-input'>
+                    {/* <div
                             className='ctsp-dynamic-name-display'
                             onClick={handleDynamicNameInputClick}
                         >
                             {ctInput}
                         </div> */}
 
-                        <input
-                            className='ctsp-ct-input'
-                            ref={inputRef}
-                            type='text'
-                            placeholder='Add a task...'
-                            value={ctInput}
-                            onChange={(e) => setCtInput(e.target.value)}
-                            onFocus={() => { setRenderAddTaskGrpClass('ctsp-ratgc-true') }}
-                            // onBlur={() => { !ctInput.length && setRenderAddTaskGrpClass('ctsp-ratgc-false') }}
-                            onKeyDown={keyDownFn}
-                        />
-                    </div>
-                    <div
-                        className={`ctsp-add-task-grp ${renderAddTaskGrpClass}`}
-
-                    >
-                        <div className={`ctsp-add-task-grp-icons ${renderTaskFormIconClass}`}>
-                            <img className='ctsp-at-icon-style' src={dueDateIcon} />
-                            <img className='ctsp-at-icon-style' src={startDateIcon} />
-                            <img className='ctsp-at-icon-style' src={listIcon} />
-                            <img className='ctsp-at-icon-style' src={prioIcon} />
-                            <img className='ctsp-at-icon-style' src={repeatIcon} />
-                            <img className='ctsp-at-icon-style' src={locationPin} />
-                            <img className='ctsp-at-icon-style' src={clockIcon} />
-                        </div>
-                        <button
-                            className='ctsp-ct-submit-btn'
-                            type='submit'
-                            disabled={ctInput.length ? false : true}
+                    <input
+                        className='ctsp-ct-input'
+                        ref={inputRef}
+                        type='text'
+                        placeholder='Add a task...'
+                        value={ctInput}
+                        onChange={(e) => setCtInput(e.target.value)}
+                        onFocus={() => { setRenderAddTaskGrpClass('ctsp-ratgc-true') }}
+                        // onBlur={() => { !ctInput.length && setRenderAddTaskGrpClass('ctsp-ratgc-false') }}
+                        onKeyDown={keyDownFn}
+                    />
+                </div>
+                <div
+                    className={`ctsp-add-task-grp ${renderAddTaskGrpClass}`}
+                >
+                    <div className={`ctsp-add-task-grp-icons ${renderTaskFormIconClass}`}>
+                        <DropDownWrapper
+                            offset='100px'
+                            menu={
+                                <div className='test-dd-menu'>
+                                    <input
+                                        type='datetime'
+                                    ></input>
+                                </div>}
                         >
-                            Add Task
-                        </button>
+                            <img
+                                className='ctsp-at-icon-style'
+                                src={dueDateIcon}
+                            />
+                        </DropDownWrapper>
+
+                        <img className='ctsp-at-icon-style' src={startDateIcon} />
+                        <img className='ctsp-at-icon-style' src={listIcon} />
+                        <img className='ctsp-at-icon-style' src={prioIcon} />
+                        <img className='ctsp-at-icon-style' src={repeatIcon} />
+                        <img className='ctsp-at-icon-style' src={locationPin} />
+                        <img className='ctsp-at-icon-style' src={clockIcon} />
                     </div>
+                    <button
+                        className='ctsp-ct-submit-btn'
+                        type='submit'
+                        disabled={ctInput.length ? false : true}
+                    >
+                        Add Task
+                    </button>
+                </div>
 
                 {/* </div> */}
             </div >
