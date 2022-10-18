@@ -41,7 +41,7 @@ function App() {
                 <Route path='/signup' exact={true}>
                     <SignupFormPage />
                 </Route>
-                <Route path='/app'>
+                <Route exact path='/app/all'>
                     <TaskApp/>
                 </Route>
             </Switch>

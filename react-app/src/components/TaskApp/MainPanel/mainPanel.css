@@ -17,3 +17,9 @@
     justify-content: flex-start;
     width: 100%;
 }
+
+.mpti-link-wrap{
+    text-decoration: none;
+    color: currentColor;
+    width: 100%;
+}
