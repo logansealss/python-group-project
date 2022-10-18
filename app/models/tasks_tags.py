@@ -16,15 +16,15 @@ class Tag(db.Model):
     color = db.Column(db.String(7))
 
     user = db.relationship("User", back_populates="tags")
-    tasks = db.relationship("Task", secondary=task_tags, back_populates="tags")    
-    
+    tasks = db.relationship("Task", secondary=task_tags, back_populates="tags")
+
     def to_dict(self):
         return {
             'id': self.id,
             'userId': self.user_id,
             'name': self.name,
             'color': self.color,
-            'tasks': [task.id for task in self.tasks]
+            'taskCount': len(self.tasks)
         }
 
 class Task(db.Model):
@@ -56,5 +56,7 @@ class Task(db.Model):
             'dueDate': self.due_date.strftime('%Y-%m-%d %H:%M:%S') if self.due_date else None,
             'duration': self.duration,
             'note': self.note,
-            'completed': self.completed
+            'completed': self.completed,
+            'list': self.list.id if self.list else None,
+            'tags': [tag.id for tag in self.tags] if self.tags else []
         }
