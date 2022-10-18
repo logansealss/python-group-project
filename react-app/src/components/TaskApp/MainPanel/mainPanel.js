@@ -22,8 +22,8 @@ export default function MainPanel() {
         <div className='tam-main-div'>
             <CreateTaskSubPanel />
             <div className='tam-task-list-div'>
-                {Object.values(allTasks).map(task => (
-                    <TaskRowItem task={task} />
+                {Object.values(allTasks).map((task, idx) => (
+                    <TaskRowItem key={idx} task={task} />
                 ))}
             </div>
         </div>
