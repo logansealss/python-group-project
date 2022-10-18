@@ -60,7 +60,7 @@ def create_task():
                         start_date=form_data["start_date"],
                         due_date=form_data["due_date"],
                         duration=form_data["duration"],
-                        note=form_data["note"] if form_data["note"] else None,
+                        note=form_data["note"],
                         completed=form_data["completed"])
 
         db.session.add(new_task)

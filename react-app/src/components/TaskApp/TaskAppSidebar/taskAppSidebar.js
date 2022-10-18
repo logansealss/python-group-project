@@ -1,21 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
+import * as listActions from '../../../store/lists'
+import * as tagActions from '../../../store/tags'
+
 import Collapser from './Collapser'
 import BannerItem from './BannerItem'
-import { getAllLists } from '../../../store/lists'
+import CreateTagListForm from '../../Forms/CreateTagListForm'
+import ModalWrapper from '../../../context/Modal'
 
 import logo from '../../../img/TM-logo-short-nobg.png'
 import plus_img from '../../../img/plus.svg'
 import './taskAppSidebar.css'
-import ModalWrapper from '../../../context/Modal'
-import { getAllTags } from '../../../store/tags'
 
 
-function Plus() {
+function Plus (props) {
   return (
-    <ModalWrapper form={<div>New Modal</div>}>
-      <img id='plus' src={plus_img} />
+    <ModalWrapper
+      form={props.form}
+      header={`Add a ${props.feature}`}
+      feature={props.feature}
+      thunk={props.thunk}
+      >
+      <img id='plus' src={plus_img}/>
     </ModalWrapper>
   )
 };
@@ -35,8 +42,8 @@ export default function TaskAppSidebar() {
   const [tagsExpanded, setTagsExpanded] = useState(false)
 
   useEffect(() => {
-    dispatch(getAllLists())
-    dispatch(getAllTags())
+    dispatch(listActions.getAllLists())
+    dispatch(tagActions.getAllTags())
   }, [dispatch])
 
   const items = {
@@ -52,15 +59,15 @@ export default function TaskAppSidebar() {
       expanded: listsExpanded,
       setter: setListsExpanded,
       title: 'Lists',
-      obj: <Plus />,
-      children: Object.values(lists).map(list => (<BannerItem key={list.id}>{list.name}</BannerItem>))
+      obj: <Plus  form={<CreateTagListForm/>} feature='list' thunk={listActions.createList}/>,
+      children: lists && Object.values(lists).map(list => (<BannerItem key={list.id}>{list.name}</BannerItem>))
     },
     'Tags': {
       expanded: tagsExpanded,
       setter: setTagsExpanded,
       title: 'Tags',
-      obj: <Plus />,
-      children: Object.values(tags).map(tag => (<BannerItem key={tag.id}>{tag.name}</BannerItem>))
+      obj: <Plus  form={<CreateTagListForm/>} feature='tag' thunk={tagActions.createTag}/>,
+      children: tags && Object.values(tags).map(tag => (<BannerItem key={tag.id}>{tag.name}</BannerItem>))
     },
   };
 

@@ -1,3 +1,12 @@
+#modal-background {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgb(255, 255, 255, 0.5);
+}
+
 #modal {
   position: fixed;
   top: 0;
@@ -9,25 +18,38 @@
   align-items: center;
 }
 
-#modal-background {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  background-color: rgb(255, 255, 255, 0.5);
-}
 
 #modal-container {
   position: absolute;
+  padding: 29px 37px;
   display: flex;
   flex-flow:column;
-  width: 40%;
+  width: 314px;
   max-height: 80%;
   background-color:white;
   transition: bottom .2s ease-out;
+  border: 1px solid black;
   border-radius: 14px;
 }
+
+#modal-header {
+  display: flex;
+}
+
+#modal-close-button {
+  position: absolute;
+  right: 20px;
+  height: 16px;
+  width: 16px;
+}
+
+#modal-close-button:hover {
+  cursor: pointer
+}
+
+
+
+
 
 #modal-content {
   overflow-y: auto;
