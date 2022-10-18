@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import * as sessionActions from "../../../store/session";
 import tmLogoWhite from '../../../img/tm-logo-white.png';
 import quotes from '../../../data/quotes.json'
@@ -9,6 +9,7 @@ import quotes from '../../../data/quotes.json'
 import './login.css';
 
 function LoginFormPage() {
+    const history = useHistory();
     const dispatch = useDispatch();
     const sessionUser = useSelector((state) => state.session.user);
     const [credential, setCredential] = useState("");
@@ -72,7 +73,7 @@ function LoginFormPage() {
         return /\S+@\S+\.\S+/.test(str);
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         setBackendErrors([]);
@@ -81,12 +82,13 @@ function LoginFormPage() {
         if (!credentialErr &&
             !passErr
         ) {
-            return dispatch(sessionActions.login(credential, password))
+            const response = await dispatch(sessionActions.login(credential, password))
                 .catch(async (res) => {
                     const data = await res.json();
                     if (data && data.errors) setBackendErrors(data.errors);
                 });
         }
+            history.push('/app/all')
     };
 
     const formatBackendErrors = (errorObj) => {
