@@ -2,11 +2,18 @@ import React, { useState, useEffect, useRef } from 'react'
 import DropDownWrapper from '../../DropdownWrapper';
 import dueDateIcon from '../../../img/calendar-day.svg';
 import startDateIcon from '../../../img/square-caret-right.svg';
+import postponeIcon from '../../../img/calendar-plus.svg';
 import prioIcon from '../../../img/exclamation.svg';
 import listIcon from '../../../img/list.svg';
 import repeatIcon from '../../../img/rotate.svg';
 import clockIcon from '../../../img/clock.svg';
 import locationPin from '../../../img/location-dot.svg';
+import userIcon from '../../../img/user.svg';
+import checkIcon from '../../../img/check.svg';
+import tagIcon from '../../../img/tag.svg';
+import minusIcon from '../../../img/minus.svg';
+import EliIcon from '../../../img/ellipsis.svg';
+import downCaret from '../../../img/caret-down.svg';
 import './createTaskSubPanel.css';
 
 export default function CreateTaskSubPanel() {
@@ -68,6 +75,74 @@ export default function CreateTaskSubPanel() {
             <div
                 className='ctsp-main-div'
             >
+                <div className='ctsp-ut-main-div'>
+                    <div className='ctsp-ut-grp-1'>
+                        <div className='ctsp-btn-div-solo-single ctsp-ut-btn'>
+                            <img
+                                className='ctsp-at-icon-style ctsp-ut-hover-style'
+                                src={minusIcon}
+                            />
+                            <img
+                                className='ctsp-at-caret-style ctsp-ut-hover-style'
+                                src={downCaret}
+                            />
+                        </div>
+                    </div>
+                    <div className='ctsp-ut-grp-2'>
+                        <div className='ctsp-btn-div-left ctsp-ut-btn' >
+                            <img
+                                className='ctsp-at-icon-style ctsp-ut-hover-style'
+                                src={checkIcon}
+                            />
+                        </div>
+                        <div className='ctsp-btn-div-center-solo ctsp-ut-btn'>
+                            <img
+                                className='ctsp-at-icon-style ctsp-ut-hover-style'
+                                src={postponeIcon}
+                            />
+                        </div>
+                        <div className='ctsp-btn-div-rt ctsp-ut-btn'>
+                            <img
+                                className='ctsp-at-icon-style ctsp-ut-hover-style'
+                                src={userIcon}
+                            />
+                        </div>
+                    </div>
+                    <div className='ctsp-ut-grp-3'>
+                        <div className='ctsp-btn-div-left ctsp-ut-btn'>
+                            <img
+                                className='ctsp-at-icon-style ctsp-ut-hover-style'
+                                src={prioIcon}
+                            />
+                        </div>
+                        <div className='ctsp-btn-div-center-solo ctsp-ut-btn'>
+                            <img
+                                className='ctsp-at-icon-style ctsp-ut-hover-style'
+                                src={dueDateIcon}
+                            />
+                        </div>
+                        <div className='ctsp-btn-div-center ctsp-ut-btn'>
+                            <img
+                                className='ctsp-at-icon-style ctsp-ut-hover-style'
+                                src={listIcon}
+                            />
+                        </div>
+                        <div className='ctsp-btn-div-rt ctsp-ut-btn'>
+                            <img
+                                className='ctsp-at-icon-style ctsp-ut-hover-style'
+                                src={tagIcon}
+                            />
+                        </div>
+                    </div>
+                    <div className='ctsp-ut-grp-4'>
+                        <div className='ctsp-btn-div-solo-single ctsp-ut-btn'>
+                            <img
+                                className='ctsp-at-icon-style ctsp-ut-hover-style'
+                                src={EliIcon}
+                            />
+                        </div>
+                    </div>
+                </div>
                 {/* <div className='ctsp-ct-input-main'> */}
                 <div className='ctsp-ct-pseudo-input'>
                     {/* <div
