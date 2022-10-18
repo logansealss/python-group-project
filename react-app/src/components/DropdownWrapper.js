@@ -36,7 +36,7 @@ export default function DropDownWrapper(props) {
         className={`dropdown_container ${props.left ? 'left' : 'right'}`}
         style={{'top': props.offset}}
         >
-        {props.menu}
+        {React.cloneElement(props.menu,{onClick: (e)=>e.stopPropagation()})}
       </div>
     )
     }
