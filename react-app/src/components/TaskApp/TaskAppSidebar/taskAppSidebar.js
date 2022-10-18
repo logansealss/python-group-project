@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import Collapser from './Collapser'
 import BannerItem from './BannerItem'
-import { getAllLists } from '../../../store/lists'
 
 import logo from '../../../img/TM-logo-short-nobg.png'
 import plus_img from '../../../img/plus.svg'
 import './taskAppSidebar.css'
 import ModalWrapper from '../../../context/Modal'
 import { getAllTags } from '../../../store/tags'
+import { getAllLists } from '../../../store/lists'
 
 
 function Plus() {

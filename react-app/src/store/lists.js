@@ -16,7 +16,6 @@ export const getAllLists = () => async (dispatch) => {
 
     if (response.ok) {
         const allLists = await response.json();
-        console.log('allLists thunk: ', allLists)
         dispatch(loadAll(allLists));
         return allLists;
     }
