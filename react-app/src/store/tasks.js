@@ -1,6 +1,7 @@
 // constants
 const LOAD_ALL = 'tasks/LOAD_ALL';
 const LOAD_ONE = 'tasks/LOAD_ONE';
+const CREATE_TASK = 'tasks/CREATE'
 
 const loadAll = allTasks => ({
     type: LOAD_ALL,
@@ -10,6 +11,11 @@ const loadAll = allTasks => ({
 const loadOne = singleTask => ({
     type: LOAD_ONE,
     singleTask
+});
+
+const createTask = newTask => ({
+    type: CREATE_TASK,
+    newTask
 })
 
 export const getAllTasks = () => async (dispatch) => {
@@ -22,7 +28,6 @@ export const getAllTasks = () => async (dispatch) => {
 
     if (response.ok) {
         const allTasks = await response.json();
-        console.log('alltasks thunk: ', allTasks)
         dispatch(loadAll(allTasks));
         return allTasks;
     }
@@ -46,6 +51,23 @@ export const getSingleTask = (id) => async (dispatch) => {
     return null;
 }
 
+export const createNewTask = (task) => async (dispatch) => {
+    const response = await fetch('/api/tasks', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(task),
+    });
+
+    if (response.ok) {
+        const newTask = await response.json();
+        dispatch(createTask(newTask));
+        return newTask;
+    }
+    return null;
+}
+
 const initialState = {
                         allTasks: {},
                         singleTask: {}
@@ -57,6 +79,11 @@ export const taskReducer = (state = initialState, action) => {
             return { ...state, allTasks: action.allTasks }
         case LOAD_ONE:
             return { ...state, singleTask: action.singleTask }
+        case CREATE_TASK:
+                return { 
+                    singleTask: { ...state.singleTask },
+                    allTasks: { ...state.allTasks, [action.newTask.id]: action.newTask }
+                  }
         default:
             return state;
         }

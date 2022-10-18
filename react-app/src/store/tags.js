@@ -16,7 +16,6 @@ export const getAllTags = () => async (dispatch) => {
 
     if (response.ok) {
         const allTags = await response.json();
-        console.log('allTags thunk: ', allTags)
         dispatch(loadAll(allTags));
         return allTags;
     }

@@ -10,6 +10,7 @@ import plus_img from '../../../img/plus.svg'
 import './taskAppSidebar.css'
 import ModalWrapper from '../../../context/Modal'
 import { getAllTags } from '../../../store/tags'
+import { createNewTask } from '../../../store/tasks'
 
 
 function Plus() {
