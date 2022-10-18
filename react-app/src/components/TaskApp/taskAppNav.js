@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { useDispatch } from 'react-redux'
 
-import DropDownWrapper from '../DropdownWrapper'
+import DropDownWrapper from '../../context/Dropdown'
 import downCaret from '../../img/caret-down.svg'
 import hamburger from '../../img/bars.svg'
 import gear from '../../img/gear.svg'

@@ -37,8 +37,9 @@ export default function MainPanel() {
         <div className='tam-main-div'>
             <CreateTaskSubPanel />
             <div className='tam-task-list-div'>
-                {Object.values(allTasks).map(task => (
+                {Object.values(allTasks).map((task, idx) => (
                     <Link
+                        key={idx}
                         className='mpti-link-wrap'
                         to={`/app/${listId}/${task.id}`}
                     >
