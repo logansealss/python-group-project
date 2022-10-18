@@ -7,11 +7,12 @@ import logo from '../../../img/TM-logo-short-nobg.png'
 import plus_img from '../../../img/plus.svg'
 import './taskAppSidebar.css'
 import ModalWrapper from '../../../context/Modal'
+import CreateTagListForm from '../../Forms/CreateTagListForm'
 
 
-function Plus () {
+function Plus (props) {
   return (
-    <ModalWrapper form={<div>New Modal</div>}>
+    <ModalWrapper form={props.form} header={`Add a ${props.feature}`} feature={props.feature}>
       <img id='plus' src={plus_img}/>
     </ModalWrapper>
   )
@@ -39,14 +40,14 @@ const items = {
     expanded: listsExpanded,
     setter: setListsExpanded,
     title: 'Lists',
-    obj: <Plus/>,
+    obj: <Plus form={<CreateTagListForm/>} feature='list'/>,
     children:[]
   },
   'Tags': {
     expanded: tagsExpanded,
     setter: setTagsExpanded,
     title: 'Tags',
-    obj: <Plus/>,
+    obj: <Plus form={<CreateTagListForm/>} feature='tag'/>,
     children:[]
   },
 };

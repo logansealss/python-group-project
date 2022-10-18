@@ -35,7 +35,6 @@ export default function ModalWrapper(props) {
         onClick: ()=> setShowModal(true),
         style: {'cursor': 'pointer'}
       },
-      // props.buttonContent need to add content for wrapped child
       )}
     {showModal && (
       <Modal
@@ -44,7 +43,7 @@ export default function ModalWrapper(props) {
         showModal={showModal}
         header={props.header || ''}
         >
-        {props.form}
+        {React.cloneElement(props.form, props)}
       </Modal>
     )}
     </>
@@ -71,7 +70,7 @@ export function Modal (props) {
               />
           </div>
           <div id='modal-content'>
-            {React.cloneElement(props.children, props.setShowModal)}
+            {React.cloneElement(props.children, {setShowModal: props.setShowModal})}
           </div>
         </div>
     </div>,
