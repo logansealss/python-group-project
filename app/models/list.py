@@ -15,5 +15,5 @@ class List(db.Model):
             'id': self.id,
             'userId': self.user_id,
             'name': self.name,
-            'tasks': [task.id for task in self.tasks]
+            'tasksCount': len(self.tasks)
         }
