@@ -1,7 +1,7 @@
 import React from 'react'
 
-import DropDownWrapper from '../../DropdownWrapper'
-import downCaret from '../../../img/caret-down.svg'
+import DropDownWrapper from '../../../context/Dropdown';
+import downCaret from '../../../img/caret-down.svg';
 
 
 export default function Collapser (props) {

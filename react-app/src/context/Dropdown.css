@@ -1,5 +1,5 @@
 .dropdown_container {
-  position: absolute;
+  position: relative;
   z-index: 1;
 }
 
