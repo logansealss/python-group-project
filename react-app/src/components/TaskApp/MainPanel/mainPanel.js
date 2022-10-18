@@ -16,8 +16,6 @@ export default function MainPanel() {
         dispatch(getAllTasks());
     }, [dispatch]);
 
-    if (!allTasks) return null;
-
     return (allTasks &&
         <div className='tam-main-div'>
             <CreateTaskSubPanel />
