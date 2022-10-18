@@ -10,7 +10,7 @@ import './mainPanel.css';
 export default function MainPanel() {
 
     const { path, url } = useRouteMatch();
-    const { params } = useParams();
+    const { listId } = useParams();
 
     // const linkPath = createLinkPath();
 
@@ -42,7 +42,7 @@ export default function MainPanel() {
                 {Object.values(allTasks).map(task => (
                     <Link
                         className='mpti-link-wrap'
-                        to={`${path}/${task.id}`}
+                        to={`/app/${listId}/${task.id}`}
                     >
                         <TaskRowItem task={task} />
                     </Link>

@@ -23,3 +23,7 @@
     color: currentColor;
     width: 100%;
 }
+
+.mpti-link-wrap:hover{
+    cursor: pointer;
+}
