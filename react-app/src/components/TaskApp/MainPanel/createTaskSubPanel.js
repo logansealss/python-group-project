@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
+import Select from 'react-select';
+import ReactDOM  from 'react-dom';
 import DropDownWrapper from '../../DropdownWrapper';
 import dueDateIcon from '../../../img/calendar-day.svg';
 import startDateIcon from '../../../img/square-caret-right.svg';
@@ -23,6 +25,7 @@ export default function CreateTaskSubPanel() {
 
     const [ctInput, setCtInput] = useState('');
     const [taskName, setTaskName] = useState('');
+    const [tnInput, setTnInput] = useState(document.createElement('input'));
     const [dueDate, setDueDate] = useState('');
     const [startDate, setStartDate] = useState('');
     const [list, setList] = useState('');
@@ -32,10 +35,10 @@ export default function CreateTaskSubPanel() {
     const [estimate, setEstimate] = useState('');
     const [renderAddTaskGrpClass, setRenderAddTaskGrpClass] = useState(
         'ctsp-ratgc-true'
-        );
+    );
     const [renderTaskFormIconClass, setRenderTaskFormIconClass] = useState(
         'ctsp-ratig-false'
-        )
+    )
 
     // const ctDiv = document.getElementsByClassName('ctsp-main-div');
     // // const ctspNameDiv = document.getElementsByClassName('ctsp-name-div');
@@ -55,7 +58,13 @@ export default function CreateTaskSubPanel() {
 
     useEffect(() => {
         setCtspNameDiv(document.getElementsByClassName('ctsp-name-div')[0]);
-    },[])
+    }, [])
+
+    useEffect(() => {
+        const input = ReactDOM.findDOMNode(inputRef.current);
+        input.style.width = taskName.length + 'ch'
+        console.log(taskName)
+    }, [taskName])
 
     const handleCtSubmit = (e) => {
         e.preventDefault();
@@ -64,21 +73,32 @@ export default function CreateTaskSubPanel() {
     }
 
 
-
-
-    const manageNameDiv = () => {
-        if(!ctspNameDiv.innerText){
-            ctspNameDiv.innerText = ctInput;
-            setCtInput('');
+    const nameDivClick = () => {
+        if (!document.getElementsByClassName('ctsp-name-div')[0].children.length) {
+            const input = document.createElement('input')
+            input.className = 'ctsp-name-input';
+            ctspNameDiv.innerText = '';
+            ctspNameDiv.appendChild(input);
+            input.value = taskName;
+            input.focus()
+            input.style.width = input.value.trim().length + 'ch'
+            input.innerText = taskName;
         }
     }
 
+    function manageNameDiv() {
+            console.log(ctInput);
+            setTaskName(ctInput);
+            // tnInput.style.width = tnInput.value.trim().length + 'ch'
+            ctspNameDiv.innerText = ctInput;
+            setCtInput('');
+    }
 
     const keyDownFn = (e) => {
         if (e.key === '!') {
-            console.log('key pressed!:', e.key )
+            console.log('key pressed!:', e.key)
             manageNameDiv();
-         }
+        }
 
 
     }
@@ -190,14 +210,21 @@ export default function CreateTaskSubPanel() {
                 {/* <div className='ctsp-ct-input-main'> */}
                 <div className='ctsp-ct-pseudo-input'>
 
+                    <div
+                        className='ctsp-name-div'
+                        onClick={nameDivClick}
+                    >
                     <input
-                        className='ctsp-name-div ctsp-ct-input'
+                        className='ctsp-name-input'
+                        ref={inputRef}
                         type='text'
+                        onChange={(e) => setTaskName(e.target.value)}
                     />
+                    </div>
+
 
                     <input
                         className='ctsp-ct-input'
-                        ref={inputRef}
                         type='text'
                         placeholder='Add a task...'
                         value={ctInput}
@@ -211,20 +238,10 @@ export default function CreateTaskSubPanel() {
                     className={`ctsp-add-task-grp ${renderAddTaskGrpClass}`}
                 >
                     <div className={`ctsp-add-task-grp-icons ${renderTaskFormIconClass}`}>
-                        <DropDownWrapper
-                            offset='100px'
-                            menu={
-                                <div className='test-dd-menu'>
-                                    <input
-                                        type='datetime'
-                                    ></input>
-                                </div>}
-                        >
                             <img
                                 className='ctsp-at-icon-style'
                                 src={dueDateIcon}
                             />
-                        </DropDownWrapper>
 
                         <img className='ctsp-at-icon-style' src={startDateIcon} />
                         <img className='ctsp-at-icon-style' src={listIcon} />
