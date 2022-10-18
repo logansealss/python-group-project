@@ -20,6 +20,7 @@ function Plus (props) {
       form={props.form}
       header={`Add a ${props.feature}`}
       feature={props.feature}
+      thunk={props.thunk}
       >
       <img id='plus' src={plus_img}/>
     </ModalWrapper>
@@ -58,8 +59,8 @@ export default function TaskAppSidebar() {
       expanded: listsExpanded,
       setter: setListsExpanded,
       title: 'Lists',
-      obj: <Plus  form={<CreateTagListForm/>} feature='list'/>,
-      children: Object.values(lists).map(list => (<BannerItem key={list.id}>{list.name}</BannerItem>))
+      obj: <Plus  form={<CreateTagListForm/>} feature='list' thunk={listActions.createList}/>,
+      children: lists && Object.values(lists).map(list => (<BannerItem key={list.id}>{list.name}</BannerItem>))
     },
     'Tags': {
       expanded: tagsExpanded,

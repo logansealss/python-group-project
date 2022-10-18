@@ -1,13 +1,21 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function CreateListTagForm (props) {
+  console.log(props.thunk)
   const dispatch = useDispatch()
   const [name, setName] = useState('')
 
+  const userId = useSelector(state=>state.session.user.id);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await dispatch(props.thunk({'name': name}));
+    console.log(userId)
+    console.log(name)
+    const response = await dispatch(props.thunk({
+      'user_id': userId,
+      'name': name
+    }));
     if (response.ok) {
       props.setShowModal(false);
     }
