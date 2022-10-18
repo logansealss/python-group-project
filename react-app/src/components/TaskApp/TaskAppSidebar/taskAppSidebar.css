@@ -20,7 +20,7 @@ width: 160px;
 .tasb-caret {
 color: black;
 height:12px;
-width: auto;
+width: 12px;
 }
 
 #sidebar {
@@ -33,8 +33,6 @@ width: auto;
   margin-left: 15px;
   margin-right: 4px;
 
-  /* height: 28px; */
-
   border-bottom: 1px solid rgba(0,0,0,.1);
 }
 
@@ -43,15 +41,24 @@ width: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  height: 28px;
   width: 100%;
 }
+
+#collapser_header:hover,
+#banner_item:hover {
+  background-color: hsl(240,26%,82%);
+}
+
+
+
 
 #collapse_button {
   cursor: pointer;
   transform: rotate(-90deg);
   transition-duration: 0.5s;
 }
+
 #collapse_button.expanded {
   transform: rotate(0)
 }
@@ -67,6 +74,7 @@ width: auto;
 #banner_item{
   display: flex;
   align-items: center;
+  padding-left: 12px;
   height: 28px;
   flex-grow: 1;
   justify-content: space-between;
@@ -76,12 +84,53 @@ width: auto;
 #children_container {
   box-sizing: border-box;
   width: 100%;
-  padding-left: 7.5px;
 }
 
 .collapser_rhs_icons {
   display:flex;
+  justify-content: space-between;
   align-items: center;
+  margin: 0 2px;;
+}
+
+#plus, #dropdown_caret {
+  height: 12px;
+  width: 12px;
+  margin-right: 2px;
+  border-radius: 3px;
+
+  border: 1px solid hsl(240, 26%, 40%);
+
+  filter: brightness(0) saturate(100%) invert(32%) sepia(3%) saturate(4186%) hue-rotate(202deg) brightness(100%) contrast(83%);
+}
+
+#plus:hover, #dropdown_caret:hover {
+  background-color: hsl(240, 26%, 40%);
+  filter: invert(91%) sepia(21%) saturate(239%) hue-rotate(200deg) brightness(100%) contrast(85%);
+}
+
+#dropdown_caret {
+  display: none;
+}
+
+#count {
+  background-color: hsl(240,26%,84%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  padding: 2px;
+}
+
+
+#dropdown_caret:hover {
+  border: 1px solid hsla(240, 15%, 40%);
+  border-radius: 3px;
+}
+
+#collapser_header:hover #dropdown_caret,
+#banner_item:hover #dropdown_caret {
+  display: inherit;
 }
 
 .children_container {
@@ -90,13 +139,12 @@ width: auto;
 
 }
 
-.plus_button {
-  height: 12px;
-  width: auto
-}
-
-.grow {
+.title {
   flex-grow: 1;
+  padding-left: 4px;
+  cursor:pointer;
+
+  text-overflow: ellipsis;
 }
 
 .flex {

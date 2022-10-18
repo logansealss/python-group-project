@@ -12,13 +12,13 @@ import ModalWrapper from '../../../context/Modal'
 function Plus () {
   return (
     <ModalWrapper form={<div>New Modal</div>}>
-      <img src={plus_img} className='plus_button'/>
+      <img id='plus' src={plus_img}/>
     </ModalWrapper>
   )
 };
 
 function Count (props) {
-  return (<div>{props.count}</div>)
+  return (<div id='count'>{props.count}</div>)
 };
 
 export default function TaskAppSidebar () {
