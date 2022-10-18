@@ -14,5 +14,6 @@ class List(db.Model):
         return {
             'id': self.id,
             'userId': self.user_id,
-            'name': self.name
+            'name': self.name,
+            'tasks': [task.id for task in self.tasks]
         }

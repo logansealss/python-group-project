@@ -23,7 +23,8 @@ class Tag(db.Model):
             'id': self.id,
             'userId': self.user_id,
             'name': self.name,
-            'color': self.color
+            'color': self.color,
+            'tasks': [task.id for task in self.tasks]
         }
 
 class Task(db.Model):

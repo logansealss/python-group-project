@@ -1,8 +1,8 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, request
 from flask_login import current_user, login_required
 
 from app.models import db, Task, Tag, List
-from app.forms.task_form import TaskForm
+from app.forms.task_form import TaskForm, UpdateTaskForm
 from app.api.auth_routes import validation_errors_to_error_messages
 
 task_routes = Blueprint('task', __name__)
@@ -15,14 +15,9 @@ def get_user_tasks():
     the key and the task dict as the value
     """
 
-    allTasks = Task.query.filter_by(user_id=current_user.id)
-    tasks = dict()
-    for t in allTasks:
-        task = t.to_dict()
-        taskId = task['id']
-        tasks[taskId] = task
+    user_tasks = Task.query.filter_by(user_id=current_user.id)
 
-    return tasks
+    return {task.id: task.to_dict() for task in user_tasks}
 
 @task_routes.route('/<int:id>')
 @login_required
@@ -35,7 +30,6 @@ def get_task_by_id(id):
 
     # task does not exist
     if task is None:
-        print("task is none")
         return {
             "message": "Task couldn't be found",
             "statusCode": 404}, 404
@@ -66,7 +60,7 @@ def create_task():
                         start_date=form_data["start_date"],
                         due_date=form_data["due_date"],
                         duration=form_data["duration"],
-                        note=form_data["note"],
+                        note=form_data["note"] if form_data["note"] else None,
                         completed=form_data["completed"])
 
         db.session.add(new_task)
@@ -122,7 +116,6 @@ def update_task_by_id(id):
 
     # task does not exist
     if task is None:
-        print("task is none")
         return {
             "message": "Task couldn't be found",
             "statusCode": 404}, 404
@@ -133,7 +126,7 @@ def update_task_by_id(id):
             "message": "Forbidden",
             "statusCode": 403}, 403
 
-    form = TaskForm()
+    form = UpdateTaskForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         form_data = form.data
@@ -180,7 +173,6 @@ def delete_task_by_id(id):
 
     # task does not exist
     if task is None:
-        print("task is none")
         return {
             "message": "Task couldn't be found",
             "statusCode": 404}, 404
@@ -234,5 +226,5 @@ def remove_tag_from_task(task_id, tag_id):
             "statusCode": 200}
 
     return{
-        "message": "Task does not have the tag",
+        "message": "Task does not have the provided tag",
         "statusCode": 404}, 404
