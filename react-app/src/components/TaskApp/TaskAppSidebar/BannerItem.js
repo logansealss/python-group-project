@@ -6,7 +6,7 @@ import { useRef } from 'react';
 
 function Menu (props) {
   return (
-    <div id='banner_dropdown'>
+    <div id='banner_dropdown' onClick={e=>e.stopPropagation()}>
       <ModalWrapper>
         <div>Rename</div>
       </ModalWrapper>

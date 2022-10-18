@@ -20,7 +20,8 @@ export function DropdownProvider(props) {
       </DropdownContext.Provider>
       <div
         ref={dropdownRef}
-        className='dropdown_container'
+        className={`dropdown_container ${props.left ? 'left' : 'right'}`}
+        style={{'top': props.offset}}
         >
       </div>
     </>
@@ -35,14 +36,14 @@ export default function DropDownWrapper(props) {
     setShowMenu(true);
   };
 
-    useEffect(() => {
-        if (!showMenu) return;
-        const closeMenu = () => {
-            setShowMenu(false);
-        };
+  const closeMenu = () => {
+    setShowMenu(false);
+  };
 
-        document.addEventListener('click', closeMenu);
-        return () => document.removeEventListener("click", closeMenu);
+  useEffect(() => {
+    if (!showMenu) return;
+    document.addEventListener('click', closeMenu);
+    return () => document.removeEventListener('click', closeMenu);
     }, [showMenu]);
 
   return (
@@ -63,6 +64,6 @@ export default function DropDownWrapper(props) {
 
 export function Dropdown (props) {
   const location = useContext(DropdownContext)
-  if (!location) return null;
-  return ReactDom.createPortal(props.menu,location);
+  if (!location) return props.menu
+  return ReactDom.createPortal(props.menu, location);
 };
