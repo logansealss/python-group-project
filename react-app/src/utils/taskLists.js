@@ -1,7 +1,5 @@
 export function getDateFromToday(daysForward = 0) {
     let res = new Date();
-    res = res.setHours(0, 0, 0, 0);
-    res = new Date(res);
     res.setDate(res.getDate() + daysForward)
     res = res.toISOString();
     res = res.slice(0, 10)
