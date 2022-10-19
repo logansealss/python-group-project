@@ -58,9 +58,7 @@ export default function TaskAppSidebar() {
           <BannerItem
             key={title}
             obj={<Count count={'#'}/>}
-            handleClick={()=>{
-              console.log(`/app/${slug}`)
-              history.push(`/app/${slug}`)}}
+            handleClick={()=>history.push(`/app/${slug}`)}
             >
             {title}
           </BannerItem>
@@ -78,6 +76,7 @@ export default function TaskAppSidebar() {
             id={list.id}
             feature='list'
             obj={<Count count={list.taskCount}/>}
+            handleClick={()=>history.push(`/app/lists/${list.id}`)}
             >
             {list.name}
           </BannerItem>
@@ -94,6 +93,7 @@ export default function TaskAppSidebar() {
           id={tag.id}
           feature='tag'
           obj={<Count count={tag.taskCount}/>}
+          handleClick={()=>history.push(`/app/tags/${tag.id}`)}
           >
           {tag.name}
         </BannerItem>))
