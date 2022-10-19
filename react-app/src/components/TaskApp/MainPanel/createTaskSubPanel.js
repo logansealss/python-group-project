@@ -33,6 +33,7 @@ export default function CreateTaskSubPanel() {
     const [repeat, setRepeat] = useState('');
     const [location, setLocation] = useState('');
     const [estimate, setEstimate] = useState('');
+    const [ctInputState, setCtInputState] = ([]);
     const [renderAddTaskGrpClass, setRenderAddTaskGrpClass] = useState(
         'ctsp-ratgc-true'
     );
@@ -99,8 +100,6 @@ export default function CreateTaskSubPanel() {
             console.log('key pressed!:', e.key)
             manageNameDiv();
         }
-
-
     }
 
     return (
