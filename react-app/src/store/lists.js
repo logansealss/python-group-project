@@ -1,5 +1,3 @@
-import CreateListTagForm from "../components/Forms/CreateTagListForm";
-
 // constants
 const LOAD_ALL = 'lists/LOAD_ALL';
 const CREATE = 'lists/CREATE';

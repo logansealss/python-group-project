@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 
-import * as listActions from '../../store/lists'
-import * as tagActions from '../../store/tags'
+import * as listActions from '../../../../store/lists'
+import * as tagActions from '../../../../store/tags'
 
 export default function RemoveTagListForm (props) {
   const dispatch = useDispatch()

@@ -1,7 +1,7 @@
 import downCaret from '../../../img/caret-down.svg';
 import ModalWrapper from '../../../context/Modal.js';
 import DropDownWrapper, { DropdownProvider } from '../../../context/Dropdown';
-import RemoveTagListForm from '../../Forms/RemoveTagListForm';
+import RemoveTagListForm from './Forms/RemoveTagListForm';
 
 export default function BannerItem (props) {
 

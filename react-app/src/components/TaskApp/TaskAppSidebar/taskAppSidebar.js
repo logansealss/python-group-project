@@ -7,7 +7,7 @@ import * as tagActions from '../../../store/tags'
 
 import Collapser from './Collapser'
 import BannerItem from './BannerItem'
-import CreateTagListForm from '../../Forms/CreateTagListForm'
+import CreateTagListForm from './Forms/CreateTagListForm'
 import ModalWrapper from '../../../context/Modal'
 
 import logo from '../../../img/TM-logo-short-nobg.png'
