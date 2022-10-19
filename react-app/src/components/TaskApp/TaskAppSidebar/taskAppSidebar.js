@@ -58,7 +58,7 @@ export default function TaskAppSidebar() {
           <BannerItem
             key={title}
             obj={<Count count={'#'}/>}
-            handleClick={()=>history.push(`/app/list/${slug}`)}
+            handleClick={()=>history.push(`/app/lists/${slug}`)}
             >
             {title}
           </BannerItem>

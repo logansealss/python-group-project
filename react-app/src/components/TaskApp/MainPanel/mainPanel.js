@@ -18,8 +18,9 @@ import './mainPanel.css';
 export default function MainPanel() {
 
     const { path, url } = useRouteMatch();
-    let { listId } = useParams();
-    listId = listId.toLowerCase()
+    let { listId, filterId } = useParams();
+    listId = listId ? listId.toLowerCase() : listId
+    filterId = filterId ? filterId.toLowerCase() : filterId
 
     const dispatch = useDispatch();
     const tasks = useSelector(state => {
@@ -37,39 +38,47 @@ export default function MainPanel() {
     }, [dispatch]);
 
     let listDetails = null;
-
     let taskObj = tasks ? tasks : {};
 
-    if (listId === "all" || listId === undefined) {
-        listDetails = getListDetailsFromDates(taskObj)
-        listDetails.name = "All Tasks"
-    } else if (listId === "today") {
-        listDetails = getListDetailsFromDates(taskObj, getDateFromToday(), getDateFromToday())
-        listDetails.name = "Today"
-    } else if (listId === "tomorrow") {
-        listDetails = getListDetailsFromDates(taskObj, getDateFromToday(1), getDateFromToday(1))
-        listDetails.name = "Tomorrow"
-    } else if (listId === "week") {
-        listDetails = getListDetailsFromDates(taskObj, getDateFromToday(), getDateFromToday(6))
-        listDetails.name = "This Week"
-    } else {
+    if (filterId === 'lists') {
 
-        let list = lists && Object.values(lists).find(lst => lst.id === +listId)
+        if (listId === "all" || listId === undefined) {
+            listDetails = getListDetailsFromDates(taskObj)
+            listDetails.name = "All Tasks"
+        } else if (listId === "today") {
+            listDetails = getListDetailsFromDates(taskObj, getDateFromToday(), getDateFromToday())
+            listDetails.name = "Today"
+        } else if (listId === "tomorrow") {
+            listDetails = getListDetailsFromDates(taskObj, getDateFromToday(1), getDateFromToday(1))
+            listDetails.name = "Tomorrow"
+        } else if (listId === "week") {
+            listDetails = getListDetailsFromDates(taskObj, getDateFromToday(), getDateFromToday(6))
+            listDetails.name = "This Week"
+        } else {
 
-        if (list) {
-            listDetails = getListDetailsFromList(taskObj, +listId)
-            listDetails.name = list.name
-        } else if (list === undefined) {
+            let list = lists && Object.values(lists).find(lst => lst.id === +listId)
 
-            let tag = tags && Object.values(tags).find(tag => tag.id === +listId)
-
-            if (tag) {
-                listDetails = getListDetailsFromTag(taskObj, +listId)
-                listDetails.name = tag.name
-            } else if (tag === undefined) {
-                return <Redirect to="/app/all"></Redirect>
+            if (list) {
+                listDetails = getListDetailsFromList(taskObj, +listId)
+                listDetails.name = list.name
+            } else if (list === undefined) {
+                return <Redirect to="/app/lists/all"></Redirect>
             }
         }
+
+    } else if (filterId === 'tags') {
+
+        let tag = tags && Object.values(tags).find(tag => tag.id === +listId)
+
+        if (tag) {
+            listDetails = getListDetailsFromTag(taskObj, +listId)
+            listDetails.name = tag.name
+        } else if (tag === undefined) {
+            return <Redirect to="/app/lists/all"></Redirect>
+        }
+
+    } else {
+        return <Redirect to="/app/list/all"></Redirect>
     }
 
     return (tasks && lists && tags &&
@@ -80,7 +89,7 @@ export default function MainPanel() {
                     <Link
                         key={idx}
                         className='mpti-link-wrap'
-                        to={`/app/${listId}/${task.id}`}
+                        to={`/app/${filterId}/${listId}/${task.id}`}
                     >
                         <TaskRowItem task={task} />
                     </Link>

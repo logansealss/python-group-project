@@ -12,45 +12,50 @@ import './listDetailPanel.css'
 
 export default function ListDetailPanel() {
 
-  let { listId } = useParams();
-  listId = listId.toLowerCase()
+  let { listId, filterId } = useParams();
+  listId = listId ? listId.toLowerCase() : listId
+  filterId = filterId ? filterId.toLowerCase() : filterId
+
   const tasks = useSelector(state => state.tasks.allTasks)
   const lists = useSelector(state => state.lists)
   const tags = useSelector(state => state.tags)
 
   let listDetails = null;
-
   let taskObj = tasks ? tasks : {};
 
-  if (listId === "all") {
-    listDetails = getListDetailsFromDates(taskObj)
-    listDetails.name = "All Tasks"
-  } else if (listId === "today") {
-    listDetails = getListDetailsFromDates(taskObj, getDateFromToday(), getDateFromToday())
-    listDetails.name = "Today"
-  } else if (listId === "tomorrow") {
-    listDetails = getListDetailsFromDates(taskObj, getDateFromToday(1), getDateFromToday(1))
-    listDetails.name = "Tomorrow"
-  } else if (listId === "week") {
-    listDetails = getListDetailsFromDates(taskObj, getDateFromToday(), getDateFromToday(6))
-    listDetails.name = "This Week"
-  } else {
+  if (filterId === 'lists') {
 
-    let list = lists && Object.values(lists).find(lst => lst.id === +listId)
+    if (listId === "all" || listId === undefined) {
+        listDetails = getListDetailsFromDates(taskObj)
+        listDetails.name = "All Tasks"
+    } else if (listId === "today") {
+        listDetails = getListDetailsFromDates(taskObj, getDateFromToday(), getDateFromToday())
+        listDetails.name = "Today"
+    } else if (listId === "tomorrow") {
+        listDetails = getListDetailsFromDates(taskObj, getDateFromToday(1), getDateFromToday(1))
+        listDetails.name = "Tomorrow"
+    } else if (listId === "week") {
+        listDetails = getListDetailsFromDates(taskObj, getDateFromToday(), getDateFromToday(6))
+        listDetails.name = "This Week"
+    } else {
 
-    if (list) {
-      listDetails = getListDetailsFromList(taskObj, +listId)
-      listDetails.name = list.name
-    } else if (list === undefined) {
+        let list = lists && Object.values(lists).find(lst => lst.id === +listId)
 
-      let tag = tags && Object.values(tags).find(tag => tag.id === +listId)
+        if (list) {
+            listDetails = getListDetailsFromList(taskObj, +listId)
+            listDetails.name = list.name
+        }
+    }
 
-      if (tag) {
+} else if (filterId === 'tags') {
+
+    let tag = tags && Object.values(tags).find(tag => tag.id === +listId)
+
+    if (tag) {
         listDetails = getListDetailsFromTag(taskObj, +listId)
         listDetails.name = tag.name
-      }
     }
-  }
+}
 
   return (listDetails &&
     <div>
@@ -106,7 +111,7 @@ export default function ListDetailPanel() {
             </div>
           }
         </div>
-        <div class="list-details-data">
+        <div className="list-details-data">
           <div>
             <div
               className='list-details-data-value'
