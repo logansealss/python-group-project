@@ -26,13 +26,16 @@ export function ModalProvider({children}) {
 
 export default function ModalWrapper(props) {
   const [showModal, setShowModal] = useState(false);
-
   return (
     <>
     {React.cloneElement(
       props.children,
       {
-        onClick: ()=> setShowModal(true),
+        onClick: ()=> {
+          if (props.clickEvent) {
+          props.clickEvent()};
+          setShowModal(true);
+        },
         style: {'cursor': 'pointer'}
       },
       )}

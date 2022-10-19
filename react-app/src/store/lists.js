@@ -66,7 +66,6 @@ export const deleteList = (id) => async dispatch => {
 let newState;
 const initialState = null;
 export const listReducer = (state = initialState, action) => {
-    console.log(state)
     switch (action.type) {
         case LOAD_ALL:
             return { ...action.allLists }

@@ -3,15 +3,16 @@ import ModalWrapper from '../../../context/Modal.js';
 import DropDownWrapper, { DropdownProvider } from '../../../context/Dropdown';
 import RemoveTagListForm from './Forms/RemoveTagListForm';
 import RenameTagListForm from './Forms/RenameTagListForm';
+import { useState } from 'react';
 export default function BannerItem (props) {
 
   return (
-    <DropdownProvider>
+    <DropdownProvider position='relative'>
       <div id='banner_item'>
         <div className='title' onClick={props.handleClick}>{props.children}</div>
           <div className='collapser_rhs_icons'>
             <DropDownWrapper
-              offset='14px'
+              offset='0px'
               left={true}
               menu={
                 <Menu
@@ -31,15 +32,27 @@ export default function BannerItem (props) {
 }
 
 function Menu (props) {
+  const [displayDropdown, setDisplayDropdown] = useState(true);
   return (
-    <div id='banner_dropdown' onClick={e=>e.stopPropagation()}>
+    <div id='banner_dropdown'
+      onClick={e=>e.stopPropagation()}
+      className={`${displayDropdown ? '': 'hidden'} `}
+      >
       <ModalWrapper
         header={`Rename ${props.feature}`}
         name={props.name}
         form={<RenameTagListForm/>}
         feature={props.feature}
+        itemId={props.itemId}
+        clickEvent={()=>{
+          console.log('clicked');
+          setDisplayDropdown(val=> !val);
+          document.addEventListener('click', ()=> {
+            setDisplayDropdown(true)
+          }, {once: true})
+        }}
         >
-        <div id='sidebar_dropdown_button' >Rename</div>
+        <div id='sidebar_dropdown_button'>Rename</div>
       </ModalWrapper>
       <ModalWrapper
         header={`Delete ${props.feature}`}
