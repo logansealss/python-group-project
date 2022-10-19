@@ -67,6 +67,7 @@ export default function TaskAppSidebar() {
             key={list.id}
             id={list.id}
             feature='list'
+            obj={<Count count={list.taskCount}/>}
             >
             {list.name}
           </BannerItem>
@@ -82,6 +83,7 @@ export default function TaskAppSidebar() {
           key={tag.id}
           id={tag.id}
           feature='tag'
+          obj={<Count count={tag.taskCount}/>}
           >
           {tag.name}
         </BannerItem>))
