@@ -7,6 +7,7 @@ import * as tagActions from '../../../store/tags'
 import Collapser from './Collapser'
 import BannerItem from './BannerItem'
 import CreateTagListForm from '../../Forms/CreateTagListForm'
+import RemoveTagListForm from '../../Forms/RemoveTagListForm'
 import ModalWrapper from '../../../context/Modal'
 
 import logo from '../../../img/TM-logo-short-nobg.png'
@@ -60,14 +61,30 @@ export default function TaskAppSidebar() {
       setter: setListsExpanded,
       title: 'Lists',
       obj: <Plus  form={<CreateTagListForm/>} feature='list' thunk={listActions.createList}/>,
-      children: lists && Object.values(lists).map(list => (<BannerItem key={list.id} id={list.id}>{list.name}</BannerItem>))
+      children: lists && Object.values(lists)
+        .map(list => (
+          <BannerItem
+            key={list.id}
+            id={list.id}
+            feature='list'
+            >
+            {list.name}
+          </BannerItem>
+      ))
     },
     'Tags': {
       expanded: tagsExpanded,
       setter: setTagsExpanded,
       title: 'Tags',
       obj: <Plus  form={<CreateTagListForm/>} feature='tag' thunk={tagActions.createTag}/>,
-      children: tags && Object.values(tags).map(tag => (<BannerItem key={tag.id} id={tag.id}>{tag.name}</BannerItem>))
+      children: tags && Object.values(tags).map(tag => (
+        <BannerItem
+          key={tag.id}
+          id={tag.id}
+          feature='tag'
+          >
+          {tag.name}
+        </BannerItem>))
     },
   };
 

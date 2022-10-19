@@ -3,6 +3,7 @@ import CreateListTagForm from "../components/Forms/CreateTagListForm";
 // constants
 const LOAD_ALL = 'lists/LOAD_ALL';
 const CREATE = 'lists/CREATE';
+const DELETE = 'lists/DELETE';
 
 const loadAll = allLists => ({
     type: LOAD_ALL,
@@ -12,6 +13,11 @@ const loadAll = allLists => ({
 const loadNew = newList => ({
     type: CREATE,
     newList
+});
+
+const removeList = id => ({
+    type: DELETE,
+    id
 });
 
 export const getAllLists = () => async (dispatch) => {
@@ -47,14 +53,30 @@ export const createList = (newList) => async dispatch => {
     return response;
 }
 
-const initialState = null;
+export const deleteList = (id) => async dispatch => {
+    const response = await fetch(`/api/list/${id}`, {
+        method: 'DELETE'
+    });
+    if (response.ok) {
+        dispatch(removeList(id))
+        return response
+    };
+    return response;
+};
 
+
+let newState;
+const initialState = null;
 export const listReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_ALL:
             return { ...action.allLists }
         case CREATE:
             return {...state, [action.newList.id]: action.newList }
+        case DELETE:
+            newState = {...state}
+            delete newState.lists[action.id]
+            return {...newState}
         default:
             return state;
     }

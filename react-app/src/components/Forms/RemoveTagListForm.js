@@ -1,11 +1,19 @@
 import { useDispatch } from "react-redux";
 
-export default function CreateListTagForm (props) {
+import * as listActions from '../../store/lists'
+import * as tagActions from '../../store/tags'
+
+export default function RemoveTagListForm (props) {
   const dispatch = useDispatch()
+
+  const actions = {
+    'list': listActions.deleteList,
+    'tag': ''
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await dispatch(props.thunk(props.id));
+    const response = await dispatch(actions[props.feature](props.id));
     if (response.ok) {
       props.setShowModal(false);
     }
