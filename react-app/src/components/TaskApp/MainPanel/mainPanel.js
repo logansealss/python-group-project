@@ -16,14 +16,20 @@ export default function MainPanel() {
     const allTasks = useSelector(state => {
         return state.tasks.allTasks;
     });
+    const tags = useSelector(state => {
+        return state.tags;
+    });
+    const lists = useSelector(state => {
+        return state.lists;
+    });
 
     useEffect(() => {
         dispatch(getAllTasks());
     }, [dispatch]);
 
-    return (allTasks &&
+    return (allTasks && tags && lists &&
         <div className='tam-main-div'>
-            <CreateTaskSubPanel />
+            <CreateTaskSubPanel lists={lists} tags={tags} />
             <div className='tam-task-list-div'>
                 {Object.values(allTasks).map((task, idx) => (
                     <Link
