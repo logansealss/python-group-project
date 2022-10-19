@@ -114,8 +114,8 @@ export const deleteSingleTask = (id) => async (dispatch) => {
 }
 
 const initialState = {
-                        allTasks: {},
-                        singleTask: {}
+                        allTasks: null,
+                        singleTask: null
                     };
 
 export const taskReducer = (state = initialState, action) => {
@@ -127,7 +127,7 @@ export const taskReducer = (state = initialState, action) => {
         case LOAD_ONE:
             return { ...state, singleTask: action.singleTask }
         case CREATE_TASK:
-            return { 
+            return {
                     singleTask: { ...state.singleTask },
                     allTasks: { ...state.allTasks, [action.newTask.id]: action.newTask }
                 }
@@ -141,8 +141,8 @@ export const taskReducer = (state = initialState, action) => {
                 singleTask,
             }
         case DELETE_TASK:
-            singleTask = (state.singleTask.id && state.singleTask.id === action.id) ? 
-                {} : 
+            singleTask = (state.singleTask.id && state.singleTask.id === action.id) ?
+                {} :
                 { ...state.singleTask };
             allTasks = { ...state.allTasks }
             delete allTasks[action.id]

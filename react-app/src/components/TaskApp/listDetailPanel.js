@@ -16,24 +16,26 @@ export default function ListDetailPanel() {
 
   let listDetails = null;
 
+  let taskObj = tasks ? tasks : {};
+
   if (listId === "all") {
-    listDetails = getListDetailsFromDates(tasks)
+    listDetails = getListDetailsFromDates(taskObj)
     listDetails.name = "All Tasks"
   } else if (listId === "today") {
-    listDetails = getListDetailsFromDates(tasks, getDateFromToday(), getDateFromToday())
+    listDetails = getListDetailsFromDates(taskObj, getDateFromToday(), getDateFromToday())
     listDetails.name = "Today"
   } else if (listId === "tomorrow") {
-    listDetails = getListDetailsFromDates(tasks, getDateFromToday(1), getDateFromToday(1))
+    listDetails = getListDetailsFromDates(taskObj, getDateFromToday(1), getDateFromToday(1))
     listDetails.name = "Tomorrow"
   } else if (listId === "week") {
-    listDetails = getListDetailsFromDates(tasks, getDateFromToday(), getDateFromToday(6))
+    listDetails = getListDetailsFromDates(taskObj, getDateFromToday(), getDateFromToday(6))
     listDetails.name = "This Week"
   } else {
 
     let list = lists && Object.values(lists).find(lst => lst.id === +listId)
 
     if (list) {
-      listDetails = getListDetailsFromList(tasks, +listId)
+      listDetails = getListDetailsFromList(taskObj, +listId)
       listDetails.name = list.name
     }
   }

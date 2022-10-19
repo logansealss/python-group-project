@@ -1,7 +1,7 @@
 import React from 'react'
 
-import DropDownWrapper from '../../DropdownWrapper'
-import downCaret from '../../../img/caret-down.svg'
+import DropDownWrapper from '../../../context/Dropdown';
+import downCaret from '../../../img/caret-down.svg';
 
 
 export default function Collapser (props) {
@@ -26,12 +26,12 @@ export default function Collapser (props) {
           </div>
         </div>
         <div className='collapser_rhs_icons'>
-          <DropDownWrapper
+          {/* <DropDownWrapper
             offset='14px'
             menu={<div className='dropdown_menu'>My new menu</div>}
             >
             <img id= 'dropdown_caret' className='tasb-caret' src={downCaret} />
-          </DropDownWrapper>
+          </DropDownWrapper> */}
           {props.obj}
           </div>
         </div>

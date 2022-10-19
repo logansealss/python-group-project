@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, Redirect } from 'react-router-dom';
+import { useRouteMatch, useParams, Redirect } from 'react-router-dom';
 
 
 import { getAllTasks } from '../../../store/tasks';
@@ -14,7 +15,21 @@ import './mainPanel.css';
 
 export default function MainPanel() {
 
+    const { path, url } = useRouteMatch();
     const { listId } = useParams();
+
+    // const linkPath = createLinkPath();
+
+    // function createLinkPath() {
+    //     if (
+    //         path.includes('all') ||
+    //         path.includes('today') ||
+    //         path.includes('tomorrow')
+    //     ) {
+    //         return `${path}/${task.id}`
+    //     } else
+    // }
+
     const dispatch = useDispatch();
     const tasks = useSelector(state => {
         return state.tasks.allTasks;
@@ -26,26 +41,27 @@ export default function MainPanel() {
     }, [dispatch]);
 
     let listDetails = null;
-    console.log("list id in main panel", listId)
+
+    let taskObj = tasks ? tasks : {};
 
     if (listId === "all" || listId === undefined) {
-        listDetails = getListDetailsFromDates(tasks)
+        listDetails = getListDetailsFromDates(taskObj)
         listDetails.name = "All Tasks"
     } else if (listId === "today") {
-        listDetails = getListDetailsFromDates(tasks, getDateFromToday(), getDateFromToday())
+        listDetails = getListDetailsFromDates(taskObj, getDateFromToday(), getDateFromToday())
         listDetails.name = "Today"
     } else if (listId === "tomorrow") {
-        listDetails = getListDetailsFromDates(tasks, getDateFromToday(1), getDateFromToday(1))
+        listDetails = getListDetailsFromDates(taskObj, getDateFromToday(1), getDateFromToday(1))
         listDetails.name = "Tomorrow"
     } else if (listId === "week") {
-        listDetails = getListDetailsFromDates(tasks, getDateFromToday(), getDateFromToday(6))
+        listDetails = getListDetailsFromDates(taskObj, getDateFromToday(), getDateFromToday(6))
         listDetails.name = "This Week"
     } else {
 
         let list = lists && Object.values(lists).find(lst => lst.id === +listId)
 
         if (list) {
-            listDetails = getListDetailsFromList(tasks, +listId)
+            listDetails = getListDetailsFromList(taskObj, +listId)
             listDetails.name = list.name
         }else if(list === undefined){
             return <Redirect to="/app/all"></Redirect>
@@ -56,10 +72,16 @@ export default function MainPanel() {
         <div className='tam-main-div'>
             <CreateTaskSubPanel />
             <div className='tam-task-list-div'>
-                {listDetails && listDetails.tasks.map(task => (
-                    <TaskRowItem task={task} />
+                {listDetails && listDetails.tasks.map((task, idx) => (
+                    <Link
+                        key={idx}
+                        className='mpti-link-wrap'
+                        to={`/app/${listId}/${task.id}`}
+                    >
+                        <TaskRowItem task={task} />
+                    </Link>
                 ))}
             </div>
-        </div>
+        </div >
     )
 }

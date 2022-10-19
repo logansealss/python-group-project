@@ -150,3 +150,14 @@ width: 12px;
 .flex {
   display:flex
 }
+
+
+#banner_dropdown {
+  background-color: white;
+  width: 200px;
+  height: 150px;
+  border: 1px solid black;
+  border-radius: 12px;
+  position: absolute;
+  z-index: 1;
+}
