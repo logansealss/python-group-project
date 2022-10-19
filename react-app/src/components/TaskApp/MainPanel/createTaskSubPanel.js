@@ -51,7 +51,9 @@ export default function CreateTaskSubPanel({lists, tags}) {
         } else {
             setRenderTaskFormIconClass('ctsp-ratig-false');
         }
-    }, [ctInput]);
+
+        console.log(taskTags)
+    }, [taskName, taskTags]);
 
 
     const handleCtSubmit = (e) => {
@@ -264,7 +266,7 @@ export default function CreateTaskSubPanel({lists, tags}) {
                         className='ctsp-tag-input'
                         multiple={true}
                         value={taskTags}
-                        onChange={(e) => setTaskTags([...e.target.value])}
+                        onChange={(e) => {console.log(e.target); return setTaskTags([e.target.selectedOptions])}}
                     >
                         {Object.values(tags).map((t) =>
                             <option value={t.id}>{t.name}</option>
