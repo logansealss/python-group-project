@@ -73,7 +73,7 @@ export default function TaskAppSidebar() {
         .map(list => (
           <BannerItem
             key={list.id}
-            id={list.id}
+            itemId={list.id}
             name={list.name}
             feature='list'
             obj={<Count count={list.taskCount}/>}
@@ -91,7 +91,7 @@ export default function TaskAppSidebar() {
       children: tags && Object.values(tags).map(tag => (
         <BannerItem
           key={tag.id}
-          id={tag.id}
+          itemId={tag.id}
           name={tag.name}
           feature='tag'
           obj={<Count count={tag.taskCount}/>}

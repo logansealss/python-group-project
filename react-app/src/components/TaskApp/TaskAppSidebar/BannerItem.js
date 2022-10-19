@@ -15,7 +15,7 @@ export default function BannerItem (props) {
               left={true}
               menu={
                 <Menu
-                  id={props.id}
+                  itemId={props.itemId}
                   feature={props.feature}
                   name={props.name}
                 />}
@@ -31,7 +31,6 @@ export default function BannerItem (props) {
 }
 
 function Menu (props) {
-  console.log(props.name)
   return (
     <div id='banner_dropdown' onClick={e=>e.stopPropagation()}>
       <ModalWrapper
@@ -47,7 +46,7 @@ function Menu (props) {
         name={props.name}
         form={<RemoveTagListForm/>}
         feature={props.feature}
-        id={props.id}
+        itemId={props.itemId}
         >
         <div id='sidebar_dropdown_button'>Delete</div>
       </ModalWrapper>
