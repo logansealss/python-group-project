@@ -104,9 +104,7 @@ export function getListDetailsFromDates(tasks, startDate, dueDate) {
                     result.estimatedTime += task.duration
                 }
             }
-        }
-
-        if (taskDueDate < currentDate && dueDate !== getDateFromToday(1)) {
+        } else if (taskDueDate < currentDate && dueDate !== getDateFromToday(1)) {
 
             if (task.completed) {
                 result.completedTasks.push(task)
