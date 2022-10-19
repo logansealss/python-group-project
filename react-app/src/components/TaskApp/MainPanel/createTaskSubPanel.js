@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
-import DropDownWrapper from '../../../context/Dropdown';
+import Select from 'react-select';
+import ReactDOM from 'react-dom';
 import dueDateIcon from '../../../img/calendar-day.svg';
 import startDateIcon from '../../../img/square-caret-right.svg';
 import postponeIcon from '../../../img/calendar-plus.svg';
@@ -15,47 +16,50 @@ import minusIcon from '../../../img/minus.svg';
 import EliIcon from '../../../img/ellipsis.svg';
 import downCaret from '../../../img/caret-down.svg';
 import './createTaskSubPanel.css';
+import selectMenuTimes from '../../../data/selectMenuTimes.json';
 
-export default function CreateTaskSubPanel() {
+export default function CreateTaskSubPanel({lists}, {tags}) {
 
     const inputRef = useRef(null);
     const formRef = useRef(null);
 
+    console.log('tags:', {tags});
+
     const [ctInput, setCtInput] = useState('');
     const [taskName, setTaskName] = useState('');
+    const [tnInput, setTnInput] = useState(document.createElement('input'));
     const [dueDate, setDueDate] = useState('');
+    const [dueTime, setDueTime] = useState('');
     const [startDate, setStartDate] = useState('');
-    const [list, setList] = useState('');
+    const [startTime, setStartTime] = useState('');
+    const [taskList, setTaskList] = useState('');
     const [prio, setPrio] = useState('');
+    const [taskTags, setTaskTags] = useState('');
     const [repeat, setRepeat] = useState('');
     const [location, setLocation] = useState('');
     const [estimate, setEstimate] = useState('');
-    const [renderAddTaskGrpClass, setRenderAddTaskGrpClass] = useState('ctsp-ratgc-true');
-    const [renderTaskFormIconClass, setRenderTaskFormIconClass] = useState('ctsp-ratig-false')
+    const [ctInputState, setCtInputState] = ([]);
+    const [renderAddTaskGrpClass, setRenderAddTaskGrpClass] = useState(
+        'ctsp-ratgc-true'
+    );
+    const [renderTaskFormIconClass, setRenderTaskFormIconClass] = useState(
+        'ctsp-ratig-false'
+    )
 
-    const ctDiv = document.getElementsByClassName('ctsp-main-div');
+    // const ctDiv = document.getElementsByClassName('ctsp-main-div');
+    // // const ctspNameDiv = document.getElementsByClassName('ctsp-name-div');
+
+    const [ctspNameDiv, setCtspNameDiv] = useState(
+        document.getElementsByClassName('ctsp-name-div')[0]);
 
     useEffect(() => {
-        if (ctInput.length) {
+        if (taskName.length) {
             setRenderTaskFormIconClass('ctsp-ratig-true');
         } else {
             setRenderTaskFormIconClass('ctsp-ratig-false');
         }
-        if (ctInput.includes) { }
-
     }, [ctInput]);
 
-    // const handleDynamicNameInputClick = () => {
-    //     inputRef.current.focus();
-    // }
-
-    // const formRenderClickListener = document.addEventListener('click', formRenderClickHandler)
-
-    // function formRenderClickHandler(e) {
-    //     if (renderAddTaskGrpClass === 'ctsp-ratgc-true' && e.target !== ctDiv){
-    //         setRenderAddTaskGrpClass('ctsp-ratgc-false');
-    //     }
-    // }
 
     const handleCtSubmit = (e) => {
         e.preventDefault();
@@ -63,9 +67,33 @@ export default function CreateTaskSubPanel() {
         setCtInput('');
     }
 
-    const keyDownFn = (e) => {
-        if (e.key === '#') { }
-    }
+    // const nameDivClick = () => {
+    //     if (!document.getElementsByClassName('ctsp-name-div')[0].children.length) {
+    //         const input = document.createElement('input')
+    //         input.className = 'ctsp-name-input';
+    //         ctspNameDiv.innerText = '';
+    //         ctspNameDiv.appendChild(input);
+    //         input.value = taskName;
+    //         input.focus()
+    //         input.style.width = input.value.trim().length + 'ch'
+    //         input.innerText = taskName;
+    //     }
+    // }
+
+    // function manageNameDiv() {
+    //         console.log(ctInput);
+    //         setTaskName(ctInput);
+    //         // tnInput.style.width = tnInput.value.trim().length + 'ch'
+    //         ctspNameDiv.innerText = ctInput;
+    //         setCtInput('');
+    // }
+
+    // const keyDownFn = (e) => {
+    //     if (e.key === '!') {
+    //         console.log('key pressed!:', e.key)
+    //         manageNameDiv();
+    //     }
+    // }
 
     return (
         <form
@@ -173,43 +201,89 @@ export default function CreateTaskSubPanel() {
                 </div>
                 {/* <div className='ctsp-ct-input-main'> */}
                 <div className='ctsp-ct-pseudo-input'>
-                    {/* <div
-                            className='ctsp-dynamic-name-display'
-                            onClick={handleDynamicNameInputClick}
-                        >
-                            {ctInput}
-                        </div> */}
-
                     <input
                         className='ctsp-ct-input'
-                        ref={inputRef}
                         type='text'
                         placeholder='Add a task...'
-                        value={ctInput}
-                        onChange={(e) => setCtInput(e.target.value)}
-                        onFocus={() => { setRenderAddTaskGrpClass('ctsp-ratgc-true') }}
-                        // onBlur={() => { !ctInput.length && setRenderAddTaskGrpClass('ctsp-ratgc-false') }}
-                        onKeyDown={keyDownFn}
+                        value={taskName}
+                        onChange={(e) => setTaskName(e.target.value)}
+                    // onFocus={() => { setRenderAddTaskGrpClass('ctsp-ratgc-true') }}
+                    // onBlur={() => { !ctInput.length && setRenderAddTaskGrpClass('ctsp-ratgc-false') }}
+                    // onKeyDown={keyDownFn}
                     />
                 </div>
                 <div
                     className={`ctsp-add-task-grp ${renderAddTaskGrpClass}`}
                 >
-                    <div className={`ctsp-add-task-grp-icons ${renderTaskFormIconClass}`}>
-                        <DropDownWrapper
-                            offset='100px'
-                            menu={
-                                <div className='test-dd-menu'>
-                                    <input
-                                        type='datetime'
-                                    ></input>
-                                </div>}
-                        >
+                    <input
+                        className='ctsp-date-input'
+                        type='date'
+                        value={dueDate}
+                        onChange={(e) => setDueDate(e.target.value)}
+                    />
+                    <select
+                        className='ctsp-due-date-input'
+                        value={dueTime}
+                        onChange={(e) => setDueTime(e.target.value)}
+                    >
+                        {selectMenuTimes.map((option) =>
+                            <option value={option.value}>{option.display}</option>
+                        )}
+                    </select>
+                    <input
+                        className='ctsp-date-input'
+                        type='date'
+                        value={startDate}
+                        onChange={(e) => setStartDate(e.target.value)}
+                    />
+                    <select
+                        className='ctsp-due-date-input'
+                        value={startTime}
+                        onChange={(e) => setStartTime(e.target.value)}
+                    >
+                        {selectMenuTimes.map((option) =>
+                            <option value={option.value}>{option.display}</option>
+                        )}
+                    </select>
+
+                    <select
+                        className='ctsp-prio-input'
+                        value={prio}
+                        onChange={(e) => setPrio(e.target.value)}
+                    >
+                        <option value=''>Priority</option>
+                        <option value='1'>High</option>
+                        <option value='2'>Med</option>
+                        <option value='3'>Low</option>
+                        <option value='0'>None</option>
+                    </select>
+                    <select
+                        className='ctsp-list-input'
+                        value={taskList}
+                        onChange={(e) => setTaskList(e.target.value)}
+                    >
+                        <option value=''>List</option>
+                        {Object.values(lists).map((l) =>
+                            <option value={l.id}>{l.name}</option>
+                        )}
+                    </select>
+                    <select
+                        className='ctsp-tag-input'
+                        multiple={true}
+                        value={taskTags}
+                        onChange={(e) => setTaskTags(e.target.value)}
+                    >
+                        {/* {Object.values(tags).map((t) =>
+                            <option value={t.id}>{t.name}</option>
+                        )} */}
+                    </select>
+
+
+                    {/* <div className={`ctsp-add-task-grp-icons ${renderTaskFormIconClass}`}>
                             <img
                                 className='ctsp-at-icon-style'
                                 src={dueDateIcon}
                             />
-                        </DropDownWrapper>
 
                         <img className='ctsp-at-icon-style' src={startDateIcon} />
                         <img className='ctsp-at-icon-style' src={listIcon} />
@@ -217,7 +291,7 @@ export default function CreateTaskSubPanel() {
                         <img className='ctsp-at-icon-style' src={repeatIcon} />
                         <img className='ctsp-at-icon-style' src={locationPin} />
                         <img className='ctsp-at-icon-style' src={clockIcon} />
-                    </div>
+                    </div> */}
                     <button
                         className='ctsp-ct-submit-btn'
                         type='submit'
@@ -229,6 +303,6 @@ export default function CreateTaskSubPanel() {
 
                 {/* </div> */}
             </div >
-        </form>
+        </form >
     )
 }
