@@ -6,7 +6,8 @@ import {
   getDateFromToday,
   getListDetailsFromDates,
   getListDetailsFromList,
-  getListDetailsFromTag
+  getListDetailsFromTag,
+  getListDetailsFromSearch
 } from '../../utils/taskLists'
 import './listDetailPanel.css'
 
@@ -55,7 +56,16 @@ export default function ListDetailPanel() {
         listDetails = getListDetailsFromTag(taskObj, +listId)
         listDetails.name = tag.name
     }
-}
+} else if (filterId === 'search') {
+
+  if (listId) {
+      console.log("type of listId", typeof listId)
+      console.log("value of listId", listId)
+      listId = listId.split("+")
+      listDetails = getListDetailsFromSearch(taskObj, listId)
+      listDetails.name = `Search: ${listId.join(' ')}`
+  }
+} 
 
   return (listDetails &&
     <div>

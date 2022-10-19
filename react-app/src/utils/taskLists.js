@@ -6,6 +6,50 @@ export function getDateFromToday(daysForward = 0) {
     return res;
 }
 
+function stringIncludesArr(string, arr){
+
+    for (const testStr of arr){
+        if (string.includes(testStr)){
+            return true;
+        }
+    }
+    return false;
+}
+
+export function getListDetailsFromSearch(tasks, searchArray){
+    let tasksToCheck = Object.values(tasks)
+
+    let result = {
+        overdueTasks: 0,
+        estimatedTime: 0,
+        tasks: [],
+        completedTasks: []
+    }
+
+    const currentDate = getDateFromToday();
+
+    return tasksToCheck.reduce((result, task) => {
+
+        let taskDueDate = task.dueDate ? task.dueDate.slice(0, 10) : task.dueDate
+
+        if (stringIncludesArr(task.name, searchArray)) {
+            if (task.completed) {
+                result.completedTasks.push(task);
+            } else {
+                result.tasks.push(task)
+                if (taskDueDate < currentDate) {
+                    result.overdueTasks++;
+                }
+                if (task.duration > 0) {
+                    result.estimatedTime += task.duration
+                }
+            }
+        }
+
+        return result
+    }, result)
+}
+
 export function getListDetailsFromList(tasks, listId) {
 
     let tasksToCheck = Object.values(tasks)

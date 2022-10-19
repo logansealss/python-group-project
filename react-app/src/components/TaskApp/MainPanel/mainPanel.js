@@ -11,7 +11,8 @@ import {
     getDateFromToday,
     getListDetailsFromDates,
     getListDetailsFromList,
-    getListDetailsFromTag
+    getListDetailsFromTag,
+    getListDetailsFromSearch
 } from '../../../utils/taskLists'
 import './mainPanel.css';
 
@@ -77,6 +78,13 @@ export default function MainPanel() {
             return <Redirect to="/app/lists/all"></Redirect>
         }
 
+    } else if (filterId === 'search') {
+
+        if (listId) {
+            const listIdArray = listId.split("+")
+            listDetails = getListDetailsFromSearch(taskObj, listIdArray)
+            listDetails.name = `Search: ${listIdArray.join(' ')}`
+        }
     } else {
         return <Redirect to="/app/list/all"></Redirect>
     }
