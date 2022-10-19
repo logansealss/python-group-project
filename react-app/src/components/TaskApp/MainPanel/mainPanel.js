@@ -10,13 +10,16 @@ import CreateTaskSubPanel from './createTaskSubPanel';
 import {
     getDateFromToday,
     getListDetailsFromDates,
-    getListDetailsFromList } from '../../../utils/taskLists'
+    getListDetailsFromList,
+    getListDetailsFromTag
+} from '../../../utils/taskLists'
 import './mainPanel.css';
 
 export default function MainPanel() {
 
     const { path, url } = useRouteMatch();
-    const { listId } = useParams();
+    let { listId } = useParams();
+    listId = listId.toLowerCase()
 
     const dispatch = useDispatch();
     const tasks = useSelector(state => {
@@ -56,12 +59,20 @@ export default function MainPanel() {
         if (list) {
             listDetails = getListDetailsFromList(taskObj, +listId)
             listDetails.name = list.name
-        }else if(list === undefined){
-            return <Redirect to="/app/all"></Redirect>
+        } else if (list === undefined) {
+
+            let tag = tags && Object.values(tags).find(tag => tag.id === +listId)
+
+            if (tag) {
+                listDetails = getListDetailsFromTag(taskObj, +listId)
+                listDetails.name = tag.name
+            } else if (tag === undefined) {
+                return <Redirect to="/app/all"></Redirect>
+            }
         }
     }
 
-    return ( tasks && lists && tags &&
+    return (tasks && lists && tags &&
         <div className='tam-main-div'>
             <CreateTaskSubPanel lists={lists} tags={tags} />
             <div className='tam-task-list-div'>

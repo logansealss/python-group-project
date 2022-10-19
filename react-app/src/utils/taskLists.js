@@ -41,6 +41,41 @@ export function getListDetailsFromList(tasks, listId) {
     }, result)
 }
 
+export function getListDetailsFromTag(tasks, tagId) {
+
+    let tasksToCheck = Object.values(tasks)
+
+    let result = {
+        overdueTasks: 0,
+        estimatedTime: 0,
+        tasks: [],
+        completedTasks: []
+    }
+
+    const currentDate = getDateFromToday();
+
+    return tasksToCheck.reduce((result, task) => {
+
+        let taskDueDate = task.dueDate ? task.dueDate.slice(0, 10) : task.dueDate
+
+        if (task.tags.includes(tagId)) {
+            if (task.completed) {
+                result.completedTasks.push(task);
+            } else {
+                result.tasks.push(task)
+                if (taskDueDate < currentDate) {
+                    result.overdueTasks++;
+                }
+                if (task.duration > 0) {
+                    result.estimatedTime += task.duration
+                }
+            }
+        }
+
+        return result
+    }, result)
+}
+
 export function getListDetailsFromDates(tasks, startDate, dueDate) {
 
     let tasksToCheck = Object.values(tasks)

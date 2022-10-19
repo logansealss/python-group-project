@@ -2,17 +2,21 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
-import { 
-  getDateFromToday, 
-  getListDetailsFromDates, 
-  getListDetailsFromList } from '../../utils/taskLists'
+import {
+  getDateFromToday,
+  getListDetailsFromDates,
+  getListDetailsFromList,
+  getListDetailsFromTag
+} from '../../utils/taskLists'
 import './listDetailPanel.css'
 
 export default function ListDetailPanel() {
 
-  const { listId } = useParams();
+  let { listId } = useParams();
+  listId = listId.toLowerCase()
   const tasks = useSelector(state => state.tasks.allTasks)
   const lists = useSelector(state => state.lists)
+  const tags = useSelector(state => state.tags)
 
   let listDetails = null;
 
@@ -37,6 +41,14 @@ export default function ListDetailPanel() {
     if (list) {
       listDetails = getListDetailsFromList(taskObj, +listId)
       listDetails.name = list.name
+    } else if (list === undefined) {
+
+      let tag = tags && Object.values(tags).find(tag => tag.id === +listId)
+
+      if (tag) {
+        listDetails = getListDetailsFromTag(taskObj, +listId)
+        listDetails.name = tag.name
+      }
     }
   }
 
