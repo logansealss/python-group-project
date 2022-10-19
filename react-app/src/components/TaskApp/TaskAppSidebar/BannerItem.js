@@ -8,7 +8,7 @@ export default function BannerItem (props) {
   return (
     <DropdownProvider>
       <div id='banner_item'>
-        <div className='title'>{props.children}</div>
+        <div className='title' onClick={props.handleClick}>{props.children}</div>
           <div className='collapser_rhs_icons'>
             <DropDownWrapper
               offset='14px'

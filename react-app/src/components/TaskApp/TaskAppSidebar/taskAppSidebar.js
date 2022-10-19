@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import {useHistory} from 'react-router-dom';
 
 import * as listActions from '../../../store/lists'
 import * as tagActions from '../../../store/tags'
@@ -7,7 +8,6 @@ import * as tagActions from '../../../store/tags'
 import Collapser from './Collapser'
 import BannerItem from './BannerItem'
 import CreateTagListForm from '../../Forms/CreateTagListForm'
-import RemoveTagListForm from '../../Forms/RemoveTagListForm'
 import ModalWrapper from '../../../context/Modal'
 
 import logo from '../../../img/TM-logo-short-nobg.png'
@@ -34,6 +34,7 @@ function Count(props) {
 
 export default function TaskAppSidebar() {
   const dispatch = useDispatch()
+  const history = useHistory();
   // const tasks = useSelector(state => state.tasks.allTasks)
   const lists = useSelector(state => state.lists)
   const tags = useSelector(state => state.tags)
@@ -52,8 +53,15 @@ export default function TaskAppSidebar() {
       expanded: allTasksExpanded,
       setter: setAllTasksExpanded,
       title: 'Tasks',
-      children: ['All Tasks', 'Today', 'Tomorrow'].map(title => (
-        <BannerItem key={title} obj={<Count count={'#'} />}>{title}</BannerItem>
+      children: [['All Tasks', 'all'], ['Today', 'today'], ['Tomorrow', 'tomorrow'], ['This Week', 'week']]
+        .map(([title, slug]) => (
+          <BannerItem
+            key={title}
+            obj={<Count count={'#'}/>}
+            handleClick={()=>history.push(`/app/list/${slug}`)}
+            >
+            {title}
+          </BannerItem>
       ))
     },
     'Lists': {
@@ -68,6 +76,7 @@ export default function TaskAppSidebar() {
             id={list.id}
             feature='list'
             obj={<Count count={list.taskCount}/>}
+            handleClick={()=>history.push(`/app/lists/${list.id}`)}
             >
             {list.name}
           </BannerItem>
@@ -84,6 +93,7 @@ export default function TaskAppSidebar() {
           id={tag.id}
           feature='tag'
           obj={<Count count={tag.taskCount}/>}
+          handleClick={()=>history.push(`/app/tags/${tag.id}`)}
           >
           {tag.name}
         </BannerItem>))
