@@ -1,5 +1,6 @@
 .dropdown_container {
-  position: relative;
+  position: absolute;
+  /* right: 400px; */
   z-index: 1;
 }
 
@@ -13,8 +14,8 @@
 
 .dropdown_menu {
   position: absolute;
-  /* transform: translateX(-100%); */
-  width: 100px;
+  transform: translateX(50%);
+  width: 200px;
   height:50px;
   background-color: white;
   border: 1px solid black;

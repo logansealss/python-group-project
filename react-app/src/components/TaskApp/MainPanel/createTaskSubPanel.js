@@ -23,7 +23,7 @@ export default function CreateTaskSubPanel({lists}, {tags}) {
     const inputRef = useRef(null);
     const formRef = useRef(null);
 
-    console.log({tags});
+    console.log('tags:', {tags});
 
     const [ctInput, setCtInput] = useState('');
     const [taskName, setTaskName] = useState('');

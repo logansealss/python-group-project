@@ -2,6 +2,7 @@
 // constants
 const LOAD_ALL = 'tags/LOAD_ALL';
 const CREATE = 'tags/CREATE'
+const DELETE = 'tags/DELETE';
 
 const loadAll = allTags => ({
     type: LOAD_ALL,
@@ -11,6 +12,11 @@ const loadAll = allTags => ({
 const loadOne = newTag => ({
     type: CREATE,
     newTag
+});
+
+const removeTag = id => ({
+    type: DELETE,
+    id
 });
 
 export const getAllTags = () => async (dispatch) => {
@@ -46,14 +52,31 @@ export const createTag = newTag => async dispatch => {
     return response;
 };
 
-const initialState = null;
+export const deleteTag = (id) => async dispatch => {
+    const response = await fetch(`/api/tags/${id}`, {
+        method: 'DELETE'
+    });
+    if (response.ok) {
+        dispatch(removeTag(id))
+        return response
+    };
+    return response;
+};
 
+
+
+const initialState = null;
+let newState;
 export const tagReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_ALL:
             return { ...action.allTags }
         case CREATE:
             return {...state, [action.newTag.id]: action.newTag }
+        case DELETE:
+            newState = {...state}
+            delete newState[action.id]
+            return {...newState}
         default:
             return state;
     }

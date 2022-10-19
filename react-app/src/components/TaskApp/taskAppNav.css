@@ -2,18 +2,28 @@
     position: relative;
     top: 0;
     left: 0;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: minmax(180px,210px) 3fr 3fr 10px;
+    grid-template-rows: 40px;
+    /* flex-direction: row; */
+    /* justify-content: space-between; */
     align-items: center;
-    height: 40px;
+    /* height: 40px; */
     width: 100%;
     background-color: #56538c;
     border-bottom: 2px solid #555;
 }
+
+@media screen and (max-width: 1020px) {
+    .tan-main-div {
+        grid-template-columns: minmax(180px,210px) 6fr 10px;
+    }
+}
+
 .tan-icon-style{
     filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(345deg) brightness(105%) contrast(101%);
-    opacity: 0.55;}
+    opacity: 0.55;
+}
 
 .tan-search-icon-style {
     filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(345deg) brightness(105%) contrast(101%);
@@ -29,18 +39,27 @@
 
 
 .tan-hamburger-icon{
+    grid-column-start: 1;
     height: 20px;
     width: auto;
     padding-left: 20px;
 }
 
+.tan-search-container {
+    grid-column-start: 2;
+    /* min-width: 420px; */
+}
+
 .tan-search-pseudo-input{
-    position: absolute;
+    /* position: relative; */
+    display: flex;
+    justify-self: start;
+    align-items: center;
     left: 180px;
     height: 30px;
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 4px;
-    min-width: 300px;
+    width: 300px;
     transition-duration: .5s;
 }
 
@@ -50,19 +69,25 @@
 }
 
 .tan-search-mag-icon{
-    position: absolute;
+    /* position: absolute */
+    align-self: center;
+    justify-self: start;
     left: 10px;
     top: 5px;
     height: 18px;
     width: auto;
 }
 
+.tan-search-pseudo-input form {
+    width: 100%;
+}
+
 .tan-search-input{
-    position: absolute;
+    /* position: absolute; */
     left: 45px;
     top: 1px;
     height: 25px;
-    width: 220px;
+    width: 100%;
     background-color: transparent;
     border: none;
     color: #fff;
@@ -79,7 +104,8 @@
 }
 
 .tan-search-down-caret-icon{
-    position: absolute;
+    /* position: absolute; */
+    align-self:center;
     right: 10px;
     top: 6.25px;
     height: 15px;
@@ -87,11 +113,13 @@
 }
 
 .tan-settings-icon-grp{
+    grid-column-start: 3;
+    justify-self: end;
     display:flex;
     flex-direction: row;
     align-items: center;
     column-gap: 5px;
-    padding-right: 20px;
+    /* padding-right: 20px; */
 }
 
 .tan-settings-gear-icon{
