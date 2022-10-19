@@ -17,6 +17,7 @@ export default function MainPanel() {
 
     const { path, url } = useRouteMatch();
     const { listId } = useParams();
+    const { filterId } = useParams();
 
     const dispatch = useDispatch();
     const tasks = useSelector(state => {
@@ -69,7 +70,7 @@ export default function MainPanel() {
                     <Link
                         key={idx}
                         className='mpti-link-wrap'
-                        to={`/app/${listId}/${task.id}`}
+                        to={`/app/${filterId}/${listId}/${task.id}`}
                     >
                         <TaskRowItem task={task} />
                     </Link>

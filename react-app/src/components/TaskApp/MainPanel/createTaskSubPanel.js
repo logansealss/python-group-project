@@ -264,7 +264,7 @@ export default function CreateTaskSubPanel({lists, tags}) {
                         className='ctsp-tag-input'
                         multiple={true}
                         value={taskTags}
-                        onChange={(e) => setTaskTags(e.target.value)}
+                        onChange={(e) => setTaskTags([...e.target.value])}
                     >
                         {Object.values(tags).map((t) =>
                             <option value={t.id}>{t.name}</option>
