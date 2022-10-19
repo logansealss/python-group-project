@@ -1,23 +1,48 @@
-import BannerItem from './BannerItem'
+import React from 'react'
 
-import downCaret from '../../../img/caret-down.svg'
+import DropDownWrapper from '../../../context/Dropdown';
+import downCaret from '../../../img/caret-down.svg';
 
 
 export default function Collapser (props) {
   return (
-    <>
-    <div id='collapser'>
+    <div
+      id='collapser'
+      >
       <div
-        id='collapse_button'
-        className={props.expanded && 'expanded'}
-        onClick={()=> props.setter(val => !val)}>
-        <img className='tasb-caret' src={downCaret} />
+        id='collapser_header'
+        >
+        <div
+          id='collapser_action'
+          onClick={()=>props.setter(val=>!val)}>
+          <div
+            id='collapse_button'
+            className={props.expanded ? 'expanded' : ''}
+            >
+              <img className='tasb-caret' src={downCaret} />
+          </div>
+          <div className='title'>
+            {props.title}
+          </div>
+        </div>
+        <div className='collapser_rhs_icons'>
+          {/* <DropDownWrapper
+            offset='14px'
+            menu={<div className='dropdown_menu'>My new menu</div>}
+            >
+            <img id= 'dropdown_caret' className='tasb-caret' src={downCaret} />
+          </DropDownWrapper> */}
+          {props.obj}
+          </div>
+        </div>
+      <div id='children_container'>
+        {props.expanded && props.children}
       </div>
-      {props.title}
-  </div>
-  <div className='children_container'>
-    {props.expanded && props.children}
-  </div>
-  </>
+    </div>
   )
 };
+
+
+<>
+
+</>

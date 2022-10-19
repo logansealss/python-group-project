@@ -14,7 +14,7 @@ export default function TaskDetailPanel() {
 
     useEffect(() => {
         dispatch(getSingleTask(taskId));
-    }, [dispatch]);
+    }, [dispatch , taskId]);
 
     if (!task) return null;
 
