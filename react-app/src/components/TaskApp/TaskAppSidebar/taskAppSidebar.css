@@ -146,7 +146,8 @@ width: 12px;
   flex-grow: 1;
   padding-left: 4px;
   cursor:pointer;
-
+  overflow: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
 }
 
