@@ -60,14 +60,14 @@ export default function TaskAppSidebar() {
       setter: setListsExpanded,
       title: 'Lists',
       obj: <Plus  form={<CreateTagListForm/>} feature='list' thunk={listActions.createList}/>,
-      children: lists && Object.values(lists).map(list => (<BannerItem key={list.id}>{list.name}</BannerItem>))
+      children: lists && Object.values(lists).map(list => (<BannerItem key={list.id} id={list.id}>{list.name}</BannerItem>))
     },
     'Tags': {
       expanded: tagsExpanded,
       setter: setTagsExpanded,
       title: 'Tags',
       obj: <Plus  form={<CreateTagListForm/>} feature='tag' thunk={tagActions.createTag}/>,
-      children: tags && Object.values(tags).map(tag => (<BannerItem key={tag.id}>{tag.name}</BannerItem>))
+      children: tags && Object.values(tags).map(tag => (<BannerItem key={tag.id} id={tag.id}>{tag.name}</BannerItem>))
     },
   };
 
