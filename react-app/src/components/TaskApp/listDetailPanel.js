@@ -2,99 +2,11 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
+import { 
+  getDateFromToday, 
+  getListDetailsFromDates, 
+  getListDetailsFromList } from '../../utils/taskLists'
 import './listDetailPanel.css'
-
-function getDateFromToday(daysForward = 0) {
-  let res = new Date();
-  res = res.setHours(0, 0, 0, 0);
-  res = new Date(res);
-  res.setDate(res.getDate() + daysForward)
-  res = res.toISOString();
-  res = res.slice(0, 10)
-  return res;
-}
-
-function getListDetailsFromList(tasks, listId) {
-
-  let tasksToCheck = Object.values(tasks)
-
-  let result = {
-    totalTasks: 0,
-    overdueTasks: 0,
-    completedTasks: 0,
-    estimatedTime: 0,
-    tasks: []
-  }
-
-  const currentDate = getDateFromToday();
-
-  return tasksToCheck.reduce((result, task) => {
-
-    let taskDueDate = task.dueDate ? task.dueDate.slice(0, 10) : task.dueDate
-
-    if (task.listId === listId) {
-
-      result.totalTasks++;
-      result.tasks.push(task)
-
-      if (taskDueDate < currentDate) {
-        result.overdueTasks++;
-      }
-      if (task.completed) {
-        result.completedTasks++;
-      }
-      if (task.duration > 0) {
-        result.estimatedTime += task.duration
-      }
-    }
-
-    return result
-  }, result)
-}
-
-function getListDetailsFromDates(tasks, startDate, dueDate) {
-
-  let tasksToCheck = Object.values(tasks)
-
-  let result = {
-    totalTasks: 0,
-    overdueTasks: 0,
-    completedTasks: 0,
-    estimatedTime: 0,
-    tasks: []
-  }
-
-  const currentDate = getDateFromToday();
-
-  return tasksToCheck.reduce((result, task) => {
-
-    let taskDueDate = task.dueDate ? task.dueDate.slice(0, 10) : task.dueDate
-
-    if (startDate === undefined
-      || (taskDueDate >= startDate && taskDueDate <= dueDate)) {
-
-      result.totalTasks++;
-      result.tasks.push(task)
-      if (task.completed) {
-        result.completedTasks++;
-      }
-      if (task.duration > 0) {
-        result.estimatedTime += task.duration
-      }
-    }
-
-    if (taskDueDate < currentDate && dueDate !== getDateFromToday(1) && !task.completed) {
-      result.totalTasks++;
-      result.tasks.push(task)
-      result.overdueTasks++;
-      if (task.duration > 0) {
-        result.estimatedTime += task.duration
-      }
-    }
-
-    return result
-  }, result)
-}
 
 export default function ListDetailPanel() {
 
@@ -126,10 +38,6 @@ export default function ListDetailPanel() {
     }
   }
 
-  if (listDetails) {
-    console.log(listDetails.tasks)
-  }
-
   return (listDetails &&
     <div>
       <div id='list-details-name-container'>
@@ -144,10 +52,10 @@ export default function ListDetailPanel() {
               className='list-details-data-value'
               id='list-details-tasks'
             >
-              {listDetails.totalTasks}
+              {listDetails.tasks.length}
             </div>
             <div className='list-details-data-label'>
-              tasks
+              {listDetails.tasks.length === 1 ? 'task' : 'tasks'}
             </div>
           </div>
           {!!listDetails.estimatedTime &&
@@ -157,18 +65,26 @@ export default function ListDetailPanel() {
               <div
                 className='list-details-data-value'
               >
-                <span>
-                  {Math.floor(listDetails.estimatedTime / 60)}
-                </span>
-                <small>
-                  {'hrs '}
-                </small>
-                <span>
-                  {listDetails.estimatedTime % 60}
-                </span>
-                <small>
-                  min
-                </small>
+                {!!Math.floor(listDetails.estimatedTime / 60) && (
+                  <>
+                    <span>
+                      {Math.floor(listDetails.estimatedTime / 60)}
+                    </span>
+                    <small>
+                      {Math.floor(listDetails.estimatedTime / 60) === 1 ? 'hr ' : 'hrs '}
+                    </small>
+                  </>
+                )}
+                {!!(listDetails.estimatedTime % 60) &&
+                  <>
+                    <span>
+                      {listDetails.estimatedTime % 60}
+                    </span>
+                    <small>
+                      min
+                    </small>
+                  </>
+                }
               </div>
               <div className='list-details-data-label'>
                 estimated
@@ -195,7 +111,7 @@ export default function ListDetailPanel() {
         >
           <div>
             <div className='list-details-data-value'>
-              {listDetails.completedTasks}
+              {listDetails.completedTasks.length}
             </div>
             <div className='list-details-data-label'>
               completed
