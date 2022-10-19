@@ -55,15 +55,15 @@ export default function TaskDetailPanel() {
 
     useEffect(() => {
         if (task) {
-            setTaskName(task.name);
-            setDueDate(task.dueDate.split(' ')[0]);
-            setDueTime(task.dueDate.split(' ')[1]);
-            setStartDate(task.startDate.split(' ')[0]);
-            setStartTime(task.startDate.split(' ')[1]);
-            setTaskList(task.list);
-            setPrio(task.priority);
-            setTaskTags(task.tags);
-            setEstimate(task.duration);
+            task.name && setTaskName(task.name);
+            task.dueDate && setDueDate(task.dueDate.split(' ')[0]);
+            task.dueDate && setDueTime(task.dueDate.split(' ')[1]);
+            task.startDate && setStartDate(task.startDate.split(' ')[0]);
+            task.startDate && setStartTime(task.startDate.split(' ')[1]);
+            task.listId && setTaskList(task.listId);
+            task.priority && setPrio(task.priority);
+            task.tags && setTaskTags(task.tags);
+            task.duration && setEstimate(task.duration);
         }
     }, [task]);
 
@@ -84,10 +84,7 @@ export default function TaskDetailPanel() {
         console.log(dispatch(updateATask(task.id, data)))
     }
 
-
-    if (!task) return null;
-
-    return (task &&
+    return (task && lists && tags &&
         <div className='tad-main-panel'>
             SingleTask:{' '}
             {JSON.stringify(task)}
