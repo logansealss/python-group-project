@@ -34,7 +34,7 @@ function Count(props) {
 
 export default function TaskAppSidebar() {
   const dispatch = useDispatch()
-  const tasks = useSelector(state => state.tasks.allTasks)
+  // const tasks = useSelector(state => state.tasks.allTasks)
   const lists = useSelector(state => state.lists)
   const tags = useSelector(state => state.tags)
 
@@ -53,7 +53,7 @@ export default function TaskAppSidebar() {
       setter: setAllTasksExpanded,
       title: 'Tasks',
       children: ['All Tasks', 'Today', 'Tomorrow'].map(title => (
-        <BannerItem key={title} obj={<Count count={14} />}>{title}</BannerItem>
+        <BannerItem key={title} obj={<Count count={'#'} />}>{title}</BannerItem>
       ))
     },
     'Lists': {
