@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getSingleTask } from '../../store/tasks';
+import { updateATask } from '../../store/tasks';
+import selectMenuTimes from '../../data/selectMenuTimes.json';
+
 // import dueDateIcon from '../../img.calendar-day.svg';
 // import startDateIcon from '../../img/square-caret-right.svg';
 // import postponeIcon from '../../img/calendar-plus.svg';
@@ -24,6 +27,20 @@ export default function TaskDetailPanel() {
     const { listId, taskId } = params;
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch(getSingleTask(taskId));
+    }, [dispatch, taskId]);
+
+    const task = useSelector(state => {
+        return state.tasks.singleTask;
+    });
+    const tags = useSelector(state => {
+        return state.tags;
+    });
+    const lists = useSelector(state => {
+        return state.lists;
+    });
+
     const [taskName, setTaskName] = useState('');
     const [dueDate, setDueDate] = useState('');
     const [dueTime, setDueTime] = useState('');
@@ -35,9 +52,21 @@ export default function TaskDetailPanel() {
     const [estimate, setEstimate] = useState('');
     const [estimateUnit, setEstimateUnit] = useState(1)
 
-    const task = useSelector(state => {
-        return state.tasks.singleTask;
-    });
+
+    useEffect(() => {
+        if (task) {
+            setTaskName(task.name);
+            setDueDate(task.dueDate.split(' ')[0]);
+            setDueTime(task.dueDate.split(' ')[1]);
+            setStartDate(task.startDate.split(' ')[0]);
+            setStartTime(task.startDate.split(' ')[1]);
+            setTaskList(task.list);
+            setPrio(task.priority);
+            setTaskTags(task.tags);
+            setEstimate(task.duration);
+        }
+    }, [task]);
+
 
     const handleCtSubmit = (e) => {
         e.preventDefault();
@@ -52,28 +81,25 @@ export default function TaskDetailPanel() {
         }
 
         console.log('ct form data: ', data);
-        console.log(dispatch(createNewTask(data)))
+        console.log(dispatch(updateATask(task.id, data)))
     }
 
-        useEffect(() => {
-            dispatch(getSingleTask(taskId));
-        }, [dispatch, taskId]);
 
-        if (!task) return null;
+    if (!task) return null;
 
-        return (task &&
-            <div className='tad-main-panel'>
-                SingleTask:{' '}
-                {JSON.stringify(task)}
+    return (task &&
+        <div className='tad-main-panel'>
+            SingleTask:{' '}
+            {JSON.stringify(task)}
 
-                <form
-            onSubmit={handleCtSubmit}
-            className='ctsp-form-el'
-        >
-            <div
-                className='ctsp-main-div'
+            <form
+                onSubmit={handleCtSubmit}
+                className='ctsp-form-el'
             >
-                {/* <div className='ctsp-ut-main-div'>
+                <div
+                    className='ctsp-main-div'
+                >
+                    {/* <div className='ctsp-ut-main-div'>
                     <div className='ctsp-ut-grp-1'>
                         <div className='ctsp-btn-div-solo-single ctsp-ut-btn'>
                             <img
@@ -169,127 +195,113 @@ export default function TaskDetailPanel() {
                         </div>
                     </div>
                 </div> */}
-                {/* <div className='ctsp-ct-input-main'> */}
-                <div className='ctsp-ct-pseudo-input'>
-                    <input
-                        className='ctsp-ct-input'
-                        type='text'
-                        placeholder='Add a task...'
-                        value={taskName}
-                        onChange={(e) => setTaskName(e.target.value)}
-                    // onFocus={() => { setRenderAddTaskGrpClass('ctsp-ratgc-true') }}
-                    // onBlur={() => { !ctInput.length && setRenderAddTaskGrpClass('ctsp-ratgc-false') }}
-                    // onKeyDown={keyDownFn}
-                    />
-                </div>
-                <div
-                    className={`ctsp-add-task-grp ${renderAddTaskGrpClass}`}
-                >
-                    <input
-                        className='ctsp-date-input'
-                        type='date'
-                        value={dueDate}
-                        onChange={(e) => setDueDate(e.target.value)}
-                    />
-                    <select
-                        className='ctsp-due-date-input'
-                        value={dueTime}
-                        onChange={(e) => setDueTime(e.target.value)}
+                    {/* <div className='ctsp-ct-input-main'> */}
+                    <div className='ctsp-ct-pseudo-input'>
+                        <input
+                            className='ctsp-ct-input'
+                            type='text'
+                            value={taskName}
+                            onChange={(e) => setTaskName(e.target.value)}
+                        // onFocus={() => { setRenderAddTaskGrpClass('ctsp-ratgc-true') }}
+                        // onBlur={() => { !ctInput.length && setRenderAddTaskGrpClass('ctsp-ratgc-false') }}
+                        // onKeyDown={keyDownFn}
+                        />
+                    </div>
+                    <div
+                        className={`ctsp-add-task-grp`}
                     >
-                        {selectMenuTimes.map((option) =>
-                            <option value={option.value}>{option.display}</option>
-                        )}
-                    </select>
-                    <input
-                        className='ctsp-date-input'
-                        type='date'
-                        value={startDate}
-                        onChange={(e) => setStartDate(e.target.value)}
-                    />
-                    <select
-                        className='ctsp-due-date-input'
-                        value={startTime}
-                        onChange={(e) => setStartTime(e.target.value)}
-                    >
-                        {selectMenuTimes.map((option) =>
-                            <option value={option.value}>{option.display}</option>
-                        )}
-                    </select>
+                        <input
+                            className='ctsp-date-input'
+                            type='date'
+                            value={dueDate}
+                            onChange={(e) => setDueDate(e.target.value)}
+                        />
+                        <select
+                            className='ctsp-due-date-input'
+                            value={dueTime}
+                            onChange={(e) => setDueTime(e.target.value)}
+                        >
+                            {selectMenuTimes.map((option) =>
+                                <option value={option.value}>{option.display}</option>
+                            )}
+                        </select>
+                        <input
+                            className='ctsp-date-input'
+                            type='date'
+                            value={startDate}
+                            onChange={(e) => setStartDate(e.target.value)}
+                        />
+                        <select
+                            className='ctsp-due-date-input'
+                            value={startTime}
+                            onChange={(e) => setStartTime(e.target.value)}
+                        >
+                            {selectMenuTimes.map((option) =>
+                                <option value={option.value}>{option.display}</option>
+                            )}
+                        </select>
 
-                    <select
-                        className='ctsp-prio-input'
-                        value={`${prio}`}
-                        onChange={(e) => setPrio(Number(e.target.value))}
-                    >
-                        <option value=''>Priority</option>
-                        <option value='1'>High</option>
-                        <option value='2'>Med</option>
-                        <option value='3'>Low</option>
-                        <option value='0'>None</option>
-                    </select>
-                    <select
-                        className='ctsp-list-input'
-                        value={taskList}
-                        onChange={(e) => setTaskList(e.target.value)}
-                    >
-                        <option value=''>List</option>
-                        {Object.values(lists).map((l) =>
-                            <option value={l.id}>{l.name}</option>
-                        )}
-                    </select>
-                    <select
-                        className='ctsp-tag-input'
-                        multiple
-                        value={taskTags}
-                        onChange={(e) => setTaskTags(
-                            Array.from(e.target.selectedOptions).map((el) => (
-                                el.value)))}
-                    >
-                        {Object.values(tags).map((t) =>
-                            <option value={t.id}>{t.name}</option>
-                        )}
-                    </select>
-                    <input
-                        type='number'
-                        value={estimate}
-                        onChange={(e) => setEstimate(e.target.value)}
-                    />
+                        <select
+                            className='ctsp-prio-input'
+                            value={`${prio}`}
+                            onChange={(e) => setPrio(Number(e.target.value))}
+                        >
+                            <option value=''>Priority</option>
+                            <option value='1'>High</option>
+                            <option value='2'>Med</option>
+                            <option value='3'>Low</option>
+                            <option value='0'>None</option>
+                        </select>
+                        <select
+                            className='ctsp-list-input'
+                            value={taskList}
+                            onChange={(e) => setTaskList(e.target.value)}
+                        >
+                            <option value=''>List</option>
+                            {Object.values(lists).map((l) =>
+                                <option value={l.id}>{l.name}</option>
+                            )}
+                        </select>
+                        <select
+                            className='ctsp-tag-input'
+                            multiple
+                            value={taskTags}
+                            onChange={(e) => setTaskTags(
+                                Array.from(e.target.selectedOptions).map((el) => (
+                                    el.value)))}
+                        >
+                            {Object.values(tags).map((t) =>
+                                <option value={t.id}>{t.name}</option>
+                            )}
+                        </select>
+                        <input
+                            type='number'
+                            value={estimate}
+                            onChange={(e) => setEstimate(e.target.value)}
+                        />
 
-                    <select
-                        className='ctsp-prio-input'
-                        value={`${estimateUnit}`}
-                        onChange={(e) => setEstimateUnit(Number(e.target.value))}
-                    >
-                        <option value='1'>Minutes</option>
-                        <option value='60'>Hours</option>
+                        <select
+                            className='ctsp-prio-input'
+                            value={`${estimateUnit}`}
+                            onChange={(e) => setEstimateUnit(Number(e.target.value))}
+                        >
+                            <option value='1'>Minutes</option>
+                            <option value='60'>Hours</option>
 
-                    </select>
+                        </select>
 
-                    {/* <div className={`ctsp-add-task-grp-icons ${renderTaskFormIconClass}`}>
-                            <img
-                                className='ctsp-at-icon-style'
-                                src={dueDateIcon}
-                            />
+                        <button
+                            className='ctsp-ct-submit-btn'
+                            type='submit'
+                            disabled={taskName.length ? false : true}
+                        >
+                            Update Task
+                        </button>
+                    </div>
 
-                        <img className='ctsp-at-icon-style' src={startDateIcon} />
-                        <img className='ctsp-at-icon-style' src={listIcon} />
-                        <img className='ctsp-at-icon-style' src={prioIcon} />
-                        <img className='ctsp-at-icon-style' src={repeatIcon} />
-                        <img className='ctsp-at-icon-style' src={locationPin} />
-                        <img className='ctsp-at-icon-style' src={clockIcon} />
-                    </div> */}
-                    <button
-                        className='ctsp-ct-submit-btn'
-                        type='submit'
-                        disabled={taskName.length ? false : true}
-                    >
-                        Add Task
-                    </button>
-                </div>
-
-                {/* </div> */}
-            </div >
-        </form >
-            </div>
-        )
+                    {/* </div> */}
+                </div >
+            </form >
+        </div>
+    )
 }

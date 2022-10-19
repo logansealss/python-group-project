@@ -91,7 +91,7 @@ export default function MainPanel() {
                         className='mpti-link-wrap'
                         to={`/app/${filterId}/${listId}/${task.id}`}
                     >
-                        <TaskRowItem task={task} />
+                        <TaskRowItem task={task}/>
                     </Link>
                 ))}
             </div>

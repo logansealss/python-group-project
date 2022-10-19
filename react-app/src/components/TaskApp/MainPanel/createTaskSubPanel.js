@@ -74,7 +74,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
 
         console.log('ct form data: ', data);
 
-       console.log( dispatch(createNewTask(data)))
+        console.log(dispatch(createNewTask(data)))
     }
 
     // const nameDivClick = () => {
