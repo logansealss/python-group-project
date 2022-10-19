@@ -16,12 +16,7 @@ import downCaret from '../../../img/caret-down.svg';
 import './createTaskSubPanel.css';
 import selectMenuTimes from '../../../data/selectMenuTimes.json';
 
-export default function CreateTaskSubPanel({lists}, {tags}) {
-
-    const inputRef = useRef(null);
-    const formRef = useRef(null);
-
-    console.log('tags:', {tags});
+export default function CreateTaskSubPanel({lists, tags}) {
 
     const [ctInput, setCtInput] = useState('');
     const [taskName, setTaskName] = useState('');
@@ -32,7 +27,7 @@ export default function CreateTaskSubPanel({lists}, {tags}) {
     const [startTime, setStartTime] = useState('');
     const [taskList, setTaskList] = useState('');
     const [prio, setPrio] = useState('');
-    const [taskTags, setTaskTags] = useState('');
+    const [taskTags, setTaskTags] = useState([]);
     const [repeat, setRepeat] = useState('');
     const [location, setLocation] = useState('');
     const [estimate, setEstimate] = useState('');
@@ -258,7 +253,7 @@ export default function CreateTaskSubPanel({lists}, {tags}) {
                     <select
                         className='ctsp-list-input'
                         value={taskList}
-                        onChange={(e) => setTaskList(e.target.value)}
+                        onChange={(e) => setTaskList([...e.target.options.filter( o => o.selected )])}
                     >
                         <option value=''>List</option>
                         {Object.values(lists).map((l) =>
@@ -271,9 +266,9 @@ export default function CreateTaskSubPanel({lists}, {tags}) {
                         value={taskTags}
                         onChange={(e) => setTaskTags(e.target.value)}
                     >
-                        {/* {Object.values(tags).map((t) =>
+                        {Object.values(tags).map((t) =>
                             <option value={t.id}>{t.name}</option>
-                        )} */}
+                        )}
                     </select>
 
 
