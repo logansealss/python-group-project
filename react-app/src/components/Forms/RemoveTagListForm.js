@@ -8,7 +8,7 @@ export default function RemoveTagListForm (props) {
 
   const actions = {
     'list': listActions.deleteList,
-    'tag': ''
+    'tag': tagActions.deleteTag
   }
 
   const handleSubmit = async (e) => {
