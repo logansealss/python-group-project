@@ -54,7 +54,7 @@ export const createList = (newList) => async dispatch => {
 }
 
 export const deleteList = (id) => async dispatch => {
-    const response = await fetch(`/api/list/${id}`, {
+    const response = await fetch(`/api/lists/${id}`, {
         method: 'DELETE'
     });
     if (response.ok) {
@@ -68,6 +68,7 @@ export const deleteList = (id) => async dispatch => {
 let newState;
 const initialState = null;
 export const listReducer = (state = initialState, action) => {
+    console.log(state)
     switch (action.type) {
         case LOAD_ALL:
             return { ...action.allLists }
@@ -75,7 +76,7 @@ export const listReducer = (state = initialState, action) => {
             return {...state, [action.newList.id]: action.newList }
         case DELETE:
             newState = {...state}
-            delete newState.lists[action.id]
+            delete newState[action.id]
             return {...newState}
         default:
             return state;
