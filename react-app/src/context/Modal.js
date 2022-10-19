@@ -37,12 +37,7 @@ export default function ModalWrapper(props) {
       },
       )}
     {showModal && (
-      <Modal
-        onClose={()=> setShowModal(false)}
-        setShowModal={setShowModal}
-        showModal={showModal}
-        header={props.header || ''}
-        >
+      <Modal {...props} setShowModal={setShowModal} showModal={showModal}>
         {React.cloneElement(props.form, props)}
       </Modal>
     )}
@@ -60,7 +55,7 @@ export function Modal (props) {
       <div id="modal-background" onClick={props.onClose} />
         <div id="modal-container">
           <div id='modal-header'>
-            {props.header}
+            {props.header || 'New Modal'}
             <img
             id='modal-close-button'
               src={x_svg}
@@ -70,7 +65,7 @@ export function Modal (props) {
               />
           </div>
           <div id='modal-content'>
-            {React.cloneElement(props.children, {setShowModal: props.setShowModal})}
+            {React.cloneElement(props.children, {...props})}
           </div>
         </div>
     </div>,

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function CreateListTagForm (props) {
+export default function RenameListTagForm (props) {
   const dispatch = useDispatch()
   const [name, setName] = useState('')
 
@@ -22,7 +22,7 @@ export default function CreateListTagForm (props) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>Please enter a new {props.feature} name</div>
+      <div>{props.feature[0].toUpperCase() + props.feature.substring(1)} name</div>
       <input
         id='modal_text_input'
         type='text'
@@ -30,7 +30,7 @@ export default function CreateListTagForm (props) {
 
         />
       <div id='modal_buttons'>
-        <button id='modal_submit' type='submit'>Add</button>
+        <button id='modal_submit' type='submit'>Save</button>
         <button
           id='modal_cancel'
           onClick={()=> {
