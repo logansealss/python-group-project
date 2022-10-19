@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react'
-import ReactDOM from 'react-dom';
 import dueDateIcon from '../../../img/calendar-day.svg';
 import startDateIcon from '../../../img/square-caret-right.svg';
 import postponeIcon from '../../../img/calendar-plus.svg';
