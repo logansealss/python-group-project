@@ -57,6 +57,5 @@ class Task(db.Model):
             'duration': self.duration,
             'note': self.note,
             'completed': self.completed,
-            'list': self.list.id if self.list else None,
             'tags': [tag.id for tag in self.tags] if self.tags else []
         }

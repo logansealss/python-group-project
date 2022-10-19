@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { createNewTask } from '../../../store/tasks';
 import dueDateIcon from '../../../img/calendar-day.svg';
 import startDateIcon from '../../../img/square-caret-right.svg';
 import postponeIcon from '../../../img/calendar-plus.svg';
@@ -16,22 +19,24 @@ import downCaret from '../../../img/caret-down.svg';
 import './createTaskSubPanel.css';
 import selectMenuTimes from '../../../data/selectMenuTimes.json';
 
-export default function CreateTaskSubPanel({lists, tags}) {
+export default function CreateTaskSubPanel({ lists, tags }) {
 
-    const [ctInput, setCtInput] = useState('');
+    const params = useParams();
+    const dispatch = useDispatch();
+    const { listId } = params;
+
+    // const [ctInput, setCtInput] = useState('');
     const [taskName, setTaskName] = useState('');
-    const [tnInput, setTnInput] = useState(document.createElement('input'));
     const [dueDate, setDueDate] = useState('');
     const [dueTime, setDueTime] = useState('');
     const [startDate, setStartDate] = useState('');
     const [startTime, setStartTime] = useState('');
-    const [taskList, setTaskList] = useState('');
+    const [taskList, setTaskList] = useState(listId);
     const [prio, setPrio] = useState('');
     const [taskTags, setTaskTags] = useState([]);
-    const [repeat, setRepeat] = useState('');
-    const [location, setLocation] = useState('');
     const [estimate, setEstimate] = useState('');
-    const [ctInputState, setCtInputState] = ([]);
+    const [estimateUnit, setEstimateUnit] = useState(1)
+    // const [ctInputState, setCtInputState] = ([]);
     const [renderAddTaskGrpClass, setRenderAddTaskGrpClass] = useState(
         'ctsp-ratgc-true'
     );
@@ -51,13 +56,25 @@ export default function CreateTaskSubPanel({lists, tags}) {
         } else {
             setRenderTaskFormIconClass('ctsp-ratig-false');
         }
-    }, [ctInput]);
+        console.log(startDate + ' ' + startTime)
+    }, [taskName, taskTags, dueDate, startDate, startTime]);
 
 
     const handleCtSubmit = (e) => {
         e.preventDefault();
-        console.log(ctInput)
-        setCtInput('');
+
+        const data = {
+            name: taskName,
+            priority: prio,
+            start_date: startDate + ' ' + startTime,
+            due_date: dueDate + ' ' + dueTime,
+            list_id: taskList,
+            duration: Math.ceil(estimate * estimateUnit)
+        }
+
+        console.log('ct form data: ', data);
+
+       console.log( dispatch(createNewTask(data)))
     }
 
     // const nameDivClick = () => {
@@ -241,8 +258,8 @@ export default function CreateTaskSubPanel({lists, tags}) {
 
                     <select
                         className='ctsp-prio-input'
-                        value={prio}
-                        onChange={(e) => setPrio(e.target.value)}
+                        value={`${prio}`}
+                        onChange={(e) => setPrio(Number(e.target.value))}
                     >
                         <option value=''>Priority</option>
                         <option value='1'>High</option>
@@ -253,7 +270,7 @@ export default function CreateTaskSubPanel({lists, tags}) {
                     <select
                         className='ctsp-list-input'
                         value={taskList}
-                        onChange={(e) => setTaskList([...e.target.options.filter( o => o.selected )])}
+                        onChange={(e) => setTaskList(e.target.value)}
                     >
                         <option value=''>List</option>
                         {Object.values(lists).map((l) =>
@@ -262,15 +279,31 @@ export default function CreateTaskSubPanel({lists, tags}) {
                     </select>
                     <select
                         className='ctsp-tag-input'
-                        multiple={true}
+                        multiple
                         value={taskTags}
-                        onChange={(e) => setTaskTags(e.target.value)}
+                        onChange={(e) => setTaskTags(
+                            Array.from(e.target.selectedOptions).map((el) => (
+                                el.value)))}
                     >
                         {Object.values(tags).map((t) =>
                             <option value={t.id}>{t.name}</option>
                         )}
                     </select>
+                    <input
+                        type='number'
+                        value={estimate}
+                        onChange={(e) => setEstimate(e.target.value)}
+                    />
 
+                    <select
+                        className='ctsp-prio-input'
+                        value={`${estimateUnit}`}
+                        onChange={(e) => setEstimateUnit(Number(e.target.value))}
+                    >
+                        <option value='1'>Minutes</option>
+                        <option value='60'>Hours</option>
+
+                    </select>
 
                     {/* <div className={`ctsp-add-task-grp-icons ${renderTaskFormIconClass}`}>
                             <img
@@ -288,7 +321,7 @@ export default function CreateTaskSubPanel({lists, tags}) {
                     <button
                         className='ctsp-ct-submit-btn'
                         type='submit'
-                        disabled={ctInput.length ? false : true}
+                        disabled={taskName.length ? false : true}
                     >
                         Add Task
                     </button>
