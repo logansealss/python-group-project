@@ -18,11 +18,11 @@ export default function TaskApp() {
                 <Route exact path={`${path}`}>
                     <MainPanel />
                 </Route>
-                <Route exact path={`${path}/:listId`}>
+                <Route exact path={`${path}/:filterId/:listId`}>
                     <MainPanel />
                     <ListDetailPanel />
                 </Route>
-                <Route path={`${path}/:listId/:taskId`}>
+                <Route path={`${path}/:filterId/:listId/:taskId`}>
                     <MainPanel />
                     <TaskDetailPanel />
                 </Route>
