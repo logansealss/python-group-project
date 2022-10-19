@@ -16,7 +16,7 @@ import downCaret from '../../../img/caret-down.svg';
 import './createTaskSubPanel.css';
 import selectMenuTimes from '../../../data/selectMenuTimes.json';
 
-export default function CreateTaskSubPanel({lists, tags}) {
+export default function CreateTaskSubPanel({ lists, tags }) {
 
     const [ctInput, setCtInput] = useState('');
     const [taskName, setTaskName] = useState('');
@@ -28,9 +28,8 @@ export default function CreateTaskSubPanel({lists, tags}) {
     const [taskList, setTaskList] = useState('');
     const [prio, setPrio] = useState('');
     const [taskTags, setTaskTags] = useState([]);
-    const [repeat, setRepeat] = useState('');
-    const [location, setLocation] = useState('');
     const [estimate, setEstimate] = useState('');
+    const [estimateUnit, setEstimateUnit] = useState(1)
     const [ctInputState, setCtInputState] = ([]);
     const [renderAddTaskGrpClass, setRenderAddTaskGrpClass] = useState(
         'ctsp-ratgc-true'
@@ -255,7 +254,7 @@ export default function CreateTaskSubPanel({lists, tags}) {
                     <select
                         className='ctsp-list-input'
                         value={taskList}
-                        onChange={(e) => setTaskList([...e.target.options.filter( o => o.selected )])}
+                        onChange={(e) => setTaskList(e.target.value)}
                     >
                         <option value=''>List</option>
                         {Object.values(lists).map((l) =>
@@ -264,15 +263,31 @@ export default function CreateTaskSubPanel({lists, tags}) {
                     </select>
                     <select
                         className='ctsp-tag-input'
-                        multiple={true}
+                        multiple
                         value={taskTags}
-                        onChange={(e) => {console.log(e.target); return setTaskTags([e.target.selectedOptions])}}
+                        onChange={(e) => setTaskTags(
+                            Array.from(e.target.selectedOptions).map((el) => (
+                                el.value)))}
                     >
                         {Object.values(tags).map((t) =>
                             <option value={t.id}>{t.name}</option>
                         )}
                     </select>
+                    <input
+                        type='number'
+                        value={estimate}
+                        onChange={(e) => setEstimate(e.target.value)}
+                    />
 
+                    <select
+                        className='ctsp-prio-input'
+                        value={`${estimateUnit}`}
+                        onChange={(e) => setEstimateUnit(Number(e.target.value))}
+                    >
+                        <option value='1'>Minutes</option>
+                        <option value='60'>Hours</option>
+
+                    </select>
 
                     {/* <div className={`ctsp-add-task-grp-icons ${renderTaskFormIconClass}`}>
                             <img
