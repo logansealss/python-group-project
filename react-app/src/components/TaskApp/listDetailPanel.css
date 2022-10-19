@@ -10,8 +10,31 @@
 .list-details-data{
     padding: 9px 13px;
     display: inline-block;
-    background-color: red;
+    background-color: #D3D3E0;
     border-radius: 5px;
     margin-right: 5px;
 }
+
+.list-details-data-label{
+    font-size: 0.75rem;
+}
+
+.list-details-data-value{
+    font-size: 1.1875rem;
+    font-weight: 600;
+}
+
+#list-details-tasks{
+    color: #56538c;
+}
+
+#list-details-overdue{
+    color: #d74a00
+}
+
+#list-details-completed{
+    color: rgba(0,0,0,0.4)
+}
+
+
 

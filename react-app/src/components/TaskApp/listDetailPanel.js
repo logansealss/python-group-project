@@ -72,6 +72,7 @@ export default function ListDetailPanel() {
     listDetails.name = "Today"
   } else if (listId === "tomorrow") {
     listDetails = getListDetails(tasks, getDateFromToday(1), getDateFromToday(1))
+    listDetails.name = "Tomorrow"
   } else if (listId === "week") {
     listDetails = getListDetails(tasks, getDateFromToday(), getDateFromToday(6))
     listDetails.name = "This Week"
@@ -83,32 +84,48 @@ export default function ListDetailPanel() {
         {listDetails.name}
       </div>
       <div id="list-details-data-container">
-        <div class="list-details-data">
+        <div className="list-details-data">
           <div>
-            <div>
+            <div 
+              className='list-details-data-value'
+              id='list-details-tasks'
+             >
               {listDetails.tasks}
             </div>
-            <div>
+            <div className='list-details-data-label'>
               tasks
             </div>
           </div>
         </div>
-        <div class="list-details-data">
-          <div>
+        {!!listDetails.overdueTasks &&
+          <div class="list-details-data">
             <div>
+              <div 
+                className='list-details-data-value'
+                id='list-details-overdue'
+              >
+                {listDetails.overdueTasks}
+              </div>
+              <div className='list-details-data-label'>
+                overdue
+              </div>
+            </div>
+          </div>
+        }
+        <div 
+          className="list-details-data"
+          id="list-details-completed"
+        >
+          <div>
+            <div className='list-details-data-value'>
               {listDetails.completedTasks}
             </div>
-            <div>
+            <div className='list-details-data-label'>
               completed
             </div>
           </div>
         </div>
       </div>
-      {/* {Object.entries(listDetails).map(([key, value]) => (
-                                                          <div>
-                                                            <span>{`${key}: `}</span>
-                                                            <span>{value}</span>
-                                                          </div>))} */}
     </div>
   )
 }
