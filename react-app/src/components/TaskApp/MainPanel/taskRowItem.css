@@ -1,20 +1,36 @@
 .tri-main-div {
+    position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: 33px;
+    box-sizing: border-box;
+    height: 100%;
     width: 100%;
     padding-top: 2px;
     padding-bottom: 2px;
     border-top: 1px dotted #bbb;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .tri-prio-indi{
     width: 3px;
     min-width: 3px;
-    height: 80%;
+    min-height: 80%;
     border-radius: 1px;
     background-color: #ccc;
+}
+
+.tri-prio-high{
+    background-color: #ea5200;
+}
+
+.tri-prio-medium{
+    background-color: #0060bf;
+}
+
+.tri-prio-low{
+    background-color: #359aff;
 }
 
 .tri-checkbox-div{
@@ -38,6 +54,10 @@
     opacity: .25;
 }
 
+.tri-main-div:hover .tri-trash{
+    display: inherit;
+}
+
 .tri-move-grab:hover{
     cursor: grab;
 }
@@ -45,15 +65,18 @@
 .tri-inner-grp{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     padding-top: 4px;
     padding-bottom: 4px;
+    padding-left: 5px;
 }
 
 .tri-task-name {
     color: #111;
     font-size: 16px;
-    padding-right: 10px;
+    /* padding-right: 10px;
+    padding-left: 12px; */
 }
 .tri-tags {
     background-color: darkgreen;
@@ -66,5 +89,37 @@
     padding-bottom: 2px;
     font-size: 12px;
     opacity: 0.7;
+    margin: 2px;
+}
 
+.tri-trash {
+    border-radius: 3px;
+    justify-content: center;
+    display: none;
+    position: absolute;
+    right: 14px;
+    height: 25px;
+    width: 25px;
+    align-items: center;
+    z-index: 10;
+    background-color: beige;
+    border: 1px solid lightgrey;
+}
+
+.tri-trash img{
+    opacity: .35;
+    height: 20px;
+    width: auto;
+}
+
+.tri-trash:hover img{
+    opacity: .9;
+}
+
+.tri-trash:hover{
+    border-color: grey;
+}
+
+.tri-trash:active{
+    transform: scale(0.9);
 }

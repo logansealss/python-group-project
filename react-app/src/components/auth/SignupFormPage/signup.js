@@ -1,5 +1,5 @@
-import React, { useState, useEffect} from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../../store/session";
@@ -11,6 +11,7 @@ import './signup.css';
 
 function SignupFormPage() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const sessionUser = useSelector((state) => state.session.user);
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
@@ -94,13 +95,13 @@ function SignupFormPage() {
         renderErrors
     ]);
 
-    if (sessionUser) return <Redirect to="/" />;
+    if (sessionUser) return <Redirect to="/app/lists/all" />;
 
     const emailCheck = (str) => {
         return /\S+@\S+\.\S+/.test(str);
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         setBackendErrors([]);
@@ -113,13 +114,21 @@ function SignupFormPage() {
             !passErr &&
             !confPassErr
         ) {
-            return dispatch(sessionActions.signup(
+            const response = await dispatch(sessionActions.signup(
                 firstName, lastName, username, email, password
-                ))
+            ))
                 .catch(async (res) => {
                     const data = await res.json();
                     if (data && data.errors) setBackendErrors(data.errors);
                 });
+
+            if (!response) {
+                history.push('/app/lists/all')
+            }
+            else {
+                const err = response.map(err => err.split(': ')[1])
+                setBackendErrors(err);
+            }
         }
     };
 
@@ -135,7 +144,7 @@ function SignupFormPage() {
         <div className="su-main-page-div">
             <div className="su-left-pane-main">
                 <Link to='/'>
-                <img alt='' className="su-left-main-logo" src={tmLogoWhite} />
+                    <img alt='' className="su-left-main-logo" src={tmLogoWhite} />
                 </Link>
                 <div className="su-left-pane-content">
                     <div className="su-left-pane-imgs">

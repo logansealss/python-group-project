@@ -1,23 +1,26 @@
 .dropdown_container {
-  position: absolute;
-  /* right: 400px; */
+  position: relative;
   z-index: 1;
 }
 
 .left {
   float: left;
+  align-self: start;
 }
 
 .right {
   float: right;
+  align-self: end;
 }
 
-.dropdown_menu {
+.relative {
+  position: relative;
+}
+
+.absolute {
   position: absolute;
-  transform: translateX(50%);
-  width: 200px;
-  height:50px;
-  background-color: white;
-  border: 1px solid black;
-  border-radius: 12px;
+}
+
+.hidden {
+   display: none !important;
 }

@@ -65,7 +65,7 @@ def create_tag():
 
         return new_tag.to_dict()
 
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
    
 
 @tag_routes.route('/<int:id>', methods=['PUT'])
@@ -97,7 +97,7 @@ def update_tag(id):
 
         return tag.to_dict()
 
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401  
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 @tag_routes.route('/<int:id>', methods=['DELETE'])
 @login_required

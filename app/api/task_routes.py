@@ -60,6 +60,7 @@ def create_task():
                         start_date=form_data["start_date"],
                         due_date=form_data["due_date"],
                         duration=form_data["duration"],
+                        list_id=form_data["list_id"],
                         note=form_data["note"],
                         completed=form_data["completed"])
 
@@ -68,7 +69,7 @@ def create_task():
 
         return new_task.to_dict()
 
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 @task_routes.route('/<int:task_id>/tags/<int:tag_id>', methods=['PUT'])
 @login_required
@@ -160,7 +161,7 @@ def update_task_by_id(id):
 
         return task.to_dict()
 
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 @task_routes.route('/<int:id>', methods=['DELETE'])
 @login_required

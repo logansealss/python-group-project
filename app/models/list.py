@@ -15,5 +15,5 @@ class List(db.Model):
             'id': self.id,
             'userId': self.user_id,
             'name': self.name,
-            'taskCount': len(self.tasks)
+            'taskCount': len(list(filter(lambda task: not task.completed, self.tasks)))
         }

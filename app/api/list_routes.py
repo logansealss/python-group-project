@@ -63,7 +63,7 @@ def create_list():
 
         return new_list.to_dict()
 
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 @list_routes.route('/<int:id>', methods=['PUT'])
 @login_required
@@ -97,7 +97,7 @@ def update_list_by_id(id):
 
         return list.to_dict()
 
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
 @list_routes.route('/<int:id>', methods=['DELETE'])

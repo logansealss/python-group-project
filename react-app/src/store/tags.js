@@ -1,7 +1,8 @@
 
 // constants
 const LOAD_ALL = 'tags/LOAD_ALL';
-const CREATE = 'tags/CREATE'
+const CREATE = 'tags/CREATE';
+const UPDATE = 'tags/UPDATE';
 const DELETE = 'tags/DELETE';
 
 const loadAll = allTags => ({
@@ -13,6 +14,11 @@ const loadOne = newTag => ({
     type: CREATE,
     newTag
 });
+
+const updateTag = updatedTag => ({
+    type: UPDATE,
+    updatedTag
+})
 
 const removeTag = id => ({
     type: DELETE,
@@ -52,6 +58,24 @@ export const createTag = newTag => async dispatch => {
     return response;
 };
 
+export const renameTag = (updatedTag) => async dispatch => {
+    const response = await fetch(`/api/tags/${updatedTag.id}`,{
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({'name': updatedTag.name}),
+    });
+
+    if (response.ok) {
+        updatedTag = await response.json();
+        dispatch(updateTag(updatedTag));
+        return response;
+    }
+    return response;
+}
+
+
 export const deleteTag = (id) => async dispatch => {
     const response = await fetch(`/api/tags/${id}`, {
         method: 'DELETE'
@@ -73,6 +97,8 @@ export const tagReducer = (state = initialState, action) => {
             return { ...action.allTags }
         case CREATE:
             return {...state, [action.newTag.id]: action.newTag }
+        case UPDATE:
+            return {...state, [action.updatedTag.id] : action.updatedTag}
         case DELETE:
             newState = {...state}
             delete newState[action.id]
