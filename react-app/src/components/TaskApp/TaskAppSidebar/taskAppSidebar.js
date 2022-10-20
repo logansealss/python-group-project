@@ -46,7 +46,6 @@ function getCount (tasks, targetFeature, targetValue) {
       } else {
         return Object.values(tasks)
         .reduce((count,task)=>{
-          console.log('due date',task[targetFeature]?.slice(0,10), 'target', targetValue)
           if (
             task[targetFeature]?.slice(0, 10) >= getDateFromToday()
             && task[targetFeature]?.slice(0, 10) <= targetValue
