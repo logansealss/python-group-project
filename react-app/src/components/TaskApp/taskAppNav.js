@@ -48,7 +48,7 @@ export default function TaskAppNav() {
                             onBlur={() => {setSearchIconFocusStyle('')}}
                         />
                     </form>
-                    <DropDownWrapper
+                    {/* <DropDownWrapper
                         offset='35px'
                         menu={
                             <div className='dropdown_menu'>Sample Menu Box</div>
@@ -58,7 +58,7 @@ export default function TaskAppNav() {
                             className={`tan-search-down-caret-icon tan-search-icon-style ${searchIconFocusStyle}`}
                             src={downCaret}
                         />
-                    </DropDownWrapper>
+                    </DropDownWrapper> */}
                     </div>
                 </DropdownProvider>
             </div>
