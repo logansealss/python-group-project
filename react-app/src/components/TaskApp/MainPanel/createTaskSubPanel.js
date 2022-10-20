@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { createNewTask } from '../../../store/tasks';
+import { createNewTask, addTagToTask } from '../../../store/tasks';
 import dueDateIcon from '../../../img/calendar-day.svg';
 import startDateIcon from '../../../img/square-caret-right.svg';
 import postponeIcon from '../../../img/calendar-plus.svg';
@@ -71,7 +71,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
 
     }, [taskName]);
 
-    const handleCtSubmit = (e) => {
+    const handleCtSubmit = async (e) => {
         e.preventDefault();
 
         const data = {
@@ -84,8 +84,19 @@ export default function CreateTaskSubPanel({ lists, tags }) {
         }
 
         console.log('ct form data: ', data);
+        console.log('task tags', taskTags)
 
-        console.log(dispatch(createNewTask(data)))
+        const response = await dispatch(createNewTask(data))
+
+        console.log(response)
+
+        if (response && response.id){
+            for(let tagId of taskTags){
+                dispatch(addTagToTask(response.id, +tagId))
+                console.log(response.id, +tagId)
+            }
+        }
+
     }
 
     return (

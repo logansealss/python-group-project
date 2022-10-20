@@ -4,6 +4,7 @@ const LOAD_ONE = 'tasks/LOAD_ONE';
 const CREATE_TASK = 'tasks/CREATE';
 const UPDATE_TASK = 'tasks/UPDATE_TASK';
 const DELETE_TASK = 'tasks/DELETE_TASK';
+const ADD_TAG_TASK = 'tasks/ADD_TAG_TASK';
 
 const loadAll = allTasks => ({
     type: LOAD_ALL,
@@ -28,6 +29,12 @@ const updateTask = updatedTask => ({
 const deleteTask = id => ({
     type: DELETE_TASK,
     id
+})
+
+const addTagToTaskActionCreator = (taskId, tagId) => ({
+    type: ADD_TAG_TASK,
+    taskId,
+    tagId
 })
 
 export const getAllTasks = () => async (dispatch) => {
@@ -113,6 +120,22 @@ export const deleteSingleTask = (id) => async (dispatch) => {
     return response;
 }
 
+export const addTagToTask = (taskId, tagId) => async (dispatch) => {
+    const response = await fetch(`/api/tasks/${taskId}/tags/${tagId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+
+    if (response.ok) {
+        dispatch(addTagToTaskActionCreator(taskId, tagId));
+        return {taskId, tagId};
+    }
+
+    return response;
+}
+
 const initialState = {
                         allTasks: null,
                         singleTask: null
@@ -133,7 +156,7 @@ export const taskReducer = (state = initialState, action) => {
                 }
         case UPDATE_TASK:
             singleTask = { ...state.singleTask };
-            if (state.singleTask.id && state.singleTask.id === action.updatedTask.id){
+            if (state.singleTask && state.singleTask.id === action.updatedTask.id){
                 singleTask = action.updatedTask;
             }
             return {
@@ -141,8 +164,8 @@ export const taskReducer = (state = initialState, action) => {
                 singleTask,
             }
         case DELETE_TASK:
-            singleTask = (state.singleTask.id && state.singleTask.id === action.id) ?
-                {} :
+            singleTask = (state.singleTask && state.singleTask.id === action.id) ?
+                null :
                 { ...state.singleTask };
             allTasks = { ...state.allTasks }
             delete allTasks[action.id]
@@ -150,6 +173,20 @@ export const taskReducer = (state = initialState, action) => {
                 allTasks,
                 singleTask
             }
+        case ADD_TAG_TASK:
+            singleTask = state.singleTask ? { ...state.singleTask, } : null;
+            if(singleTask && singleTask.id === action.taskId){
+                if(!singleTask.tags.includes(action.tagId)){
+                    singleTask.tags.push(action.tagId)
+                }
+            }
+            allTasks = state.allTasks ? { ...state.allTasks } : null;
+            if(allTasks && allTasks[action.taskId]){
+                if(!allTasks[action.taskId].tags.includes(action.tagId)){
+                    allTasks[action.taskId].tags.push(action.tagId)
+                }
+            }
+            return {singleTask, allTasks}
         default:
             return state;
         }
