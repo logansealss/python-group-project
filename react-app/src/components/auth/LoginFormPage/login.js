@@ -37,7 +37,7 @@ function LoginFormPage() {
     useEffect(() => {
 
         if (credential.length <= 3) {
-            setCredentialErr('Username or email is required');
+            setCredentialErr('Email is required');
             renderErrors ? setCrErrClass('li-hasError') : setCrErrClass('li-valid');
         } else {
             setCredentialErr('');
@@ -84,7 +84,6 @@ function LoginFormPage() {
         ) {
             const response = await dispatch(sessionActions.login(credential, password))
 
-            console.log("response", response)
             if(!response){
                 history.push('/app/lists/all')
             }
