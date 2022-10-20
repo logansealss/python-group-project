@@ -7,7 +7,7 @@
     border-top-right-radius: 6px;
     align-items: center;
     min-width: 420px;
-    min-height: 100%;
+    /* min-height: 100%; */
 }
 
 .tam-task-list-div{
