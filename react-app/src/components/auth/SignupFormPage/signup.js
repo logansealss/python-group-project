@@ -94,7 +94,7 @@ function SignupFormPage() {
         renderErrors
     ]);
 
-    if (sessionUser) return <Redirect to="/" />;
+    if (sessionUser) return <Redirect to="/app/lists/all" />;
 
     const emailCheck = (str) => {
         return /\S+@\S+\.\S+/.test(str);
