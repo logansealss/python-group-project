@@ -56,7 +56,14 @@ export default function TaskAppNav() {
             <DropdownProvider position='relative'>
                 <DropDownWrapper menu={
                     <div className='tan-settings-dropdown-menu'>
-                        <div className='tan-dropdown-button'>Logout</div>
+                        <div
+                            className='tan-dropdown-button'
+                            onClick={async ()=>{
+                                const response = await fetch('/api/auth/logout')
+                                if (response.ok) history.push('/')
+                            }}
+                            >Logout
+                        </div>
                     </div>
                 }>
                     <div className='tan-settings-icon-grp'>

@@ -169,4 +169,5 @@ padding-top: 3px;
 
 .tan-dropdown-button:hover {
     background-color: hsl(240,26%,84%);
+    cursor: pointer;
   }
