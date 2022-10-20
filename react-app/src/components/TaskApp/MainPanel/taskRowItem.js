@@ -48,10 +48,12 @@ export default function TaskRowItem({ task }) {
                     : null
                 )}
             </div>
-            <div className='tri-trash'>
+            <div 
+                className='tri-trash'
+                onClick={trashClick}
+            >
                 <img
                     src={trashIcon}
-                    onClick={trashClick}
                 />
             </div>
         </div>
