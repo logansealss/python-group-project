@@ -19,7 +19,10 @@ export default function TaskAppNav() {
 
     function handlesearchSubmit(e) {
         e.preventDefault()
-        history.push(`/app/search/${encodeURIComponent(searchInput.trim().split(' ').filter(str => str !== '').join(' '))}`)
+        const trimmedInput = searchInput.trim()
+        if(trimmedInput !== ''){
+            history.push(`/app/search/${encodeURIComponent(trimmedInput.split(' ').filter(str => str !== '').join(' '))}`)
+        }
     }
 
     return (
