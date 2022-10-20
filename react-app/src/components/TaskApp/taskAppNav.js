@@ -1,13 +1,13 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
-import DropDownWrapper, { DropdownProvider } from '../../context/Dropdown'
-import downCaret from '../../img/caret-down.svg'
-import hamburger from '../../img/bars.svg'
-import gear from '../../img/gear.svg'
-import magGlass from '../../img/magnifying-glass.svg'
-
+import DropDownWrapper, { DropdownProvider } from '../../context/Dropdown';
+import downCaret from '../../img/caret-down.svg';
+import hamburger from '../../img/bars.svg';
+import gear from '../../img/gear.svg';
+import magGlass from '../../img/magnifying-glass.svg';
+import { SidebarContext } from '../../context/SidebarExpander';
 import * as sessionActions from '../../store/session';
 
 import './taskAppNav.css'
@@ -18,6 +18,7 @@ export default function TaskAppNav() {
     const dispatch = useDispatch();
     const [searchInput, setSearchInput] = useState('');
     const [searchIconFocusStyle, setSearchIconFocusStyle] = useState('');
+    const [expandSideBar, setExpandSideBar] = useContext(SidebarContext);
 
     function handlesearchSubmit(e) {
         e.preventDefault()
@@ -29,10 +30,17 @@ export default function TaskAppNav() {
 
     return (
         <div className='tan-main-div'>
-            <img
-                className='tan-hamburger-icon tan-icon-style'
-                src={hamburger}
-            />
+            <div
+                className={`tan-left-div ${expandSideBar? 'expandDiv': '' }`}
+                onClick={()=>setExpandSideBar(val=>!val)}
+                >
+                <img
+                    className='tan-hamburger-icon tan-icon-style'
+                    src={hamburger}
+                />
+                {!expandSideBar && <div className= 'tan-list-name'>List Name</div>}
+            <div></div>
+            </div>
             <div className='tan-search-container'>
                 <div className='tan-search-pseudo-input'>
                     <img
