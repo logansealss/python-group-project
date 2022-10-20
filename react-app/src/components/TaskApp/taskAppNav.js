@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
 import DropDownWrapper, { DropdownProvider } from '../../context/Dropdown'
 import downCaret from '../../img/caret-down.svg'
@@ -11,18 +12,21 @@ import './taskAppNav.css'
 
 export default function TaskAppNav() {
 
+    const history = useHistory()
     const dispatch = useDispatch();
     const [searchInput, setSearchInput] = useState('');
     const [searchIconFocusStyle, setSearchIconFocusStyle] = useState('');
 
     function handlesearchSubmit(e) {
         e.preventDefault()
-        console.log('search submit!');
+        const trimmedInput = searchInput.trim()
+        if(trimmedInput !== ''){
+            history.push(`/app/search/${encodeURIComponent(trimmedInput.split(' ').filter(str => str !== '').join(' '))}`)
+        }
     }
 
     return (
         <div className='tan-main-div'>
-
             <img
                 className='tan-hamburger-icon tan-icon-style'
                 src={hamburger}
