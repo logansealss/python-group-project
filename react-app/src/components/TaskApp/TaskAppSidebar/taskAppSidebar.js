@@ -7,7 +7,7 @@ import * as tagActions from '../../../store/tags'
 
 import Collapser from './Collapser'
 import BannerItem from './BannerItem'
-import CreateTagListForm from '../../Forms/CreateTagListForm'
+import CreateTagListForm from './Forms/CreateTagListForm'
 import ModalWrapper from '../../../context/Modal'
 
 import logo from '../../../img/TM-logo-short-nobg.png'
@@ -73,7 +73,8 @@ export default function TaskAppSidebar() {
         .map(list => (
           <BannerItem
             key={list.id}
-            id={list.id}
+            itemId={list.id}
+            name={list.name}
             feature='list'
             obj={<Count count={list.taskCount}/>}
             handleClick={()=>history.push(`/app/lists/${list.id}`)}
@@ -90,7 +91,8 @@ export default function TaskAppSidebar() {
       children: tags && Object.values(tags).map(tag => (
         <BannerItem
           key={tag.id}
-          id={tag.id}
+          itemId={tag.id}
+          name={tag.name}
           feature='tag'
           obj={<Count count={tag.taskCount}/>}
           handleClick={()=>history.push(`/app/tags/${tag.id}`)}

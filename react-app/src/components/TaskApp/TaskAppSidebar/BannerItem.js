@@ -1,22 +1,23 @@
 import downCaret from '../../../img/caret-down.svg';
 import ModalWrapper from '../../../context/Modal.js';
 import DropDownWrapper, { DropdownProvider } from '../../../context/Dropdown';
-import RemoveTagListForm from '../../Forms/RemoveTagListForm';
-
+import RemoveTagListForm from './Forms/RemoveTagListForm';
+import RenameTagListForm from './Forms/RenameTagListForm';
 export default function BannerItem (props) {
 
   return (
-    <DropdownProvider>
+    <DropdownProvider position='relative'>
       <div id='banner_item'>
         <div className='title' onClick={props.handleClick}>{props.children}</div>
           <div className='collapser_rhs_icons'>
             <DropDownWrapper
-              offset='14px'
+              offset='0px'
               left={true}
               menu={
                 <Menu
-                  id={props.id}
+                  itemId={props.itemId}
                   feature={props.feature}
+                  name={props.name}
                 />}
               >
               <img id='dropdown_caret' className='tasb-caret' src={downCaret} />
@@ -31,17 +32,24 @@ export default function BannerItem (props) {
 
 function Menu (props) {
   return (
-    <div id='banner_dropdown' onClick={e=>e.stopPropagation()}>
-      <ModalWrapper header={props.header} form={<RemoveTagListForm/>} feature={props.feature} >
-        <div>Rename</div>
+    <div id='banner_dropdown'>
+      <ModalWrapper
+        header={`Rename ${props.feature}`}
+        name={props.name}
+        form={<RenameTagListForm/>}
+        feature={props.feature}
+        itemId={props.itemId}
+        >
+        <div id='sidebar_dropdown_button'>Rename</div>
       </ModalWrapper>
       <ModalWrapper
-        header={props.header}
+        header={`Delete ${props.feature}`}
+        name={props.name}
         form={<RemoveTagListForm/>}
         feature={props.feature}
-        id={props.id}
+        itemId={props.itemId}
         >
-        <div>Delete</div>
+        <div id='sidebar_dropdown_button'>Delete</div>
       </ModalWrapper>
     </div>
   );
