@@ -24,8 +24,6 @@ export default function CreateTaskSubPanel({ lists, tags }) {
     const params = useParams();
     const dispatch = useDispatch();
     const { listId } = params;
-
-    // const [ctInput, setCtInput] = useState('');
     const [taskName, setTaskName] = useState('');
     const [dueDate, setDueDate] = useState('');
     const [dueTime, setDueTime] = useState('');
@@ -36,29 +34,42 @@ export default function CreateTaskSubPanel({ lists, tags }) {
     const [taskTags, setTaskTags] = useState([]);
     const [estimate, setEstimate] = useState('');
     const [estimateUnit, setEstimateUnit] = useState(1)
-    // const [ctInputState, setCtInputState] = ([]);
-    const [renderAddTaskGrpClass, setRenderAddTaskGrpClass] = useState(
-        'ctsp-ratgc-true'
-    );
+    const [renderCtForm, setRenderCtForm] = useState(false);
+    const [formDiv, setFormDiv] = useState();
+
     const [renderTaskFormIconClass, setRenderTaskFormIconClass] = useState(
         'ctsp-ratig-false'
-    )
+    );
 
-    // const ctDiv = document.getElementsByClassName('ctsp-main-div');
-    // // const ctspNameDiv = document.getElementsByClassName('ctsp-name-div');
+    const formRef = useRef();
 
-    const [ctspNameDiv, setCtspNameDiv] = useState(
-        document.getElementsByClassName('ctsp-name-div')[0]);
+    const openForm = () => {
+        console.log('openForm');
+        setRenderCtForm(true);
+        formDiv.style.height = '340px'
+    }
+
+    const closeForm = () => {
+        console.log('closeForm')
+        setRenderCtForm(false);
+        formDiv.style.height = '0px';
+    }
 
     useEffect(() => {
-        if (taskName.length) {
-            setRenderTaskFormIconClass('ctsp-ratig-true');
-        } else {
-            setRenderTaskFormIconClass('ctsp-ratig-false');
+        setFormDiv(document.getElementById('ctsp-form-div'));
+        if(formDiv){
+            formDiv.style.height = '0px';
         }
-        console.log(startDate + ' ' + startTime)
-    }, [taskName, taskTags, dueDate, startDate, startTime]);
+    }, [formRef]);
 
+    useEffect(() => {
+        if (taskName.length && !renderCtForm) {
+            openForm();
+        } else if(!taskName.length && renderCtForm) {
+            closeForm();
+        }
+
+    }, [taskName]);
 
     const handleCtSubmit = (e) => {
         e.preventDefault();
@@ -77,34 +88,6 @@ export default function CreateTaskSubPanel({ lists, tags }) {
         console.log(dispatch(createNewTask(data)))
     }
 
-    // const nameDivClick = () => {
-    //     if (!document.getElementsByClassName('ctsp-name-div')[0].children.length) {
-    //         const input = document.createElement('input')
-    //         input.className = 'ctsp-name-input';
-    //         ctspNameDiv.innerText = '';
-    //         ctspNameDiv.appendChild(input);
-    //         input.value = taskName;
-    //         input.focus()
-    //         input.style.width = input.value.trim().length + 'ch'
-    //         input.innerText = taskName;
-    //     }
-    // }
-
-    // function manageNameDiv() {
-    //         console.log(ctInput);
-    //         setTaskName(ctInput);
-    //         // tnInput.style.width = tnInput.value.trim().length + 'ch'
-    //         ctspNameDiv.innerText = ctInput;
-    //         setCtInput('');
-    // }
-
-    // const keyDownFn = (e) => {
-    //     if (e.key === '!') {
-    //         console.log('key pressed!:', e.key)
-    //         manageNameDiv();
-    //     }
-    // }
-
     return (
         <form
             onSubmit={handleCtSubmit}
@@ -113,103 +96,6 @@ export default function CreateTaskSubPanel({ lists, tags }) {
             <div
                 className='ctsp-main-div'
             >
-                {/* <div className='ctsp-ut-main-div'>
-                    <div className='ctsp-ut-grp-1'>
-                        <div className='ctsp-btn-div-solo-single ctsp-ut-btn'>
-                            <img
-                                className='ctsp-ut-icon-style ctsp-ut-hover-style'
-                                src={minusIcon}
-                            />
-                            <img
-                                className='ctsp-ut-caret-style ctsp-ut-hover-style'
-                                src={downCaret}
-                            />
-                        </div>
-                    </div>
-                    <div className='ctsp-ut-grp-2'>
-                        <div className='ctsp-btn-div-left ctsp-ut-btn' >
-                            <img
-                                className='ctsp-ut-icon-style ctsp-ut-hover-style'
-                                src={checkIcon}
-                            />
-                        </div>
-                        <div className='ctsp-btn-div-center-solo ctsp-ut-btn'>
-                            <img
-                                className='ctsp-ut-icon-style ctsp-ut-hover-style'
-                                src={postponeIcon}
-                            />
-                            <img
-                                className='ctsp-ut-caret-style ctsp-ut-hover-style'
-                                src={downCaret}
-                            />
-                        </div>
-                        <div className='ctsp-btn-div-rt ctsp-ut-btn'>
-                            <img
-                                className='ctsp-ut-icon-style ctsp-ut-hover-style'
-                                src={userIcon}
-                            />
-                            <img
-                                className='ctsp-ut-caret-style ctsp-ut-hover-style'
-                                src={downCaret}
-                            />
-                        </div>
-                    </div>
-                    <div className='ctsp-ut-grp-3'>
-                        <div className='ctsp-btn-div-left ctsp-ut-btn'>
-                            <img
-                                className='ctsp-ut-icon-style ctsp-ut-hover-style'
-                                src={prioIcon}
-                            />
-                            <img
-                                className='ctsp-ut-caret-style ctsp-ut-hover-style'
-                                src={downCaret}
-                            />
-                        </div>
-                        <div className='ctsp-btn-div-center-solo ctsp-ut-btn'>
-                            <img
-                                className='ctsp-ut-icon-style ctsp-ut-hover-style'
-                                src={dueDateIcon}
-                            />
-                            <img
-                                className='ctsp-ut-caret-style ctsp-ut-hover-style'
-                                src={downCaret}
-                            />
-                        </div>
-                        <div className='ctsp-btn-div-center ctsp-ut-btn'>
-                            <img
-                                className='ctsp-ut-icon-style ctsp-ut-hover-style'
-                                src={listIcon}
-                            />
-                            <img
-                                className='ctsp-ut-caret-style ctsp-ut-hover-style'
-                                src={downCaret}
-                            />
-                        </div>
-                        <div className='ctsp-btn-div-rt ctsp-ut-btn'>
-                            <img
-                                className='ctsp-ut-icon-style ctsp-ut-hover-style'
-                                src={tagIcon}
-                            />
-                            <img
-                                className='ctsp-ut-caret-style ctsp-ut-hover-style'
-                                src={downCaret}
-                            />
-                        </div>
-                    </div>
-                    <div className='ctsp-ut-grp-4'>
-                        <div className='ctsp-btn-div-solo-single ctsp-ut-btn'>
-                            <img
-                                className='ctsp-ut-icon-style ctsp-ut-hover-style'
-                                src={EliIcon}
-                            />
-                            <img
-                                className='ctsp-ut-caret-style ctsp-ut-hover-style'
-                                src={downCaret}
-                            />
-                        </div>
-                    </div>
-                </div> */}
-                {/* <div className='ctsp-ct-input-main'> */}
                 <div className='ctsp-ct-pseudo-input'>
                     <input
                         className='ctsp-ct-input'
@@ -217,18 +103,20 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                         placeholder='Add a task...'
                         value={taskName}
                         onChange={(e) => setTaskName(e.target.value)}
-                    // onFocus={() => { setRenderAddTaskGrpClass('ctsp-ratgc-true') }}
-                    // onBlur={() => { !ctInput.length && setRenderAddTaskGrpClass('ctsp-ratgc-false') }}
-                    // onKeyDown={keyDownFn}
                     />
                 </div>
                 <div
-                    className={`ctsp-add-task-grp ${renderAddTaskGrpClass}`}
+                    className={'ctsp-add-task-grp'}
+                    id='ctsp-form-div'
+                    ref={formRef}
                 >
                     <div className='ctsp-top-half'>
                         <div className='ctsp-top-left-grp'>
                             <div className='ctsp-top-grp'>
                                 <div className='ctsp-due-date-grp'>
+                                    <div className='ctsp-date-label-div'>
+                                        <p className='ctsp-date-label'>Due Date</p>
+                                    </div>
                                     <input
                                         className='ctsp-date-input'
                                         type='date'
@@ -246,7 +134,11 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                                         )}
                                     </select>
                                 </div>
+
                                 <div className='ctsp-due-date-grp'>
+                                    <div className='ctsp-date-label-div'>
+                                        <p className='ctsp-date-label'>Start Date</p>
+                                    </div>
                                     <input
                                         className='ctsp-date-input'
                                         type='date'
@@ -291,6 +183,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                             <div className='ctsp-left-bot-grp'>
                                 <input
                                     className='ctsp-time-input'
+                                    placeholder='Time estimate'
                                     type='number'
                                     value={estimate}
                                     onChange={(e) => setEstimate(e.target.value)}
@@ -316,7 +209,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                                     Array.from(e.target.selectedOptions).map((el) => (
                                         el.value)))}
                             >
-                                <optgroup label='Tags'/>
+                                <optgroup label='Tags' />
                                 {Object.values(tags).map((t) =>
                                     <option className='sel-op' value={t.id}>{t.name}</option>
                                 )}

@@ -90,10 +90,12 @@
     /* justify-content: space-between; */
     align-items: flex-start;
     min-width: 100%;
-    height: auto;
+    height: 0px;
     margin-top: 3px;
     margin-bottom: 3px;
     width: calc(100% - 10px);
+    overflow: hidden;
+    transition-duration: .5s;
 }
 
 .ctsp-ratgc-true{
@@ -383,6 +385,21 @@
     justify-content: space-between;
     height: 60px;
     width: 100%;
+}
+
+.ctsp-date-label-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.ctsp-date-label {
+    font-weight: bold;
+    padding-bottom: 5px;
+    font-size: 16px;
+    color: #1e1c35;
 }
 
 /* .sel-op::sel {

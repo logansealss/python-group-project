@@ -30,6 +30,7 @@
   transition: bottom .2s ease-out;
   border: 1px solid black;
   border-radius: 14px;
+  box-shadow: 0 6px 12px rgb(0 0 0 / 10%);
 }
 
 #modal-header {

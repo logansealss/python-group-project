@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getSingleTask } from '../../store/tasks';
@@ -18,6 +18,7 @@ import tagIcon from '../../img/tag.svg';
 import minusIcon from '../../img/minus.svg';
 import EliIcon from '../../img/ellipsis.svg';
 import downCaret from '../../img/caret-down.svg';
+import editIcon from '../../img/pen-to-square.svg'
 import './taskDetailPanel.css';
 
 import './taskDetailPanel.css';
@@ -53,6 +54,31 @@ export default function TaskDetailPanel() {
     const [estimate, setEstimate] = useState('');
     const [estimateUnit, setEstimateUnit] = useState(1)
 
+    const [renderTadForm, setRenderTadForm] = useState(false);
+    const [tadFormDiv, setTadFormDiv] = useState();
+
+    const formRef = useRef();
+
+    const openForm = () => {
+        if (tadFormDiv) {
+            tadFormDiv.style.height = '340px'
+        }
+        setRenderTadForm(true);
+    }
+
+    const closeForm = () => {
+        setRenderTadForm(false);
+        if (tadFormDiv) {
+            tadFormDiv.style.height = '0px';
+        }
+    }
+
+    useEffect(() => {
+        setTadFormDiv(document.getElementsByClassName('tad-add-task-grp')[0]);
+        if (tadFormDiv) {
+            tadFormDiv.style.height = '0px';
+        }
+    }, [formRef, task]);
 
     useEffect(() => {
         if (task) {
@@ -100,26 +126,34 @@ export default function TaskDetailPanel() {
                             type='text'
                             value={taskName}
                             onChange={(e) => setTaskName(e.target.value)}
-                        // onFocus={() => { setRenderAddTaskGrpClass('ctsp-ratgc-true') }}
-                        // onBlur={() => { !ctInput.length && setRenderAddTaskGrpClass('ctsp-ratgc-false') }}
-                        // onKeyDown={keyDownFn}
                         />
+                        <div
+                            className='tad-edit-div'
+                            onClick={renderTadForm ? closeForm : openForm}
+                        >
+                            <img className='tad-edit-icon' src={editIcon} />
+                        </div>
                     </div>
                     <div
-                        className={`ctsp-add-task-grp`}
+                        className={'tad-add-task-grp'}
+                        id='tad-form-div'
+                        ref={formRef}
                     >
-                        <div className='ctsp-top-half'>
-                            <div className='ctsp-top-left-grp'>
-                                <div className='ctsp-top-grp'>
-                                    <div className='ctsp-due-date-grp'>
+                        <div className='tad-top-half'>
+                            <div className='tad-top-left-grp'>
+                                <div className='tad-top-grp'>
+                                    <div className='tad-due-date-grp'>
+                                        <div className='tad-date-label-div'>
+                                            <p className='tad-date-label'>Due Date</p>
+                                        </div>
                                         <input
-                                            className='ctsp-date-input'
+                                            className='tad-date-input'
                                             type='date'
                                             value={dueDate}
                                             onChange={(e) => setDueDate(e.target.value)}
                                         />
                                         <select
-                                            className='ctsp-time-select'
+                                            className='tad-time-select'
                                             value={dueTime}
                                             onChange={(e) => setDueTime(e.target.value)}
                                         >
@@ -129,15 +163,18 @@ export default function TaskDetailPanel() {
                                             )}
                                         </select>
                                     </div>
-                                    <div className='ctsp-due-date-grp'>
+                                    <div className='tad-due-date-grp'>
+                                        <div className='tad-date-label-div'>
+                                            <p className='tad-date-label'>Due Date</p>
+                                        </div>
                                         <input
-                                            className='ctsp-date-input'
+                                            className='tad-date-input'
                                             type='date'
                                             value={startDate}
                                             onChange={(e) => setStartDate(e.target.value)}
                                         />
                                         <select
-                                            className='ctsp-time-select'
+                                            className='tad-time-select'
                                             value={startTime}
                                             onChange={(e) => setStartTime(e.target.value)}
                                         >
@@ -148,9 +185,9 @@ export default function TaskDetailPanel() {
                                         </select>
                                     </div>
                                 </div>
-                                <div className='ctsp-mid-grp-lf'>
+                                <div className='tad-mid-grp-lf'>
                                     <select
-                                        className='ctsp-time-select'
+                                        className='tad-time-select'
                                         value={`${prio}`}
                                         onChange={(e) => setPrio(Number(e.target.value))}
                                     >
@@ -161,7 +198,7 @@ export default function TaskDetailPanel() {
                                         <option value='0'>None</option>
                                     </select>
                                     <select
-                                        className='ctsp-time-select'
+                                        className='tad-time-select'
                                         value={taskList}
                                         onChange={(e) => setTaskList(e.target.value)}
                                     >
@@ -171,16 +208,17 @@ export default function TaskDetailPanel() {
                                         )}
                                     </select>
                                 </div>
-                                <div className='ctsp-left-bot-grp'>
+                                <div className='tad-left-bot-grp'>
                                     <input
-                                        className='ctsp-time-input'
+                                        className='tad-time-input'
+                                        placeholder='Time estimate'
                                         type='number'
                                         value={estimate}
                                         onChange={(e) => setEstimate(e.target.value)}
                                     />
 
                                     <select
-                                        className='ctsp-time-select'
+                                        className='tad-time-select'
                                         value={`${estimateUnit}`}
                                         onChange={(e) => setEstimateUnit(Number(e.target.value))}
                                     >
@@ -190,9 +228,9 @@ export default function TaskDetailPanel() {
                                     </select>
                                 </div>
                             </div>
-                            <div className='ctsp-tag-grp'>
+                            <div className='tad-tag-grp'>
                                 <select
-                                    className='ctsp-tag-input'
+                                    className='tad-tag-input'
                                     multiple
                                     value={taskTags}
                                     onChange={(e) => setTaskTags(
@@ -206,22 +244,22 @@ export default function TaskDetailPanel() {
                                 </select>
                             </div>
                         </div>
-                        <div className='ctsp-at-btn-div'>
-                            <div className={`ctsp-add-task-grp-icons`}>
+                        <div className='tad-at-btn-div'>
+                            <div className={`tad-add-task-grp-icons`}>
                                 <img
-                                    className='ctsp-at-icon-style'
+                                    className='tad-at-icon-style'
                                     src={dueDateIcon}
                                 />
 
-                                <img className='ctsp-at-icon-style' src={startDateIcon} />
-                                <img className='ctsp-at-icon-style' src={listIcon} />
-                                <img className='ctsp-at-icon-style' src={prioIcon} />
-                                {/* <img className='ctsp-at-icon-style' src={repeatIcon} />
-                            <img className='ctsp-at-icon-style' src={locationPin} /> */}
-                                <img className='ctsp-at-icon-style' src={clockIcon} />
+                                <img className='tad-at-icon-style' src={startDateIcon} />
+                                <img className='tad-at-icon-style' src={listIcon} />
+                                <img className='tad-at-icon-style' src={prioIcon} />
+                                {/* <img className='tad-at-icon-style' src={repeatIcon} />
+                            <img className='tad-at-icon-style' src={locationPin} /> */}
+                                <img className='tad-at-icon-style' src={clockIcon} />
                             </div>
                             <button
-                                className='ctsp-ct-submit-btn'
+                                className='tad-ct-submit-btn'
                                 type='submit'
                                 disabled={taskName.length ? false : true}
                             >

@@ -8,7 +8,7 @@
     outline:none;
 }
 
-::-moz-selection ::selection{
+::-moz-selection, ::selection{
     background-color: #56538c;
     color: rgb(255, 255, 255);
 }
