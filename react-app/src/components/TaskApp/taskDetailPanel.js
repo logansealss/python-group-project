@@ -64,8 +64,8 @@ export default function TaskDetailPanel() {
     const prios = {
         1: 'High',
         2: 'Med',
-        3: 'low',
-        0: 'none'
+        3: 'Low',
+        0: 'None'
     }
 
     const months = [
@@ -119,11 +119,6 @@ export default function TaskDetailPanel() {
             setTdNotesSaved(false);
         } else if (task && tdNotes === task.notes) {
             setTdNotesSaved(true);
-        }
-
-        if (task) {
-            console.log(tdNotes);
-            console.log(task.note);
         }
     }, [tdNotes])
 
