@@ -90,10 +90,12 @@
     /* justify-content: space-between; */
     align-items: flex-start;
     min-width: 100%;
-    height: auto;
+    height: 0px;
     margin-top: 3px;
     margin-bottom: 3px;
     width: calc(100% - 10px);
+    overflow: hidden;
+    transition-duration: 1s;
 }
 
 .ctsp-ratgc-true{

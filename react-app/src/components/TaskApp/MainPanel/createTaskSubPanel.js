@@ -36,26 +36,58 @@ export default function CreateTaskSubPanel({ lists, tags }) {
     const [taskTags, setTaskTags] = useState([]);
     const [estimate, setEstimate] = useState('');
     const [estimateUnit, setEstimateUnit] = useState(1)
+
+    const [renderCtForm, setRenderCtForm] = useState(false);
+    const [formDiv, setFormDiv] = useState();
     // const [ctInputState, setCtInputState] = ([]);
     const [renderAddTaskGrpClass, setRenderAddTaskGrpClass] = useState(
         'ctsp-ratgc-true'
     );
     const [renderTaskFormIconClass, setRenderTaskFormIconClass] = useState(
         'ctsp-ratig-false'
-    )
+    );
+
+    const formRef = useRef();
+
 
     // const ctDiv = document.getElementsByClassName('ctsp-main-div');
     // // const ctspNameDiv = document.getElementsByClassName('ctsp-name-div');
+
+    const openForm = () => {
+        console.log('openForm');
+        setRenderCtForm(true);
+        formDiv.style.height = '340px'
+    }
+
+    const closeForm = () => {
+        console.log('closeForm')
+        setRenderCtForm(false);
+        formDiv.style.height = '0px';
+    }
 
     const [ctspNameDiv, setCtspNameDiv] = useState(
         document.getElementsByClassName('ctsp-name-div')[0]);
 
     useEffect(() => {
-        if (taskName.length) {
-            setRenderTaskFormIconClass('ctsp-ratig-true');
-        } else {
-            setRenderTaskFormIconClass('ctsp-ratig-false');
+        setFormDiv(document.getElementById('ctsp-form-div'));
+        if(formDiv){
+            formDiv.style.height = '0px';
         }
+    }, [formRef]);
+
+    useEffect(() => {
+        if (taskName.length && !renderCtForm) {
+            openForm();
+        } else if(!taskName.length && renderCtForm) {
+            closeForm();
+        }
+
+        // if (taskName.length) {
+        //     setRenderTaskFormIconClass('ctsp-ratig-true');
+        // } else {
+        //     setRenderTaskFormIconClass('ctsp-ratig-false');
+        // }
+
         console.log(startDate + ' ' + startTime)
     }, [taskName, taskTags, dueDate, startDate, startTime]);
 
@@ -224,6 +256,8 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                 </div>
                 <div
                     className={`ctsp-add-task-grp ${renderAddTaskGrpClass}`}
+                    id='ctsp-form-div'
+                    ref={formRef}
                 >
                     <div className='ctsp-top-half'>
                         <div className='ctsp-top-left-grp'>
@@ -251,7 +285,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                                 </div>
 
                                 <div className='ctsp-due-date-grp'>
-                                <div className='ctsp-date-label-div'>
+                                    <div className='ctsp-date-label-div'>
                                         <p className='ctsp-date-label'>Start Date</p>
                                     </div>
                                     <input
@@ -324,7 +358,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                                     Array.from(e.target.selectedOptions).map((el) => (
                                         el.value)))}
                             >
-                                <optgroup label='Tags'/>
+                                <optgroup label='Tags' />
                                 {Object.values(tags).map((t) =>
                                     <option className='sel-op' value={t.id}>{t.name}</option>
                                 )}

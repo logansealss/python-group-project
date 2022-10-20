@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getSingleTask } from '../../store/tasks';
@@ -52,6 +52,44 @@ export default function TaskDetailPanel() {
     const [taskTags, setTaskTags] = useState([]);
     const [estimate, setEstimate] = useState('');
     const [estimateUnit, setEstimateUnit] = useState(1)
+
+    const [renderCtForm, setRenderCtForm] = useState(false);
+    const [formDiv, setFormDiv] = useState();
+
+    const formRef = useRef();
+
+    const openForm = () => {
+        console.log('openForm');
+        console.log('wat?', formDiv)
+        setRenderCtForm(true);
+        if(formDiv){
+        formDiv.style.height = '340px'
+        }
+    }
+
+    const closeForm = () => {
+        console.log('closeForm')
+        setRenderCtForm(false);
+        if(formDiv){
+        formDiv.style.height = '0px';
+        }
+    }
+
+    useEffect(() => {
+        setFormDiv(document.getElementById('tad-form-div'));
+        console.log('wat?', formDiv)
+        if(formDiv){
+            formDiv.style.height = '0px';
+        }
+    }, [formRef, task]);
+
+    useEffect(() => {
+        if (taskName.length && !renderCtForm) {
+            openForm();
+        } else if(!taskName.length && renderCtForm) {
+            closeForm();
+        }
+    }, [taskName]);
 
 
     useEffect(() => {
@@ -107,6 +145,8 @@ export default function TaskDetailPanel() {
                     </div>
                     <div
                         className={`tad-add-task-grp`}
+                        id='tad-form-div'
+                        ref={formRef}
                     >
                         <div className='tad-top-half'>
                             <div className='tad-top-left-grp'>
