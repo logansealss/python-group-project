@@ -58,7 +58,7 @@
     font-size: 16px;
     border-radius: 4px;
     height: 32px;
-    width: 90px;
+    min-width: 24.5%;
 }
 
 .ctsp-ct-submit-btn:hover{
@@ -85,13 +85,12 @@
 
 .ctsp-add-task-grp{
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
     column-gap: 20px;
     /* justify-content: space-between; */
-    align-items: center;
+    align-items: flex-start;
     min-width: 100%;
-    height: 300px;
+    height: auto;
     margin-top: 3px;
     margin-bottom: 3px;
     width: calc(100% - 10px);
@@ -150,10 +149,10 @@
     width: 100px;
 }
 
-.ctsp-at-icon-style:hover{
+/* .ctsp-at-icon-style:hover{
     opacity: 1;
     cursor: pointer;
-}
+} */
 
 .ctsp-form-el{
     width: 100%;
@@ -309,6 +308,7 @@
     border: 1px solid lightgray;
     font-size: 16px;
     color: #1e1c35;
+    width: 133.7px;
     padding: 4px
 }
 
@@ -318,6 +318,63 @@
     column-gap: 20px;
 }
 
-/* ::-webkit-datetime-edit-fields-wrapper{
-    background-color: red;
-} */
+.ctsp-tag-input{
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid lightgray;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+
+.ctsp-top-left-grp{
+    display: flex;
+    flex-direction: column;
+}
+
+.ctsp-top-half{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.ctsp-left-bot-grp {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
+}
+
+.ctsp-mid-grp-lf {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
+}
+
+.ctsp-tag-grp {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    min-height: 100%;
+    min-width: 25%
+}
+
+.ctsp-time-input {
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid lightgray;
+    width: 128.25px;
+}
+
+.ctsp-at-btn-div{
+    padding-top: 30px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 60px;
+    width: 100%;
+}
