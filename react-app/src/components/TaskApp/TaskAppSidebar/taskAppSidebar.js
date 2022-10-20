@@ -32,10 +32,35 @@ function Count(props) {
   return (<div id='count'>{props.count}</div>)
 };
 
+function getCount (tasks, targetFeature, targetValue) {
+  console.log('tasks at getcount',tasks)
+  switch (targetFeature) {
+    case 'dueDate':
+      console.log(Date().now())
+      return Object.values(tasks)
+        .reduce((count,task)=>{
+        if (task[targetFeature] === targetValue && !task['completed']) count++;
+        return count
+      },0);
+    case 'listId':
+      return Object.values(tasks)
+        .reduce((count,task)=>{
+        if (task[targetFeature] === targetValue && !task['completed']) count++;
+        return count
+      },0);
+    case 'tags':
+      return Object.values(tasks)
+        .reduce((count,task)=>{
+        if (task[targetFeature].includes(targetValue) && !task['completed']) count++;
+        return count
+      },0)
+  }
+}
+
 export default function TaskAppSidebar() {
   const dispatch = useDispatch()
   const history = useHistory();
-  // const tasks = useSelector(state => state.tasks.allTasks)
+  const tasks = useSelector(state => state.tasks.allTasks)
   const lists = useSelector(state => state.lists)
   const tags = useSelector(state => state.tags)
 
@@ -76,7 +101,7 @@ export default function TaskAppSidebar() {
             itemId={list.id}
             name={list.name}
             feature='list'
-            obj={<Count count={list.taskCount}/>}
+            obj={<Count count={getCount(tasks, 'listId', list.id)}/>}
             handleClick={()=>history.push(`/app/lists/${list.id}`)}
             >
             {list.name}
@@ -94,7 +119,7 @@ export default function TaskAppSidebar() {
           itemId={tag.id}
           name={tag.name}
           feature='tag'
-          obj={<Count count={tag.taskCount}/>}
+          obj={<Count count={getCount(tasks, 'tags', tag.id)}/>}
           handleClick={()=>history.push(`/app/tags/${tag.id}`)}
           >
           {tag.name}
@@ -102,7 +127,7 @@ export default function TaskAppSidebar() {
     },
   };
 
-  return (
+  return tasks && (
     <div id='sidebar'>
       <div className='logo_container'>
         <img className='tasb-top-logo' src={logo} />
