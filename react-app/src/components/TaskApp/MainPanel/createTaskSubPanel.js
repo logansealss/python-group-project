@@ -113,7 +113,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
             <div
                 className='ctsp-main-div'
             >
-                <div className='ctsp-ut-main-div'>
+                {/* <div className='ctsp-ut-main-div'>
                     <div className='ctsp-ut-grp-1'>
                         <div className='ctsp-btn-div-solo-single ctsp-ut-btn'>
                             <img
@@ -208,7 +208,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                             />
                         </div>
                     </div>
-                </div>
+                </div> */}
                 {/* <div className='ctsp-ct-input-main'> */}
                 <div className='ctsp-ct-pseudo-input'>
                     <input
