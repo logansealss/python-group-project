@@ -7,6 +7,7 @@ import TaskDetailPanel from './taskDetailPanel';
 import ListDetailPanel from './listDetailPanel';
 import './taskApp.css';
 import { useSelector } from 'react-redux';
+import { SidebarProvider } from '../../context/SidebarExpander.js';
 
 export default function TaskApp() {
 
@@ -19,21 +20,23 @@ export default function TaskApp() {
     }
 
     return (<>
-        <TaskAppNav />
-        <div className='ta-main-body-div'>
-            <TaskAppSidebar />
-                <Route path={`${path}`}>
-                    <MainPanel />
-                </Route>
-                <Route exact path={`${path}/:filterId/:listId`}>
-                    <MainPanel />
-                    <ListDetailPanel />
-                </Route>
-                <Route path={`${path}/:filterId/:listId/:taskId`}>
-                    <MainPanel />
-                    <TaskDetailPanel />
-                </Route>
-        </div>
+        <SidebarProvider>
+            <TaskAppNav />
+            <div className='ta-main-body-div'>
+                <TaskAppSidebar />
+                    <Route path={`${path}`}>
+                        <MainPanel />
+                    </Route>
+                    <Route exact path={`${path}/:filterId/:listId`}>
+                        <MainPanel />
+                        <ListDetailPanel />
+                    </Route>
+                    <Route path={`${path}/:filterId/:listId/:taskId`}>
+                        <MainPanel />
+                        <TaskDetailPanel />
+                    </Route>
+            </div>
+        </SidebarProvider>
     </>
     )
 }

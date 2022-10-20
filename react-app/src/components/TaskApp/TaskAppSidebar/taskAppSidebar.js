@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {useHistory} from 'react-router-dom';
 
@@ -11,6 +11,7 @@ import BannerItem from './BannerItem';
 import {Plus, Count, DownCaret} from './Icons';
 import CreateTagListForm from './Forms/CreateTagListForm';
 import { getDateFromToday } from '../../../utils/taskLists';
+import { SidebarContext } from '../../../context/SidebarExpander';
 
 import logo from '../../../img/TM-logo-short-nobg.png';
 
@@ -52,6 +53,7 @@ function getCount (tasks, targetFeature, targetValue) {
 }
 
 export default function TaskAppSidebar() {
+  const [expandSideBar, setExpandSideBar] = useContext(SidebarContext);
   const dispatch = useDispatch()
   const history = useHistory();
   const tasks = useSelector(state => state.tasks.allTasks)
@@ -139,21 +141,25 @@ export default function TaskAppSidebar() {
   };
 
   return (
-    <div id='sidebar'>
+    <div
+      id='sidebar'
+      className={`${expandSideBar? '' : 'hidden'}`}>
       <div className='logo_container'>
         <img className='tasb-top-logo' src={logo} />
       </div>
-      {Object.keys(items).map(itemName => (
-        <Collapser
-          key={itemName}
-          title={items[itemName]['title']}
-          expanded={items[itemName]['expanded']}
-          expander={items[itemName]['expander']}
-          obj={items[itemName]['obj']}
-        >
-          {items[itemName]['children']}
-        </Collapser>
-      ))}
+      <div id='sidebar-content'>
+        {Object.keys(items).map(itemName => (
+          <Collapser
+            key={itemName}
+            title={items[itemName]['title']}
+            expanded={items[itemName]['expanded']}
+            expander={items[itemName]['expander']}
+            obj={items[itemName]['obj']}
+          >
+            {items[itemName]['children']}
+          </Collapser>
+        ))}
+      </div>
     </div>
   )
 };

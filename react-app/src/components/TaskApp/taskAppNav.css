@@ -3,7 +3,7 @@
     top: 0;
     left: 0;
     display: grid;
-    grid-template-columns: minmax(180px,210px) 3fr 3fr 10px;
+    grid-template-columns: minmax(10px,auto) 3fr 3fr 10px;
     grid-template-rows: 40px;
     /* flex-direction: row; */
     /* justify-content: space-between; */
@@ -16,8 +16,33 @@
 
 @media screen and (max-width: 1020px) {
     .tan-main-div {
-        grid-template-columns: minmax(180px,210px) 6fr 10px;
+        grid-template-columns: minmax(10px,auto) 6fr 10px;
     }
+}
+
+.tan-left-div {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    color: rgb(179,177,203);
+    height: 30px;
+    border-radius: 4px;
+}
+
+.tan-left-div.expandDiv {
+    min-width: 180px;
+    max-width: 210px;
+}
+
+.tan-left-div:hover {
+    cursor: pointer;
+    background-color: #6562A6;
+    transition-duration: 0.5s;
+}
+
+.tan-list-name {
+    font-weight: 600;
+    padding: 0 8px;
 }
 
 .tan-icon-style{

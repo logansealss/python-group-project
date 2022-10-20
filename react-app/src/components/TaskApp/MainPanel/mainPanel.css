@@ -1,6 +1,7 @@
 .tam-main-div{
     position: relative;
     display: flex;
+    grid-column-start: 2;
     flex-direction: column;
     background-color: white;
     border-top-left-radius: 6px;
