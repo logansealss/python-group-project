@@ -59,14 +59,15 @@ export default function DropDownWrapper(props) {
           }
         }
         )}
-      {<Dropdown {...props} closeMenu={closeMenu}/>}
+      {<Dropdown {...props}/>}
     </>
   );
 };
 
 export function Dropdown (props) {
+  const {children, menu, ...otherProps} = props
   const {location} = useContext(DropdownContext)
-  const newMenu = React.cloneElement(props.menu, props)
-  if (!location) return newMenu
+  const newMenu = React.cloneElement(menu, otherProps)
+  if (!location) return null
   return ReactDom.createPortal(newMenu, location);
 };

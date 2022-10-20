@@ -24,7 +24,7 @@ class Tag(db.Model):
             'userId': self.user_id,
             'name': self.name,
             'color': self.color,
-            'taskCount': len(self.tasks)
+            'taskCount': len(list(filter(lambda task: not task.completed, self.tasks)))
         }
 
 class Task(db.Model):
