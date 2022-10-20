@@ -54,20 +54,24 @@ export default function TaskDetailPanel() {
     const [estimate, setEstimate] = useState('');
     const [estimateUnit, setEstimateUnit] = useState(1)
 
-    const [renderCtForm, setRenderCtForm] = useState(false);
+    const [renderTadForm, setRenderTadForm] = useState(false);
     const [formDiv, setFormDiv] = useState();
 
     const formRef = useRef();
 
     const openForm = () => {
-        setRenderCtForm(true);
+        console.log('open', formDiv)
+        console.log(renderTadForm)
         if (formDiv) {
             formDiv.style.height = '340px'
         }
+        setRenderTadForm(true);
     }
 
     const closeForm = () => {
-        setRenderCtForm(false);
+        console.log('close', formDiv)
+        console.log(renderTadForm)
+        setRenderTadForm(false);
         if (formDiv) {
             formDiv.style.height = '0px';
         }
@@ -76,6 +80,7 @@ export default function TaskDetailPanel() {
     useEffect(() => {
         setFormDiv(document.getElementsByClassName('tad-add-task-grp')[0]);
         console.log('wat?', formDiv)
+        console.log(renderTadForm)
         if (formDiv) {
             formDiv.style.height = '0px';
         }
@@ -142,7 +147,7 @@ export default function TaskDetailPanel() {
                         />
                         <div
                             className='tad-edit-div'
-                            onClick={renderCtForm ? closeForm : openForm}
+                            onClick={renderTadForm ? closeForm : openForm}
                         >
                             <img className='tad-edit-icon' src={editIcon} />
                         </div>
