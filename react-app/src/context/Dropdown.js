@@ -6,8 +6,10 @@ import './Dropdown.css'
 const DropdownContext = React.createContext();
 
 export function DropdownProvider(props) {
+
   const dropdownRef = useRef();
   const [location, setLocation] = useState();
+  const [showMenu, setShowMenu] = useState(false);
 
   useEffect(()=> {
     setLocation(dropdownRef.current);
@@ -15,12 +17,12 @@ export function DropdownProvider(props) {
 
   return (
     <>
-      <DropdownContext.Provider value={location}>
+      <DropdownContext.Provider value={{location,showMenu,setShowMenu}}>
         {props.children}
       </DropdownContext.Provider>
       <div
         ref={dropdownRef}
-        className={`dropdown_container ${props.left ? 'left' : 'right'}`}
+        className={`dropdown_container ${showMenu ? '' : 'hidden'} ${props.left ? 'left' : 'right'} ${props.position}`}
         style={{'top': props.offset}}
         >
       </div>
@@ -29,7 +31,7 @@ export function DropdownProvider(props) {
 }
 
 export default function DropDownWrapper(props) {
-  const [showMenu, setShowMenu] = useState(false);
+  const {showMenu, setShowMenu} = useContext(DropdownContext)
 
   const openMenu = (e) => {
     if (showMenu) return;
@@ -57,13 +59,14 @@ export default function DropDownWrapper(props) {
           }
         }
         )}
-      {showMenu && <Dropdown {...props}/>}
+      {<Dropdown {...props} closeMenu={closeMenu}/>}
     </>
   );
 };
 
 export function Dropdown (props) {
-  const location = useContext(DropdownContext)
-  if (!location) return props.menu
-  return ReactDom.createPortal(props.menu, location);
+  const {location} = useContext(DropdownContext)
+  const newMenu = React.cloneElement(props.menu, props)
+  if (!location) return newMenu
+  return ReactDom.createPortal(newMenu, location);
 };

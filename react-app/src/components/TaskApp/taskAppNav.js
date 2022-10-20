@@ -32,7 +32,7 @@ export default function TaskAppNav() {
                 src={hamburger}
             />
             <div className='tan-search-container'>
-                <DropdownProvider>
+                <DropdownProvider position='absolute'>
                 <div className='tan-search-pseudo-input'>
                     <img
                         className={`tan-search-mag-icon tan-search-icon-style ${searchIconFocusStyle}`}
