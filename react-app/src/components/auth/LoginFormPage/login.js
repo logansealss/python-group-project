@@ -142,7 +142,7 @@ function LoginFormPage() {
                                 </div>
                                 <div className={`li-pseudo-input ${crErrClass}`}>
                                     <input
-                                        placeholder="Email or Username"
+                                        placeholder="Email"
                                         className="li-input-field"
                                         type="text"
                                         value={credential}
