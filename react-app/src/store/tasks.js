@@ -5,6 +5,7 @@ const CREATE_TASK = 'tasks/CREATE';
 const UPDATE_TASK = 'tasks/UPDATE_TASK';
 const DELETE_TASK = 'tasks/DELETE_TASK';
 const ADD_TAG_TASK = 'tasks/ADD_TAG_TASK';
+const REMOVE_TAG_TASK = 'tasks/REMOVE_TAG_TASK';
 
 const loadAll = allTasks => ({
     type: LOAD_ALL,
@@ -33,6 +34,12 @@ const deleteTask = id => ({
 
 const addTagToTaskActionCreator = (taskId, tagId) => ({
     type: ADD_TAG_TASK,
+    taskId,
+    tagId
+})
+
+const removeTagFromTaskActionCreator = (taskId, tagId) => ({
+    type: REMOVE_TAG_TASK,
     taskId,
     tagId
 })
@@ -130,16 +137,32 @@ export const addTagToTask = (taskId, tagId) => async (dispatch) => {
 
     if (response.ok) {
         dispatch(addTagToTaskActionCreator(taskId, tagId));
-        return {taskId, tagId};
+        return { taskId, tagId };
+    }
+
+    return response;
+}
+
+export const removeTagFromTask = (taskId, tagId) => async (dispatch) => {
+    const response = await fetch(`/api/tasks/${taskId}/tags/${tagId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+
+    if (response.ok) {
+        dispatch(removeTagFromTaskActionCreator(taskId, tagId));
+        return { taskId, tagId };
     }
 
     return response;
 }
 
 const initialState = {
-                        allTasks: null,
-                        singleTask: null
-                    };
+    allTasks: null,
+    singleTask: null
+};
 
 export const taskReducer = (state = initialState, action) => {
     let singleTask;
@@ -151,12 +174,12 @@ export const taskReducer = (state = initialState, action) => {
             return { ...state, singleTask: action.singleTask }
         case CREATE_TASK:
             return {
-                    singleTask: { ...state.singleTask },
-                    allTasks: { ...state.allTasks, [action.newTask.id]: action.newTask }
-                }
+                singleTask: { ...state.singleTask },
+                allTasks: { ...state.allTasks, [action.newTask.id]: action.newTask }
+            }
         case UPDATE_TASK:
             singleTask = { ...state.singleTask };
-            if (state.singleTask && state.singleTask.id === action.updatedTask.id){
+            if (state.singleTask && state.singleTask.id === action.updatedTask.id) {
                 singleTask = action.updatedTask;
             }
             return {
@@ -175,19 +198,29 @@ export const taskReducer = (state = initialState, action) => {
             }
         case ADD_TAG_TASK:
             singleTask = state.singleTask ? { ...state.singleTask, } : null;
-            if(singleTask && singleTask.id === action.taskId){
-                if(!singleTask.tags.includes(action.tagId)){
+            if (singleTask && singleTask.id === action.taskId) {
+                if (!singleTask.tags.includes(action.tagId)) {
                     singleTask.tags.push(action.tagId)
                 }
             }
             allTasks = state.allTasks ? { ...state.allTasks } : null;
-            if(allTasks && allTasks[action.taskId]){
-                if(!allTasks[action.taskId].tags.includes(action.tagId)){
+            if (allTasks && allTasks[action.taskId]) {
+                if (!allTasks[action.taskId].tags.includes(action.tagId)) {
                     allTasks[action.taskId].tags.push(action.tagId)
                 }
             }
-            return {singleTask, allTasks}
+            return { singleTask, allTasks }
+        case REMOVE_TAG_TASK:
+            singleTask = state.singleTask ? { ...state.singleTask, } : null;
+            if (singleTask && singleTask.id === action.taskId) {
+                singleTask.tags = singleTask.tags.filter(tagId => tagId !== action.tagId)
+            }
+            allTasks = state.allTasks ? { ...state.allTasks } : null;
+            if (allTasks && allTasks[action.taskId]) {
+                allTasks[action.taskId].tags = allTasks[action.taskId].tags.filter(tagId => tagId !== action.tagId)
+            }
+            return { singleTask, allTasks }
         default:
             return state;
-        }
     }
+}

@@ -83,19 +83,14 @@ export default function CreateTaskSubPanel({ lists, tags }) {
             duration: Math.ceil(estimate * estimateUnit)
         }
 
-        console.log('ct form data: ', data);
-        console.log('task tags', taskTags)
-
         const response = await dispatch(createNewTask(data))
-
-        console.log(response)
 
         if (response && response.id){
             for(let tagId of taskTags){
-                dispatch(addTagToTask(response.id, +tagId))
-                console.log(response.id, +tagId)
+                await dispatch(addTagToTask(response.id, +tagId))
             }
         }
+
 
     }
 
