@@ -2,7 +2,6 @@ import React from 'react'
 
 import downCaret from '../../../img/caret-down.svg';
 
-
 export default function Collapser (props) {
   return (
     <div
@@ -34,8 +33,3 @@ export default function Collapser (props) {
     </div>
   )
 };
-
-
-<>
-
-</>

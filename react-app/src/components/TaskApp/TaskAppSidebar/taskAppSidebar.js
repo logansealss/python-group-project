@@ -8,31 +8,13 @@ import * as tagActions from '../../../store/tags';
 
 import Collapser from './Collapser';
 import BannerItem from './BannerItem';
+import {Plus, Count, DownCaret} from './Icons';
 import CreateTagListForm from './Forms/CreateTagListForm';
-import ModalWrapper from '../../../context/Modal';
 import { getDateFromToday } from '../../../utils/taskLists';
 
 import logo from '../../../img/TM-logo-short-nobg.png';
-import plus_img from '../../../img/plus.svg';
+
 import './taskAppSidebar.css';
-
-
-function Plus (props) {
-  return (
-    <ModalWrapper
-      form={props.form}
-      header={`Add a ${props.feature}`}
-      feature={props.feature}
-      thunk={props.thunk}
-      >
-      <img id='plus' src={plus_img}/>
-    </ModalWrapper>
-  )
-};
-
-function Count(props) {
-  return (<div id='count'>{props.count}</div>)
-};
 
 function getCount (tasks, targetFeature, targetValue) {
   switch (targetFeature) {
@@ -113,10 +95,18 @@ export default function TaskAppSidebar() {
         .map(list => (
           <BannerItem
             key={list.id}
-            itemId={list.id}
-            name={list.name}
-            feature='list'
-            obj={<Count count={getCount(tasks, 'listId', list.id)}/>}
+            obj={
+              <>
+              <DownCaret
+                itemId={list.id}
+                name={list.name}
+                feature='list'
+                />
+              <Count
+                count={getCount(tasks, 'listId', list.id)}
+                />
+            </>
+            }
             handleClick={()=>history.push(`/app/lists/${list.id}`)}
             >
             {list.name}
@@ -131,10 +121,16 @@ export default function TaskAppSidebar() {
       children: Object.values(tags).map(tag => (
         <BannerItem
           key={tag.id}
-          itemId={tag.id}
-          name={tag.name}
-          feature='tag'
-          obj={<Count count={getCount(tasks, 'tags', tag.id)}/>}
+          obj={
+            <>
+            <DownCaret
+              itemId={tag.id}
+              name={tag.name}
+              feature='tag'
+              />
+            <Count count={getCount(tasks, 'tags', tag.id)}/>
+          </>
+        }
           handleClick={()=>history.push(`/app/tags/${tag.id}`)}
           >
           {tag.name}

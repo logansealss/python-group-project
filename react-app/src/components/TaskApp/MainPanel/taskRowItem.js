@@ -42,7 +42,7 @@ export default function TaskRowItem({ task }) {
                     {task.name}
                 </span>
                 {task.tags.map(tagId => tags[tagId] ? (
-                    <span key={tagId} className='tri-tags'>
+                    <span key={tagId} className='tri-tags' style={{ backgroundColor: tags[tagId].color }}>
                         {tags[tagId].name}
                     </span>)
                     : null

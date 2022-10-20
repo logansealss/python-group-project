@@ -37,7 +37,7 @@ function LoginFormPage() {
     useEffect(() => {
 
         if (credential.length <= 3) {
-            setCredentialErr('Username or email is required');
+            setCredentialErr('Email is required');
             renderErrors ? setCrErrClass('li-hasError') : setCrErrClass('li-valid');
         } else {
             setCredentialErr('');
@@ -83,12 +83,15 @@ function LoginFormPage() {
             !passErr
         ) {
             const response = await dispatch(sessionActions.login(credential, password))
-                .catch(async (res) => {
-                    const data = await res.json();
-                    if (data && data.errors) setBackendErrors(data.errors);
-                });
+
+            if(!response){
+                history.push('/app/lists/all')
+            }
+            else{
+                const err = response[0].split(': ')[1]
+                setBackendErrors([err]);
+            }
         }
-            history.push('/app/all')
     };
 
     const formatBackendErrors = (errorObj) => {
@@ -138,7 +141,7 @@ function LoginFormPage() {
                                 </div>
                                 <div className={`li-pseudo-input ${crErrClass}`}>
                                     <input
-                                        placeholder="Email or Username"
+                                        placeholder="Email"
                                         className="li-input-field"
                                         type="text"
                                         value={credential}
