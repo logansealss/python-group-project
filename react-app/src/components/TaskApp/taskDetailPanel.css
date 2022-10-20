@@ -161,7 +161,6 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    padding-bottom: 2px;
     height: 100%;
     width: 50px;
     padding-left: 3px;
@@ -455,7 +454,7 @@
     font-size: 16px;
     border-radius: 4px;
     height: 32px;
-    min-width: 24.5%;
+    min-width: 100px;
 }
 
 .td-notes-save-btn:hover{
@@ -484,10 +483,64 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    column-gap: 20px;
+    padding-bottom: 20px;
+    height: 40px;
+    width: 100%;
 }
 
 .td-tag{
     height: 20px;
     border-radius: 4px;
+}
+
+.td-label-p{
+    font-size: 16px;
+    font-weight: bold;
+    width: 150px;
+    color: rgb(138, 138, 138);
+}
+
+.td-upper-detail{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    row-gap: 10px;
+    padding-left: 14.5px;
+    padding-top: 30px;
+}
+
+.td-data-p{
+    font-size: 16px;
+    color: #1e1c35;
+}
+
+.td-data-link{
+    text-decoration: none;
+    color:#56538c;
+    font-weight: bold
+}
+
+.td-tag-div{
+    padding-bottom: 20px;
+}
+
+.td-notes-div{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-right: 15px;
+    row-gap: 15px;
+}
+
+.td-notes-input{
+    width: 98%;
+    height: 100px;
+}
+
+.td-label-div-notes{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 30px;
+    width: 100%;
 }
