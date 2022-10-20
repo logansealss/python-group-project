@@ -204,6 +204,7 @@ export default function TaskDetailPanel() {
                     <div
                         className={`ctsp-add-task-grp`}
                     >
+                        <div className='ctsp-due-date-grp'>
                         <input
                             className='ctsp-date-input'
                             type='date'
@@ -211,7 +212,7 @@ export default function TaskDetailPanel() {
                             onChange={(e) => setDueDate(e.target.value)}
                         />
                         <select
-                            className='ctsp-due-date-input'
+                            className='ctsp-time-select'
                             value={dueTime}
                             onChange={(e) => setDueTime(e.target.value)}
                         >
@@ -219,6 +220,7 @@ export default function TaskDetailPanel() {
                                 <option value={option.value}>{option.display}</option>
                             )}
                         </select>
+                        </div>
                         <input
                             className='ctsp-date-input'
                             type='date'
@@ -226,7 +228,7 @@ export default function TaskDetailPanel() {
                             onChange={(e) => setStartDate(e.target.value)}
                         />
                         <select
-                            className='ctsp-due-date-input'
+                            className='ctsp-time-select'
                             value={startTime}
                             onChange={(e) => setStartTime(e.target.value)}
                         >

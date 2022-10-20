@@ -225,37 +225,42 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                 <div
                     className={`ctsp-add-task-grp ${renderAddTaskGrpClass}`}
                 >
-                    <input
-                        className='ctsp-date-input'
-                        type='date'
-                        value={dueDate}
-                        onChange={(e) => setDueDate(e.target.value)}
-                    />
-                    <select
-                        className='ctsp-due-date-input'
-                        value={dueTime}
-                        onChange={(e) => setDueTime(e.target.value)}
-                    >
-                        {selectMenuTimes.map((option) =>
-                            <option value={option.value}>{option.display}</option>
-                        )}
-                    </select>
-                    <input
-                        className='ctsp-date-input'
-                        type='date'
-                        value={startDate}
-                        onChange={(e) => setStartDate(e.target.value)}
-                    />
-                    <select
-                        className='ctsp-due-date-input'
-                        value={startTime}
-                        onChange={(e) => setStartTime(e.target.value)}
-                    >
-                        {selectMenuTimes.map((option) =>
-                            <option value={option.value}>{option.display}</option>
-                        )}
-                    </select>
-
+                    <div className='ctsp-top-grp'>
+                        <div className='ctsp-due-date-grp'>
+                            <input
+                                className='ctsp-date-input'
+                                type='date'
+                                value={dueDate}
+                                onChange={(e) => setDueDate(e.target.value)}
+                            />
+                            <select
+                                className='ctsp-time-select'
+                                value={dueTime}
+                                onChange={(e) => setDueTime(e.target.value)}
+                            >
+                                {selectMenuTimes.map((option) =>
+                                    <option value={option.value}>{option.display}</option>
+                                )}
+                            </select>
+                        </div>
+                        <div className='ctsp-due-date-grp'>
+                            <input
+                                className='ctsp-date-input'
+                                type='date'
+                                value={startDate}
+                                onChange={(e) => setStartDate(e.target.value)}
+                            />
+                            <select
+                                className='ctsp-time-select'
+                                value={startTime}
+                                onChange={(e) => setStartTime(e.target.value)}
+                            >
+                                {selectMenuTimes.map((option) =>
+                                    <option value={option.value}>{option.display}</option>
+                                )}
+                            </select>
+                        </div>
+                    </div>
                     <select
                         className='ctsp-prio-input'
                         value={`${prio}`}
