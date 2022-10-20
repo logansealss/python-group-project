@@ -54,6 +54,7 @@ export default function TaskDetailPanel() {
     const [estimate, setEstimate] = useState('');
     const [estimateUnit, setEstimateUnit] = useState(1)
     const [tdNotes, setTdNotes] = useState('')
+    const [tdNotesSaved, setTdNotesSaved] = useState(true);
 
     const [renderTadForm, setRenderTadForm] = useState(false);
     const [tadFormDiv, setTadFormDiv] = useState();
@@ -92,13 +93,37 @@ export default function TaskDetailPanel() {
             task.priority && setPrio(task.priority);
             task.tags && setTaskTags(task.tags);
             task.duration && setEstimate(task.duration);
-            task.notes && setTdNotes(task.notes);
+            task.note ? setTdNotes(task.note) : setTdNotes('');
         }
     }, [task]);
 
-    const updateNotes = (e) => {
+    useEffect(() => {
+        if (task && tdNotes !== task.note) {
+            setTdNotesSaved(false);
+        } else if (task && tdNotes === task.notes) {
+            setTdNotesSaved(true);
+        }
+
+        if (task) {
+            console.log(tdNotes);
+            console.log(task.note);
+        }
+    }, [tdNotes])
+
+    const updateNotes = async (e) => {
         e.preventDefault();
-        console.log(tdNotes)
+
+        const data = {
+            name: taskName,
+            note: tdNotes,
+        }
+
+        console.log(tdNotes);
+        const res = await dispatch(updateATask(task.id, data));
+
+        if (res) {
+            setTdNotesSaved(true);
+        }
     }
 
     const handleUtSubmit = (e) => {
@@ -113,7 +138,7 @@ export default function TaskDetailPanel() {
             duration: Math.ceil(estimate * estimateUnit)
         }
 
-        console.log('ct form data: ', data);
+        console.log('form data: ', data);
         console.log(dispatch(updateATask(task.id, data)))
     }
 
@@ -291,18 +316,19 @@ export default function TaskDetailPanel() {
                         onSubmit={updateNotes}
                     >
 
-                    <textarea
-                        className='td-notes-input'
-                        type='text'
-                        value={tdNotes}
-                        onChange={(e) => setTdNotes(e.target.value)}
-                    />
-                    <button
-                        className='td-notes-save-btn'
-                        type='submit'
-                    >
-                        Save Changes
-                    </button>
+                        <textarea
+                            className='td-notes-input'
+                            type='text'
+                            value={tdNotes}
+                            onChange={(e) => setTdNotes(e.target.value)}
+                        />
+                        <button
+                            className='td-notes-save-btn'
+                            type='submit'
+                            disabled={tdNotesSaved}
+                        >
+                            Save Changes
+                        </button>
                     </form>
                 </div>
             </div>
