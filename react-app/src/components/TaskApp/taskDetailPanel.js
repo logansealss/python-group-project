@@ -55,45 +55,30 @@ export default function TaskDetailPanel() {
     const [estimateUnit, setEstimateUnit] = useState(1)
 
     const [renderTadForm, setRenderTadForm] = useState(false);
-    const [formDiv, setFormDiv] = useState();
+    const [tadFormDiv, setTadFormDiv] = useState();
 
     const formRef = useRef();
 
     const openForm = () => {
-        console.log('open', formDiv)
-        console.log(renderTadForm)
-        if (formDiv) {
-            formDiv.style.height = '340px'
+        if (tadFormDiv) {
+            tadFormDiv.style.height = '340px'
         }
         setRenderTadForm(true);
     }
 
     const closeForm = () => {
-        console.log('close', formDiv)
-        console.log(renderTadForm)
         setRenderTadForm(false);
-        if (formDiv) {
-            formDiv.style.height = '0px';
+        if (tadFormDiv) {
+            tadFormDiv.style.height = '0px';
         }
     }
 
     useEffect(() => {
-        setFormDiv(document.getElementsByClassName('tad-add-task-grp')[0]);
-        console.log('wat?', formDiv)
-        console.log(renderTadForm)
-        if (formDiv) {
-            formDiv.style.height = '0px';
+        setTadFormDiv(document.getElementsByClassName('tad-add-task-grp')[0]);
+        if (tadFormDiv) {
+            tadFormDiv.style.height = '0px';
         }
     }, [formRef, task]);
-
-    // useEffect(() => {
-    //     if (taskName.length && !renderCtForm) {
-    //         openForm();
-    //     } else if (!taskName.length && renderCtForm) {
-    //         closeForm();
-    //     }
-    // }, [taskName]);
-
 
     useEffect(() => {
         if (task) {
@@ -141,9 +126,6 @@ export default function TaskDetailPanel() {
                             type='text'
                             value={taskName}
                             onChange={(e) => setTaskName(e.target.value)}
-                        // onFocus={() => { setRenderAddTaskGrpClass('tad-ratgc-true') }}
-                        // onBlur={() => { !ctInput.length && setRenderAddTaskGrpClass('tad-ratgc-false') }}
-                        // onKeyDown={keyDownFn}
                         />
                         <div
                             className='tad-edit-div'
@@ -153,7 +135,7 @@ export default function TaskDetailPanel() {
                         </div>
                     </div>
                     <div
-                        className={`tad-add-task-grp`}
+                        className={'tad-add-task-grp'}
                         id='tad-form-div'
                         ref={formRef}
                     >
