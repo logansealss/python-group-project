@@ -53,6 +53,7 @@ export default function TaskDetailPanel() {
     const [taskTags, setTaskTags] = useState([]);
     const [estimate, setEstimate] = useState('');
     const [estimateUnit, setEstimateUnit] = useState(1)
+    const [tdNotes, setTdNotes] = useState('')
 
     const [renderTadForm, setRenderTadForm] = useState(false);
     const [tadFormDiv, setTadFormDiv] = useState();
@@ -91,9 +92,14 @@ export default function TaskDetailPanel() {
             task.priority && setPrio(task.priority);
             task.tags && setTaskTags(task.tags);
             task.duration && setEstimate(task.duration);
+            task.notes && setTdNotes(task.notes);
         }
     }, [task]);
 
+    const updateNotes = (e) => {
+        e.preventDefault();
+        console.log(tdNotes)
+    }
 
     const handleUtSubmit = (e) => {
         e.preventDefault();
@@ -270,6 +276,29 @@ export default function TaskDetailPanel() {
 
                 </div >
             </form >
+
+            <div className='td-task-detail-main'>
+                <div className='td-notes-div'>
+                    <form
+                        className='td-notes-form'
+                        onSubmit={updateNotes}
+                    >
+
+                    <textarea
+                        className='td-notes-input'
+                        type='text'
+                        value={tdNotes}
+                        onChange={(e) => setTdNotes(e.target.value)}
+                    />
+                    <button
+                        className='td-notes-save-btn'
+                        type='submit'
+                    >
+                        Save Changes
+                    </button>
+                    </form>
+                </div>
+            </div>
         </div>
     )
 }

@@ -433,7 +433,49 @@
     font-size: 16px;
     color: #1e1c35;
 }
-/* .sel-op::sel {
+
+.tad-ct-input{
+    height: 26px;
+    border: none;
+    font-size: 16px;
+    padding-top: 3px;
+    background-color: transparent;
+    width: 100%;
+    /* opacity: 0;
+    filter:alpha(opacity=0);
+    caret-color: rbga(0,0,0,1); */
+}
+
+.td-notes-save-btn{
     background-color: #56538c;
-    color: white;
-} */
+    border: none;
+    border-bottom: 3px solid #56538c;
+    color: rgba(255, 255, 255, .98);
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 4px;
+    height: 32px;
+    min-width: 24.5%;
+}
+
+.td-notes-save-btn:hover{
+    cursor: pointer;
+    border-bottom: 3px solid #39375f;
+}
+
+.td-notes-save-btn:active:enabled{
+    transform: scale(.95);
+}
+
+.td-notes-save-btn:disabled{
+    color: rgba(255, 255, 255, .98);
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 4px;
+    height: 32px;
+    width: 90px;
+    background-color: #a7a6ba;
+    border:none;
+    border-bottom: 3px solid #a7a6ba;
+    cursor: default;
+}
