@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { getSingleTask } from '../../store/tasks';
-import { updateATask } from '../../store/tasks';
+import { useParams, Link } from 'react-router-dom';
+import { getSingleTask, updateATask, getAllTasks } from '../../store/tasks';
+
 import selectMenuTimes from '../../data/selectMenuTimes.json';
 import dueDateIcon from '../../img/calendar-day.svg';
 import startDateIcon from '../../img/square-caret-right.svg';
@@ -64,8 +64,8 @@ export default function TaskDetailPanel() {
     const prios = {
         1: 'High',
         2: 'Med',
-        3: 'low',
-        0: 'none'
+        3: 'Low',
+        0: 'None'
     }
 
     const months = [
@@ -114,6 +114,15 @@ export default function TaskDetailPanel() {
     }
 
     useEffect(() => {
+
+        if (task && tdNotes !== task.note) {
+            setTdNotesSaved(false);
+        } else if (task && tdNotes === task.notes) {
+            setTdNotesSaved(true);
+        }
+    }, [tdNotes])
+
+    useEffect(() => {
         setTadFormDiv(document.getElementsByClassName('tad-add-task-grp')[0]);
         if (tadFormDiv) {
             tadFormDiv.style.height = '0px';
@@ -121,6 +130,7 @@ export default function TaskDetailPanel() {
     }, [formRef, task]);
 
     useEffect(() => {
+
         if (task) {
             task.name && setTaskName(task.name);
             task.dueDate && setDueDate(task.dueDate.split(' ')[0]);
@@ -135,18 +145,6 @@ export default function TaskDetailPanel() {
         }
     }, [task]);
 
-    useEffect(() => {
-        if (task && tdNotes !== task.note) {
-            setTdNotesSaved(false);
-        } else if (task && tdNotes === task.notes) {
-            setTdNotesSaved(true);
-        }
-
-        if (task) {
-            console.log(tdNotes);
-            console.log(task.note);
-        }
-    }, [tdNotes])
 
     const updateNotes = async (e) => {
         e.preventDefault();
@@ -177,7 +175,9 @@ export default function TaskDetailPanel() {
         }
 
         console.log('form data: ', data);
-        console.log(dispatch(updateATask(task.id, data)))
+        const res = (dispatch(updateATask(task.id, data)))
+        dispatch(getSingleTask(task.id));
+        dispatch(getAllTasks());
     }
 
     return (task && lists && tags &&
@@ -346,7 +346,7 @@ export default function TaskDetailPanel() {
                         <p className='td-label-p'>
                             Due Date:
                         </p>
-                        <p>
+                        <p className='td-data-p'>
                             {dateFormatter(dueDate)}
                             {' at '}
                             {timeFormatter(dueTime)}
@@ -356,7 +356,7 @@ export default function TaskDetailPanel() {
                         <p className='td-label-p'>
                             Start Date:
                         </p>
-                        <p>
+                        <p className='td-data-p'>
                             {dateFormatter(startDate)}
                             {' at '}
                             {timeFormatter(startTime)}
@@ -364,31 +364,70 @@ export default function TaskDetailPanel() {
                     </div>
                     <div className='td-label-div'>
                         <p className='td-label-p'>
+                            Priority:
+                        </p>
+                        <p className='td-data-p'>
+                            {prios[prio]}
+                        </p>
+                    </div>
+                    <div className='td-label-div'>
+                        <p className='td-label-p'>
+                            List:
+                        </p>
+                        {
+                            task.listId ?
+                                <p className='td-data-p'>
+                                    <Link
+                                        className='td-data-link'
+                                        to={`/app/lists/${task.listId}`}
+                                    >
+                                        {`${lists[String(task.listId)].name}`}
+                                    </Link>
+                                </p>
+                                :
+                                <p className='td-data-p'>
+                                    Not assigned
+                                </p>
+                        }
+                    </div>
+                    <div className='td-label-div'>
+                        <p className='td-label-p'>
+                            Est. Time:
+                        </p>
+                        <p className='td-data-p'>
+                            {task.duration
+                                ?
+                                (task.duration > 59 ?
+                                    (`${Math.floor(task.duration / 60) > 0} hours ${task.duration % 60} minutes`) :
+                                    `${task.duration} minutes`)
+                                :
+                                'Not assigned'}
+                        </p>
+                    </div>
+                    <div className='td-tag-div'>
+                        <p className='td-label-p'>
                             Tags:
                         </p>
 
-                        <div className='td-label-div'>
-                            <p className='td-label-p'>
-                                Priority:
-                            </p>
-                            <p>{prios[prio]}</p>
-                        </div>
-                    </div>
-                    <div className='td-tag-div'>
                         {task.tags.map((tagId) =>
 
-                            <div className={`td-tag-${tagId}`}
+                            <div className={'td-tag'}
                                 style={{ color: 'white', backgroundColor: tags[String(tagId)].color }}
                             >
                                 {tags[tagId.toString()].name}
                             </div>
                         )}
                     </div>
-                    <div className='td-notes-div'>
-                        <form
-                            className='td-notes-form'
-                            onSubmit={updateNotes}
-                        >
+                    <div className='td-label-div-notes'>
+                        <p className='td-label-p'>
+                            Notes:
+                        </p>
+                    </div>
+                    <form
+                        className='td-notes-form'
+                        onSubmit={updateNotes}
+                    >
+                        <div className='td-notes-div'>
 
                             <textarea
                                 className='td-notes-input'
@@ -401,11 +440,11 @@ export default function TaskDetailPanel() {
                                 type='submit'
                                 disabled={tdNotesSaved}
                             >
-                                Save Changes
+                                Save Notes
                             </button>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </div>    )
+        </div>)
 }
