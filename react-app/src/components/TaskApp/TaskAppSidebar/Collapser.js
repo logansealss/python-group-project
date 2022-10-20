@@ -1,6 +1,5 @@
 import React from 'react'
 
-import DropDownWrapper from '../../../context/Dropdown';
 import downCaret from '../../../img/caret-down.svg';
 
 
