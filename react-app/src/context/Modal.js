@@ -55,7 +55,7 @@ export function Modal (props) {
 
   return ReactDom.createPortal(
     <div id="modal">
-      <div id="modal-background" onClick={props.onClose} />
+      <div id="modal-background" onClick={()=>props.setShowModal(false)} />
         <div id="modal-container">
           <div id='modal-header'>
             {props.header || 'New Modal'}
