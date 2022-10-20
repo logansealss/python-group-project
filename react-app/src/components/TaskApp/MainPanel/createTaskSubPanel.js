@@ -240,6 +240,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                                         value={dueTime}
                                         onChange={(e) => setDueTime(e.target.value)}
                                     >
+                                        <option value=''>Due Time</option>
                                         {selectMenuTimes.map((option) =>
                                             <option value={option.value}>{option.display}</option>
                                         )}
@@ -257,6 +258,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                                         value={startTime}
                                         onChange={(e) => setStartTime(e.target.value)}
                                     >
+                                        <option value=''>Start Time</option>
                                         {selectMenuTimes.map((option) =>
                                             <option value={option.value}>{option.display}</option>
                                         )}
@@ -314,8 +316,9 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                                     Array.from(e.target.selectedOptions).map((el) => (
                                         el.value)))}
                             >
+                                <optgroup label='Tags'/>
                                 {Object.values(tags).map((t) =>
-                                    <option value={t.id}>{t.name}</option>
+                                    <option className='sel-op' value={t.id}>{t.name}</option>
                                 )}
                             </select>
                         </div>

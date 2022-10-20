@@ -325,6 +325,12 @@
     height: 100%;
     width: 100%;
     text-align: center;
+
+}
+
+.ctsp-tag-input::selection .ctsp-tag-input::-moz-selection{
+    background-color: #39375f;
+    color: white;
 }
 
 .ctsp-top-left-grp{
@@ -378,3 +384,8 @@
     height: 60px;
     width: 100%;
 }
+
+/* .sel-op::sel {
+    background-color: #56538c;
+    color: white;
+} */
