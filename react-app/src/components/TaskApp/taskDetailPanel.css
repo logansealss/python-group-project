@@ -399,6 +399,21 @@
     width: 100%;
 }
 
+
+.tad-date-label-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.tad-date-label {
+    font-weight: bold;
+    padding-bottom: 5px;
+    font-size: 16px;
+    color: #1e1c35;
+}
 /* .sel-op::sel {
     background-color: #56538c;
     color: white;

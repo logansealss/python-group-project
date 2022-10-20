@@ -229,6 +229,9 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                         <div className='ctsp-top-left-grp'>
                             <div className='ctsp-top-grp'>
                                 <div className='ctsp-due-date-grp'>
+                                    <div className='ctsp-date-label-div'>
+                                        <p className='ctsp-date-label'>Due Date</p>
+                                    </div>
                                     <input
                                         className='ctsp-date-input'
                                         type='date'
@@ -246,7 +249,11 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                                         )}
                                     </select>
                                 </div>
+
                                 <div className='ctsp-due-date-grp'>
+                                <div className='ctsp-date-label-div'>
+                                        <p className='ctsp-date-label'>Start Date</p>
+                                    </div>
                                     <input
                                         className='ctsp-date-input'
                                         type='date'
@@ -291,6 +298,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                             <div className='ctsp-left-bot-grp'>
                                 <input
                                     className='ctsp-time-input'
+                                    placeholder='Time estimate'
                                     type='number'
                                     value={estimate}
                                     onChange={(e) => setEstimate(e.target.value)}
