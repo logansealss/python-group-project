@@ -108,6 +108,8 @@
     margin-top: 3px;
     margin-bottom: 3px;
     width: calc(100% - 10px);
+    overflow: hidden;
+    transition-duration: 1s;
 }
 
 .tad-ratgc-true{

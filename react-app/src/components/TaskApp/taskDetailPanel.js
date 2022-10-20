@@ -76,7 +76,7 @@ export default function TaskDetailPanel() {
     }
 
     useEffect(() => {
-        setFormDiv(document.getElementById('tad-form-div'));
+        setFormDiv(document.getElementsByClassName('tad-add-task-grp')[0]);
         console.log('wat?', formDiv)
         if(formDiv){
             formDiv.style.height = '0px';
