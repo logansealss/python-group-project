@@ -19,13 +19,11 @@ export default function TaskAppNav() {
 
     function handlesearchSubmit(e) {
         e.preventDefault()
-
-        history.push(`/app/search/${searchInput.trim().split(' ').filter(str => str !== '').join('+')}`)
+        history.push(`/app/search/${encodeURIComponent(searchInput.trim().split(' ').filter(str => str !== '').join(' '))}`)
     }
 
     return (
         <div className='tan-main-div'>
-
             <img
                 className='tan-hamburger-icon tan-icon-style'
                 src={hamburger}
