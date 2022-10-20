@@ -59,7 +59,7 @@ export default function DropDownWrapper(props) {
           }
         }
         )}
-      {<Dropdown {...props} closeMenu={closeMenu}/>}
+      {<Dropdown {...props}/>}
     </>
   );
 };
