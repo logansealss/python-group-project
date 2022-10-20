@@ -13,7 +13,7 @@ export default function Collapser (props) {
         >
         <div
           id='collapser_action'
-          onClick={()=>props.setter(val=>!val)}>
+          onClick={()=>props.expander(val=>!val)}>
           <div
             id='collapse_button'
             className={props.expanded ? 'expanded' : ''}
@@ -25,12 +25,6 @@ export default function Collapser (props) {
           </div>
         </div>
         <div className='collapser_rhs_icons'>
-          {/* <DropDownWrapper
-            offset='14px'
-            menu={<div className='dropdown_menu'>My new menu</div>}
-            >
-            <img id= 'dropdown_caret' className='tasb-caret' src={downCaret} />
-          </DropDownWrapper> */}
           {props.obj}
           </div>
         </div>

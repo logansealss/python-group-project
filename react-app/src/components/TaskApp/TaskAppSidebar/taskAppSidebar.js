@@ -86,12 +86,12 @@ export default function TaskAppSidebar() {
     dispatch(tagActions.getAllTags())
   }, [dispatch])
 
-  if (!tasks) return null
+  if (!tasks || !lists || !tags) return null
 
   const items = {
     'Tasks': {
       expanded: allTasksExpanded,
-      setter: setAllTasksExpanded,
+      expander: setAllTasksExpanded,
       title: 'Tasks',
       children: [['All Tasks', 'all'], ['Today', 'today', getDateFromToday()], ['Tomorrow', 'tomorrow', getDateFromToday(1)], ['This Week', 'week', getDateFromToday(6)]]
         .map(([title, slug, endDate]) => (
@@ -106,10 +106,10 @@ export default function TaskAppSidebar() {
     },
     'Lists': {
       expanded: listsExpanded,
-      setter: setListsExpanded,
+      expander: setListsExpanded,
       title: 'Lists',
       obj: <Plus  form={<CreateTagListForm/>} feature='list' thunk={listActions.createList}/>,
-      children: lists && Object.values(lists)
+      children: Object.values(lists)
         .map(list => (
           <BannerItem
             key={list.id}
@@ -125,10 +125,10 @@ export default function TaskAppSidebar() {
     },
     'Tags': {
       expanded: tagsExpanded,
-      setter: setTagsExpanded,
+      expander: setTagsExpanded,
       title: 'Tags',
       obj: <Plus  form={<CreateTagListForm/>} feature='tag' thunk={tagActions.createTag}/>,
-      children: tags && Object.values(tags).map(tag => (
+      children: Object.values(tags).map(tag => (
         <BannerItem
           key={tag.id}
           itemId={tag.id}
@@ -152,7 +152,7 @@ export default function TaskAppSidebar() {
           key={itemName}
           title={items[itemName]['title']}
           expanded={items[itemName]['expanded']}
-          setter={items[itemName]['setter']}
+          expander={items[itemName]['expander']}
           obj={items[itemName]['obj']}
         >
           {items[itemName]['children']}
