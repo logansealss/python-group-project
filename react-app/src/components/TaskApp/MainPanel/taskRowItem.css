@@ -18,6 +18,18 @@
     background-color: #ccc;
 }
 
+.tri-prio-high{
+    background-color: #ea5200;
+}
+
+.tri-prio-medium{
+    background-color: #0060bf;
+}
+
+.tri-prio-low{
+    background-color: #359aff;
+}
+
 .tri-checkbox-div{
     padding-left: 9px;
     padding-right: 6px;

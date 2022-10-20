@@ -16,10 +16,19 @@ export default function TaskRowItem({ task }) {
         dispatch(deleteSingleTask(task.id));
     }
 
+    let priorityClassName = 'tri-prio-indi';
+    if (task.priority === 1){
+        priorityClassName += ' tri-prio-high'
+    }else if (task.priority === 2){
+        priorityClassName += ' tri-prio-medium'
+    }else if (task.priority === 3){
+        priorityClassName += ' tri-prio-low'
+    }
+
     return (
         <div className='tri-main-div'>
                 <img className='tri-move-grab' src={caretRight} />
-                <div className='tri-prio-indi'></div>
+                <div className={priorityClassName}></div>
                 {/* <div className='tri-checkbox-div'>
                     <input
                         className='tri-checkbox'
