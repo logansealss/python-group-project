@@ -3,7 +3,6 @@ import ModalWrapper from '../../../context/Modal.js';
 import DropDownWrapper, { DropdownProvider } from '../../../context/Dropdown';
 import RemoveTagListForm from './Forms/RemoveTagListForm';
 import RenameTagListForm from './Forms/RenameTagListForm';
-import { useState } from 'react';
 export default function BannerItem (props) {
 
   return (
@@ -32,25 +31,14 @@ export default function BannerItem (props) {
 }
 
 function Menu (props) {
-  const [displayDropdown, setDisplayDropdown] = useState(true);
   return (
-    <div id='banner_dropdown'
-      onClick={e=>e.stopPropagation()}
-      className={`${displayDropdown ? '': 'hidden'} `}
-      >
+    <div id='banner_dropdown'>
       <ModalWrapper
         header={`Rename ${props.feature}`}
         name={props.name}
         form={<RenameTagListForm/>}
         feature={props.feature}
         itemId={props.itemId}
-        clickEvent={()=>{
-          console.log('clicked');
-          setDisplayDropdown(val=> !val);
-          document.addEventListener('click', ()=> {
-            setDisplayDropdown(true)
-          }, {once: true})
-        }}
         >
         <div id='sidebar_dropdown_button'>Rename</div>
       </ModalWrapper>

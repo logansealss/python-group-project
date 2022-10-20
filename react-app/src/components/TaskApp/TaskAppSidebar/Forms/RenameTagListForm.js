@@ -1,16 +1,25 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
+
+import * as listActions from '../../../../store/lists'
+import * as tagActions from '../../../../store/tags'
+
 
 export default function RenameListTagForm (props) {
   const dispatch = useDispatch()
-  const [name, setName] = useState('')
+  const [name, setName] = useState(props.name)
 
-  const userId = useSelector(state=>state.session.user.id);
+  const actions = {
+    'list': listActions.renameList,
+    'tag': tagActions.renameTag
+  }
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await dispatch(props.thunk({
-      'user_id': userId,
+    const response = await dispatch(actions[props.feature]({
+      'id': props.itemId,
       'name': name
     }));
     if (response.ok) {
