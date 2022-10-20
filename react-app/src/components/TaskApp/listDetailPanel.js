@@ -19,7 +19,7 @@ export default function ListDetailPanel() {
     return <Redirect to={listDetails}></Redirect>
   }
 
-  return (listDetails &&
+  return (tasks && lists && tags && listDetails &&
     <div>
       <div id='list-details-name-container'>
         <div id="list-details-name">
