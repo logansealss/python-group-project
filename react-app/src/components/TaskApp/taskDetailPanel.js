@@ -86,9 +86,6 @@ export default function TaskDetailPanel() {
 
     return (task && lists && tags &&
         <div className='tad-main-panel'>
-            SingleTask:{' '}
-            {JSON.stringify(task)}
-
             <form
                 onSubmit={handleCtSubmit}
                 className='ctsp-form-el'
