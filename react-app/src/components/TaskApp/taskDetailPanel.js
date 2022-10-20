@@ -278,6 +278,13 @@ export default function TaskDetailPanel() {
             </form >
 
             <div className='td-task-detail-main'>
+                <div className='td-upper-detail'>
+                    <div className='td-label-div'>
+                        <p className='td-label-p'>
+
+                        </p>
+                    </div>
+                </div>
                 <div className='td-notes-div'>
                     <form
                         className='td-notes-form'
