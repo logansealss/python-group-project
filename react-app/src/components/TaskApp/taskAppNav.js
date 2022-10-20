@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
 import DropDownWrapper, { DropdownProvider } from '../../context/Dropdown'
 import downCaret from '../../img/caret-down.svg'
@@ -11,13 +12,15 @@ import './taskAppNav.css'
 
 export default function TaskAppNav() {
 
+    const history = useHistory()
     const dispatch = useDispatch();
     const [searchInput, setSearchInput] = useState('');
     const [searchIconFocusStyle, setSearchIconFocusStyle] = useState('');
 
     function handlesearchSubmit(e) {
         e.preventDefault()
-        console.log('search submit!');
+
+        history.push(`/app/search/${searchInput.trim().split(' ').filter(str => str !== '').join('+')}`)
     }
 
     return (

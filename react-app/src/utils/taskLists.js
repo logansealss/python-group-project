@@ -31,6 +31,7 @@ export function getListDetailsFromSearch(tasks, searchArray){
     return tasksToCheck.reduce((result, task) => {
 
         let taskDueDate = task.dueDate ? task.dueDate.slice(0, 10) : task.dueDate
+        console.log("checking task")
 
         if (stringIncludesArr(task.name, searchArray)) {
             if (task.completed) {
