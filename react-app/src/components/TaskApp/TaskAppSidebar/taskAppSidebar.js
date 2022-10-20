@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {useHistory} from 'react-router-dom';
 
-import * as listActions from '../../../store/lists'
-import * as tagActions from '../../../store/tags'
+import * as taskActions from '../../../store/tasks';
+import * as listActions from '../../../store/lists';
+import * as tagActions from '../../../store/tags';
 
-import Collapser from './Collapser'
-import BannerItem from './BannerItem'
-import CreateTagListForm from './Forms/CreateTagListForm'
-import ModalWrapper from '../../../context/Modal'
+import Collapser from './Collapser';
+import BannerItem from './BannerItem';
+import CreateTagListForm from './Forms/CreateTagListForm';
+import ModalWrapper from '../../../context/Modal';
 
-import logo from '../../../img/TM-logo-short-nobg.png'
-import plus_img from '../../../img/plus.svg'
-import './taskAppSidebar.css'
+import logo from '../../../img/TM-logo-short-nobg.png';
+import plus_img from '../../../img/plus.svg';
+import './taskAppSidebar.css';
 
 
 function Plus (props) {
@@ -33,10 +34,8 @@ function Count(props) {
 };
 
 function getCount (tasks, targetFeature, targetValue) {
-  console.log('tasks at getcount',tasks)
   switch (targetFeature) {
     case 'dueDate':
-      console.log(Date().now())
       return Object.values(tasks)
         .reduce((count,task)=>{
         if (task[targetFeature] === targetValue && !task['completed']) count++;
@@ -69,20 +68,23 @@ export default function TaskAppSidebar() {
   const [tagsExpanded, setTagsExpanded] = useState(false)
 
   useEffect(() => {
+    dispatch(taskActions.getAllTasks())
     dispatch(listActions.getAllLists())
     dispatch(tagActions.getAllTags())
   }, [dispatch])
+
+  if (!tasks) return null
 
   const items = {
     'Tasks': {
       expanded: allTasksExpanded,
       setter: setAllTasksExpanded,
       title: 'Tasks',
-      children: [['All Tasks', 'all'], ['Today', 'today'], ['Tomorrow', 'tomorrow'], ['This Week', 'week']]
-        .map(([title, slug]) => (
+      children: [['All Tasks', 'all', null], ['Today', 'today', todayMS], ['Tomorrow', 'tomorrow', todayMS + 24 * 60 * 60 * 1000], ['This Week', 'week', todayMS + 7 * 24 * 60 * 60 * 1000]]
+        .map(([title, slug, ]) => (
           <BannerItem
             key={title}
-            obj={<Count count={'#'}/>}
+            obj={<Count count={getCount(tasks, 'dueDate', )}/>}
             handleClick={()=>history.push(`/app/lists/${slug}`)}
             >
             {title}
@@ -127,7 +129,7 @@ export default function TaskAppSidebar() {
     },
   };
 
-  return tasks && (
+  return (
     <div id='sidebar'>
       <div className='logo_container'>
         <img className='tasb-top-logo' src={logo} />
