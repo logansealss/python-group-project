@@ -8,6 +8,8 @@ import hamburger from '../../img/bars.svg'
 import gear from '../../img/gear.svg'
 import magGlass from '../../img/magnifying-glass.svg'
 
+import * as sessionActions from '../../store/session';
+
 import './taskAppNav.css'
 
 export default function TaskAppNav() {
@@ -59,7 +61,7 @@ export default function TaskAppNav() {
                         <div
                             className='tan-dropdown-button'
                             onClick={async ()=>{
-                                const response = await fetch('/api/auth/logout')
+                                const response = await dispatch(sessionActions.logout())
                                 if (response.ok) history.push('/')
                             }}
                             >Logout
