@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRouteMatch, useParams, Redirect } from 'react-router-dom';
+import { useRouteMatch, useParams, Redirect, Link } from 'react-router-dom';
 
 
 import { getAllTasks } from '../../../store/tasks';
@@ -32,6 +31,10 @@ export default function MainPanel() {
 
     let listDetails = getListDetails(params, tasks, lists, tags)
 
+    if (typeof listDetails === "string") {
+        return <Redirect to={listDetails}></Redirect>
+    }
+
     return (tasks && lists && tags &&
         <div className='tam-main-div'>
             <CreateTaskSubPanel lists={lists} tags={tags} />
@@ -42,7 +45,7 @@ export default function MainPanel() {
                         className='mpti-link-wrap'
                         to={`/app/${params.filterId}/${params.listId}/${task.id}`}
                     >
-                        <TaskRowItem task={task}/>
+                        <TaskRowItem task={task} />
                     </Link>
                 ))}
             </div>

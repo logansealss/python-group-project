@@ -197,7 +197,7 @@ export function getListDetails({listId, filterId}, tasks, lists, tags) {
                 listDetails = getListDetailsFromList(taskObj, +listId)
                 listDetails.name = list.name
             } else if (list === undefined) {
-                return <Redirect to="/app/lists/all"></Redirect>
+                return "/app/lists/all"
             }
         }
 
@@ -209,7 +209,7 @@ export function getListDetails({listId, filterId}, tasks, lists, tags) {
             listDetails = getListDetailsFromTag(taskObj, +listId)
             listDetails.name = tag.name
         } else if (tag === undefined) {
-            return <Redirect to="/app/lists/all"></Redirect>
+            return "/app/lists/all"
         }
 
     } else if (filterId === 'search') {
@@ -220,7 +220,7 @@ export function getListDetails({listId, filterId}, tasks, lists, tags) {
             listDetails.name = `Search: ${searchList.join(' ')}`
         }
     } else {
-        return <Redirect to="/app/lists/all"></Redirect>
+        return "/app/lists/all"
     }
 
     return listDetails

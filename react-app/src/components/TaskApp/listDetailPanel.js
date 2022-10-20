@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Redirect } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import { getListDetails } from '../../utils/taskLists'
@@ -14,6 +14,10 @@ export default function ListDetailPanel() {
   const tags = useSelector(state => state.tags)
 
   let listDetails = getListDetails(params, tasks, lists, tags)
+
+  if (typeof listDetails === "string") {
+    return <Redirect to={listDetails}></Redirect>
+  }
 
   return (listDetails &&
     <div>
