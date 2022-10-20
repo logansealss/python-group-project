@@ -225,7 +225,7 @@ export default function TaskDetailPanel() {
                                 type='submit'
                                 disabled={taskName.length ? false : true}
                             >
-                                Add Task
+                                Update Task
                             </button>
                         </div>
                     </div>
