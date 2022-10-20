@@ -83,12 +83,16 @@ function LoginFormPage() {
             !passErr
         ) {
             const response = await dispatch(sessionActions.login(credential, password))
-                .catch(async (res) => {
-                    const data = await res.json();
-                    if (data && data.errors) setBackendErrors(data.errors);
-                });
+
+            console.log("response", response)
+            if(!response){
+                history.push('/app/lists/all')
+            }
+            else{
+                const err = response[0].split(': ')[1]
+                setBackendErrors([err]);
+            }
         }
-            history.push('/app/all')
     };
 
     const formatBackendErrors = (errorObj) => {
