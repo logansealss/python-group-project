@@ -18,6 +18,7 @@ import tagIcon from '../../img/tag.svg';
 import minusIcon from '../../img/minus.svg';
 import EliIcon from '../../img/ellipsis.svg';
 import downCaret from '../../img/caret-down.svg';
+import editIcon from '../../img/pen-to-square.svg'
 import './taskDetailPanel.css';
 
 import './taskDetailPanel.css';
@@ -59,37 +60,34 @@ export default function TaskDetailPanel() {
     const formRef = useRef();
 
     const openForm = () => {
-        console.log('openForm');
-        console.log('wat?', formDiv)
         setRenderCtForm(true);
-        if(formDiv){
-        formDiv.style.height = '340px'
+        if (formDiv) {
+            formDiv.style.height = '340px'
         }
     }
 
     const closeForm = () => {
-        console.log('closeForm')
         setRenderCtForm(false);
-        if(formDiv){
-        formDiv.style.height = '0px';
+        if (formDiv) {
+            formDiv.style.height = '0px';
         }
     }
 
     useEffect(() => {
         setFormDiv(document.getElementsByClassName('tad-add-task-grp')[0]);
         console.log('wat?', formDiv)
-        if(formDiv){
+        if (formDiv) {
             formDiv.style.height = '0px';
         }
     }, [formRef, task]);
 
-    useEffect(() => {
-        if (taskName.length && !renderCtForm) {
-            openForm();
-        } else if(!taskName.length && renderCtForm) {
-            closeForm();
-        }
-    }, [taskName]);
+    // useEffect(() => {
+    //     if (taskName.length && !renderCtForm) {
+    //         openForm();
+    //     } else if (!taskName.length && renderCtForm) {
+    //         closeForm();
+    //     }
+    // }, [taskName]);
 
 
     useEffect(() => {
@@ -142,6 +140,12 @@ export default function TaskDetailPanel() {
                         // onBlur={() => { !ctInput.length && setRenderAddTaskGrpClass('tad-ratgc-false') }}
                         // onKeyDown={keyDownFn}
                         />
+                        <div
+                            className='tad-edit-div'
+                            onClick={renderCtForm ? closeForm : openForm}
+                        >
+                            <img className='tad-edit-icon' src={editIcon} />
+                        </div>
                     </div>
                     <div
                         className={`tad-add-task-grp`}
@@ -152,9 +156,9 @@ export default function TaskDetailPanel() {
                             <div className='tad-top-left-grp'>
                                 <div className='tad-top-grp'>
                                     <div className='tad-due-date-grp'>
-                                    <div className='tad-date-label-div'>
-                                        <p className='tad-date-label'>Due Date</p>
-                                    </div>
+                                        <div className='tad-date-label-div'>
+                                            <p className='tad-date-label'>Due Date</p>
+                                        </div>
                                         <input
                                             className='tad-date-input'
                                             type='date'
@@ -173,9 +177,9 @@ export default function TaskDetailPanel() {
                                         </select>
                                     </div>
                                     <div className='tad-due-date-grp'>
-                                    <div className='tad-date-label-div'>
-                                        <p className='tad-date-label'>Due Date</p>
-                                    </div>
+                                        <div className='tad-date-label-div'>
+                                            <p className='tad-date-label'>Due Date</p>
+                                        </div>
                                         <input
                                             className='tad-date-input'
                                             type='date'

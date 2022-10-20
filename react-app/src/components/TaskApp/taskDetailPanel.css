@@ -146,6 +146,32 @@
     opacity: 0.55;
 }
 
+.tad-edit-icon {
+    height: 25px;
+    width: auto;
+    opacity: 0.55;
+}
+
+.tad-edit-div:hover .tad-edit-icon {
+    opacity: 1;
+}
+
+.tad-edit-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 2px;
+    height: 100%;
+    width: 50px;
+    padding-left: 3px;
+    background-color: lightgrey;
+}
+
+.tad-edit-div:active {
+    box-shadow: inset 0 2px 3px rgba(0,0,0,0.25);
+}
+
 .tad-at-caret-style{
     height: 16px;
     width: auto;
@@ -154,15 +180,6 @@
 
 .tad-ratig-false{
     visibility: hidden;
-}
-
-.test-dd-menu{
-    position:absolute;
-    transform: translate(calc(-45%));
-    background-color: lightgray;
-    border-radius: 4px;
-    height: 100px;
-    width: 100px;
 }
 
 /* .tad-at-icon-style:hover{
