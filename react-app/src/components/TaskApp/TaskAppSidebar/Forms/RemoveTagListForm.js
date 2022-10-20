@@ -5,7 +5,6 @@ import * as tagActions from '../../../../store/tags'
 
 export default function RemoveTagListForm (props) {
   const dispatch = useDispatch()
-
   const actions = {
     'list': listActions.deleteList,
     'tag': tagActions.deleteTag
@@ -13,7 +12,7 @@ export default function RemoveTagListForm (props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await dispatch(actions[props.feature](props.id));
+    const response = await dispatch(actions[props.feature](props.itemId));
     if (response.ok) {
       props.setShowModal(false);
     }

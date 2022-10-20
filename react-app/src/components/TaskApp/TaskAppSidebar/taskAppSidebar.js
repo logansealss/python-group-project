@@ -10,6 +10,7 @@ import Collapser from './Collapser';
 import BannerItem from './BannerItem';
 import CreateTagListForm from './Forms/CreateTagListForm';
 import ModalWrapper from '../../../context/Modal';
+import { getDateFromToday } from '../../../utils/taskLists';
 
 import logo from '../../../img/TM-logo-short-nobg.png';
 import plus_img from '../../../img/plus.svg';
@@ -36,11 +37,24 @@ function Count(props) {
 function getCount (tasks, targetFeature, targetValue) {
   switch (targetFeature) {
     case 'dueDate':
-      return Object.values(tasks)
+      if (!targetValue) {
+        return Object.values(tasks)
         .reduce((count,task)=>{
-        if (task[targetFeature] === targetValue && !task['completed']) count++;
+          if (!task['completed']) count++;
+          return count
+        },0);
+      } else {
+        return Object.values(tasks)
+        .reduce((count,task)=>{
+          console.log('due date',task[targetFeature]?.slice(0,10), 'target', targetValue)
+          if (
+            task[targetFeature]?.slice(0, 10) >= getDateFromToday()
+            && task[targetFeature]?.slice(0, 10) <= targetValue
+            && !task['completed']
+            ) count++;
         return count
-      },0);
+        },0);
+      };
     case 'listId':
       return Object.values(tasks)
         .reduce((count,task)=>{
@@ -80,11 +94,11 @@ export default function TaskAppSidebar() {
       expanded: allTasksExpanded,
       setter: setAllTasksExpanded,
       title: 'Tasks',
-      children: [['All Tasks', 'all', null], ['Today', 'today', todayMS], ['Tomorrow', 'tomorrow', todayMS + 24 * 60 * 60 * 1000], ['This Week', 'week', todayMS + 7 * 24 * 60 * 60 * 1000]]
-        .map(([title, slug, ]) => (
+      children: [['All Tasks', 'all'], ['Today', 'today', getDateFromToday()], ['Tomorrow', 'tomorrow', getDateFromToday(1)], ['This Week', 'week', getDateFromToday(6)]]
+        .map(([title, slug, endDate]) => (
           <BannerItem
             key={title}
-            obj={<Count count={getCount(tasks, 'dueDate', )}/>}
+            obj={<Count count={getCount(tasks, 'dueDate', endDate)}/>}
             handleClick={()=>history.push(`/app/lists/${slug}`)}
             >
             {title}
