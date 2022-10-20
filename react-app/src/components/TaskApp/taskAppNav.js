@@ -32,7 +32,6 @@ export default function TaskAppNav() {
                 src={hamburger}
             />
             <div className='tan-search-container'>
-                <DropdownProvider position='absolute'>
                 <div className='tan-search-pseudo-input'>
                     <img
                         className={`tan-search-mag-icon tan-search-icon-style ${searchIconFocusStyle}`}
@@ -48,30 +47,30 @@ export default function TaskAppNav() {
                             onBlur={() => {setSearchIconFocusStyle('')}}
                         />
                     </form>
-                    <DropDownWrapper
-                        offset='35px'
-                        menu={
-                            <div className='dropdown_menu'>Sample Menu Box</div>
-                            }
-                        >
+                    <img
+                        className={`tan-search-down-caret-icon tan-search-icon-style ${searchIconFocusStyle}`}
+                        src={downCaret}
+                    />
+                </div>
+            </div>
+            <DropdownProvider position='relative'>
+                <DropDownWrapper menu={
+                    <div className='tan-settings-dropdown-menu'>
+                        <div className='tan-dropdown-button'>Logout</div>
+                    </div>
+                }>
+                    <div className='tan-settings-icon-grp'>
                         <img
-                            className={`tan-search-down-caret-icon tan-search-icon-style ${searchIconFocusStyle}`}
+                            className='tan-settings-gear-icon tan-icon-style'
+                            src={gear}
+                        />
+                        <img
+                            className='tan-settings-down-caret-icon tan-icon-style'
                             src={downCaret}
                         />
-                    </DropDownWrapper>
                     </div>
-                </DropdownProvider>
-            </div>
-            <div className='tan-settings-icon-grp'>
-                <img
-                    className='tan-settings-gear-icon tan-icon-style'
-                    src={gear}
-                />
-                <img
-                    className='tan-settings-down-caret-icon tan-icon-style'
-                    src={downCaret}
-                />
-            </div>
+                </DropDownWrapper>
+            </DropdownProvider>
         </div>
     )
 }

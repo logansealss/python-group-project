@@ -130,3 +130,37 @@
     height: 15px;
     width: auto;
 }
+
+.tan-settings-dropdown-menu {
+    position:absolute;
+    transform: translateX(-100%);
+    z-index: 1;
+
+    width: 200px;
+    height:50px;
+
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 1px 4px 1px rgb(0 0 0 / 20%);
+
+    width: max-content;
+    min-width: 120px;
+
+    height: max-content;
+    padding: 8px 0;
+
+    display:flex;
+    flex-direction: column;
+
+  }
+
+.tan-dropdown-button {
+font-size: 14px;
+height: 20px;
+padding: 0px 8px;
+padding-top: 3px;
+}
+
+.tan-dropdown-button:hover {
+    background-color: hsl(240,26%,84%);
+  }
