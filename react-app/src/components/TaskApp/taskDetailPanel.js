@@ -61,6 +61,44 @@ export default function TaskDetailPanel() {
 
     const formRef = useRef();
 
+    const prios = {
+        1: 'High',
+        2: 'Med',
+        3: 'low',
+        0: 'none'
+    }
+
+    const months = [
+        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    ];
+
+    const dateFormatter = (dateStr) => {
+        const dateArr = dateStr.split('-');
+        const y = dateArr[0];
+        const m = Number(dateArr[1]);
+        const d = dateArr[2];
+
+        return `${months[m - 1]} ${d}, ${y}`
+
+    }
+
+    const timeFormatter = (timeStr) => {
+
+        const timeArr = timeStr.split(':');
+        const hours = Number(timeArr[0]);
+        const mins = timeArr[1];
+
+        console.log('hours: ', hours, 'mins:', mins);
+
+        if (hours > 12) {
+            return `${(hours - 12)} ${mins} pm`;
+        }
+        if (hours < 12) {
+            return `${hours}:${mins} am`;
+        }
+    }
+
     const openForm = () => {
         if (tadFormDiv) {
             tadFormDiv.style.height = '340px'
@@ -90,7 +128,7 @@ export default function TaskDetailPanel() {
             task.startDate && setStartDate(task.startDate.split(' ')[0]);
             task.startDate && setStartTime(task.startDate.split(' ')[1]);
             task.listId && setTaskList(task.listId);
-            task.priority && setPrio(task.priority);
+            task.priority ? setPrio(task.priority) : setPrio(0);
             task.tags && setTaskTags(task.tags);
             task.duration && setEstimate(task.duration);
             task.note ? setTdNotes(task.note) : setTdNotes('');
@@ -306,32 +344,68 @@ export default function TaskDetailPanel() {
                 <div className='td-upper-detail'>
                     <div className='td-label-div'>
                         <p className='td-label-p'>
-
+                            Due Date:
+                        </p>
+                        <p>
+                            {dateFormatter(dueDate)}
+                            {' at '}
+                            {timeFormatter(dueTime)}
                         </p>
                     </div>
-                </div>
-                <div className='td-notes-div'>
-                    <form
-                        className='td-notes-form'
-                        onSubmit={updateNotes}
-                    >
+                    <div className='td-label-div'>
+                        <p className='td-label-p'>
+                            Start Date:
+                        </p>
+                        <p>
+                            {dateFormatter(startDate)}
+                            {' at '}
+                            {timeFormatter(startTime)}
+                        </p>
+                    </div>
+                    <div className='td-label-div'>
+                        <p className='td-label-p'>
+                            Tags:
+                        </p>
 
-                        <textarea
-                            className='td-notes-input'
-                            type='text'
-                            value={tdNotes}
-                            onChange={(e) => setTdNotes(e.target.value)}
-                        />
-                        <button
-                            className='td-notes-save-btn'
-                            type='submit'
-                            disabled={tdNotesSaved}
+                        <div className='td-label-div'>
+                            <p className='td-label-p'>
+                                Priority:
+                            </p>
+                            <p>{prios[prio]}</p>
+                        </div>
+                    </div>
+                    <div className='td-tag-div'>
+                        {task.tags.map((tagId) =>
+
+                            <div className={`td-tag-${tagId}`}
+                                style={{ color: 'white', backgroundColor: tags[String(tagId)].color }}
+                            >
+                                {tags[tagId.toString()].name}
+                            </div>
+                        )}
+                    </div>
+                    <div className='td-notes-div'>
+                        <form
+                            className='td-notes-form'
+                            onSubmit={updateNotes}
                         >
-                            Save Changes
-                        </button>
-                    </form>
+
+                            <textarea
+                                className='td-notes-input'
+                                type='text'
+                                value={tdNotes}
+                                onChange={(e) => setTdNotes(e.target.value)}
+                            />
+                            <button
+                                className='td-notes-save-btn'
+                                type='submit'
+                                disabled={tdNotesSaved}
+                            >
+                                Save Changes
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    )
+        </div>    )
 }

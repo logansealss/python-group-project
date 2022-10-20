@@ -479,3 +479,15 @@
     border-bottom: 3px solid #a7a6ba;
     cursor: default;
 }
+
+.td-label-div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 20px;
+}
+
+.td-tag{
+    height: 20px;
+    border-radius: 4px;
+}
