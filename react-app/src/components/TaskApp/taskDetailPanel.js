@@ -83,11 +83,11 @@ export default function TaskDetailPanel() {
 
     const datesValid = () => {
         console.log(tdStartDate, tdDueDate)
-        if(tdStartDate && tdDueDate && tdDueTime){
+        if (tdStartDate && tdDueDate && tdDueTime) {
             console.log('conditional return: ', parseDateObj(tdStartDate, tdStartTime).getTime() <
-            parseDateObj(tdDueDate, tdDueTime).getTime())
-        return parseDateObj(tdStartDate, tdStartTime).getTime() <
-               parseDateObj(tdDueDate, tdDueTime).getTime()
+                parseDateObj(tdDueDate, tdDueTime).getTime())
+            return parseDateObj(tdStartDate, tdStartTime).getTime() <
+                parseDateObj(tdDueDate, tdDueTime).getTime()
         }
         console.log('default return true')
         return true;
@@ -96,7 +96,7 @@ export default function TaskDetailPanel() {
     const compareTimeToStart = (time) => {
         if (tdStartDate === tdDueDate) {
             return parseDateObj(tdStartDate, tdStartTime).getTime() >
-            parseDateObj(tdStartDate, time).getTime()
+                parseDateObj(tdStartDate, time).getTime()
         } else {
             return false;
         }
@@ -105,7 +105,7 @@ export default function TaskDetailPanel() {
     const compareStartToCurrentTime = (time) => {
         if (tdStartDate) {
             return parseDateObj(tdStartDate, time).getTime() <
-            new Date().getTime();
+                new Date().getTime();
         }
         return false;
     }
@@ -118,16 +118,22 @@ export default function TaskDetailPanel() {
         ].join('-');
     }
 
+    const createDateDisplay = (date, time) => {
+        if (date) {
+            return `${dateFormatter(date)} at ${timeFormatter(time)}`
+        } else return 'Not Assigned'
+    }
+
     useEffect(() => {
-        if (!datesValid()){
+        if (!datesValid()) {
             setTdDueDate(tdStartDate)
             setTdDueTime(tdStartTime)
         }
 
-        if(!tdDueDate){
+        if (!tdDueDate) {
             setTdDueTime('');
         }
-        if(!tdStartDate){
+        if (!tdStartDate) {
             setTdStartTime('');
         }
 
@@ -156,10 +162,10 @@ export default function TaskDetailPanel() {
 
     const estFormatter = () => {
 
-        if (task.duration){
+        if (task.duration) {
             const time = task.duration;
-            if (time > 59){
-                return `${Math.floor(time/60)} hour${time > 120 ? 's' : ''} ${time % 60} minutes`
+            if (time > 59) {
+                return `${Math.floor(time / 60)} hour${time > 120 ? 's' : ''} ${time % 60} minutes`
             } else {
                 return `${task.duration} minutes`
             }
@@ -232,15 +238,21 @@ export default function TaskDetailPanel() {
 
     useEffect(() => {
         console.log(`tdprio: ${tdPrio}`)
-    },[tdPrio])
+    }, [tdPrio])
 
-    const handleUtSubmit = (e) => {
+    const handleUtSubmit = async (e) => {
         e.preventDefault();
 
         const data = {}
 
         if (tdTaskName.length) data.name = tdTaskName
-        if (tdPrio >= 0 && tdPrio <= 3) data.priority = tdPrio
+
+
+        if (tdPrio.length || tdPrio >= 0 && tdPrio <= 3) {
+            data.priority = tdPrio
+        } else {
+            data.priority = 0
+        }
         if (tdStartDate.length && tdStartTime.length)
             data.start_date = tdStartDate + ' ' + tdStartTime
         if (tdDueDate.length && tdDueTime.length)
@@ -250,9 +262,10 @@ export default function TaskDetailPanel() {
 
         console.log('form data: ', data);
         const res = (dispatch(updateATask(task.id, data)))
-        dispatch(getSingleTask(task.id));
-        dispatch(getAllTasks());
+        // await dispatch(getSingleTask(task.id));
+        // await dispatch(getAllTasks());
         setRenderTadForm(false);
+        // setSubmitted(true);
     }
 
     return (task && lists && tags &&
@@ -269,6 +282,7 @@ export default function TaskDetailPanel() {
                             className='tad-ct-input'
                             type='text'
                             value={tdTaskName}
+                            required={true}
                             onChange={(e) => setTdTaskName(e.target.value)}
                         />
                         <div
@@ -434,25 +448,21 @@ export default function TaskDetailPanel() {
                 <div className='td-upper-detail'>
                     <div className='td-label-div'>
                         <p className='td-label-p'>
-                            Due Date:
-                        </p>
-                        <p className='td-data-p'>
-                            {dateFormatter(tdDueDate)}
-                            {' at '}
-                            {timeFormatter(tdDueTime)}
-                        </p>
-                    </div>
-                    <div className='td-label-div'>
-                        <p className='td-label-p'>
                             Start Date:
                         </p>
                         <p className='td-data-p'>
-                            {dateFormatter(tdStartDate)}
-                            {' at '}
-                            {timeFormatter(tdStartTime)}
+                            {createDateDisplay(tdStartDate, tdStartTime)}
                         </p>
                     </div>
                     <div className='td-label-div'>
+                    <div className='td-label-div'>
+                        <p className='td-label-p'>
+                            Due Date:
+                        </p>
+                        <p className='td-data-p'>
+                            {createDateDisplay(tdDueDate, tdDueTime)}
+                        </p>
+                    </div>
                         <p className='td-label-p'>
                             Priority:
                         </p>

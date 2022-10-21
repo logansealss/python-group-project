@@ -39,7 +39,7 @@
 }
 
 #input-color-test-div{
-    width: fill;
+    width: calc(100% - 80px);
     height: 27px;
     display: inline-block;
     border-radius: 3px;
@@ -47,9 +47,11 @@
     border-top-right-radius: 0;
     border: 1px solid #d0d3d6;
     border-right: none;
+    box-sizing: border-box;
 }
 
 #modal_select_input_color{
+    width: 80px;
     border-radius: 3px;
     border: 1px solid #d0d3d6;
     padding: 5px 6px;

@@ -71,7 +71,7 @@ export default function Splash() {
                             >
                                 GitHub
                             </a>
-                            <a
+                            {/* <a
                                 href='https://www.john-carrera.com'
                                 className='spl-bot-cont-link'
                             >
@@ -82,7 +82,7 @@ export default function Splash() {
                                 className='spl-bot-cont-link'
                             >
                                 Portfolio
-                            </a>
+                            </a> */}
                         </div>
                     </div>
                     <div className='spl-info-contributor-div'>
@@ -101,7 +101,7 @@ export default function Splash() {
                             >
                                 GitHub
                             </a>
-                            <a
+                            {/* <a
                                 href='https://www.jackfisher.com'
                                 className='spl-bot-cont-link'
                             >
@@ -112,7 +112,7 @@ export default function Splash() {
                                 className='spl-bot-cont-link'
                             >
                                 Portfolio
-                            </a>
+                            </a> */}
                         </div>
                     </div>
                     <div className='spl-info-contributor-div'>
@@ -131,7 +131,7 @@ export default function Splash() {
                             >
                                 GitHub
                             </a>
-                            <a
+                            {/* <a
                                 href='https://www.logan-seals.com'
                                 className='spl-bot-cont-link'
                             >
@@ -142,7 +142,7 @@ export default function Splash() {
                                 className='spl-bot-cont-link'
                             >
                                 Portfolio
-                            </a>
+                            </a> */}
                         </div>
                     </div>
                 </div>

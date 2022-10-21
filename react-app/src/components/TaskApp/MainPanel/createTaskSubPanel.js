@@ -138,7 +138,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
         const data = {}
 
         if (taskName.length) data.name = taskName
-        if (prio.length && prio >= 0 && prio <= 3) data.priority = prio
+        if (prio.length || prio >= 0 && prio <= 3) data.priority = prio
         if (startDate.length && startTime.length)
             data.start_date = startDate + ' ' + startTime
         if (dueDate.length && dueTime.length)
