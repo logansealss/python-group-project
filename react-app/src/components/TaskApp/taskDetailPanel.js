@@ -230,6 +230,10 @@ export default function TaskDetailPanel() {
         }
     }
 
+    useEffect(() => {
+        console.log(`tdprio: ${tdPrio}`)
+    },[tdPrio])
+
     const handleUtSubmit = (e) => {
         e.preventDefault();
 
