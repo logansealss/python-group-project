@@ -142,12 +142,18 @@ export default function TaskAppSidebar() {
 
   return (
     <div
-      id='sidebar'
-      className={`${expandSideBar? '' : 'hidden'}`}>
+      className='sidebar'
+      id={`${expandSideBar? '' : 'hidden'}`}>
       <div className='logo_container'>
-        <img className='tasb-top-logo' src={logo} />
+        <img
+          className='tasb-top-logo'
+          id={`${expandSideBar? '' : 'hidden'}`}
+          src={logo} />
       </div>
-      <div id='sidebar-content'>
+      <div
+        className='sidebar-content'
+        id={`${expandSideBar? '' : 'hidden'}`}
+        >
         {Object.keys(items).map(itemName => (
           <Collapser
             key={itemName}

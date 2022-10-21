@@ -5,17 +5,17 @@ import downCaret from '../../../img/caret-down.svg';
 export default function Collapser (props) {
   return (
     <div
-      id='collapser'
+      className='collapser'
       >
       <div
-        id='collapser_header'
+        className='collapser_header'
         >
         <div
-          id='collapser_action'
+          className='collapser_action'
           onClick={()=>props.expander(val=>!val)}>
           <div
-            id='collapse_button'
-            className={props.expanded ? 'expanded' : ''}
+            className='collapse_button'
+            id={props.expanded ? 'expanded' : ''}
             >
               <img className='tasb-caret' src={downCaret} />
           </div>
@@ -27,7 +27,7 @@ export default function Collapser (props) {
           {props.obj}
           </div>
         </div>
-      <div id='children_container'>
+      <div className='children_container'>
         {props.expanded && props.children}
       </div>
     </div>

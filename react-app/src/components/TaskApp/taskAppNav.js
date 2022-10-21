@@ -30,16 +30,22 @@ export default function TaskAppNav() {
 
     return (
         <div className='tan-main-div'>
-            <div
-                className={`tan-left-div ${expandSideBar? 'expandDiv': '' }`}
-                onClick={()=>setExpandSideBar(val=>!val)}
-                >
-                <img
-                    className='tan-hamburger-icon tan-icon-style'
-                    src={hamburger}
-                />
-                {!expandSideBar && <div className= 'tan-list-name'>List Name</div>}
-            <div></div>
+            <div className='tan-left-container'>
+                <div
+                    className='tan-left-div'
+                    onClick={()=>setExpandSideBar(val=>!val)}
+                    >
+                    <img
+                        className='tan-hamburger-icon tan-icon-style'
+                        src={hamburger}
+                    />
+                    <div
+                        className= {`tan-list-name`}
+                        id={`${expandSideBar? 'no-width': ''}`}>
+                        List Name
+                    </div>
+                </div>
+                <div className={`${expandSideBar? 'expandDiv': '' }`}></div>
             </div>
             <div className='tan-search-container'>
                 <div className='tan-search-pseudo-input'>

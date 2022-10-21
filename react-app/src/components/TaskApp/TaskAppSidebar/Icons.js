@@ -13,13 +13,13 @@ export function Plus (props) {
       feature={props.feature}
       thunk={props.thunk}
       >
-      <img id='plus' src={plus_img}/>
+      <img className='plus' src={plus_img}/>
     </ModalWrapper>
   )
 };
 
 export function Count(props) {
-  return (<div id='count'>{props.count}</div>)
+  return (<div className='count'>{props.count}</div>)
 };
 
 export function DownCaret (props) {
@@ -34,7 +34,7 @@ export function DownCaret (props) {
           name={props.name}
         />}
       >
-      <img id='dropdown_caret' className='tasb-caret' src={downCaret} />
+      <img className='dropdown_caret' src={downCaret} />
     </DropDownWrapper>
   )
 }
