@@ -1,4 +1,4 @@
-from app.models import db, Task
+from app.models import db, Task, Tag
 
 def seed_tasks():
     add_task = Task(
@@ -67,6 +67,12 @@ def seed_tasks():
         list_id=4,
         duration=1,
     )
+
+
+    [task.tags.append(Tag.query.get(1)) for task in [add_task, add_list, add_tag]]
+    [task.tags.append(Tag.query.get(2)) for task in [edit_task, edit_list, edit_tag]]
+    [task.tags.append(Tag.query.get(3)) for task in [delete_task, delete_list, delete_tag]]
+    show_search.tags.append(Tag.query.get(4))
 
     db.session.add(add_task)
     db.session.add(edit_task)

@@ -11,11 +11,11 @@ def seed_lists():
     )
     tags_feature = List(
         name='Tags Feature',
-        user_id=2
+        user_id=1
     )
     search = List(
         name="Search Feature",
-        user_id=2
+        user_id=1
     )
 
     db.session.add(task_feature)
