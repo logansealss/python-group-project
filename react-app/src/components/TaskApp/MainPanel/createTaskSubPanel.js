@@ -98,6 +98,13 @@ export default function CreateTaskSubPanel({ lists, tags }) {
             setDueTime(startTime)
         }
 
+        if(!dueDate){
+            setDueTime('');
+        }
+        if(!startDate){
+            setStartTime('');
+        }
+
     }, [startDate, startTime, dueDate, dueTime])
 
     useEffect(() => {
