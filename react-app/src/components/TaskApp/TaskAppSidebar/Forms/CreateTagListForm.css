@@ -1,0 +1,56 @@
+#form-content-container{
+    margin: 7px 0 0 0;
+    padding: 10px 0;
+}
+
+#form-content-container label{
+    font-size: .8125rem;
+}
+
+#form-content-container input{
+    width: 300px;
+    border-radius: 3px;
+    border: 1px solid #d0d3d6;
+    padding: 5px 6px;
+    height: 16px;
+    margin-top: 5px;
+}
+
+#form-content-container input:hover{
+    border-color: #c0c0c0;
+}
+
+#form-content-container input:focus{
+    border-color: #56538c;
+}
+
+#modal_buttons button{
+    border: none;
+    height: 32px;
+    min-width: 70px;
+    border-radius: 3px;
+    font-size: .875rem;
+    margin-right: 8px;
+    font-weight: 600;
+}
+
+#modal_buttons{
+    margin: 12px 0 7px 0;
+}
+
+#modal_buttons button:hover{
+    cursor: pointer;
+}
+
+#modal_submit{
+    background-color: #6562A6;
+    color: #FFF;
+}
+
+#modal_cancel{
+    color: #444;
+}
+
+#modal_cancel:hover{
+    color: #6562A6;
+}

@@ -29,12 +29,14 @@
   background-color:white;
   transition: bottom .2s ease-out;
   border: 1px solid black;
-  border-radius: 14px;
+  border-radius: 5px;
   box-shadow: 0 6px 12px rgb(0 0 0 / 10%);
+  border: 1px solid #d1d1d1;
 }
 
 #modal-header {
   display: flex;
+  font-size: 1.125rem;
 }
 
 #modal-close-button {
@@ -42,15 +44,13 @@
   right: 20px;
   height: 16px;
   width: 16px;
+  opacity: .3;
 }
 
 #modal-close-button:hover {
-  cursor: pointer
+  cursor: pointer;
+  opacity: .6;
 }
-
-
-
-
 
 #modal-content {
   overflow-y: auto;
