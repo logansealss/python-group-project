@@ -11,8 +11,7 @@ import BannerItem from './BannerItem';
 import {Plus, Count, DownCaret} from './Icons';
 import CreateTagListForm from './Forms/CreateTagListForm';
 import { getDateFromToday } from '../../../utils/taskLists';
-import { SidebarContext } from '../../../context/SidebarExpander';
-
+import { SidebarContext } from '../../../context/Sidebar';
 import logo from '../../../img/TM-logo-short-nobg.png';
 
 import './taskAppSidebar.css';
@@ -53,7 +52,9 @@ function getCount (tasks, targetFeature, targetValue) {
 }
 
 export default function TaskAppSidebar() {
-  const [expandSideBar, setExpandSideBar] = useContext(SidebarContext);
+  const {expander, listName} = useContext(SidebarContext)
+  const [expandSideBar, setExpandSideBar] = expander;
+  const [currentListName, setListName] = listName
   const dispatch = useDispatch()
   const history = useHistory();
   const tasks = useSelector(state => state.tasks.allTasks)
@@ -82,7 +83,10 @@ export default function TaskAppSidebar() {
           <BannerItem
             key={title}
             obj={<Count count={getCount(tasks, 'dueDate', endDate)}/>}
-            handleClick={()=>history.push(`/app/lists/${slug}`)}
+            handleClick={()=>{
+              setListName(title)
+              history.push(`/app/lists/${slug}`)
+            }}
             >
             {title}
           </BannerItem>
@@ -109,7 +113,10 @@ export default function TaskAppSidebar() {
                 />
             </>
             }
-            handleClick={()=>history.push(`/app/lists/${list.id}`)}
+            handleClick={()=>{
+              setListName(list.name)
+              history.push(`/app/lists/${list.id}`)
+            }}
             >
             {list.name}
           </BannerItem>
@@ -134,7 +141,10 @@ export default function TaskAppSidebar() {
             <Count count={getCount(tasks, 'tags', tag.id)}/>
           </>
         }
-          handleClick={()=>history.push(`/app/tags/${tag.id}`)}
+          handleClick={()=>{
+            setListName(tag.name)
+            history.push(`/app/tags/${tag.id}`)
+          }}
           >
           {tag.name}
         </BannerItem>))

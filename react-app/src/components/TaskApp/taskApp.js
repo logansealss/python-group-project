@@ -7,7 +7,7 @@ import TaskDetailPanel from './taskDetailPanel';
 import ListDetailPanel from './listDetailPanel';
 import './taskApp.css';
 import { useSelector } from 'react-redux';
-import { SidebarProvider } from '../../context/SidebarExpander.js';
+import { SidebarProvider } from '../../context/Sidebar.js';
 
 export default function TaskApp() {
 

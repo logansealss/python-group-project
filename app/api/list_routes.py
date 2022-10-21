@@ -55,6 +55,18 @@ def create_list():
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
+        list_with_provided_name = List.query.filter(List.name == form.data["name"], 
+                                                  List.user_id == current_user.id).first()
+
+        if list_with_provided_name:
+            return {
+                "message": "List already exists",
+                "statusCode": 403,
+                "errors": {
+                    "name": "User already has a list with that name"
+                }
+            }, 403
+
         new_list = List(name=form.data["name"],
                         user_id=current_user.id)
 
@@ -91,6 +103,18 @@ def update_list_by_id(id):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
+        list_with_provided_name = List.query.filter(List.name == form.data["name"], 
+                                                  List.user_id == current_user.id).first()
+
+        if list_with_provided_name:
+            return {
+                "message": "List already exists",
+                "statusCode": 403,
+                "errors": {
+                    "name": "User already has a list with that name"
+                }
+            }, 403
+
         list.name = form.data["name"] if form.data["name"] else list.name
 
         db.session.commit()
