@@ -6,19 +6,19 @@ import { getSingleTask, updateATask, getAllTasks } from '../../store/tasks';
 import selectMenuTimes from '../../data/selectMenuTimes.json';
 import dueDateIcon from '../../img/calendar-day.svg';
 import startDateIcon from '../../img/square-caret-right.svg';
-import postponeIcon from '../../img/calendar-plus.svg';
 import prioIcon from '../../img/exclamation.svg';
 import listIcon from '../../img/list.svg';
-import repeatIcon from '../../img/rotate.svg';
 import clockIcon from '../../img/clock.svg';
-import locationPin from '../../img/location-dot.svg';
-import userIcon from '../../img/user.svg';
-import checkIcon from '../../img/check.svg';
-import tagIcon from '../../img/tag.svg';
-import minusIcon from '../../img/minus.svg';
-import EliIcon from '../../img/ellipsis.svg';
-import downCaret from '../../img/caret-down.svg';
 import editIcon from '../../img/pen-to-square.svg'
+// import postponeIcon from '../../img/calendar-plus.svg';
+// import repeatIcon from '../../img/rotate.svg';
+// import locationPin from '../../img/location-dot.svg';
+// import userIcon from '../../img/user.svg';
+// import checkIcon from '../../img/check.svg';
+// import tagIcon from '../../img/tag.svg';
+// import minusIcon from '../../img/minus.svg';
+// import EliIcon from '../../img/ellipsis.svg';
+// import downCaret from '../../img/caret-down.svg';
 import './taskDetailPanel.css';
 
 import './taskDetailPanel.css';
@@ -78,24 +78,32 @@ export default function TaskDetailPanel() {
         const y = dateArr[0];
         const m = Number(dateArr[1]);
         const d = dateArr[2];
-
         return `${months[m - 1]} ${d}, ${y}`
-
     }
 
     const timeFormatter = (timeStr) => {
-
         const timeArr = timeStr.split(':');
         const hours = Number(timeArr[0]);
         const mins = timeArr[1];
-
-        console.log('hours: ', hours, 'mins:', mins);
-
         if (hours > 12) {
             return `${(hours - 12)} ${mins} pm`;
         }
         if (hours < 12) {
             return `${hours}:${mins} am`;
+        }
+    }
+
+    const estFormatter = () => {
+
+        if (task.duration){
+            const time = task.duration;
+            if (time > 59){
+                return `${Math.floor(time/60)} hour${time > 120 ? 's' : ''} ${time % 60} minutes`
+            } else {
+                return `${task.duration} minutes`
+            }
+        } else {
+            return 'Not Assigned'
         }
     }
 
@@ -154,7 +162,6 @@ export default function TaskDetailPanel() {
             note: tdNotes,
         }
 
-        console.log(tdNotes);
         const res = await dispatch(updateATask(task.id, data));
 
         if (res) {
@@ -165,19 +172,23 @@ export default function TaskDetailPanel() {
     const handleUtSubmit = (e) => {
         e.preventDefault();
 
-        const data = {
-            name: taskName,
-            priority: prio,
-            start_date: startDate + ' ' + startTime,
-            due_date: dueDate + ' ' + dueTime,
-            list_id: taskList,
-            duration: Math.ceil(estimate * estimateUnit)
-        }
+        const data = {}
+
+        if (taskName.length) data.name = taskName
+        if (prio.length) data.priority = prio
+        if (startDate.length && startTime.length)
+            data.start_date = startDate + ' ' + startTime
+        if (dueDate.length && dueTime.length)
+            data.due_date = dueDate + ' ' + dueTime
+        if (Number(taskList)) data.list_id = taskList
+        if (Number(estimate)) data.duration = Math.ceil(estimate * estimateUnit)
+
 
         console.log('form data: ', data);
         const res = (dispatch(updateATask(task.id, data)))
         dispatch(getSingleTask(task.id));
         dispatch(getAllTasks());
+        setRenderTadForm(false);
     }
 
     return (task && lists && tags &&
@@ -395,13 +406,7 @@ export default function TaskDetailPanel() {
                             Est. Time:
                         </p>
                         <p className='td-data-p'>
-                            {task.duration
-                                ?
-                                (task.duration > 59 ?
-                                    (`${Math.floor(task.duration / 60) > 0} hours ${task.duration % 60} minutes`) :
-                                    `${task.duration} minutes`)
-                                :
-                                'Not assigned'}
+                            {estFormatter(task.duration)}
                         </p>
                     </div>
                     <div className='td-tag-div'>
@@ -411,11 +416,13 @@ export default function TaskDetailPanel() {
 
                         {task.tags.map((tagId) =>
 
-                            <div className={'td-tag'}
-                                style={{ color: 'white', backgroundColor: tags[String(tagId)].color }}
-                            >
-                                {tags[tagId.toString()].name}
-                            </div>
+                            <Link className='td-data-link' to={`/app/tags/${tagId}`}>
+                                <div className={'td-tag'}
+                                    style={{ color: 'white', backgroundColor: tags[String(tagId)].color }}
+                                >
+                                    {tags[tagId.toString()].name}
+                                </div>
+                            </Link>
                         )}
                     </div>
                     <div className='td-label-div-notes'>
