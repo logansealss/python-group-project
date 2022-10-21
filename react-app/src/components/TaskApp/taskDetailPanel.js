@@ -264,7 +264,10 @@ export default function TaskDetailPanel() {
         if (Number(tdEstimate)) data.duration = Math.ceil(tdEstimate * tdEstimateUnit);
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
         const newTags = new Set(tdTaskTags.map(id => +id));
         const oldTags = new Set(task.tags)
 
@@ -282,7 +285,10 @@ export default function TaskDetailPanel() {
                 tagsToRemove.push(id)
             }
         }
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
         for(let id of tagsToRemove){
             dispatch(removeTagFromTask(task.id, id))
         }
@@ -291,7 +297,10 @@ export default function TaskDetailPanel() {
             dispatch(addTagToTask(task.id, id))
         }
 
+<<<<<<< Updated upstream
 
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
         console.log('form data: ', data);
         const res = (dispatch(updateATask(task.id, data)))
