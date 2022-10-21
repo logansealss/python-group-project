@@ -91,7 +91,7 @@ width: 12px;
   width: 100%;
 }
 
-#banner_item{
+.banner_item{
   display: flex;
   align-items: center;
   padding-left: 12px;
