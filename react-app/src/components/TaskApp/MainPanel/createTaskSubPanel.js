@@ -72,7 +72,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                parseDateObj(dueDate, dueTime).getTime()
         }
         console.log('default return true')
-        return true
+        return true;
     }
 
     const compareTimeToStart = (time) => {
@@ -80,8 +80,16 @@ export default function CreateTaskSubPanel({ lists, tags }) {
             return parseDateObj(startDate, startTime).getTime() >
             parseDateObj(startDate, time).getTime()
         } else {
-            return false
+            return false;
         }
+    }
+
+    const compareStartToCurrentTime = (time) => {
+        if (startDate) {
+            return parseDateObj(startDate, time).getTime() <
+            new Date().getTime();
+        }
+        return false;
     }
 
     const dateToday = (date = new Date()) => {
@@ -188,11 +196,17 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                                     <select
                                         className='ctsp-time-select'
                                         value={startTime}
+                                        disabled={startDate.length > 0 ? false : true}
                                         onChange={(e) => setStartTime(e.target.value)}
                                     >
                                         <option value=''>Start Time</option>
                                         {selectMenuTimes.map((option) =>
-                                            <option value={option.value}>{option.display}</option>
+                                            <option
+                                                value={option.value}
+                                                disabled={compareStartToCurrentTime(option.value)}
+                                            >
+                                                {option.display}
+                                            </option>
                                         )}
                                     </select>
                                 </div>
@@ -210,6 +224,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                                     <select
                                         className='ctsp-time-select'
                                         value={dueTime}
+                                        disabled={dueDate.length > 0 ? false : true}
                                         onChange={(e) => setDueTime(e.target.value)}
                                     >
                                         <option value=''>Due Time</option>
