@@ -138,13 +138,19 @@ export default function CreateTaskSubPanel({ lists, tags }) {
         const data = {}
 
         if (taskName.length) data.name = taskName
-        if (prio.length && prio >= 0 && prio <= 3) data.priority = prio
+        if (Number(prio) && prio >= 0 && prio <= 3) {
+            console.log('true:', prio)
+            data.priority = prio;
+        } else {
+            console.log('true:', prio)
+            data.priority = 0;
+        }
         if (startDate.length && startTime.length)
-            data.start_date = startDate + ' ' + startTime
+            data.start_date = startDate + ' ' + startTime;
         if (dueDate.length && dueTime.length)
-            data.due_date = dueDate + ' ' + dueTime
-        if (Number(taskList)) data.list_id = taskList
-        if (Number(estimate)) data.duration = Math.ceil(estimate * estimateUnit)
+            data.due_date = dueDate + ' ' + dueTime;
+        if (Number(taskList)) data.list_id = taskList;
+        if (Number(estimate)) data.duration = Math.ceil(estimate * estimateUnit);
 
         const response = await dispatch(createNewTask(data))
 

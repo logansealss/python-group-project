@@ -34,6 +34,7 @@ export default function DropDownWrapper(props) {
   const {showMenu, setShowMenu} = useContext(DropdownContext)
 
   const openMenu = (e) => {
+    e.stopPropagation();
     if (showMenu) return;
     setShowMenu(true);
   };

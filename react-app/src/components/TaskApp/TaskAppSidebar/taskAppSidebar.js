@@ -78,6 +78,11 @@ export default function TaskAppSidebar() {
     dispatch(tagActions.getAllTags())
   }, [dispatch])
 
+  useEffect(() => {
+    dispatch(taskActions.getAllTasks())
+  }, [dispatch, lists, tags])
+
+
   if (!tasks || !lists || !tags) return null
 
   const items = {
@@ -167,6 +172,7 @@ export default function TaskAppSidebar() {
         <img
           className='tasb-top-logo'
           id={`${expandSideBar? '' : 'hidden'}`}
+          onClick={()=>history.push('/')}
           src={logo} />
       </div>
       <div

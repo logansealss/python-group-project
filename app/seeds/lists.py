@@ -1,27 +1,27 @@
 from app.models import db, List
 
 def seed_lists():
-    personal1 = List(
-        name='personal',
+    task_feature = List(
+        name='Tasks Feature',
         user_id=1
     )
-    work1 = List(
-        name="work",
+    list_feature = List(
+        name="Lists Feature",
         user_id=1
     )
-    personal2 = List(
-        name='personal',
-        user_id=2
+    tags_feature = List(
+        name='Tags Feature',
+        user_id=1
     )
-    work2 = List(
-        name="work",
-        user_id=2
+    search = List(
+        name="Search Feature",
+        user_id=1
     )
 
-    db.session.add(personal1)
-    db.session.add(work1)
-    db.session.add(personal2)
-    db.session.add(work2)
+    db.session.add(task_feature)
+    db.session.add(list_feature)
+    db.session.add(tags_feature)
+    db.session.add(search)
 
     db.session.commit()
 
