@@ -212,7 +212,7 @@ width: 12px;
 }
 
 .sb-tag-color {
-    width: 12px;
+    min-width: 12px;
     height: 12px;
     border-radius: 2px;
     margin-right: 2px;

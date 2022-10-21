@@ -208,7 +208,7 @@ export default function TaskDetailPanel() {
 
         if (task) {
             task.name && setTdTaskName(task.name);
-            task.dueDate && setTdDueDate(task.dueDate.split(' ')[0]);
+            setTdDueDate(task.dueDate ? task.dueDate.split(' ')[0] : '');
             task.dueDate && setTdDueTime(task.dueDate.split(' ')[1]);
             task.startDate && setTdStartDate(task.startDate.split(' ')[0]);
             task.startDate && setTdStartTime(task.startDate.split(' ')[1]);
@@ -253,13 +253,46 @@ export default function TaskDetailPanel() {
         } else {
             data.priority = 0
         }
-        if (tdStartDate.length && tdStartTime.length)
+        if (tdStartDate.length && tdStartTime.length){
             data.start_date = tdStartDate + ' ' + tdStartTime
-        if (tdDueDate.length && tdDueTime.length)
+        }
+
+        if (tdDueDate.length && tdDueTime.length){
             data.due_date = tdDueDate + ' ' + tdDueTime
+        }
         if (Number(tdTaskList)) data.list_id = Number(tdTaskList);
         if (Number(tdEstimate)) data.duration = Math.ceil(tdEstimate * tdEstimateUnit);
 
+<<<<<<< Updated upstream
+=======
+        const newTags = new Set(tdTaskTags.map(id => +id));
+        const oldTags = new Set(task.tags)
+
+        const tagsToAdd = []
+        const tagsToRemove = []
+
+        for(let [id, _] of newTags.entries()){
+            if (!oldTags.has(id)){
+                tagsToAdd.push(id)
+            }
+        }
+
+        for(let [id, _] of oldTags.entries()){
+            if (!newTags.has(id)){
+                tagsToRemove.push(id)
+            }
+        }
+
+        for(let id of tagsToRemove){
+            dispatch(removeTagFromTask(task.id, id))
+        }
+
+        for(let id of tagsToAdd){
+            dispatch(addTagToTask(task.id, id))
+        }
+
+
+>>>>>>> Stashed changes
         console.log('form data: ', data);
         const res = (dispatch(updateATask(task.id, data)))
         // await dispatch(getSingleTask(task.id));
