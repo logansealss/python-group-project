@@ -64,8 +64,24 @@ export default function CreateTaskSubPanel({ lists, tags }) {
     }
 
     const datesValid = () => {
+        console.log(startDate, dueDate)
+        if(startDate && dueDate && dueTime){
+            console.log('conditional return: ', parseDateObj(startDate, startTime).getTime() <
+            parseDateObj(dueDate, dueTime).getTime())
         return parseDateObj(startDate, startTime).getTime() <
                parseDateObj(dueDate, dueTime).getTime()
+        }
+        console.log('default return true')
+        return true
+    }
+
+    const compareTimeToStart = (time) => {
+        if (startDate === dueDate) {
+            return parseDateObj(startDate, startTime).getTime() >
+            parseDateObj(startDate, time).getTime()
+        } else {
+            return false
+        }
     }
 
     const dateToday = (date = new Date()) => {
@@ -77,10 +93,6 @@ export default function CreateTaskSubPanel({ lists, tags }) {
     }
 
     useEffect(() => {
-
-        console.log(`dueDate: ${dueDate} | dueTime: ${dueTime} | parsed date object: ${parseDateObj(dueDate, dueTime).toDateString()}`)
-        console.log(`dateTmrw(): ${dateToday()}`)
-
         if (!datesValid()){
             setDueDate(startDate)
             setDueTime(startTime)
@@ -195,7 +207,12 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                                     >
                                         <option value=''>Due Time</option>
                                         {selectMenuTimes.map((option) =>
-                                            <option value={option.value}>{option.display}</option>
+                                            <option
+                                                value={option.value}
+                                                disabled={compareTimeToStart(option.value)}
+                                            >
+                                                {option.display}
+                                            </option>
                                         )}
                                     </select>
                                 </div>
