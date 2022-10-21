@@ -43,9 +43,6 @@ export default function CreateTaskSubPanel({ lists, tags }) {
 
     const formRef = useRef();
 
-    const padNum = (num) => {
-        return num.toString().padStart(2, '0');
-    }
 
     const openForm = () => {
         console.log('openForm');
@@ -57,6 +54,10 @@ export default function CreateTaskSubPanel({ lists, tags }) {
         console.log('closeForm')
         setRenderCtForm(false);
         formDiv.style.height = '0px';
+    }
+
+    const padNum = (num) => {
+        return num.toString().padStart(2, '0');
     }
 
     const parseDateObj = (dateInput, timeInput) => {
@@ -149,7 +150,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
 
         if (response && response.id) {
             for (let tagId of taskTags) {
-                await dispatch(addTagToTask(response.id, +tagId))
+                dispatch(addTagToTask(response.id, +tagId))
             }
         }
 
