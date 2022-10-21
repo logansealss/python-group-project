@@ -1,56 +1,83 @@
 from app.models import db, Task
 
 def seed_tasks():
-    milk = Task(
-        name='remember the milk',
+    add_task = Task(
+        name='Create a Task',
         user_id=1,
-        list_id=1
+        list_id=1,
+        duration=1,
     )
-    frog = Task(
-        name="eat the frog",
+    edit_task = Task(
+        name='Edit Task',
         user_id=1,
-        list_id=2,
-        duration=30,
+        list_id=1,
+        duration=1,
+    )
+    delete_task = Task(
+        name='Delete Task',
+        user_id=1,
+        list_id=1,
+        duration=1,
         note="It has to be done",
         priority=1
     )
-    grandma = Task(
-        name="call grandma",
+    add_list = Task(
+        name='Create a List',
         user_id=1,
-        list_id=1,
-        duration=20,
-        note="Wish her happy birthday"
+        list_id=2,
+        duration=1,
     )
-    fun = Task(
-        name="have fun",
-        user_id=1
+    edit_list = Task(
+        name='Edit List',
+        user_id=1,
+        list_id=2,
+        duration=1,
     )
-    haircut = Task(
-        name='get a haircut',
-        user_id=2,
-        list_id=3
+    delete_list = Task(
+        name='Delete List',
+        user_id=1,
+        list_id=2,
+        duration=1,
+        note="It has to be done",
+        priority=1
     )
-    movie = Task(
-        name="movie",
-        user_id=2,
+    add_tag = Task(
+        name='Create a Tag',
+        user_id=1,
         list_id=3,
-        note="See a movie with a friend"
+        duration=1,
     )
-    grandpa = Task(
-        name="call grandpa",
-        user_id=2,
-        duration=20,
-        priority=1,
-        note="Wish him happy birthday"
+    edit_tag = Task(
+        name='Edit Tag',
+        user_id=1,
+        list_id=3,
+        duration=1,
+    )
+    delete_tag = Task(
+        name='Delete Tag',
+        user_id=1,
+        list_id=3,
+        duration=1,
+        note="It has to be done",
+        priority=1
+    )
+    show_search = Task(
+        name = 'Demonstrate Search Bar',
+        user_id=1
+        list_id=4,
+        duration=1,
     )
 
-    db.session.add(milk)
-    db.session.add(frog)
-    db.session.add(grandma)
-    db.session.add(fun)
-    db.session.add(haircut)
-    db.session.add(movie)
-    db.session.add(grandpa)
+    db.session.add(add_task)
+    db.session.add(edit_task)
+    db.session.add(delete_task)
+    db.session.add(add_list)
+    db.session.add(edit_list)
+    db.session.add(delete_list)
+    db.session.add(add_tag)
+    db.session.add(edit_tag)
+    db.session.add(delete_tag)
+    db.session.add(show_search)
 
     db.session.commit()
 
