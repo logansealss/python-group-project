@@ -20,12 +20,14 @@ export default function RemoveTagListForm(props) {
 
 
   return (
-    <form onSubmit={handleSubmit}>
-
+    <form 
+      onSubmit={handleSubmit}
+      style={{width: '400px'}}
+    >
       <div
         id="form-content-container"
       >
-        <div>{`Are you sure you wish to remove the ${props.feature} `} <span>{props.name}</span>?<span>No tasks will be affected by this action.</span></div>
+        <div>{`Are you sure you wish to remove the ${props.feature} `} <strong>{props.name}</strong>?<span> No tasks will be affected by this action.</span></div>
       </div>
       <div id='modal_buttons'>
         <button id='modal_submit' type='submit'>

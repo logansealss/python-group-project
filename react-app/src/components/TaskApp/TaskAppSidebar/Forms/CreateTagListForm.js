@@ -22,7 +22,10 @@ export default function CreateListTagForm(props) {
 
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form 
+      onSubmit={handleSubmit}
+      style={{width: '300px'}}
+    >
       <div 
         id="form-content-container"
       >
