@@ -6,13 +6,13 @@ export default function Menu (props) {
   return (
     <div className='banner_dropdown'>
       <ModalWrapper
-        header={`Rename ${props.feature}`}
+        header={`Update ${props.feature}`}
         name={props.name}
-        form={<RenameTagListForm/>}
+        form={<RenameTagListForm color={props.color}/>}
         feature={props.feature}
         itemId={props.itemId}
         >
-        <div className='sidebar_dropdown_button'>Rename</div>
+        <div className='sidebar_dropdown_button'>Update</div>
       </ModalWrapper>
       <ModalWrapper
         header={`Delete ${props.feature}`}

@@ -4,22 +4,22 @@ def seed_tags():
     important1 = Tag(
         name='important',
         user_id=1,
-        color="#FF5733"
+        color="#B84A47"
     )
     in_progress = Tag(
         name="in progress",
         user_id=1,
-        color="#D433FF"
+        color="#FFBF00"
     )
     important2 = Tag(
         name='important',
         user_id=2,
-        color="#FF3333"
+        color="#FF5733"
     )
     not_important = Tag(
         name="not so important",
         user_id=2,
-        color="#3352FF"
+        color="#800080"
     )
 
     db.session.add(important1)

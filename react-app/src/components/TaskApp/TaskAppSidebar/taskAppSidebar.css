@@ -128,9 +128,9 @@ width: 12px;
   filter: invert(91%) sepia(21%) saturate(239%) hue-rotate(200deg) brightness(100%) contrast(85%);
 }
 
-/* .dropdown_caret {
+.dropdown_caret {
   display: none;
-} */
+}
 
 .count {
   background-color: hsl(240,26%,84%);
@@ -150,7 +150,6 @@ width: 12px;
   border-radius: 3px;
 }
 
-.collapser_header:hover .dropdown_caret,
 .banner_item:hover .dropdown_caret {
   display: inherit;
 }

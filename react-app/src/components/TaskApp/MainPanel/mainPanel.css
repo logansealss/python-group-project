@@ -9,9 +9,14 @@
     align-items: center;
     min-width: 420px;
     /* min-height: 100%; */
-    overflow: scroll;
-
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
 }
+.tam-main-div::-webkit-scrollbar {
+    display: none;
+  }
+
 
 .tam-task-list-div{
     display: flex;
