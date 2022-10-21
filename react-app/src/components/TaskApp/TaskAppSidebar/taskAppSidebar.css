@@ -150,7 +150,6 @@ width: 12px;
   border-radius: 3px;
 }
 
-.collapser_header:hover .dropdown_caret,
 .banner_item:hover .dropdown_caret {
   display: inherit;
 }
