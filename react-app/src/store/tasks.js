@@ -174,22 +174,23 @@ export const taskReducer = (state = initialState, action) => {
             return { ...state, singleTask: action.singleTask }
         case CREATE_TASK:
             return {
-                singleTask: state.singleTask ? { ...state.singleTask } : null,
+                ...state,
                 allTasks: { ...state.allTasks, [action.newTask.id]: action.newTask }
             }
         case UPDATE_TASK:
             singleTask = state.singleTask ? { ...state.singleTask } : null;
-            if (state.singleTask && state.singleTask.id === action.updatedTask.id) {
-                singleTask = action.updatedTask;
+            if (singleTask && singleTask.id === action.updatedTask.id) {
+                singleTask = { ...action.updatedTask };
             }
             return {
                 allTasks: { ...state.allTasks, [action.updatedTask.id]: action.updatedTask },
                 singleTask,
             }
         case DELETE_TASK:
-            singleTask = (state.singleTask && state.singleTask.id === action.id) ?
-                null :
-                { ...state.singleTask };
+            singleTask = state.singleTask ? { ...state.singleTask } : null;
+            if (singleTask && singleTask.id === action.id) {
+                singleTask = null;
+            }
             allTasks = { ...state.allTasks }
             delete allTasks[action.id]
             return {
