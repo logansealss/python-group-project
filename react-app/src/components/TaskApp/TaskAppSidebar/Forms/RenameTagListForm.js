@@ -25,16 +25,21 @@ export default function RenameListTagForm(props) {
       setValidationErr("No name entered. Please choose a name.")
     } else if (name.length > 150) {
       setValidationErr("Name is too long. Please choose a shorter name.")
+    } else if (name === props.name) {
+      props.setShowModal(false);
     } else {
       setValidationErr()
       const response = await dispatch(actions[props.feature]({
-          'id': props.itemId,
-          'name': name
-        }));
+        'id': props.itemId,
+        'name': name
+      }));
       if (response.ok) {
         props.setShowModal(false);
       } else {
-        console.log(response)
+        let data = await response.json()
+        if (data.errors){
+          setValidationErr(`You already have a ${props.feature} with this name. Please choose another name.`)
+        }
       }
     }
   };
@@ -58,7 +63,7 @@ export default function RenameListTagForm(props) {
         <br></br>
         <input
           id='modal_text_input'
-          className={validationErr ? 'modal-text-err': ''}
+          className={validationErr ? 'modal-text-err' : ''}
           type='text'
           value={name}
           onChange={e => setName(e.target.value)}

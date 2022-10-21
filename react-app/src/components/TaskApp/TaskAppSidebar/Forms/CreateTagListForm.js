@@ -25,7 +25,10 @@ export default function CreateListTagForm(props) {
       if (response.ok) {
         props.setShowModal(false);
       } else {
-        console.log(response)
+        let data = await response.json()
+        if (data.errors){
+          setValidationErr(`You already have a ${props.feature} with this name. Please choose another name.`)
+        }
       }
     }
   };
