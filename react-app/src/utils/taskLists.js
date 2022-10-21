@@ -192,7 +192,6 @@ export function getListDetails({listId, filterId}, tasks, lists, tags) {
             listDetails.name = "This Week"
         } else if (listId === "completed") {
             listDetails = getListDetailsFromDates(taskObj, null, null, true)
-            console.log(listDetails)
             listDetails.name = "Completed"
         } else {
 
