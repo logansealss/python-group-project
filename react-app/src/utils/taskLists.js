@@ -10,8 +10,10 @@ export function getDateFromToday(daysForward = 0) {
 
 function stringIncludesArr(string, arr) {
 
+    const lowercaseString = string.toLowerCase()
+
     for (const testStr of arr) {
-        if (string.includes(testStr)) {
+        if (lowercaseString.includes(testStr.toLowerCase())) {
             return true;
         }
     }
@@ -122,7 +124,7 @@ export function getListDetailsFromTag(tasks, tagId) {
     }, result)
 }
 
-export function getListDetailsFromDates(tasks, startDate, dueDate, showComplete=false) {
+export function getListDetailsFromDates(tasks, startDate, dueDate, showCompleted=false) {
 
     let tasksToCheck = Object.values(tasks)
 
@@ -143,14 +145,21 @@ export function getListDetailsFromDates(tasks, startDate, dueDate, showComplete=
             || (taskDueDate >= startDate && taskDueDate <= dueDate)) {
 
             if (task.completed) {
-                if (showComplete) result.tasks.push(task)
+                if (showCompleted) {
+                    result.tasks.push(task)
+                    if (task.duration > 0) {
+                        result.estimatedTime += task.duration
+                    }
+                };
                 result.completedTasks.push(task)
             } else {
-                if (!showComplete) result.tasks.push(task)
-                if (task.duration > 0) {
-                    result.estimatedTime += task.duration
-                }
-            }
+                if (!showCompleted) {
+                    result.tasks.push(task)
+                    if (task.duration > 0) {
+                        result.estimatedTime += task.duration
+                    }
+                };
+            };
         } else if (taskDueDate < currentDate && dueDate !== getDateFromToday(1)) {
 
             if (task.completed) {
@@ -169,6 +178,8 @@ export function getListDetailsFromDates(tasks, startDate, dueDate, showComplete=
 }
 
 export function getListDetails({listId, filterId}, tasks, lists, tags) {
+
+    const baseListId = listId;
 
     listId = listId ? listId.toLowerCase() : listId
     filterId = filterId ? filterId.toLowerCase() : filterId
@@ -219,7 +230,7 @@ export function getListDetails({listId, filterId}, tasks, lists, tags) {
     } else if (filterId === 'search') {
 
         if (listId) {
-            const searchList = decodeURIComponent(listId).split(' ')
+            const searchList = decodeURIComponent(baseListId).split(' ')
             listDetails = getListDetailsFromSearch(taskObj, searchList)
             listDetails.name = `Search: ${searchList.join(' ')}`
         }
