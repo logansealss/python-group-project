@@ -70,6 +70,7 @@ width: 12px;
 .collapser_header:hover,
 .banner_item:hover {
   background-color: hsl(240,26%,82%);
+  cursor:pointer;
 }
 
 .collapse_button {
@@ -163,7 +164,6 @@ width: 12px;
 .title {
   flex-grow: 1;
   padding-left: 4px;
-  cursor:pointer;
   width:100%;
   overflow:hidden;
   white-space: nowrap;

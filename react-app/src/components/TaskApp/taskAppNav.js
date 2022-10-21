@@ -7,7 +7,7 @@ import downCaret from '../../img/caret-down.svg';
 import hamburger from '../../img/bars.svg';
 import gear from '../../img/gear.svg';
 import magGlass from '../../img/magnifying-glass.svg';
-import { SidebarContext } from '../../context/SidebarExpander';
+import { SidebarContext } from '../../context/Sidebar';
 import * as sessionActions from '../../store/session';
 
 import './taskAppNav.css'
@@ -18,8 +18,9 @@ export default function TaskAppNav() {
     const dispatch = useDispatch();
     const [searchInput, setSearchInput] = useState('');
     const [searchIconFocusStyle, setSearchIconFocusStyle] = useState('');
-    const [expandSideBar, setExpandSideBar] = useContext(SidebarContext);
-
+    const {expander, listName} = useContext(SidebarContext);
+    const [expandSideBar, setExpandSideBar] = expander;
+    const [currentListName, setListName] = listName;
     function handlesearchSubmit(e) {
         e.preventDefault()
         const trimmedInput = searchInput.trim()
@@ -42,7 +43,7 @@ export default function TaskAppNav() {
                     <div
                         className= {`tan-list-name`}
                         id={`${expandSideBar? 'no-width': ''}`}>
-                        List Name
+                        {currentListName}
                     </div>
                 </div>
                 <div className={`${expandSideBar? 'expandDiv': 'shrink' }`}></div>
