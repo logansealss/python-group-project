@@ -240,7 +240,7 @@ export default function TaskDetailPanel() {
         const data = {}
 
         if (tdTaskName.length) data.name = tdTaskName
-        if (tdPrio.length) data.priority = tdPrio
+        if (tdPrio >= 0 && tdPrio <= 3) data.priority = tdPrio
         if (tdStartDate.length && tdStartTime.length)
             data.start_date = tdStartDate + ' ' + tdStartTime
         if (tdDueDate.length && tdDueTime.length)
