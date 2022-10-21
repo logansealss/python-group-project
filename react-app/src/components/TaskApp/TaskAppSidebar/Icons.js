@@ -32,6 +32,7 @@ export function DownCaret (props) {
           itemId={props.itemId}
           feature={props.feature}
           name={props.name}
+          color={props.color}
         />}
       >
       <img className='dropdown_caret' src={downCaret} />

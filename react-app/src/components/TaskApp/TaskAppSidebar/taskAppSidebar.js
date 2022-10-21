@@ -136,6 +136,7 @@ export default function TaskAppSidebar() {
             <DownCaret
               itemId={tag.id}
               name={tag.name}
+              color={tag.color}
               feature='tag'
               />
             <Count count={getCount(tasks, 'tags', tag.id)}/>

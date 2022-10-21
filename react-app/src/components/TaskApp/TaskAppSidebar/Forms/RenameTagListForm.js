@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import ColorDropdown from "./ColorDropdown"
 
 import * as listActions from '../../../../store/lists'
 import * as tagActions from '../../../../store/tags'
@@ -9,6 +10,7 @@ export default function RenameListTagForm(props) {
   const dispatch = useDispatch()
   const [name, setName] = useState(props.name)
   const [visited, setVisited] = useState(false)
+  const [color, setColor] = useState(props.color ? props.color : "#006400")
   const [validationErr, setValidationErr] = useState()
 
   const actions = {
@@ -25,19 +27,24 @@ export default function RenameListTagForm(props) {
       setValidationErr("No name entered. Please choose a name.")
     } else if (name.length > 150) {
       setValidationErr("Name is too long. Please choose a shorter name.")
-    } else if (name === props.name) {
-      props.setShowModal(false);
     } else {
       setValidationErr()
-      const response = await dispatch(actions[props.feature]({
+
+      const dataObj = {
         'id': props.itemId,
-        'name': name
-      }));
+        'name': name,
+      }
+
+      if(props.feature === "tag"){
+        dataObj.color = color;
+      }
+
+      const response = await dispatch(actions[props.feature](dataObj));
       if (response.ok) {
         props.setShowModal(false);
       } else {
         let data = await response.json()
-        if (data.errors){
+        if (data.errors) {
           setValidationErr(`You already have a ${props.feature} with this name. Please choose another name.`)
         }
       }
@@ -75,6 +82,8 @@ export default function RenameListTagForm(props) {
           <div id="modal-err">
             {validationErr}
           </div>}
+
+        {props.feature === "tag" && <ColorDropdown color={color} setColor={setColor} />}
       </div>
       <div id='modal_buttons'>
         <button id='modal_submit' type='submit'>Save</button>

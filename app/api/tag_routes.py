@@ -105,7 +105,7 @@ def update_tag(id):
         tag_with_provided_name = Tag.query.filter(Tag.name == form.data["name"], 
                                                   Tag.user_id == current_user.id).first()
 
-        if tag_with_provided_name:
+        if tag_with_provided_name and tag_with_provided_name.id != id:
             return {
                 "message": "Tag already exists",
                 "statusCode": 403,
