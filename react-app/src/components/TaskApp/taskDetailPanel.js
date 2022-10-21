@@ -244,7 +244,6 @@ export default function TaskDetailPanel() {
         if (Number(tdTaskList)) data.list_id = tdTaskList
         if (Number(tdEstimate)) data.duration = Math.ceil(tdEstimate * tdEstimateUnit)
 
-
         console.log('form data: ', data);
         const res = (dispatch(updateATask(task.id, data)))
         dispatch(getSingleTask(task.id));
@@ -490,7 +489,7 @@ export default function TaskDetailPanel() {
                             Tags:
                         </p>
 
-                        {task.tags.map((tagId) =>
+                        {task.tags && task.tags.map((tagId) =>
 
                             <Link className='td-data-link' to={`/app/tags/${tagId}`}>
                                 <div className={'td-tag'}
