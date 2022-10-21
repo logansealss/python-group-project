@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
-import { getSingleTask, updateATask, getAllTasks } from '../../store/tasks';
+import { getSingleTask, updateATask, getAllTasks, addTagToTask, removeTagFromTask } from '../../store/tasks';
 
 import selectMenuTimes from '../../data/selectMenuTimes.json';
 import dueDateIcon from '../../img/calendar-day.svg';
@@ -259,6 +259,32 @@ export default function TaskDetailPanel() {
             data.due_date = tdDueDate + ' ' + tdDueTime
         if (Number(tdTaskList)) data.list_id = tdTaskList
         if (Number(tdEstimate)) data.duration = Math.ceil(tdEstimate * tdEstimateUnit)
+
+        const newTags = new Set(tdTaskTags.map(id => +id));
+        const oldTags = new Set(task.tags)
+
+        const tagsToAdd = []
+        const tagsToRemove = []
+
+        for(let [id, _] of newTags.entries()){
+            if (!oldTags.has(id)){
+                tagsToAdd.push(id)
+            }
+        }
+
+        for(let [id, _] of oldTags.entries()){
+            if (!newTags.has(id)){
+                tagsToRemove.push(id)
+            }
+        }
+
+        for(let id of tagsToAdd){
+            dispatch(addTagToTask(task.id, id))
+        }
+
+        for(let id of tagsToRemove){
+            dispatch(removeTagFromTask(task.id, id))
+        }
 
         console.log('form data: ', data);
         const res = (dispatch(updateATask(task.id, data)))
