@@ -10,8 +10,10 @@ export function getDateFromToday(daysForward = 0) {
 
 function stringIncludesArr(string, arr) {
 
+    const lowercaseString = string.toLowerCase()
+
     for (const testStr of arr) {
-        if (string.includes(testStr)) {
+        if (lowercaseString.includes(testStr.toLowerCase())) {
             return true;
         }
     }
@@ -170,6 +172,8 @@ export function getListDetailsFromDates(tasks, startDate, dueDate, showComplete=
 
 export function getListDetails({listId, filterId}, tasks, lists, tags) {
 
+    const baseListId = listId;
+
     listId = listId ? listId.toLowerCase() : listId
     filterId = filterId ? filterId.toLowerCase() : filterId
 
@@ -219,7 +223,7 @@ export function getListDetails({listId, filterId}, tasks, lists, tags) {
     } else if (filterId === 'search') {
 
         if (listId) {
-            const searchList = decodeURIComponent(listId).split(' ')
+            const searchList = decodeURIComponent(baseListId).split(' ')
             listDetails = getListDetailsFromSearch(taskObj, searchList)
             listDetails.name = `Search: ${searchList.join(' ')}`
         }
