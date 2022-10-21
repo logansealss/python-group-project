@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
-import { getSingleTask, updateATask, getAllTasks } from '../../store/tasks';
+import { getSingleTask, updateATask, getAllTasks, addTagToTask, removeTagFromTask } from '../../store/tasks';
 
 import selectMenuTimes from '../../data/selectMenuTimes.json';
 import dueDateIcon from '../../img/calendar-day.svg';
@@ -263,11 +263,6 @@ export default function TaskDetailPanel() {
         if (Number(tdTaskList)) data.list_id = Number(tdTaskList);
         if (Number(tdEstimate)) data.duration = Math.ceil(tdEstimate * tdEstimateUnit);
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
         const newTags = new Set(tdTaskTags.map(id => +id));
         const oldTags = new Set(task.tags)
 
@@ -285,10 +280,7 @@ export default function TaskDetailPanel() {
                 tagsToRemove.push(id)
             }
         }
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
         for(let id of tagsToRemove){
             dispatch(removeTagFromTask(task.id, id))
         }
@@ -297,11 +289,7 @@ export default function TaskDetailPanel() {
             dispatch(addTagToTask(task.id, id))
         }
 
-<<<<<<< Updated upstream
 
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
         console.log('form data: ', data);
         const res = (dispatch(updateATask(task.id, data)))
         // await dispatch(getSingleTask(task.id));
