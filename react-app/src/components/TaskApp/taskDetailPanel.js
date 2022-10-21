@@ -248,7 +248,7 @@ export default function TaskDetailPanel() {
         if (tdTaskName.length) data.name = tdTaskName
 
 
-        if (tdPrio.length || tdPrio >= 0 && tdPrio <= 3) {
+        if (Number(tdPrio) || tdPrio >= 0 && tdPrio <= 3) {
             data.priority = tdPrio
         } else {
             data.priority = 0
@@ -419,7 +419,7 @@ export default function TaskDetailPanel() {
                         </div>
                         <div className='tad-at-btn-div'>
                             <div className={`tad-add-task-grp-icons`}>
-                                <img
+                                {/* <img
                                     className='tad-at-icon-style'
                                     src={dueDateIcon}
                                 />
@@ -429,7 +429,7 @@ export default function TaskDetailPanel() {
                                 <img className='tad-at-icon-style' src={prioIcon} />
                                 {/* <img className='tad-at-icon-style' src={repeatIcon} />
                             <img className='tad-at-icon-style' src={locationPin} /> */}
-                                <img className='tad-at-icon-style' src={clockIcon} />
+                                {/* <img className='tad-at-icon-style' src={clockIcon} /> */}
                             </div>
                             <button
                                 className='tad-ct-submit-btn'
