@@ -3,9 +3,6 @@ import { DropdownProvider } from '../../../context/Dropdown';
 
 export default function BannerItem (props) {
 
-    console.log('props=====', props)
-
-
   return (
     <DropdownProvider position='relative'>
       <div id='banner_item'>
