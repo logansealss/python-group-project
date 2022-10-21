@@ -122,7 +122,7 @@ export function getListDetailsFromTag(tasks, tagId) {
     }, result)
 }
 
-export function getListDetailsFromDates(tasks, startDate, dueDate, showComplete=false) {
+export function getListDetailsFromDates(tasks, startDate, dueDate, showCompleted=false) {
 
     let tasksToCheck = Object.values(tasks)
 
@@ -143,14 +143,21 @@ export function getListDetailsFromDates(tasks, startDate, dueDate, showComplete=
             || (taskDueDate >= startDate && taskDueDate <= dueDate)) {
 
             if (task.completed) {
-                if (showComplete) result.tasks.push(task)
+                if (showCompleted) {
+                    result.tasks.push(task)
+                    if (task.duration > 0) {
+                        result.estimatedTime += task.duration
+                    }
+                };
                 result.completedTasks.push(task)
             } else {
-                if (!showComplete) result.tasks.push(task)
-                if (task.duration > 0) {
-                    result.estimatedTime += task.duration
-                }
-            }
+                if (!showCompleted) {
+                    result.tasks.push(task)
+                    if (task.duration > 0) {
+                        result.estimatedTime += task.duration
+                    }
+                };
+            };
         } else if (taskDueDate < currentDate && dueDate !== getDateFromToday(1)) {
 
             if (task.completed) {
