@@ -455,7 +455,6 @@ export default function TaskDetailPanel() {
                         </p>
                     </div>
                     <div className='td-label-div'>
-                    <div className='td-label-div'>
                         <p className='td-label-p'>
                             Due Date:
                         </p>
@@ -463,6 +462,7 @@ export default function TaskDetailPanel() {
                             {createDateDisplay(tdDueDate, tdDueTime)}
                         </p>
                     </div>
+                    <div className='td-label-div'>
                         <p className='td-label-p'>
                             Priority:
                         </p>
