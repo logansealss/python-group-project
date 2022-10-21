@@ -12,7 +12,7 @@ export default function Menu (props) {
         feature={props.feature}
         itemId={props.itemId}
         >
-        <div id='sidebar_dropdown_button'>Rename</div>
+        <div className='sidebar_dropdown_button'>Rename</div>
       </ModalWrapper>
       <ModalWrapper
         header={`Delete ${props.feature}`}
