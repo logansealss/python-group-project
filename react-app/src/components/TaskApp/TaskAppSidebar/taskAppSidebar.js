@@ -78,6 +78,11 @@ export default function TaskAppSidebar() {
     dispatch(tagActions.getAllTags())
   }, [dispatch])
 
+  useEffect(() => {
+    dispatch(taskActions.getAllTasks())
+  }, [dispatch, lists, tags])
+
+
   if (!tasks || !lists || !tags) return null
 
   const items = {
