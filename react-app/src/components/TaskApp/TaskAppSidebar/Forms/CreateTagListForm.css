@@ -18,12 +18,21 @@
     box-sizing: border-box;
 }
 
-#form-content-container input:hover{
+#modal_text_input:hover{
     border-color: #c0c0c0;
 }
 
-#form-content-container input:focus{
+#modal_text_input:focus{
     border-color: #56538c;
+}
+
+#modal_text_input.modal-text-err{
+    border-color: #b84a47;
+}
+
+#modal-err{
+    color: #b84a47;
+    padding-top: 4px;
 }
 
 #modal_buttons button{
