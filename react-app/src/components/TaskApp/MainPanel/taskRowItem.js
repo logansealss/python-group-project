@@ -22,13 +22,15 @@ export default function TaskRowItem({ task }) {
         e.stopPropagation();
         e.preventDefault();
         dispatch(deleteSingleTask(task.id));
-        history.push(`/app/lists/${params.listId}`);
+        if (Number(params.taskId) === task.id) {
+            history.push(`/app/lists/${params.listId}`);
+        }
     }
 
     const checkClick = (e) => {
         e.stopPropagation();
         e.preventDefault();
-        dispatch(updateATask(task.id, {name: task.name, completed:true}));
+        dispatch(updateATask(task.id, { name: task.name, completed: true }));
         // history.push(`/app/lists/${params.listId}`);
     }
 
@@ -49,11 +51,11 @@ export default function TaskRowItem({ task }) {
                 className='tri-check-btn-div'
                 onClick={checkClick}
             >
-                    <img
-                        className='tri-check'
-                        src={checkIcon}
-                    />
-                </div>
+                <img
+                    className='tri-check'
+                    src={checkIcon}
+                />
+            </div>
             <div className='tri-inner-grp'>
 
                 <span className='tri-task-name'>
