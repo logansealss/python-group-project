@@ -207,7 +207,7 @@ export default function TaskDetailPanel() {
             task.startDate && setTdStartDate(task.startDate.split(' ')[0]);
             task.startDate && setTdStartTime(task.startDate.split(' ')[1]);
             task.listId && setTdTaskList(task.listId);
-            task.priority ? setTdPrio(task.priority) : setTdPrio(0);
+            task.priority && setTdPrio(task.priority);
             task.tags && setTdTaskTags(task.tags);
             task.duration && setTdEstimate(task.duration);
             task.note ? setTdNotes(task.note) : setTdNotes('');
