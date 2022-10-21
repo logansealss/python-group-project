@@ -1,13 +1,13 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
-import DropDownWrapper, { DropdownProvider } from '../../context/Dropdown'
-import downCaret from '../../img/caret-down.svg'
-import hamburger from '../../img/bars.svg'
-import gear from '../../img/gear.svg'
-import magGlass from '../../img/magnifying-glass.svg'
-
+import DropDownWrapper, { DropdownProvider } from '../../context/Dropdown';
+import downCaret from '../../img/caret-down.svg';
+import hamburger from '../../img/bars.svg';
+import gear from '../../img/gear.svg';
+import magGlass from '../../img/magnifying-glass.svg';
+import { SidebarContext } from '../../context/Sidebar';
 import * as sessionActions from '../../store/session';
 
 import './taskAppNav.css'
@@ -18,7 +18,9 @@ export default function TaskAppNav() {
     const dispatch = useDispatch();
     const [searchInput, setSearchInput] = useState('');
     const [searchIconFocusStyle, setSearchIconFocusStyle] = useState('');
-
+    const {expander, listName} = useContext(SidebarContext);
+    const [expandSideBar, setExpandSideBar] = expander;
+    const [currentListName, setListName] = listName;
     function handlesearchSubmit(e) {
         e.preventDefault()
         const trimmedInput = searchInput.trim()
@@ -29,10 +31,23 @@ export default function TaskAppNav() {
 
     return (
         <div className='tan-main-div'>
-            <img
-                className='tan-hamburger-icon tan-icon-style'
-                src={hamburger}
-            />
+            <div className='tan-left-container'>
+                <div
+                    className='tan-left-div'
+                    onClick={()=>setExpandSideBar(val=>!val)}
+                    >
+                    <img
+                        className='tan-hamburger-icon tan-icon-style'
+                        src={hamburger}
+                    />
+                    <div
+                        className= {`tan-list-name`}
+                        id={`${expandSideBar? 'no-width': ''}`}>
+                        {currentListName}
+                    </div>
+                </div>
+                <div className={`${expandSideBar? 'expandDiv': 'shrink' }`}></div>
+            </div>
             <div className='tan-search-container'>
                 <div className='tan-search-pseudo-input'>
                     <img

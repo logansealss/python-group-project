@@ -4,15 +4,15 @@ import ModalWrapper from '../../../context/Modal.js';
 
 export default function Menu (props) {
   return (
-    <div id='banner_dropdown'>
+    <div className='banner_dropdown'>
       <ModalWrapper
-        header={`Rename ${props.feature}`}
+        header={`Update ${props.feature}`}
         name={props.name}
-        form={<RenameTagListForm/>}
+        form={<RenameTagListForm color={props.color}/>}
         feature={props.feature}
         itemId={props.itemId}
         >
-        <div id='sidebar_dropdown_button'>Rename</div>
+        <div className='sidebar_dropdown_button'>Update</div>
       </ModalWrapper>
       <ModalWrapper
         header={`Delete ${props.feature}`}
@@ -21,7 +21,7 @@ export default function Menu (props) {
         feature={props.feature}
         itemId={props.itemId}
         >
-        <div id='sidebar_dropdown_button'>Delete</div>
+        <div className='sidebar_dropdown_button'>Delete</div>
       </ModalWrapper>
     </div>
   );

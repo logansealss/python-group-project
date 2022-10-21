@@ -1,24 +1,24 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { getSingleTask } from '../../store/tasks';
-import { updateATask } from '../../store/tasks';
+import { useParams, Link } from 'react-router-dom';
+import { getSingleTask, updateATask, getAllTasks } from '../../store/tasks';
+
 import selectMenuTimes from '../../data/selectMenuTimes.json';
 import dueDateIcon from '../../img/calendar-day.svg';
 import startDateIcon from '../../img/square-caret-right.svg';
-import postponeIcon from '../../img/calendar-plus.svg';
 import prioIcon from '../../img/exclamation.svg';
 import listIcon from '../../img/list.svg';
-import repeatIcon from '../../img/rotate.svg';
 import clockIcon from '../../img/clock.svg';
-import locationPin from '../../img/location-dot.svg';
-import userIcon from '../../img/user.svg';
-import checkIcon from '../../img/check.svg';
-import tagIcon from '../../img/tag.svg';
-import minusIcon from '../../img/minus.svg';
-import EliIcon from '../../img/ellipsis.svg';
-import downCaret from '../../img/caret-down.svg';
 import editIcon from '../../img/pen-to-square.svg'
+// import postponeIcon from '../../img/calendar-plus.svg';
+// import repeatIcon from '../../img/rotate.svg';
+// import locationPin from '../../img/location-dot.svg';
+// import userIcon from '../../img/user.svg';
+// import checkIcon from '../../img/check.svg';
+// import tagIcon from '../../img/tag.svg';
+// import minusIcon from '../../img/minus.svg';
+// import EliIcon from '../../img/ellipsis.svg';
+// import downCaret from '../../img/caret-down.svg';
 import './taskDetailPanel.css';
 
 import './taskDetailPanel.css';
@@ -43,16 +43,16 @@ export default function TaskDetailPanel() {
         return state.lists;
     });
 
-    const [taskName, setTaskName] = useState('');
-    const [dueDate, setDueDate] = useState('');
-    const [dueTime, setDueTime] = useState('');
-    const [startDate, setStartDate] = useState('');
-    const [startTime, setStartTime] = useState('');
-    const [taskList, setTaskList] = useState(listId);
-    const [prio, setPrio] = useState('');
-    const [taskTags, setTaskTags] = useState([]);
-    const [estimate, setEstimate] = useState('');
-    const [estimateUnit, setEstimateUnit] = useState(1)
+    const [tdTaskName, setTdTaskName] = useState('');
+    const [tdDueDate, setTdDueDate] = useState('');
+    const [tdDueTime, setTdDueTime] = useState('');
+    const [tdStartDate, setTdStartDate] = useState('');
+    const [tdStartTime, setTdStartTime] = useState('');
+    const [tdTaskList, setTdTaskList] = useState(listId);
+    const [tdPrio, setTdPrio] = useState('');
+    const [tdTaskTags, setTdTaskTags] = useState([]);
+    const [tdEstimate, setTdEstimate] = useState('');
+    const [tdEstimateUnit, setTdEstimateUnit] = useState(1)
     const [tdNotes, setTdNotes] = useState('')
     const [tdNotesSaved, setTdNotesSaved] = useState(true);
 
@@ -64,8 +64,8 @@ export default function TaskDetailPanel() {
     const prios = {
         1: 'High',
         2: 'Med',
-        3: 'low',
-        0: 'none'
+        3: 'Low',
+        0: 'None'
     }
 
     const months = [
@@ -73,29 +73,98 @@ export default function TaskDetailPanel() {
         'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
     ];
 
+    const padNum = (num) => {
+        return num.toString().padStart(2, '0');
+    }
+
+    const parseDateObj = (dateInput, timeInput) => {
+        return new Date(dateInput + 'T' + timeInput);
+    }
+
+    const datesValid = () => {
+        console.log(tdStartDate, tdDueDate)
+        if(tdStartDate && tdDueDate && tdDueTime){
+            console.log('conditional return: ', parseDateObj(tdStartDate, tdStartTime).getTime() <
+            parseDateObj(tdDueDate, tdDueTime).getTime())
+        return parseDateObj(tdStartDate, tdStartTime).getTime() <
+               parseDateObj(tdDueDate, tdDueTime).getTime()
+        }
+        console.log('default return true')
+        return true;
+    }
+
+    const compareTimeToStart = (time) => {
+        if (tdStartDate === tdDueDate) {
+            return parseDateObj(tdStartDate, tdStartTime).getTime() >
+            parseDateObj(tdStartDate, time).getTime()
+        } else {
+            return false;
+        }
+    }
+
+    const compareStartToCurrentTime = (time) => {
+        if (tdStartDate) {
+            return parseDateObj(tdStartDate, time).getTime() <
+            new Date().getTime();
+        }
+        return false;
+    }
+
+    const dateToday = (date = new Date()) => {
+        return [
+            date.getFullYear(),
+            padNum(date.getMonth() + 1),
+            padNum(date.getDate()),
+        ].join('-');
+    }
+
+    useEffect(() => {
+        if (!datesValid()){
+            setTdDueDate(tdStartDate)
+            setTdDueTime(tdStartTime)
+        }
+
+        if(!tdDueDate){
+            setTdDueTime('');
+        }
+        if(!tdStartDate){
+            setTdStartTime('');
+        }
+
+    }, [tdStartDate, tdStartTime, tdDueDate, tdDueTime])
+
+
     const dateFormatter = (dateStr) => {
         const dateArr = dateStr.split('-');
         const y = dateArr[0];
         const m = Number(dateArr[1]);
         const d = dateArr[2];
-
         return `${months[m - 1]} ${d}, ${y}`
-
     }
 
     const timeFormatter = (timeStr) => {
-
         const timeArr = timeStr.split(':');
         const hours = Number(timeArr[0]);
         const mins = timeArr[1];
-
-        console.log('hours: ', hours, 'mins:', mins);
-
         if (hours > 12) {
             return `${(hours - 12)} ${mins} pm`;
         }
         if (hours < 12) {
             return `${hours}:${mins} am`;
+        }
+    }
+
+    const estFormatter = () => {
+
+        if (task.duration){
+            const time = task.duration;
+            if (time > 59){
+                return `${Math.floor(time/60)} hour${time > 120 ? 's' : ''} ${time % 60} minutes`
+            } else {
+                return `${task.duration} minutes`
+            }
+        } else {
+            return 'Not Assigned'
         }
     }
 
@@ -114,6 +183,15 @@ export default function TaskDetailPanel() {
     }
 
     useEffect(() => {
+
+        if (task && tdNotes !== task.note) {
+            setTdNotesSaved(false);
+        } else if (task && tdNotes === task.notes) {
+            setTdNotesSaved(true);
+        }
+    }, [tdNotes])
+
+    useEffect(() => {
         setTadFormDiv(document.getElementsByClassName('tad-add-task-grp')[0]);
         if (tadFormDiv) {
             tadFormDiv.style.height = '0px';
@@ -121,42 +199,30 @@ export default function TaskDetailPanel() {
     }, [formRef, task]);
 
     useEffect(() => {
+
         if (task) {
-            task.name && setTaskName(task.name);
-            task.dueDate && setDueDate(task.dueDate.split(' ')[0]);
-            task.dueDate && setDueTime(task.dueDate.split(' ')[1]);
-            task.startDate && setStartDate(task.startDate.split(' ')[0]);
-            task.startDate && setStartTime(task.startDate.split(' ')[1]);
-            task.listId && setTaskList(task.listId);
-            task.priority ? setPrio(task.priority) : setPrio(0);
-            task.tags && setTaskTags(task.tags);
-            task.duration && setEstimate(task.duration);
+            task.name && setTdTaskName(task.name);
+            task.dueDate && setTdDueDate(task.dueDate.split(' ')[0]);
+            task.dueDate && setTdDueTime(task.dueDate.split(' ')[1]);
+            task.startDate && setTdStartDate(task.startDate.split(' ')[0]);
+            task.startDate && setTdStartTime(task.startDate.split(' ')[1]);
+            task.listId && setTdTaskList(task.listId);
+            task.priority ? setTdPrio(task.priority) : setTdPrio(0);
+            task.tags && setTdTaskTags(task.tags);
+            task.duration && setTdEstimate(task.duration);
             task.note ? setTdNotes(task.note) : setTdNotes('');
         }
     }, [task]);
 
-    useEffect(() => {
-        if (task && tdNotes !== task.note) {
-            setTdNotesSaved(false);
-        } else if (task && tdNotes === task.notes) {
-            setTdNotesSaved(true);
-        }
-
-        if (task) {
-            console.log(tdNotes);
-            console.log(task.note);
-        }
-    }, [tdNotes])
 
     const updateNotes = async (e) => {
         e.preventDefault();
 
         const data = {
-            name: taskName,
+            name: tdTaskName,
             note: tdNotes,
         }
 
-        console.log(tdNotes);
         const res = await dispatch(updateATask(task.id, data));
 
         if (res) {
@@ -167,17 +233,23 @@ export default function TaskDetailPanel() {
     const handleUtSubmit = (e) => {
         e.preventDefault();
 
-        const data = {
-            name: taskName,
-            priority: prio,
-            start_date: startDate + ' ' + startTime,
-            due_date: dueDate + ' ' + dueTime,
-            list_id: taskList,
-            duration: Math.ceil(estimate * estimateUnit)
-        }
+        const data = {}
+
+        if (tdTaskName.length) data.name = tdTaskName
+        if (tdPrio.length) data.priority = tdPrio
+        if (tdStartDate.length && tdStartTime.length)
+            data.start_date = tdStartDate + ' ' + tdStartTime
+        if (tdDueDate.length && tdDueTime.length)
+            data.due_date = tdDueDate + ' ' + tdDueTime
+        if (Number(tdTaskList)) data.list_id = tdTaskList
+        if (Number(tdEstimate)) data.duration = Math.ceil(tdEstimate * tdEstimateUnit)
+
 
         console.log('form data: ', data);
-        console.log(dispatch(updateATask(task.id, data)))
+        const res = (dispatch(updateATask(task.id, data)))
+        dispatch(getSingleTask(task.id));
+        dispatch(getAllTasks());
+        setRenderTadForm(false);
     }
 
     return (task && lists && tags &&
@@ -193,8 +265,8 @@ export default function TaskDetailPanel() {
                         <input
                             className='tad-ct-input'
                             type='text'
-                            value={taskName}
-                            onChange={(e) => setTaskName(e.target.value)}
+                            value={tdTaskName}
+                            onChange={(e) => setTdTaskName(e.target.value)}
                         />
                         <div
                             className='tad-edit-div'
@@ -213,22 +285,29 @@ export default function TaskDetailPanel() {
                                 <div className='tad-top-grp'>
                                     <div className='tad-due-date-grp'>
                                         <div className='tad-date-label-div'>
-                                            <p className='tad-date-label'>Due Date</p>
+                                            <p className='tad-date-label'>Start Date</p>
                                         </div>
                                         <input
                                             className='tad-date-input'
                                             type='date'
-                                            value={dueDate}
-                                            onChange={(e) => setDueDate(e.target.value)}
+                                            value={tdStartDate}
+                                            min={dateToday()}
+                                            onChange={(e) => setTdStartDate(e.target.value)}
                                         />
                                         <select
                                             className='tad-time-select'
-                                            value={dueTime}
-                                            onChange={(e) => setDueTime(e.target.value)}
+                                            value={tdStartTime}
+                                            disabled={tdStartDate.length > 0 ? false : true}
+                                            onChange={(e) => setTdStartTime(e.target.value)}
                                         >
-                                            <option value=''>Due Time</option>
+                                            <option value=''>Start Time</option>
                                             {selectMenuTimes.map((option) =>
-                                                <option value={option.value}>{option.display}</option>
+                                                <option
+                                                    value={option.value}
+                                                    disabled={compareStartToCurrentTime(option.value)}
+                                                >
+                                                    {option.display}
+                                                </option>
                                             )}
                                         </select>
                                     </div>
@@ -239,17 +318,24 @@ export default function TaskDetailPanel() {
                                         <input
                                             className='tad-date-input'
                                             type='date'
-                                            value={startDate}
-                                            onChange={(e) => setStartDate(e.target.value)}
+                                            value={tdDueDate}
+                                            min={tdStartDate}
+                                            onChange={(e) => setTdDueDate(e.target.value)}
                                         />
                                         <select
                                             className='tad-time-select'
-                                            value={startTime}
-                                            onChange={(e) => setStartTime(e.target.value)}
+                                            value={tdDueTime}
+                                            disabled={tdDueDate.length > 0 ? false : true}
+                                            onChange={(e) => setTdDueTime(e.target.value)}
                                         >
-                                            <option value=''>Start Time</option>
+                                            <option value=''>Due Time</option>
                                             {selectMenuTimes.map((option) =>
-                                                <option value={option.value}>{option.display}</option>
+                                                <option
+                                                    value={option.value}
+                                                    disabled={compareTimeToStart(option.value)}
+                                                >
+                                                    {option.display}
+                                                </option>
                                             )}
                                         </select>
                                     </div>
@@ -257,8 +343,8 @@ export default function TaskDetailPanel() {
                                 <div className='tad-mid-grp-lf'>
                                     <select
                                         className='tad-time-select'
-                                        value={`${prio}`}
-                                        onChange={(e) => setPrio(Number(e.target.value))}
+                                        value={`${tdPrio}`}
+                                        onChange={(e) => setTdPrio(Number(e.target.value))}
                                     >
                                         <option value=''>Priority</option>
                                         <option value='1'>High</option>
@@ -268,8 +354,8 @@ export default function TaskDetailPanel() {
                                     </select>
                                     <select
                                         className='tad-time-select'
-                                        value={taskList}
-                                        onChange={(e) => setTaskList(e.target.value)}
+                                        value={tdTaskList}
+                                        onChange={(e) => setTdTaskList(e.target.value)}
                                     >
                                         <option value=''>List</option>
                                         {Object.values(lists).map((l) =>
@@ -282,14 +368,15 @@ export default function TaskDetailPanel() {
                                         className='tad-time-input'
                                         placeholder='Time estimate'
                                         type='number'
-                                        value={estimate}
-                                        onChange={(e) => setEstimate(e.target.value)}
+                                        min={1}
+                                        value={tdEstimate}
+                                        onChange={(e) => setTdEstimate(e.target.value)}
                                     />
 
                                     <select
                                         className='tad-time-select'
-                                        value={`${estimateUnit}`}
-                                        onChange={(e) => setEstimateUnit(Number(e.target.value))}
+                                        value={`${tdEstimateUnit}`}
+                                        onChange={(e) => setTdEstimateUnit(Number(e.target.value))}
                                     >
                                         <option value='1'>Minutes</option>
                                         <option value='60'>Hours</option>
@@ -301,8 +388,8 @@ export default function TaskDetailPanel() {
                                 <select
                                     className='tad-tag-input'
                                     multiple
-                                    value={taskTags}
-                                    onChange={(e) => setTaskTags(
+                                    value={tdTaskTags}
+                                    onChange={(e) => setTdTaskTags(
                                         Array.from(e.target.selectedOptions).map((el) => (
                                             el.value)))}
                                 >
@@ -330,7 +417,7 @@ export default function TaskDetailPanel() {
                             <button
                                 className='tad-ct-submit-btn'
                                 type='submit'
-                                disabled={taskName.length ? false : true}
+                                disabled={tdTaskName.length ? false : true}
                             >
                                 Update Task
                             </button>
@@ -346,49 +433,84 @@ export default function TaskDetailPanel() {
                         <p className='td-label-p'>
                             Due Date:
                         </p>
-                        <p>
-                            {dateFormatter(dueDate)}
+                        <p className='td-data-p'>
+                            {dateFormatter(tdDueDate)}
                             {' at '}
-                            {timeFormatter(dueTime)}
+                            {timeFormatter(tdDueTime)}
                         </p>
                     </div>
                     <div className='td-label-div'>
                         <p className='td-label-p'>
                             Start Date:
                         </p>
-                        <p>
-                            {dateFormatter(startDate)}
+                        <p className='td-data-p'>
+                            {dateFormatter(tdStartDate)}
                             {' at '}
-                            {timeFormatter(startTime)}
+                            {timeFormatter(tdStartTime)}
                         </p>
                     </div>
                     <div className='td-label-div'>
                         <p className='td-label-p'>
+                            Priority:
+                        </p>
+                        <p className='td-data-p'>
+                            {prios[tdPrio]}
+                        </p>
+                    </div>
+                    <div className='td-label-div'>
+                        <p className='td-label-p'>
+                            List:
+                        </p>
+                        {
+                            task.listId ?
+                                <p className='td-data-p'>
+                                    <Link
+                                        className='td-data-link'
+                                        to={`/app/lists/${task.listId}`}
+                                    >
+                                        {`${lists[String(task.listId)].name}`}
+                                    </Link>
+                                </p>
+                                :
+                                <p className='td-data-p'>
+                                    Not assigned
+                                </p>
+                        }
+                    </div>
+                    <div className='td-label-div'>
+                        <p className='td-label-p'>
+                            Est. Time:
+                        </p>
+                        <p className='td-data-p'>
+                            {estFormatter(task.duration)}
+                        </p>
+                    </div>
+                    <div className='td-tag-div'>
+                        <p className='td-label-p'>
                             Tags:
                         </p>
 
-                        <div className='td-label-div'>
-                            <p className='td-label-p'>
-                                Priority:
-                            </p>
-                            <p>{prios[prio]}</p>
-                        </div>
-                    </div>
-                    <div className='td-tag-div'>
                         {task.tags.map((tagId) =>
 
-                            <div className={`td-tag-${tagId}`}
-                                style={{ color: 'white', backgroundColor: tags[String(tagId)].color }}
-                            >
-                                {tags[tagId.toString()].name}
-                            </div>
+                            <Link className='td-data-link' to={`/app/tags/${tagId}`}>
+                                <div className={'td-tag'}
+                                    style={{ color: 'white', backgroundColor: tags[String(tagId)].color }}
+                                >
+                                    {tags[tagId.toString()].name}
+                                </div>
+                            </Link>
                         )}
                     </div>
-                    <div className='td-notes-div'>
-                        <form
-                            className='td-notes-form'
-                            onSubmit={updateNotes}
-                        >
+                    <div className='td-label-div-notes'>
+                        <p className='td-label-p'>
+                            Notes:
+                        </p>
+                    </div>
+                    <form
+                        className='td-notes-form'
+                        onSubmit={updateNotes}
+                    >
+                        <div className='td-notes-div'>
 
                             <textarea
                                 className='td-notes-input'
@@ -401,11 +523,11 @@ export default function TaskDetailPanel() {
                                 type='submit'
                                 disabled={tdNotesSaved}
                             >
-                                Save Changes
+                                Save Notes
                             </button>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </div>    )
+        </div>)
 }

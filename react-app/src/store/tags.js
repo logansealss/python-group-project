@@ -64,7 +64,7 @@ export const renameTag = (updatedTag) => async dispatch => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({'name': updatedTag.name}),
+        body: JSON.stringify({'name': updatedTag.name, 'color': updatedTag.color}),
     });
 
     if (response.ok) {

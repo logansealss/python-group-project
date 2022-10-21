@@ -1,0 +1,100 @@
+#form-content-container{
+    margin: 7px 0 0 0;
+    padding: 10px 0;
+}
+
+#form-content-container{
+    font-size: .8125rem;
+    overflow: hidden;
+}
+
+#form-content-container input{
+    width: 300px;
+    border-radius: 3px;
+    border: 1px solid #d0d3d6;
+    padding: 5px 6px;
+    height: 27px;
+    margin-top: 5px;
+    box-sizing: border-box;
+}
+
+#modal_text_input_name:hover{
+    border-color: #c0c0c0;
+}
+
+
+#modal_text_input_name:focus{
+    border-color: #56538c;
+}
+
+#modal_text_input_name.modal-text-err{
+    border-color: #b84a47;
+}
+
+#input-color-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+}
+
+#input-color-test-div{
+    width: fill;
+    height: 27px;
+    display: inline-block;
+    border-radius: 3px;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border: 1px solid #d0d3d6;
+    border-right: none;
+}
+
+#modal_select_input_color{
+    border-radius: 3px;
+    border: 1px solid #d0d3d6;
+    padding: 5px 6px;
+    height: 27px;
+    box-sizing: border-box;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
+
+#modal_select_input_color_label{
+    margin-top: 4px;
+}
+
+#modal-err{
+    color: #b84a47;
+    padding: 4px 0;
+}
+
+#modal_buttons button{
+    border: none;
+    height: 32px;
+    min-width: 70px;
+    border-radius: 3px;
+    font-size: .875rem;
+    margin-right: 8px;
+    font-weight: 600;
+}
+
+#modal_buttons{
+    margin: 12px 0 7px 0;
+}
+
+#modal_buttons button:hover{
+    cursor: pointer;
+}
+
+#modal_submit{
+    background-color: #6562A6;
+    color: #FFF;
+}
+
+#modal_cancel{
+    color: #444;
+}
+
+#modal_cancel:hover{
+    color: #6562A6;
+}

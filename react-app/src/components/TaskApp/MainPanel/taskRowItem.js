@@ -1,6 +1,7 @@
 import React from 'react';
 import { deleteSingleTask } from '../../../store/tasks';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
 import moveIcon from '../../../img/ellipsis-vertical.svg';
 import caretRight from '../../../img/caret-right.svg';
 import trashIcon from '../../../img/trash.svg';
@@ -8,13 +9,16 @@ import './taskRowItem.css';
 
 export default function TaskRowItem({ task }) {
 
-    const dispatch = useDispatch()
-    const tags = useSelector(state => state.tags)
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const params = useParams();
+    const tags = useSelector(state => state.tags);
 
     const trashClick = (e) => {
         e.stopPropagation();
         e.preventDefault();
         dispatch(deleteSingleTask(task.id));
+        history.push(`/app/lists/${params.listId}`);
     }
 
     let priorityClassName = 'tri-prio-indi';
@@ -48,7 +52,7 @@ export default function TaskRowItem({ task }) {
                     : null
                 )}
             </div>
-            <div 
+            <div
                 className='tri-trash'
                 onClick={trashClick}
             >

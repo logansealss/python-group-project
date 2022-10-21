@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {useHistory} from 'react-router-dom';
 
@@ -11,7 +11,7 @@ import BannerItem from './BannerItem';
 import {Plus, Count, DownCaret} from './Icons';
 import CreateTagListForm from './Forms/CreateTagListForm';
 import { getDateFromToday } from '../../../utils/taskLists';
-
+import { SidebarContext } from '../../../context/Sidebar';
 import logo from '../../../img/TM-logo-short-nobg.png';
 
 import './taskAppSidebar.css';
@@ -52,6 +52,9 @@ function getCount (tasks, targetFeature, targetValue) {
 }
 
 export default function TaskAppSidebar() {
+  const {expander, listName} = useContext(SidebarContext)
+  const [expandSideBar, setExpandSideBar] = expander;
+  const [currentListName, setListName] = listName
   const dispatch = useDispatch()
   const history = useHistory();
   const tasks = useSelector(state => state.tasks.allTasks)
@@ -80,7 +83,10 @@ export default function TaskAppSidebar() {
           <BannerItem
             key={title}
             obj={<Count count={getCount(tasks, 'dueDate', endDate)}/>}
-            handleClick={()=>history.push(`/app/lists/${slug}`)}
+            handleClick={()=>{
+              setListName(title)
+              history.push(`/app/lists/${slug}`)
+            }}
             >
             {title}
           </BannerItem>
@@ -107,7 +113,10 @@ export default function TaskAppSidebar() {
                 />
             </>
             }
-            handleClick={()=>history.push(`/app/lists/${list.id}`)}
+            handleClick={()=>{
+              setListName(list.name)
+              history.push(`/app/lists/${list.id}`)
+            }}
             >
             {list.name}
           </BannerItem>
@@ -121,17 +130,22 @@ export default function TaskAppSidebar() {
       children: Object.values(tags).map(tag => (
         <BannerItem
           key={tag.id}
+          color={tag.color ? tag.color : '#006400'}
           obj={
             <>
             <DownCaret
               itemId={tag.id}
               name={tag.name}
+              color={tag.color}
               feature='tag'
               />
             <Count count={getCount(tasks, 'tags', tag.id)}/>
           </>
         }
-          handleClick={()=>history.push(`/app/tags/${tag.id}`)}
+          handleClick={()=>{
+            setListName(tag.name)
+            history.push(`/app/tags/${tag.id}`)
+          }}
           >
           {tag.name}
         </BannerItem>))
@@ -139,21 +153,31 @@ export default function TaskAppSidebar() {
   };
 
   return (
-    <div id='sidebar'>
+    <div
+      className='sidebar'
+      id={`${expandSideBar? '' : 'hidden'}`}>
       <div className='logo_container'>
-        <img className='tasb-top-logo' src={logo} />
+        <img
+          className='tasb-top-logo'
+          id={`${expandSideBar? '' : 'hidden'}`}
+          src={logo} />
       </div>
-      {Object.keys(items).map(itemName => (
-        <Collapser
-          key={itemName}
-          title={items[itemName]['title']}
-          expanded={items[itemName]['expanded']}
-          expander={items[itemName]['expander']}
-          obj={items[itemName]['obj']}
+      <div
+        className='sidebar-content'
+        id={`${expandSideBar? '' : 'hidden'}`}
         >
-          {items[itemName]['children']}
-        </Collapser>
-      ))}
+        {Object.keys(items).map(itemName => (
+          <Collapser
+            key={itemName}
+            title={items[itemName]['title']}
+            expanded={items[itemName]['expanded']}
+            expander={items[itemName]['expander']}
+            obj={items[itemName]['obj']}
+          >
+            {items[itemName]['children']}
+          </Collapser>
+        ))}
+      </div>
     </div>
   )
 };
