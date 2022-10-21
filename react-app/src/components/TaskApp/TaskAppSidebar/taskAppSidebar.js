@@ -167,6 +167,7 @@ export default function TaskAppSidebar() {
         <img
           className='tasb-top-logo'
           id={`${expandSideBar? '' : 'hidden'}`}
+          onClick={()=>history.push('/')}
           src={logo} />
       </div>
       <div
