@@ -198,3 +198,10 @@ width: 12px;
 #sidebar_dropdown_button:hover {
   background-color: hsl(240,26%,84%);
 }
+
+.sb-tag-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    margin-right: 2px;
+}
