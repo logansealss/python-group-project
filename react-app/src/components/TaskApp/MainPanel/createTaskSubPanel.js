@@ -43,6 +43,10 @@ export default function CreateTaskSubPanel({ lists, tags }) {
 
     const formRef = useRef();
 
+    const padNum = (num) => {
+        return num.toString().padStart(2, '0');
+    }
+
     const openForm = () => {
         console.log('openForm');
         setRenderCtForm(true);
@@ -55,9 +59,65 @@ export default function CreateTaskSubPanel({ lists, tags }) {
         formDiv.style.height = '0px';
     }
 
+    const parseDateObj = (dateInput, timeInput) => {
+        return new Date(dateInput + 'T' + timeInput);
+    }
+
+    const datesValid = () => {
+        console.log(startDate, dueDate)
+        if(startDate && dueDate && dueTime){
+            console.log('conditional return: ', parseDateObj(startDate, startTime).getTime() <
+            parseDateObj(dueDate, dueTime).getTime())
+        return parseDateObj(startDate, startTime).getTime() <
+               parseDateObj(dueDate, dueTime).getTime()
+        }
+        console.log('default return true')
+        return true;
+    }
+
+    const compareTimeToStart = (time) => {
+        if (startDate === dueDate) {
+            return parseDateObj(startDate, startTime).getTime() >
+            parseDateObj(startDate, time).getTime()
+        } else {
+            return false;
+        }
+    }
+
+    const compareStartToCurrentTime = (time) => {
+        if (startDate) {
+            return parseDateObj(startDate, time).getTime() <
+            new Date().getTime();
+        }
+        return false;
+    }
+
+    const dateToday = (date = new Date()) => {
+        return [
+            date.getFullYear(),
+            padNum(date.getMonth() + 1),
+            padNum(date.getDate()),
+        ].join('-');
+    }
+
+    useEffect(() => {
+        if (!datesValid()){
+            setDueDate(startDate)
+            setDueTime(startTime)
+        }
+
+        if(!dueDate){
+            setDueTime('');
+        }
+        if(!startDate){
+            setStartTime('');
+        }
+
+    }, [startDate, startTime, dueDate, dueTime])
+
     useEffect(() => {
         setFormDiv(document.getElementById('ctsp-form-div'));
-        if(formDiv){
+        if (formDiv) {
             formDiv.style.height = '0px';
         }
     }, [formRef]);
@@ -65,7 +125,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
     useEffect(() => {
         if (taskName.length && !renderCtForm) {
             openForm();
-        } else if(!taskName.length && renderCtForm) {
+        } else if (!taskName.length && renderCtForm) {
             closeForm();
         }
 
@@ -87,8 +147,8 @@ export default function CreateTaskSubPanel({ lists, tags }) {
 
         const response = await dispatch(createNewTask(data))
 
-        if (response && response.id){
-            for(let tagId of taskTags){
+        if (response && response.id) {
+            for (let tagId of taskTags) {
                 await dispatch(addTagToTask(response.id, +tagId))
             }
         }
@@ -121,27 +181,6 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                     <div className='ctsp-top-half'>
                         <div className='ctsp-top-left-grp'>
                             <div className='ctsp-top-grp'>
-                                <div className='ctsp-due-date-grp'>
-                                    <div className='ctsp-date-label-div'>
-                                        <p className='ctsp-date-label'>Due Date</p>
-                                    </div>
-                                    <input
-                                        className='ctsp-date-input'
-                                        type='date'
-                                        value={dueDate}
-                                        onChange={(e) => setDueDate(e.target.value)}
-                                    />
-                                    <select
-                                        className='ctsp-time-select'
-                                        value={dueTime}
-                                        onChange={(e) => setDueTime(e.target.value)}
-                                    >
-                                        <option value=''>Due Time</option>
-                                        {selectMenuTimes.map((option) =>
-                                            <option value={option.value}>{option.display}</option>
-                                        )}
-                                    </select>
-                                </div>
 
                                 <div className='ctsp-due-date-grp'>
                                     <div className='ctsp-date-label-div'>
@@ -151,16 +190,51 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                                         className='ctsp-date-input'
                                         type='date'
                                         value={startDate}
+                                        min={dateToday()}
                                         onChange={(e) => setStartDate(e.target.value)}
                                     />
                                     <select
                                         className='ctsp-time-select'
                                         value={startTime}
+                                        disabled={startDate.length > 0 ? false : true}
                                         onChange={(e) => setStartTime(e.target.value)}
                                     >
                                         <option value=''>Start Time</option>
                                         {selectMenuTimes.map((option) =>
-                                            <option value={option.value}>{option.display}</option>
+                                            <option
+                                                value={option.value}
+                                                disabled={compareStartToCurrentTime(option.value)}
+                                            >
+                                                {option.display}
+                                            </option>
+                                        )}
+                                    </select>
+                                </div>
+                                <div className='ctsp-due-date-grp'>
+                                    <div className='ctsp-date-label-div'>
+                                        <p className='ctsp-date-label'>Due Date</p>
+                                    </div>
+                                    <input
+                                        className='ctsp-date-input'
+                                        type='date'
+                                        value={dueDate}
+                                        min={startDate}
+                                        onChange={(e) => setDueDate(e.target.value)}
+                                    />
+                                    <select
+                                        className='ctsp-time-select'
+                                        value={dueTime}
+                                        disabled={dueDate.length > 0 ? false : true}
+                                        onChange={(e) => setDueTime(e.target.value)}
+                                    >
+                                        <option value=''>Due Time</option>
+                                        {selectMenuTimes.map((option) =>
+                                            <option
+                                                value={option.value}
+                                                disabled={compareTimeToStart(option.value)}
+                                            >
+                                                {option.display}
+                                            </option>
                                         )}
                                     </select>
                                 </div>
@@ -193,6 +267,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                                     className='ctsp-time-input'
                                     placeholder='Time estimate'
                                     type='number'
+                                    min={1}
                                     value={estimate}
                                     onChange={(e) => setEstimate(e.target.value)}
                                 />

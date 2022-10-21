@@ -9,6 +9,22 @@ import './splash.css';
 
 export default function Splash() {
     let user = useSelector((state) => state.session.user);
+    const SignUpButton = () => {
+        if (!user) {
+            return (
+            <Link className='main-su-btn-link-wrap' to="/signup">
+                <button className='main-body-sign-up-btn'> Sign Up Free</button>
+            </Link>
+            )
+        } else {
+            return (
+            <Link className='main-su-btn-link-wrap' to="/app">
+                <button className='main-body-sign-up-btn'> Go To App</button>
+            </Link>
+            )
+        }
+
+    }
 
     return (
         <>
@@ -17,9 +33,7 @@ export default function Splash() {
                     The smart to-do app for busy people.
                 </div>
                 <div className='mid-btn-div'>
-                    <Link className='main-su-btn-link-wrap' to="/signup">
-                        <button className='main-body-sign-up-btn'> Sign Up Free</button>
-                    </Link>
+                    <SignUpButton/>
                 </div>
                 <div className='spl-lower-main'>
                     <img alt='' className='spl-steve-img-1' src={steveShop} />
