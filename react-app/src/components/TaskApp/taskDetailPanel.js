@@ -285,7 +285,7 @@ export default function TaskDetailPanel() {
                                 <div className='tad-top-grp'>
                                     <div className='tad-due-date-grp'>
                                         <div className='tad-date-label-div'>
-                                            <p className='tad-date-label'>Due Date</p>
+                                            <p className='tad-date-label'>Start Date</p>
                                         </div>
                                         <input
                                             className='tad-date-input'
