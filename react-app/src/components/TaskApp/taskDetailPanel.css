@@ -494,6 +494,7 @@
     width: fit-content;
     padding-left: 3px;
     padding-right: 3px;
+    background-color: darkgreen;
 }
 
 .td-label-p{
