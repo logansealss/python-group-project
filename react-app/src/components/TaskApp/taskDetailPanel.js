@@ -277,14 +277,15 @@ export default function TaskDetailPanel() {
                 tagsToRemove.push(id)
             }
         }
+        
+        for(let id of tagsToRemove){
+            dispatch(removeTagFromTask(task.id, id))
+        }
 
         for(let id of tagsToAdd){
             dispatch(addTagToTask(task.id, id))
         }
 
-        for(let id of tagsToRemove){
-            dispatch(removeTagFromTask(task.id, id))
-        }
 
         console.log('form data: ', data);
         const res = (dispatch(updateATask(task.id, data)))
