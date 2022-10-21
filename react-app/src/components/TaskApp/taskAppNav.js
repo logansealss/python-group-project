@@ -45,7 +45,7 @@ export default function TaskAppNav() {
                         List Name
                     </div>
                 </div>
-                <div className={`${expandSideBar? 'expandDiv': '' }`}></div>
+                <div className={`${expandSideBar? 'expandDiv': 'shrink' }`}></div>
             </div>
             <div className='tan-search-container'>
                 <div className='tan-search-pseudo-input'>

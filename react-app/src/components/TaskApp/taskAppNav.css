@@ -64,6 +64,12 @@
 .expandDiv {
     min-width: 170px;
     max-width: 200px;
+    transition: 1s;
+}
+
+.shrink {
+    transition: 1s;
+    min-width: 0;
 }
 
 .tan-icon-style{
