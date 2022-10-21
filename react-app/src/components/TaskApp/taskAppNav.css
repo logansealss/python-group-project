@@ -1,5 +1,6 @@
 .tan-main-div{
     position: relative;
+    z-index:99;
     top: 0;
     left: 0;
     display: grid;
@@ -19,6 +20,10 @@
         grid-template-columns: minmax(10px,auto) 6fr 10px;
     }
 }
+.tan-left-container {
+    margin-left: 5px;
+    margin-right: 5px;
+}
 
 .tan-left-div {
     display: flex;
@@ -27,22 +32,44 @@
     color: rgb(179,177,203);
     height: 30px;
     border-radius: 4px;
+    width: fit-content;
 }
 
-.tan-left-div.expandDiv {
-    min-width: 180px;
-    max-width: 210px;
-}
 
 .tan-left-div:hover {
     cursor: pointer;
-    background-color: #6562A6;
+    background-color: hsl(243, 26%, 30%);
     transition-duration: 0.5s;
 }
 
 .tan-list-name {
     font-weight: 600;
-    padding: 0 8px;
+    overflow: hidden;
+    margin-left: 0;
+    padding-right: 5px;
+    width: 100%;
+    transition: .5s;
+
+    text-overflow: clip;
+    white-space: nowrap;
+}
+
+#no-width {
+    margin-right: 100%;
+    font-size: 0;
+    padding: 0;
+    transition: .5s;
+}
+
+.expandDiv {
+    min-width: 170px;
+    max-width: 200px;
+    transition: 1s;
+}
+
+.shrink {
+    transition: 1s;
+    min-width: 0;
 }
 
 .tan-icon-style{
@@ -66,8 +93,9 @@
 .tan-hamburger-icon{
     grid-column-start: 1;
     height: 20px;
-    width: auto;
-    padding-left: 20px;
+    width: 20px;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .tan-search-container {
@@ -146,12 +174,20 @@
 .tan-settings-icon-grp{
     grid-column-start: 3;
     justify-self: end;
+    padding: 5px;
+    border-radius: 5px;
     display:flex;
     flex-direction: row;
     align-items: center;
     column-gap: 5px;
     /* padding-right: 20px; */
 }
+
+.tan-settings-icon-grp:hover {
+    cursor: pointer;
+    background-color: hsl(243, 26%, 30%);
+    transition-duration: 0.5s;
+  }
 
 .tan-settings-gear-icon{
     height: 24px;
