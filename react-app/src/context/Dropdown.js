@@ -45,23 +45,23 @@ export default function DropDownWrapper(props) {
   const [anyDropDownsOpen, setAnyDropDownsOpen] = useContext(GlobalDropDownContext)
 
   const closeMenu = () => {
-    console.log('closing menu')
+    // console.log('closing menu')
     setShowMenu(false);
-    console.log('setting global dropdowns to closed')
+    // console.log('setting global dropdowns to closed')
     setAnyDropDownsOpen(null)
   };
 
   const openMenu = (e) => {
     e.stopPropagation();
-    console.log('in open menu')
+    // console.log('in open menu')
     if (anyDropDownsOpen) {
-      console.log('another dropdown is open')
+      // console.log('another dropdown is open')
       anyDropDownsOpen()
     };
-    console.log('opening menu')
+    // console.log('opening menu')
     setShowMenu(true);
     setAnyDropDownsOpen((val)=>closeMenu)
-    console.log('adding to global dropdown context')
+    // console.log('adding to global dropdown context')
   };
 
 
