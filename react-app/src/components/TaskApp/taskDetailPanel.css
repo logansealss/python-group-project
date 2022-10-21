@@ -331,6 +331,7 @@
     border: 1px solid lightgray;
     font-size: 16px;
     color: #1e1c35;
+    width: 140px;
     padding: 4px;
     margin-bottom: 6px;
 }
@@ -340,7 +341,7 @@
     border: 1px solid lightgray;
     font-size: 16px;
     color: #1e1c35;
-    width: 133.7px;
+    width: 150px;
     padding: 4px
 }
 
@@ -404,7 +405,7 @@
     font-size: 16px;
     border-radius: 4px;
     border: 1px solid lightgray;
-    width: 128.25px;
+    width: 145.5px;
 }
 
 .tad-at-btn-div{
