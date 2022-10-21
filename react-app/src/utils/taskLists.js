@@ -122,7 +122,7 @@ export function getListDetailsFromTag(tasks, tagId) {
     }, result)
 }
 
-export function getListDetailsFromDates(tasks, startDate, dueDate) {
+export function getListDetailsFromDates(tasks, startDate, dueDate, showComplete=false) {
 
     let tasksToCheck = Object.values(tasks)
 
@@ -139,13 +139,14 @@ export function getListDetailsFromDates(tasks, startDate, dueDate) {
 
         let taskDueDate = task.dueDate ? task.dueDate.slice(0, 10) : task.dueDate
 
-        if (startDate === undefined
+        if (!startDate
             || (taskDueDate >= startDate && taskDueDate <= dueDate)) {
 
             if (task.completed) {
+                if (showComplete) result.tasks.push(task)
                 result.completedTasks.push(task)
             } else {
-                result.tasks.push(task)
+                if (!showComplete) result.tasks.push(task)
                 if (task.duration > 0) {
                     result.estimatedTime += task.duration
                 }
@@ -189,6 +190,9 @@ export function getListDetails({listId, filterId}, tasks, lists, tags) {
         } else if (listId === "week") {
             listDetails = getListDetailsFromDates(taskObj, getDateFromToday(), getDateFromToday(6))
             listDetails.name = "This Week"
+        } else if (listId === "completed") {
+            listDetails = getListDetailsFromDates(taskObj, null, null, true)
+            listDetails.name = "Completed"
         } else {
 
             let list = lists && Object.values(lists).find(lst => lst.id === +listId)

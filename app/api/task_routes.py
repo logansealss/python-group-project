@@ -148,13 +148,13 @@ def update_task_by_id(id):
                     "message": "Forbidden",
                     "statusCode": 403}, 403
 
-        task.name = form_data["name"] if form_data["name"] else task.name
-        task.list_id = form_data["list_id"] if form_data["list_id"] else task.list_id
-        task.priority = form_data["priority"] if form_data["priority"] else task.priority
-        task.start_date = form_data["start_date"] if form_data["start_date"] else task.start_date
-        task.due_date = form_data["due_date"] if form_data["due_date"] else task.due_date
-        task.duration = form_data["duration"] if form_data["duration"] else task.duration
-        task.note = form_data["note"] if form_data["note"] else task.note
+        task.name = form_data["name"]
+        task.list_id = form_data["list_id"] if form_data["list_id"] else None
+        task.priority = form_data["priority"] if form_data["priority"] else 0
+        task.start_date = form_data["start_date"] if form_data["start_date"] else None
+        task.due_date = form_data["due_date"] if form_data["due_date"] else None
+        task.duration = form_data["duration"] if form_data["duration"] else None
+        task.note = form_data["note"] if form_data["note"] else None
         task.completed = form_data["completed"] if form_data["completed"] in [True, False] else task.completed
 
         db.session.commit()
