@@ -248,7 +248,7 @@ export default function TaskDetailPanel() {
         if (tdTaskName.length) data.name = tdTaskName
 
 
-        if (tdPrio.length || tdPrio >= 0 && tdPrio <= 3) {
+        if (Number(tdPrio) || tdPrio >= 0 && tdPrio <= 3) {
             data.priority = tdPrio
         } else {
             data.priority = 0
