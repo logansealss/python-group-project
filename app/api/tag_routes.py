@@ -56,6 +56,18 @@ def create_tag():
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
+        tag_with_provided_name = Tag.query.filter(Tag.name == form.data["name"], 
+                                                  Tag.user_id == current_user.id).first()
+
+        if tag_with_provided_name:
+            return {
+                "message": "Tag already exists",
+                "statusCode": 403,
+                "errors": {
+                    "name": "User already has a tag with that name"
+                }
+            }, 403
+
         new_tag = Tag(name=form.data["name"],
                       color=form.data["color"] if form.data["color"] else None,
                       user_id=current_user.id)
@@ -90,6 +102,18 @@ def update_tag(id):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
+        tag_with_provided_name = Tag.query.filter(Tag.name == form.data["name"], 
+                                                  Tag.user_id == current_user.id).first()
+
+        if tag_with_provided_name:
+            return {
+                "message": "Tag already exists",
+                "statusCode": 403,
+                "errors": {
+                    "name": "User already has a tag with that name"
+                }
+            }, 403
+
         tag.name = form.data["name"] if form.data["name"] else tag.name
         tag.color = form.data["color"] if form.data["color"] else tag.color
 

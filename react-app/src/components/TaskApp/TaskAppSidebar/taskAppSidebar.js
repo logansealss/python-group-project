@@ -130,6 +130,7 @@ export default function TaskAppSidebar() {
       children: Object.values(tags).map(tag => (
         <BannerItem
           key={tag.id}
+          color={tag.color ? tag.color : '#006400'}
           obj={
             <>
             <DownCaret
