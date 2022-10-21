@@ -46,8 +46,9 @@
     font-weight: 600;
     overflow: hidden;
     margin-left: 0;
-    padding-right: 5px;
-    width: 100%;
+    flex-grow: 1;
+    margin-right: 5px;
+    /* width: 100%; */
     transition: .5s;
 
     text-overflow: clip;
@@ -57,7 +58,7 @@
 #no-width {
     margin-right: 100%;
     font-size: 0;
-    padding: 0;
+    margin: 0;
     transition: .5s;
 }
 
@@ -100,6 +101,7 @@
 
 .tan-search-container {
     grid-column-start: 2;
+    /* margin-left: 5px; */
     /* min-width: 420px; */
 }
 
