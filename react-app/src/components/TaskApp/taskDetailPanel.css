@@ -491,6 +491,9 @@
 .td-tag{
     height: 20px;
     border-radius: 4px;
+    width: fit-content;
+    padding-left: 3px;
+    padding-right: 3px;
 }
 
 .td-label-p{
@@ -521,6 +524,10 @@
 }
 
 .td-tag-div{
+    display: flex;
+    column-gap: 5px;
+    flex-wrap: wrap;
+    flex-direction: row;
     padding-bottom: 20px;
 }
 

@@ -6,19 +6,19 @@ import { getSingleTask, updateATask, getAllTasks } from '../../store/tasks';
 import selectMenuTimes from '../../data/selectMenuTimes.json';
 import dueDateIcon from '../../img/calendar-day.svg';
 import startDateIcon from '../../img/square-caret-right.svg';
-import postponeIcon from '../../img/calendar-plus.svg';
 import prioIcon from '../../img/exclamation.svg';
 import listIcon from '../../img/list.svg';
-import repeatIcon from '../../img/rotate.svg';
 import clockIcon from '../../img/clock.svg';
-import locationPin from '../../img/location-dot.svg';
-import userIcon from '../../img/user.svg';
-import checkIcon from '../../img/check.svg';
-import tagIcon from '../../img/tag.svg';
-import minusIcon from '../../img/minus.svg';
-import EliIcon from '../../img/ellipsis.svg';
-import downCaret from '../../img/caret-down.svg';
 import editIcon from '../../img/pen-to-square.svg'
+// import postponeIcon from '../../img/calendar-plus.svg';
+// import repeatIcon from '../../img/rotate.svg';
+// import locationPin from '../../img/location-dot.svg';
+// import userIcon from '../../img/user.svg';
+// import checkIcon from '../../img/check.svg';
+// import tagIcon from '../../img/tag.svg';
+// import minusIcon from '../../img/minus.svg';
+// import EliIcon from '../../img/ellipsis.svg';
+// import downCaret from '../../img/caret-down.svg';
 import './taskDetailPanel.css';
 
 import './taskDetailPanel.css';
@@ -411,11 +411,13 @@ export default function TaskDetailPanel() {
 
                         {task.tags.map((tagId) =>
 
-                            <div className={'td-tag'}
-                                style={{ color: 'white', backgroundColor: tags[String(tagId)].color }}
-                            >
-                                {tags[tagId.toString()].name}
-                            </div>
+                            <Link className='td-data-link' to={`/app/tags/${tagId}`}>
+                                <div className={'td-tag'}
+                                    style={{ color: 'white', backgroundColor: tags[String(tagId)].color }}
+                                >
+                                    {tags[tagId.toString()].name}
+                                </div>
+                            </Link>
                         )}
                     </div>
                     <div className='td-label-div-notes'>

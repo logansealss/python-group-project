@@ -4,20 +4,20 @@ import { useDispatch } from 'react-redux';
 import { createNewTask, addTagToTask } from '../../../store/tasks';
 import dueDateIcon from '../../../img/calendar-day.svg';
 import startDateIcon from '../../../img/square-caret-right.svg';
-import postponeIcon from '../../../img/calendar-plus.svg';
+import clockIcon from '../../../img/clock.svg';
 import prioIcon from '../../../img/exclamation.svg';
 import listIcon from '../../../img/list.svg';
-import repeatIcon from '../../../img/rotate.svg';
-import clockIcon from '../../../img/clock.svg';
-import locationPin from '../../../img/location-dot.svg';
-import userIcon from '../../../img/user.svg';
-import checkIcon from '../../../img/check.svg';
-import tagIcon from '../../../img/tag.svg';
-import minusIcon from '../../../img/minus.svg';
-import EliIcon from '../../../img/ellipsis.svg';
-import downCaret from '../../../img/caret-down.svg';
 import './createTaskSubPanel.css';
 import selectMenuTimes from '../../../data/selectMenuTimes.json';
+// import postponeIcon from '../../../img/calendar-plus.svg';
+// import repeatIcon from '../../../img/rotate.svg';
+// import locationPin from '../../../img/location-dot.svg';
+// import userIcon from '../../../img/user.svg';
+// import checkIcon from '../../../img/check.svg';
+// import tagIcon from '../../../img/tag.svg';
+// import minusIcon from '../../../img/minus.svg';
+// import EliIcon from '../../../img/ellipsis.svg';
+// import downCaret from '../../../img/caret-down.svg';
 
 export default function CreateTaskSubPanel({ lists, tags }) {
 
@@ -74,14 +74,16 @@ export default function CreateTaskSubPanel({ lists, tags }) {
     const handleCtSubmit = async (e) => {
         e.preventDefault();
 
-        const data = {
-            name: taskName,
-            priority: prio,
-            start_date: startDate + ' ' + startTime,
-            due_date: dueDate + ' ' + dueTime,
-            list_id: taskList,
-            duration: Math.ceil(estimate * estimateUnit)
-        }
+        const data = {}
+
+        if (taskName.length) data.name = taskName
+        if (prio.length) data.priority = prio
+        if (startDate.length && startTime.length)
+            data.start_date = startDate + ' ' + startTime
+        if (dueDate.length && dueTime.length)
+            data.due_date = dueDate + ' ' + dueTime
+        if (Number(taskList)) data.list_id = taskList
+        if (Number(estimate)) data.duration = Math.ceil(estimate * estimateUnit)
 
         const response = await dispatch(createNewTask(data))
 
