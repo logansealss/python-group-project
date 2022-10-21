@@ -33,9 +33,32 @@
     background-color: #359aff;
 }
 
-.tri-checkbox-div{
-    padding-left: 9px;
-    padding-right: 6px;
+.tri-check-btn-div{
+    padding-top: 2px;
+    padding-left: 3px;
+    padding-right: 3px;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    margin-left: 5px;
+}
+
+.tri-check-btn-div:hover{
+    border: 1px solid #007604;
+}
+
+.tri-check-btn-div:active{
+    transform: scale(.9);
+}
+
+.tri-check-btn-div:hover .tri-check{
+    filter: invert(26%) sepia(100%) saturate(1307%) hue-rotate(102deg) brightness(89%) contrast(103%);
+}
+
+.tri-check {
+    height: 16px;
+    width: 16px;
+    filter: invert(77%) sepia(0%) saturate(3%) hue-rotate(2deg) brightness(94%) contrast(91%);
+    color: #007604;
 }
 
 .tri-move-grab{
@@ -47,7 +70,7 @@
 }
 
 .tri-main-div:hover{
-    background-color: lightblue;
+    background-color: #f9f2ff;
 }
 
 .tri-main-div:hover .tri-move-grab{
@@ -99,9 +122,10 @@
     right: 14px;
     height: 25px;
     width: 25px;
+    padding-left: 1.5px;
     align-items: center;
     z-index: 10;
-    background-color: beige;
+    background-color: #f9f2ff;
     border: 1px solid lightgrey;
 }
 

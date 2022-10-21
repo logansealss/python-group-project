@@ -18,24 +18,31 @@ import './taskAppSidebar.css';
 
 function getCount (tasks, targetFeature, targetValue) {
   switch (targetFeature) {
-    case 'dueDate':
-      if (!targetValue) {
-        return Object.values(tasks)
-        .reduce((count,task)=>{
-          if (!task['completed']) count++;
-          return count
-        },0);
-      } else {
-        return Object.values(tasks)
-        .reduce((count,task)=>{
-          if (
-            task[targetFeature]?.slice(0, 10) >= getDateFromToday()
-            && task[targetFeature]?.slice(0, 10) <= targetValue
-            && !task['completed']
-            ) count++;
-        return count
-        },0);
-      };
+    case 'tasks':
+      switch (targetValue) {
+        case 'incomplete':
+          return Object.values(tasks)
+            .reduce((count,task)=>{
+              if (!task['completed']) count++;
+              return count
+            },0);
+        case 'completed':
+          return Object.values(tasks)
+            .reduce((count,task)=>{
+              if (task['completed']) count++;
+              return count
+            },0);
+        default:
+          return Object.values(tasks)
+            .reduce((count,task)=>{
+              if (
+                task[targetFeature]?.slice(0, 10) >= getDateFromToday()
+                && task[targetFeature]?.slice(0, 10) <= targetValue
+                && !task['completed']
+                ) count++;
+              return count
+            },0);
+      }
     case 'listId':
       return Object.values(tasks)
         .reduce((count,task)=>{
@@ -78,11 +85,11 @@ export default function TaskAppSidebar() {
       expanded: allTasksExpanded,
       expander: setAllTasksExpanded,
       title: 'Tasks',
-      children: [['All Tasks', 'all'], ['Today', 'today', getDateFromToday()], ['Tomorrow', 'tomorrow', getDateFromToday(1)], ['This Week', 'week', getDateFromToday(6)]]
-        .map(([title, slug, endDate]) => (
+      children: [['All Tasks', 'all', 'incomplete'], ['Today', 'today', getDateFromToday()], ['Tomorrow', 'tomorrow', getDateFromToday(1)], ['This Week', 'week', getDateFromToday(6)], ['Completed', 'completed', 'completed']]
+        .map(([title, slug, targetVal]) => (
           <BannerItem
             key={title}
-            obj={<Count count={getCount(tasks, 'dueDate', endDate)}/>}
+            obj={<Count count={getCount(tasks, 'tasks', targetVal)}/>}
             handleClick={()=>{
               setListName(title)
               history.push(`/app/lists/${slug}`)

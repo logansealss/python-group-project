@@ -1,10 +1,14 @@
 import React from 'react';
 import { deleteSingleTask } from '../../../store/tasks';
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import moveIcon from '../../../img/ellipsis-vertical.svg';
+import { updateATask } from '../../../store/tasks';
+// import moveIcon from '../../../img/ellipsis-vertical.svg';
+import checkIcon from '../../../img/check.svg';
 import caretRight from '../../../img/caret-right.svg';
 import trashIcon from '../../../img/trash.svg';
+
 import './taskRowItem.css';
 
 export default function TaskRowItem({ task }) {
@@ -21,6 +25,13 @@ export default function TaskRowItem({ task }) {
         history.push(`/app/lists/${params.listId}`);
     }
 
+    const checkClick = (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        dispatch(updateATask(task.id, {name: task.name, completed:true}));
+        // history.push(`/app/lists/${params.listId}`);
+    }
+
     let priorityClassName = 'tri-prio-indi';
     if (task.priority === 1) {
         priorityClassName += ' tri-prio-high'
@@ -34,12 +45,15 @@ export default function TaskRowItem({ task }) {
         <div className='tri-main-div'>
             <img className='tri-move-grab' src={caretRight} />
             <div className={priorityClassName}></div>
-            {/* <div className='tri-checkbox-div'>
-                    <input
-                        className='tri-checkbox'
-                        type='checkbox'
+            <div
+                className='tri-check-btn-div'
+                onClick={checkClick}
+            >
+                    <img
+                        className='tri-check'
+                        src={checkIcon}
                     />
-                </div> */}
+                </div>
             <div className='tri-inner-grp'>
 
                 <span className='tri-task-name'>
