@@ -156,7 +156,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
 
         if (response && response.id) {
             for (let tagId of taskTags) {
-                dispatch(addTagToTask(response.id, +tagId))
+                await dispatch(addTagToTask(response.id, +tagId))
             }
         }
 

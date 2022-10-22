@@ -279,11 +279,11 @@ export default function TaskDetailPanel() {
         }
         
         for(let id of tagsToRemove){
-            dispatch(removeTagFromTask(task.id, id))
+            await dispatch(removeTagFromTask(task.id, id))
         }
 
         for(let id of tagsToAdd){
-            dispatch(addTagToTask(task.id, id))
+            await dispatch(addTagToTask(task.id, id))
         }
 
 
