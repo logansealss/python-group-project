@@ -158,6 +158,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
             for (let tagId of taskTags) {
                 await dispatch(addTagToTask(response.id, +tagId))
             }
+            closeForm();
         }
 
     }
