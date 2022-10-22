@@ -31,6 +31,10 @@ export default function TaskAppNav() {
         };
     };
 
+    function handleSubmit(e) {
+        e.preventDefault()
+    };
+
     useEffect(()=> {
         runSearch(searchInput)
     },[searchInput])
@@ -60,9 +64,13 @@ export default function TaskAppNav() {
                         className={`tan-search-mag-icon tan-search-icon-style ${searchIconFocusStyle}`}
                         src={magGlass}
                     />
-                    <form>
+                    <form onSubmit={(e)=>{
+                        e.preventDefault()
+                        document.getElementById('search-input-field').blur();
+                        }}>
                         <input
                             className='tan-search-input'
+                            id='search-input-field'
                             type='text'
                             value={searchInput}
                             onChange={(e) => {
