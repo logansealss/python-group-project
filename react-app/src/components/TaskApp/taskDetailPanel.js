@@ -4,11 +4,11 @@ import { useParams, Link } from 'react-router-dom';
 import { getSingleTask, updateATask, getAllTasks, addTagToTask, removeTagFromTask } from '../../store/tasks';
 
 import selectMenuTimes from '../../data/selectMenuTimes.json';
-import dueDateIcon from '../../img/calendar-day.svg';
-import startDateIcon from '../../img/square-caret-right.svg';
-import prioIcon from '../../img/exclamation.svg';
-import listIcon from '../../img/list.svg';
-import clockIcon from '../../img/clock.svg';
+// import dueDateIcon from '../../img/calendar-day.svg';
+// import startDateIcon from '../../img/square-caret-right.svg';
+// import prioIcon from '../../img/exclamation.svg';
+// import listIcon from '../../img/list.svg';
+// import clockIcon from '../../img/clock.svg';
 import editIcon from '../../img/pen-to-square.svg'
 // import postponeIcon from '../../img/calendar-plus.svg';
 // import repeatIcon from '../../img/rotate.svg';
@@ -82,8 +82,8 @@ export default function TaskDetailPanel() {
     }
 
     const datesValid = () => {
-        console.log(tdStartDate, tdDueDate)
-        if (tdStartDate && tdDueDate && tdDueTime) {
+        console.log('datesValid dates : ', tdStartDate, tdDueDate)
+        if (tdStartDate && tdStartTime && tdDueDate && tdDueTime) {
             console.log('conditional return: ', parseDateObj(tdStartDate, tdStartTime).getTime() <
                 parseDateObj(tdDueDate, tdDueTime).getTime())
             return parseDateObj(tdStartDate, tdStartTime).getTime() <
@@ -126,6 +126,7 @@ export default function TaskDetailPanel() {
 
     useEffect(() => {
         if (!datesValid()) {
+            console.log('datesvalid(): ', datesValid())
             setTdDueDate(tdStartDate)
             setTdDueTime(tdStartTime)
         }
@@ -155,8 +156,11 @@ export default function TaskDetailPanel() {
         if (hours > 12) {
             return `${(hours - 12)} ${mins} pm`;
         }
-        if (hours < 12) {
+        if (hours < 12 && hours > 0) {
             return `${hours}:${mins} am`;
+        }
+        if (hours === 0){
+            return `12:${mins} am`;
         }
     }
 
@@ -207,16 +211,50 @@ export default function TaskDetailPanel() {
     useEffect(() => {
 
         if (task) {
-            task.name && setTdTaskName(task.name);
-            setTdDueDate(task.dueDate ? task.dueDate.split(' ')[0] : '');
-            task.dueDate && setTdDueTime(task.dueDate.split(' ')[1]);
-            task.startDate && setTdStartDate(task.startDate.split(' ')[0]);
-            task.startDate && setTdStartTime(task.startDate.split(' ')[1]);
-            Number(task.listId) && setTdTaskList(Number(task.listId));
-            Number(task.priority) && setTdPrio(task.priority);
-            task.tags && setTdTaskTags(task.tags);
-            task.duration && setTdEstimate(task.duration);
-            task.note ? setTdNotes(task.note) : setTdNotes('');
+            if (task.name){
+                setTdTaskName(task.name);
+            } else setTdTaskName('');
+            if(task.dueDate){
+              setTdDueDate(task.dueDate.split(' ')[0]);
+              setTdDueTime(task.dueDate.split(' ')[1]);
+            } else {
+                setTdDueDate('');
+                setTdDueTime('');
+            }
+            if(task.startDate){
+                console.log('task.startDate: ', task.startDate)
+                setTdStartDate(task.startDate.split(' ')[0]);
+                setTdStartTime(task.startDate.split(' ')[1]);
+            } else {
+                console.log('NOT task.startDate: ', task.startDate)
+                setTdStartDate('');
+                setTdStartTime('');
+            }
+            if(Number(task.listId)){
+                setTdTaskList(Number(task.listId));
+            } else {
+                setTdTaskList('');
+            }
+            if(Number(task.priority)){
+                setTdPrio(Number(task.priority));
+            } else {
+                setTdPrio('');
+            }
+            if(task.tags && task.tags.length){
+                setTdTaskTags(task.tags);
+            } else {
+                setTdTaskTags([]);
+            }
+            if(task.duration){
+                setTdEstimate(task.duration);
+            } else {
+                setTdEstimate();
+            }
+            if(task.note){
+                setTdNotes(task.note);
+            } else {
+                setTdNotes('');
+            }
         }
     }, [task]);
 
@@ -254,7 +292,10 @@ export default function TaskDetailPanel() {
             data.priority = 0
         }
         if (tdStartDate.length && tdStartTime.length){
+            console.log('does this trigger?')
             data.start_date = tdStartDate + ' ' + tdStartTime
+        } else if (tdStartDate.length && !tdStartTime.length) {
+            data.start_date = tdStartDate + ' ' + '00:01:00'
         }
 
         if (tdDueDate.length && tdDueTime.length){
@@ -497,7 +538,7 @@ export default function TaskDetailPanel() {
                             Priority:
                         </p>
                         <p className='td-data-p'>
-                            {prios[tdPrio]}
+                            {tdPrio ? prios[tdPrio] : 'Not Assigned'}
                         </p>
                     </div>
                     <div className='td-label-div'>
