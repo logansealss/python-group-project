@@ -280,7 +280,11 @@ export default function TaskDetailPanel() {
     const handleUtSubmit = async (e) => {
         e.preventDefault();
 
-        const data = removeNullProperties(task);
+        // const data = removeNullProperties(task);
+        const data = {}
+        if(task.note){
+            data.note = task.note;
+        }
 
         if (tdTaskName.length) data.name = tdTaskName
 
@@ -548,7 +552,7 @@ export default function TaskDetailPanel() {
                             List:
                         </p>
                         {
-                            task.listId && lists[listId] ?
+                            task.listId && lists[task.listId] ?
                                 <p className='td-data-p'>
                                     <Link
                                         className='td-data-link'
