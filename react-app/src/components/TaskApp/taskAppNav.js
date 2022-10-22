@@ -21,13 +21,19 @@ export default function TaskAppNav() {
     const {expander, listName} = useContext(SidebarContext);
     const [expandSideBar, setExpandSideBar] = expander;
     const [currentListName, setListName] = listName;
-    function handlesearchSubmit(e) {
-        e.preventDefault()
+
+    function runSearch(searchInput) {
         const trimmedInput = searchInput.trim()
-        if(trimmedInput !== ''){
+        if (trimmedInput === '') {
+            history.push('/app/lists/all')
+        } else {
             history.push(`/app/search/${encodeURIComponent(trimmedInput.split(' ').filter(str => str !== '').join(' '))}`)
-        }
-    }
+        };
+    };
+
+    useEffect(()=> {
+        runSearch(searchInput)
+    },[searchInput])
 
     return (
         <div className='tan-main-div'>
@@ -54,12 +60,14 @@ export default function TaskAppNav() {
                         className={`tan-search-mag-icon tan-search-icon-style ${searchIconFocusStyle}`}
                         src={magGlass}
                     />
-                    <form onSubmit={handlesearchSubmit}>
+                    <form>
                         <input
                             className='tan-search-input'
                             type='text'
                             value={searchInput}
-                            onChange={(e) => setSearchInput(e.target.value)}
+                            onChange={(e) => {
+                                setSearchInput(e.target.value)
+                            }}
                             onFocus={() => {setSearchIconFocusStyle('tan-search-icon-focus-style')}}
                             onBlur={() => {setSearchIconFocusStyle('')}}
                         />
