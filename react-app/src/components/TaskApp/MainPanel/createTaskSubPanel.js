@@ -66,11 +66,11 @@ export default function CreateTaskSubPanel({ lists, tags }) {
 
     const datesValid = () => {
         console.log(startDate, dueDate)
-        if(startDate && dueDate && dueTime){
+        if (startDate && dueDate && dueTime) {
             console.log('conditional return: ', parseDateObj(startDate, startTime).getTime() <
-            parseDateObj(dueDate, dueTime).getTime())
-        return parseDateObj(startDate, startTime).getTime() <
-               parseDateObj(dueDate, dueTime).getTime()
+                parseDateObj(dueDate, dueTime).getTime())
+            return parseDateObj(startDate, startTime).getTime() <
+                parseDateObj(dueDate, dueTime).getTime()
         }
         console.log('default return true')
         return true;
@@ -79,7 +79,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
     const compareTimeToStart = (time) => {
         if (startDate === dueDate) {
             return parseDateObj(startDate, startTime).getTime() >
-            parseDateObj(startDate, time).getTime()
+                parseDateObj(startDate, time).getTime()
         } else {
             return false;
         }
@@ -88,7 +88,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
     const compareStartToCurrentTime = (time) => {
         if (startDate) {
             return parseDateObj(startDate, time).getTime() <
-            new Date().getTime();
+                new Date().getTime();
         }
         return false;
     }
@@ -102,15 +102,15 @@ export default function CreateTaskSubPanel({ lists, tags }) {
     }
 
     useEffect(() => {
-        if (!datesValid()){
+        if (!datesValid()) {
             setDueDate(startDate)
             setDueTime(startTime)
         }
 
-        if(!dueDate){
+        if (!dueDate) {
             setDueTime('');
         }
-        if(!startDate){
+        if (!startDate) {
             setStartTime('');
         }
 
@@ -145,13 +145,13 @@ export default function CreateTaskSubPanel({ lists, tags }) {
             console.log('true:', prio)
             data.priority = 0;
         }
-        if (startDate.length && startTime.length){
+        if (startDate.length && startTime.length) {
             data.start_date = startDate + ' ' + startTime
         } else if (startDate.length && !startTime.length) {
             data.start_date = startDate + ' ' + '00:01:00'
         }
 
-        if (dueDate.length && dueTime.length){
+        if (dueDate.length && dueTime.length) {
             data.due_date = dueDate + ' ' + dueTime
         } else if (dueDate.length && !dueTime.length) {
             data.due_date = dueDate + ' ' + '00:01:00'
@@ -216,6 +216,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                                         <option value=''>Start Time</option>
                                         {selectMenuTimes.map((option) =>
                                             <option
+                                                key={option.value}
                                                 value={option.value}
                                                 disabled={compareStartToCurrentTime(option.value)}
                                             >
@@ -244,6 +245,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                                         <option value=''>Due Time</option>
                                         {selectMenuTimes.map((option) =>
                                             <option
+                                                key={option.value}
                                                 value={option.value}
                                                 disabled={compareTimeToStart(option.value)}
                                             >
@@ -272,7 +274,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                                 >
                                     <option value=''>List</option>
                                     {Object.values(lists).map((l) =>
-                                        <option value={l.id}>{l.name}</option>
+                                        <option key={l.id} value={l.id}>{l.name}</option>
                                     )}
                                 </select>
                             </div>
