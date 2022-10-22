@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useRef, createRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {useHistory} from 'react-router-dom';
 
@@ -72,6 +72,9 @@ export default function TaskAppSidebar() {
   const [listsExpanded, setListsExpanded] = useState(false)
   const [tagsExpanded, setTagsExpanded] = useState(false)
 
+  const listRefs = useRef([])
+  const tagRefs = useRef([])
+
   useEffect(() => {
     dispatch(taskActions.getAllTasks())
     dispatch(listActions.getAllLists())
@@ -84,6 +87,14 @@ export default function TaskAppSidebar() {
 
 
   if (!tasks || !lists || !tags) return null
+
+  listRefs.current = Object.values(lists)
+    .map((_, i) => listRefs.current[i] ?? createRef());
+
+  tagRefs.current = Object.values(tags)
+    .map((_, i) => tagRefs.current[i] ?? createRef());
+
+  console.log("listRefs: ", listRefs.current)
 
   const items = {
     'Tasks': {
@@ -110,8 +121,10 @@ export default function TaskAppSidebar() {
       title: 'Lists',
       obj: <Plus  form={<CreateTagListForm/>} feature='list' thunk={listActions.createList}/>,
       children: Object.values(lists)
-        .map(list => (
+        .map((list, idx) => (
+          
           <BannerItem
+            ref={listRefs.current[idx]}
             key={list.id}
             obj={
               <>
@@ -125,9 +138,18 @@ export default function TaskAppSidebar() {
                 />
             </>
             }
-            handleClick={()=>{
-              setListName(list.name)
-              history.push(`/app/lists/${list.id}`)
+            handleClick={(e)=>{
+              
+              if(e.target.className == "dropdown_caret"){
+                return;
+              }
+
+              if(listRefs.current[idx].current.contains(e.target)){
+                setListName(list.name)
+                history.push(`/app/lists/${list.id}`)
+              }
+              // setListName(list.name)
+              // history.push(`/app/lists/${list.id}`)
             }}
             >
             {list.name}
@@ -139,8 +161,9 @@ export default function TaskAppSidebar() {
       expander: setTagsExpanded,
       title: 'Tags',
       obj: <Plus  form={<CreateTagListForm/>} feature='tag' thunk={tagActions.createTag}/>,
-      children: Object.values(tags).map(tag => (
+      children: Object.values(tags).map((tag, idx) => (
         <BannerItem
+        ref={tagRefs.current[idx]}
           key={tag.id}
           color={tag.color ? tag.color : '#006400'}
           obj={
@@ -153,11 +176,32 @@ export default function TaskAppSidebar() {
               />
             <Count count={getCount(tasks, 'tags', tag.id)}/>
           </>
-        }
-          handleClick={()=>{
+        }handleClick={(e)=>{
+              
+          if(e.target.className == "dropdown_caret"){
+            return;
+          }
+
+          if(tagRefs.current[idx].current.contains(e.target)){
             setListName(tag.name)
             history.push(`/app/tags/${tag.id}`)
-          }}
+          }
+          // setListName(list.name)
+          // history.push(`/app/lists/${list.id}`)
+        }}
+
+
+
+          // handleClick={(e)=>{
+          //   console.log("event classname: ", e.target.className)
+          //   if(e.target.className !== "dropdown_caret" && e.target.className != "sidebar_dropdown_button"){
+          //     console.log("classnames don't match")
+          //     setListName(tag.name)
+          //     history.push(`/app/tags/${tag.id}`)
+          //   }
+            // setListName(tag.name)
+            // history.push(`/app/tags/${tag.id}`)
+          // }}
           >
           {tag.name}
         </BannerItem>))
