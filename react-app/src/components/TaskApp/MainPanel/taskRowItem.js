@@ -8,6 +8,8 @@ import { updateATask } from '../../../store/tasks';
 import checkIcon from '../../../img/check.svg';
 import caretRight from '../../../img/caret-right.svg';
 import trashIcon from '../../../img/trash.svg';
+import removeNullProperties from '../../../utils/updateFunction';
+
 
 import './taskRowItem.css';
 
@@ -30,7 +32,8 @@ export default function TaskRowItem({ task }) {
     const checkClick = (e) => {
         e.stopPropagation();
         e.preventDefault();
-        dispatch(updateATask(task.id, { ...task, completed: !task.completed }));
+
+        dispatch(updateATask(task.id, { ...removeNullProperties(task), completed: !task.completed }));
 
         // dispatch(updateATask(task.id, { name: task.name, completed: !task.completed }));
         // history.push(`/app/lists/${params.listId}`);

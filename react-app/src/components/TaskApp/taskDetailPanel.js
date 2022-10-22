@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import { getSingleTask, updateATask, getAllTasks, addTagToTask, removeTagFromTask } from '../../store/tasks';
+import removeNullProperties from '../../utils/updateFunction';
 
 import selectMenuTimes from '../../data/selectMenuTimes.json';
 import dueDateIcon from '../../img/calendar-day.svg';
@@ -224,10 +225,8 @@ export default function TaskDetailPanel() {
     const updateNotes = async (e) => {
         e.preventDefault();
 
-        const data = {
-            ...task,
-            note: tdNotes,
-        }
+        const data = removeNullProperties(task);
+        data.note = tdNotes;
 
         const res = await dispatch(updateATask(task.id, data));
 
@@ -243,7 +242,7 @@ export default function TaskDetailPanel() {
     const handleUtSubmit = async (e) => {
         e.preventDefault();
 
-        const data = {...task}
+        const data = removeNullProperties(task);
 
         if (tdTaskName.length) data.name = tdTaskName
 
@@ -502,7 +501,7 @@ export default function TaskDetailPanel() {
                             List:
                         </p>
                         {
-                            task.listId ?
+                            task.listId && lists[listId] ?
                                 <p className='td-data-p'>
                                     <Link
                                         className='td-data-link'
@@ -531,14 +530,14 @@ export default function TaskDetailPanel() {
                         </p>
 
                         {task.tags && task.tags.map((tagId) =>
-
+                            tags[tagId] ? (
                             <Link className='td-data-link' to={`/app/tags/${tagId}`}>
                                 <div className={'td-tag'}
                                     style={{ color: 'white', backgroundColor: tags[String(tagId)].color }}
                                 >
                                     {tags[tagId.toString()].name}
                                 </div>
-                            </Link>
+                            </Link>) : null
                         )}
                     </div>
                     <div className='td-label-div-notes'>

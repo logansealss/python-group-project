@@ -93,7 +93,7 @@ export default function TaskAppNav() {
                     <div className='tan-settings-dropdown-menu'>
                         <div id="dropdown-profile">
                             <div id="dropdown-profile-pic">
-                                <img src={profilePic}/>
+                                <img src={profilePic} />
                             </div>
                             <div id="dropdown-profile-info">
                                 <div>
