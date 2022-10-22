@@ -145,10 +145,17 @@ export default function CreateTaskSubPanel({ lists, tags }) {
             console.log('true:', prio)
             data.priority = 0;
         }
-        if (startDate.length && startTime.length)
-            data.start_date = startDate + ' ' + startTime;
-        if (dueDate.length && dueTime.length)
-            data.due_date = dueDate + ' ' + dueTime;
+        if (startDate.length && startTime.length){
+            data.start_date = startDate + ' ' + startTime
+        } else if (startDate.length && !startTime.length) {
+            data.start_date = startDate + ' ' + '00:01:00'
+        }
+
+        if (dueDate.length && dueTime.length){
+            data.due_date = dueDate + ' ' + dueTime
+        } else if (dueDate.length && !dueTime.length) {
+            data.due_date = dueDate + ' ' + '00:01:00'
+        }
         if (Number(taskList)) data.list_id = taskList;
         if (Number(estimate)) data.duration = Math.ceil(estimate * estimateUnit);
 
