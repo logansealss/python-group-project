@@ -9,6 +9,7 @@
   transform: translateY(0);
   transition-property: transform, min-width, width;
   transition-duration: 1s, 1s, 1s;
+  overflow-y: scroll;
 }
 
 #hidden {
