@@ -281,7 +281,7 @@ export default function TaskDetailPanel() {
     const handleUtSubmit = async (e) => {
         e.preventDefault();
 
-        const data = {...task}
+        const data = {}
 
         if (tdTaskName.length) data.name = tdTaskName
 
@@ -292,7 +292,6 @@ export default function TaskDetailPanel() {
             data.priority = 0
         }
         if (tdStartDate.length && tdStartTime.length){
-            console.log('does this trigger?')
             data.start_date = tdStartDate + ' ' + tdStartTime
         } else if (tdStartDate.length && !tdStartTime.length) {
             data.start_date = tdStartDate + ' ' + '00:01:00'
@@ -300,9 +299,13 @@ export default function TaskDetailPanel() {
 
         if (tdDueDate.length && tdDueTime.length){
             data.due_date = tdDueDate + ' ' + tdDueTime
+        } else if (tdDueDate.length && !tdDueTime.length) {
+            data.due_date = tdDueDate + ' ' + '00:01:00'
         }
+
         if (Number(tdTaskList)) data.list_id = Number(tdTaskList);
         if (Number(tdEstimate)) data.duration = Math.ceil(tdEstimate * tdEstimateUnit);
+
 
         const newTags = new Set(tdTaskTags.map(id => +id));
         const oldTags = new Set(task.tags)
