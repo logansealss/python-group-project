@@ -60,8 +60,8 @@ function getCount (tasks, targetFeature, targetValue) {
 
 export default function TaskAppSidebar() {
   const {expander, listName} = useContext(SidebarContext)
-  const [expandSideBar, setExpandSideBar] = expander;
-  const [currentListName, setListName] = listName
+  const [expandSideBar, _setExpandSideBar] = expander;
+  const [_currentListName, setListName] = listName
   const dispatch = useDispatch()
   const history = useHistory();
   const tasks = useSelector(state => state.tasks.allTasks)
