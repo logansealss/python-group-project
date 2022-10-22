@@ -30,7 +30,9 @@ export default function TaskRowItem({ task }) {
     const checkClick = (e) => {
         e.stopPropagation();
         e.preventDefault();
-        dispatch(updateATask(task.id, { name: task.name, completed: !task.completed }));
+        dispatch(updateATask(task.id, { ...task, completed: !task.completed }));
+
+        // dispatch(updateATask(task.id, { name: task.name, completed: !task.completed }));
         // history.push(`/app/lists/${params.listId}`);
     }
 

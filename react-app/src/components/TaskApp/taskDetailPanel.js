@@ -225,7 +225,7 @@ export default function TaskDetailPanel() {
         e.preventDefault();
 
         const data = {
-            name: tdTaskName,
+            ...task,
             note: tdNotes,
         }
 
@@ -243,7 +243,7 @@ export default function TaskDetailPanel() {
     const handleUtSubmit = async (e) => {
         e.preventDefault();
 
-        const data = {}
+        const data = {...task}
 
         if (tdTaskName.length) data.name = tdTaskName
 
