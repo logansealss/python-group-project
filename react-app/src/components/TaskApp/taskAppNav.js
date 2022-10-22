@@ -21,12 +21,20 @@ export default function TaskAppNav() {
     const {expander, listName} = useContext(SidebarContext);
     const [expandSideBar, setExpandSideBar] = expander;
     const [currentListName, setListName] = listName;
-    function runSearch(e) {
+
+    function runSearch(searchInput) {
         const trimmedInput = searchInput.trim()
-        if(trimmedInput !== ''){
+        if (trimmedInput === '') {
+            history.push('/app/lists/all')
+        } else {
             history.push(`/app/search/${encodeURIComponent(trimmedInput.split(' ').filter(str => str !== '').join(' '))}`)
-        }
-    }
+        };
+    };
+
+    useEffect(()=> {
+        console.log('search value:', searchInput)
+        runSearch(searchInput)
+    },[searchInput])
 
     return (
         <div className='tan-main-div'>
@@ -59,8 +67,10 @@ export default function TaskAppNav() {
                             type='text'
                             value={searchInput}
                             onChange={(e) => {
+                                console.log('target value:', e.target.value)
                                 setSearchInput(e.target.value)
-                                runSearch(e)
+
+
                             }}
                             onFocus={() => {setSearchIconFocusStyle('tan-search-icon-focus-style')}}
                             onBlur={() => {setSearchIconFocusStyle('')}}

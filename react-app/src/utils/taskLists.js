@@ -10,12 +10,12 @@ export function getDateFromToday(daysForward = 0) {
 
 function stringIncludesArr(string, arr) {
 
-    for (const testStr of arr) {
-        if (string.includes(testStr)) {
-            return true;
-        }
-    }
-    return false;
+    const lowercaseString = string.toLowerCase()
+
+    return arr.reduce((found, testStr) => {
+        if (!lowercaseString.includes(testStr.toLowerCase())) found = false
+        return found
+    }, true);
 }
 
 export function getListDetailsFromSearch(tasks, searchArr) {
