@@ -13,11 +13,11 @@ function stringIncludesArr(string, arr) {
     const lowercaseString = string.toLowerCase()
 
     for (const testStr of arr) {
-        if (lowercaseString.includes(testStr.toLowerCase())) {
-            return true;
+        if (!lowercaseString.includes(testStr.toLowerCase())) {
+            return false;
         }
     }
-    return false;
+    return true;
 }
 
 export function getListDetailsFromSearch(tasks, searchArr) {
