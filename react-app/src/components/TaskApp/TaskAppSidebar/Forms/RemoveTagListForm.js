@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 
 import * as listActions from '../../../../store/lists'
@@ -5,6 +6,8 @@ import * as tagActions from '../../../../store/tags'
 
 export default function RemoveTagListForm(props) {
   const dispatch = useDispatch()
+  const mountedRef = useRef(true)
+
   const actions = {
     'list': listActions.deleteList,
     'tag': tagActions.deleteTag
@@ -13,10 +16,14 @@ export default function RemoveTagListForm(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await dispatch(actions[props.feature](props.itemId));
-    if (response.ok) {
+    if (response.ok && mountedRef.current) {
       props.setShowModal(false);
     }
   };
+
+  useEffect(() => {
+    mountedRef.current = false
+  }, [])
 
 
   return (

@@ -2,13 +2,14 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import { getSingleTask, updateATask, getAllTasks, addTagToTask, removeTagFromTask } from '../../store/tasks';
+import removeNullProperties from '../../utils/updateFunction';
 
 import selectMenuTimes from '../../data/selectMenuTimes.json';
-import dueDateIcon from '../../img/calendar-day.svg';
-import startDateIcon from '../../img/square-caret-right.svg';
-import prioIcon from '../../img/exclamation.svg';
-import listIcon from '../../img/list.svg';
-import clockIcon from '../../img/clock.svg';
+// import dueDateIcon from '../../img/calendar-day.svg';
+// import startDateIcon from '../../img/square-caret-right.svg';
+// import prioIcon from '../../img/exclamation.svg';
+// import listIcon from '../../img/list.svg';
+// import clockIcon from '../../img/clock.svg';
 import editIcon from '../../img/pen-to-square.svg'
 // import postponeIcon from '../../img/calendar-plus.svg';
 // import repeatIcon from '../../img/rotate.svg';
@@ -82,15 +83,11 @@ export default function TaskDetailPanel() {
     }
 
     const datesValid = () => {
-        console.log(tdStartDate, tdDueDate)
-        if (tdStartDate && tdDueDate && tdDueTime) {
-            console.log('conditional return: ', parseDateObj(tdStartDate, tdStartTime).getTime() <
-                parseDateObj(tdDueDate, tdDueTime).getTime())
+        if (tdStartDate && tdStartTime && tdDueDate && tdDueTime) {
             return parseDateObj(tdStartDate, tdStartTime).getTime() <
                 parseDateObj(tdDueDate, tdDueTime).getTime()
         }
-        console.log('default return true')
-        return true;
+        return false;
     }
 
     const compareTimeToStart = (time) => {
@@ -153,10 +150,15 @@ export default function TaskDetailPanel() {
         const hours = Number(timeArr[0]);
         const mins = timeArr[1];
         if (hours > 12) {
-            return `${(hours - 12)} ${mins} pm`;
+            return `${(hours - 12)}:${mins} pm`;
         }
-        if (hours < 12) {
+        if (hours < 12 && hours > 0) {
             return `${hours}:${mins} am`;
+        }
+        if (hours === 0 && mins){
+            return `12:${mins} am`;
+        } else {
+            return `12:01 am`
         }
     }
 
@@ -207,16 +209,48 @@ export default function TaskDetailPanel() {
     useEffect(() => {
 
         if (task) {
-            task.name && setTdTaskName(task.name);
-            task.dueDate && setTdDueDate(task.dueDate.split(' ')[0]);
-            task.dueDate && setTdDueTime(task.dueDate.split(' ')[1]);
-            task.startDate && setTdStartDate(task.startDate.split(' ')[0]);
-            task.startDate && setTdStartTime(task.startDate.split(' ')[1]);
-            Number(task.listId) && setTdTaskList(Number(task.listId));
-            Number(task.priority) && setTdPrio(task.priority);
-            task.tags && setTdTaskTags(task.tags);
-            task.duration && setTdEstimate(task.duration);
-            task.note ? setTdNotes(task.note) : setTdNotes('');
+            if (task.name){
+                setTdTaskName(task.name);
+            } else setTdTaskName('');
+            if(task.dueDate){
+              setTdDueDate(task.dueDate.split(' ')[0]);
+              setTdDueTime(task.dueDate.split(' ')[1]);
+            } else {
+                setTdDueDate('');
+                setTdDueTime('');
+            }
+            if(task.startDate){
+                setTdStartDate(task.startDate.split(' ')[0]);
+                setTdStartTime(task.startDate.split(' ')[1]);
+            } else {
+                setTdStartDate('');
+                setTdStartTime('');
+            }
+            if(Number(task.listId)){
+                setTdTaskList(Number(task.listId));
+            } else {
+                setTdTaskList('');
+            }
+            if(Number(task.priority)){
+                setTdPrio(Number(task.priority));
+            } else {
+                setTdPrio('');
+            }
+            if(task.tags && task.tags.length){
+                setTdTaskTags(task.tags);
+            } else {
+                setTdTaskTags([]);
+            }
+            if(task.duration){
+                setTdEstimate(task.duration);
+            } else {
+                setTdEstimate();
+            }
+            if(task.note){
+                setTdNotes(task.note);
+            } else {
+                setTdNotes('');
+            }
         }
     }, [task]);
 
@@ -224,10 +258,8 @@ export default function TaskDetailPanel() {
     const updateNotes = async (e) => {
         e.preventDefault();
 
-        const data = {
-            name: tdTaskName,
-            note: tdNotes,
-        }
+        const data = removeNullProperties(task);
+        data.note = tdNotes;
 
         const res = await dispatch(updateATask(task.id, data));
 
@@ -237,13 +269,16 @@ export default function TaskDetailPanel() {
     }
 
     useEffect(() => {
-        console.log(`tdprio: ${tdPrio}`)
     }, [tdPrio])
 
     const handleUtSubmit = async (e) => {
         e.preventDefault();
 
+        // const data = removeNullProperties(task);
         const data = {}
+        if(task.note){
+            data.note = task.note;
+        }
 
         if (tdTaskName.length) data.name = tdTaskName
 
@@ -253,12 +288,21 @@ export default function TaskDetailPanel() {
         } else {
             data.priority = 0
         }
-        if (tdStartDate.length && tdStartTime.length)
+        if (tdStartDate.length && tdStartTime.length){
             data.start_date = tdStartDate + ' ' + tdStartTime
-        if (tdDueDate.length && tdDueTime.length)
+        } else if (tdStartDate.length && !tdStartTime.length) {
+            data.start_date = tdStartDate + ' ' + '00:01:00'
+        }
+
+        if (tdDueDate.length && tdDueTime.length){
             data.due_date = tdDueDate + ' ' + tdDueTime
+        } else if (tdDueDate.length && !tdDueTime.length) {
+            data.due_date = tdDueDate + ' ' + '00:01:00'
+        }
+
         if (Number(tdTaskList)) data.list_id = Number(tdTaskList);
         if (Number(tdEstimate)) data.duration = Math.ceil(tdEstimate * tdEstimateUnit);
+
 
         const newTags = new Set(tdTaskTags.map(id => +id));
         const oldTags = new Set(task.tags)
@@ -277,17 +321,16 @@ export default function TaskDetailPanel() {
                 tagsToRemove.push(id)
             }
         }
-        
+
         for(let id of tagsToRemove){
-            dispatch(removeTagFromTask(task.id, id))
+            await dispatch(removeTagFromTask(task.id, id))
         }
 
         for(let id of tagsToAdd){
-            dispatch(addTagToTask(task.id, id))
+            await dispatch(addTagToTask(task.id, id))
         }
 
 
-        console.log('form data: ', data);
         const res = (dispatch(updateATask(task.id, data)))
         // await dispatch(getSingleTask(task.id));
         // await dispatch(getAllTasks());
@@ -494,7 +537,7 @@ export default function TaskDetailPanel() {
                             Priority:
                         </p>
                         <p className='td-data-p'>
-                            {prios[tdPrio]}
+                            {tdPrio ? prios[tdPrio] : 'Not Assigned'}
                         </p>
                     </div>
                     <div className='td-label-div'>
@@ -502,7 +545,7 @@ export default function TaskDetailPanel() {
                             List:
                         </p>
                         {
-                            task.listId ?
+                            task.listId && lists[task.listId] ?
                                 <p className='td-data-p'>
                                     <Link
                                         className='td-data-link'
@@ -531,14 +574,14 @@ export default function TaskDetailPanel() {
                         </p>
 
                         {task.tags && task.tags.map((tagId) =>
-
+                            tags[tagId] ? (
                             <Link className='td-data-link' to={`/app/tags/${tagId}`}>
                                 <div className={'td-tag'}
                                     style={{ color: 'white', backgroundColor: tags[String(tagId)].color }}
                                 >
                                     {tags[tagId.toString()].name}
                                 </div>
-                            </Link>
+                            </Link>) : null
                         )}
                     </div>
                     <div className='td-label-div-notes'>

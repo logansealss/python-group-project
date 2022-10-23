@@ -1,10 +1,10 @@
-.tan-main-div{
+.tan-main-div {
     position: relative;
-    z-index:99;
+    z-index: 99;
     top: 0;
     left: 0;
     display: grid;
-    grid-template-columns: minmax(10px,auto) 3fr 3fr 10px;
+    grid-template-columns: minmax(10px, auto) 3fr 3fr 10px;
     grid-template-rows: 40px;
     /* flex-direction: row; */
     /* justify-content: space-between; */
@@ -17,9 +17,10 @@
 
 @media screen and (max-width: 1020px) {
     .tan-main-div {
-        grid-template-columns: minmax(10px,auto) 6fr 10px;
+        grid-template-columns: minmax(10px, auto) 6fr 10px;
     }
 }
+
 .tan-left-container {
     margin-left: 5px;
     margin-right: 5px;
@@ -29,7 +30,7 @@
     display: flex;
     justify-content: start;
     align-items: center;
-    color: rgb(179,177,203);
+    color: rgb(179, 177, 203);
     height: 30px;
     border-radius: 4px;
     width: fit-content;
@@ -73,14 +74,15 @@
     min-width: 0;
 }
 
-.tan-icon-style{
+.tan-icon-style {
     filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(345deg) brightness(105%) contrast(101%);
     opacity: 0.55;
 }
 
 .tan-search-icon-style {
     filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(345deg) brightness(105%) contrast(101%);
-    opacity: 0.55;align-self: start;
+    opacity: 0.55;
+    align-self: start;
     transition-duration: .5s;
 }
 
@@ -91,7 +93,7 @@
 }
 
 
-.tan-hamburger-icon{
+.tan-hamburger-icon {
     grid-column-start: 1;
     height: 20px;
     width: 20px;
@@ -105,7 +107,7 @@
     /* min-width: 420px; */
 }
 
-.tan-search-pseudo-input{
+.tan-search-pseudo-input {
     /* position: relative; */
     display: flex;
     justify-self: start;
@@ -118,13 +120,13 @@
     transition-duration: .5s;
 }
 
-.tan-search-input:focus-within{
+.tan-search-input:focus-within {
     background-color: #fff;
     color: #333;
     transition-duration: .5s;
 }
 
-.tan-search-mag-icon{
+.tan-search-mag-icon {
     position: absolute;
     align-self: center;
     justify-self: start;
@@ -141,7 +143,7 @@
     height: 100%;
 }
 
-.tan-search-input{
+.tan-search-input {
     /* position: absolute; */
     left: 45px;
     top: 1px;
@@ -159,26 +161,26 @@
     border-radius: 4px;
 }
 
-.tan-search-input:hover:not(:focus){
+.tan-search-input:hover:not(:focus) {
     background-color: #6562A6;
     transition-duration: 0.5s;
 }
 
-.tan-search-down-caret-icon{
+.tan-search-down-caret-icon {
     /* position: absolute; */
-    align-self:center;
+    align-self: center;
     right: 10px;
     top: 6.25px;
     height: 15px;
     width: auto;
 }
 
-.tan-settings-icon-grp{
+.tan-settings-icon-grp {
     grid-column-start: 3;
     justify-self: end;
     padding: 5px;
     border-radius: 5px;
-    display:flex;
+    display: flex;
     flex-direction: row;
     align-items: center;
     column-gap: 5px;
@@ -189,48 +191,76 @@
     cursor: pointer;
     background-color: hsl(243, 26%, 30%);
     transition-duration: 0.5s;
-  }
+}
 
-.tan-settings-gear-icon{
+.tan-settings-gear-icon {
     height: 24px;
     width: auto;
 }
-.tan-settings-down-caret-icon{
+
+.tan-settings-down-caret-icon {
     height: 15px;
     width: auto;
 }
 
 .tan-settings-dropdown-menu {
-    position:absolute;
+    position: absolute;
     transform: translateX(-100%);
     z-index: 1;
 
     width: 200px;
-    height:50px;
+    height: 50px;
 
-    border-radius: 8px;
+    border-radius: 3px;
     background-color: white;
     box-shadow: 0 1px 4px 1px rgb(0 0 0 / 20%);
 
     width: max-content;
-    min-width: 120px;
+    min-width: 200px;
 
     height: max-content;
-    padding: 8px 0;
+    padding: 6px 0 9px 0;
 
-    display:flex;
+    display: flex;
     flex-direction: column;
 
-  }
+    font-size: .8125rem;
+    line-height: 1.25rem;
+}
+
+.tan-settings-dropdown-menu > div{
+    padding: 3px 15px;
+}
+
+#dropdown-profile{
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid #ebebeb;
+}
+
+#dropdown-profile:hover{
+    cursor: default;
+}
+
+#dropdown-profile-pic img{
+    height: 40px;
+    width: 47.5px;
+    border-radius: 3px;
+}
+
+#dropdown-profile-info{
+    margin-left: 5px;
+}
+
+#dropdown-profile-signout{
+    margin-top: 9px;
+}
 
 .tan-dropdown-button {
-font-size: 14px;
-height: 20px;
-padding: 0px 8px;
-padding-top: 3px;
+    padding: 3px 15px;
 }
 
 .tan-dropdown-button:hover {
-    background-color: hsl(240,26%,84%);
+    background-color: hsl(240, 26%, 84%);
     cursor: pointer;
-  }
+}

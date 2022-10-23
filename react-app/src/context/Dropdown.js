@@ -41,27 +41,24 @@ export function DropdownProvider(props) {
 }
 
 export default function DropDownWrapper(props) {
-  const {showMenu, setShowMenu} = useContext(DropdownContext)
+  const {location, showMenu, setShowMenu} = useContext(DropdownContext)
   const [anyDropDownsOpen, setAnyDropDownsOpen] = useContext(GlobalDropDownContext)
 
-  const closeMenu = () => {
-    // console.log('closing menu')
-    setShowMenu(false);
-    // console.log('setting global dropdowns to closed')
-    setAnyDropDownsOpen(null)
+  const closeMenu = (e) => {
+
+    if((e && !location.contains(e.target)) 
+      || (props.closeOnClick && e && location.contains(e.target) && !e.target.parentNode.isSameNode(location))){
+      setShowMenu(false);
+      setAnyDropDownsOpen(null)
+    }
   };
 
   const openMenu = (e) => {
-    e.stopPropagation();
-    // console.log('in open menu')
     if (anyDropDownsOpen) {
-      // console.log('another dropdown is open')
       anyDropDownsOpen()
     };
-    // console.log('opening menu')
     setShowMenu(true);
     setAnyDropDownsOpen((val)=>closeMenu)
-    // console.log('adding to global dropdown context')
   };
 
 

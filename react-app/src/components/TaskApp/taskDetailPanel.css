@@ -9,7 +9,18 @@
     background-color: white;
     border-left: 2px solid #aaa;
     border-radius: 6px;
+    overflow-y: scroll;
 }
+
+.tad-main-panel::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .tad-main-panel {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
 
 
 .tad-main-div{
@@ -552,7 +563,6 @@
     padding-left: 10px;
     padding-right: 10px;
     font-size: 16px;
-    overflow: scroll;
 }
 
 .td-label-div-notes{

@@ -23,15 +23,17 @@ export default function CreateTaskSubPanel({ lists, tags }) {
 
     const params = useParams();
     const dispatch = useDispatch();
-    const { listId } = params;
+    const { filterId, listId } = params;
+
+
+    const [taskList, setTaskList] = useState('');
+    const [taskTags, setTaskTags] = useState([]);
     const [taskName, setTaskName] = useState('');
     const [dueDate, setDueDate] = useState('');
     const [dueTime, setDueTime] = useState('');
     const [startDate, setStartDate] = useState('');
     const [startTime, setStartTime] = useState('');
-    const [taskList, setTaskList] = useState(listId);
     const [prio, setPrio] = useState('');
-    const [taskTags, setTaskTags] = useState([]);
     const [estimate, setEstimate] = useState('');
     const [estimateUnit, setEstimateUnit] = useState(1)
     const [renderCtForm, setRenderCtForm] = useState(false);
@@ -45,13 +47,11 @@ export default function CreateTaskSubPanel({ lists, tags }) {
 
 
     const openForm = () => {
-        console.log('openForm');
         setRenderCtForm(true);
         formDiv.style.height = '340px'
     }
 
     const closeForm = () => {
-        console.log('closeForm')
         setRenderCtForm(false);
         formDiv.style.height = '0px';
     }
@@ -65,21 +65,17 @@ export default function CreateTaskSubPanel({ lists, tags }) {
     }
 
     const datesValid = () => {
-        console.log(startDate, dueDate)
-        if(startDate && dueDate && dueTime){
-            console.log('conditional return: ', parseDateObj(startDate, startTime).getTime() <
-            parseDateObj(dueDate, dueTime).getTime())
-        return parseDateObj(startDate, startTime).getTime() <
-               parseDateObj(dueDate, dueTime).getTime()
+        if (startDate && dueDate && dueTime) {
+            return parseDateObj(startDate, startTime).getTime() <
+                parseDateObj(dueDate, dueTime).getTime()
         }
-        console.log('default return true')
         return true;
     }
 
     const compareTimeToStart = (time) => {
         if (startDate === dueDate) {
             return parseDateObj(startDate, startTime).getTime() >
-            parseDateObj(startDate, time).getTime()
+                parseDateObj(startDate, time).getTime()
         } else {
             return false;
         }
@@ -88,7 +84,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
     const compareStartToCurrentTime = (time) => {
         if (startDate) {
             return parseDateObj(startDate, time).getTime() <
-            new Date().getTime();
+                new Date().getTime();
         }
         return false;
     }
@@ -101,16 +97,41 @@ export default function CreateTaskSubPanel({ lists, tags }) {
         ].join('-');
     }
 
+    function resetTaskListTaskTags(){
+
+        let newList = ''
+        let newTags = [];
+
+        if (filterId === "tags") {
+            if (tags[listId]) {
+                newTags = [listId]
+            }
+        }else if(filterId === 'lists'){
+            if(lists[listId]){
+                newList = listId
+            }
+        }
+
+        setTaskList(newList)
+        setTaskTags(newTags)
+    }
+
     useEffect(() => {
-        if (!datesValid()){
+
+        resetTaskListTaskTags()
+
+    }, [filterId, listId])
+
+    useEffect(() => {
+        if (!datesValid()) {
             setDueDate(startDate)
             setDueTime(startTime)
         }
 
-        if(!dueDate){
+        if (!dueDate) {
             setDueTime('');
         }
-        if(!startDate){
+        if (!startDate) {
             setStartTime('');
         }
 
@@ -139,16 +160,21 @@ export default function CreateTaskSubPanel({ lists, tags }) {
 
         if (taskName.length) data.name = taskName
         if (Number(prio) && prio >= 0 && prio <= 3) {
-            console.log('true:', prio)
             data.priority = prio;
         } else {
-            console.log('true:', prio)
             data.priority = 0;
         }
-        if (startDate.length && startTime.length)
-            data.start_date = startDate + ' ' + startTime;
-        if (dueDate.length && dueTime.length)
-            data.due_date = dueDate + ' ' + dueTime;
+        if (startDate.length && startTime.length) {
+            data.start_date = startDate + ' ' + startTime
+        } else if (startDate.length && !startTime.length) {
+            data.start_date = startDate + ' ' + '00:01:00'
+        }
+
+        if (dueDate.length && dueTime.length) {
+            data.due_date = dueDate + ' ' + dueTime
+        } else if (dueDate.length && !dueTime.length) {
+            data.due_date = dueDate + ' ' + '00:01:00'
+        }
         if (Number(taskList)) data.list_id = taskList;
         if (Number(estimate)) data.duration = Math.ceil(estimate * estimateUnit);
 
@@ -156,8 +182,20 @@ export default function CreateTaskSubPanel({ lists, tags }) {
 
         if (response && response.id) {
             for (let tagId of taskTags) {
-                dispatch(addTagToTask(response.id, +tagId))
+                await dispatch(addTagToTask(response.id, +tagId))
             }
+            setTaskName('');
+            setDueDate('')
+            setDueTime('')
+            setStartDate('')
+            setStartTime('')
+            setPrio('')
+            setEstimate('')
+            setEstimateUnit(1)
+
+            resetTaskListTaskTags()
+
+            closeForm();
         }
 
     }
@@ -208,6 +246,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                                         <option value=''>Start Time</option>
                                         {selectMenuTimes.map((option) =>
                                             <option
+                                                key={option.value}
                                                 value={option.value}
                                                 disabled={compareStartToCurrentTime(option.value)}
                                             >
@@ -236,6 +275,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                                         <option value=''>Due Time</option>
                                         {selectMenuTimes.map((option) =>
                                             <option
+                                                key={option.value}
                                                 value={option.value}
                                                 disabled={compareTimeToStart(option.value)}
                                             >
@@ -264,7 +304,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                                 >
                                     <option value=''>List</option>
                                     {Object.values(lists).map((l) =>
-                                        <option value={l.id}>{l.name}</option>
+                                        <option key={l.id} value={l.id}>{l.name}</option>
                                     )}
                                 </select>
                             </div>

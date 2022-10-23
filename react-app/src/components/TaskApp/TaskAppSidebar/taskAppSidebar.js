@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useRef, createRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {useHistory} from 'react-router-dom';
 
@@ -34,12 +34,12 @@ function getCount (tasks, targetFeature, targetValue) {
             },0);
         default:
           return Object.values(tasks)
-            .reduce((count,task)=>{
-              if (
-                task[targetFeature]?.slice(0, 10) >= getDateFromToday()
-                && task[targetFeature]?.slice(0, 10) <= targetValue
-                && !task['completed']
-                ) count++;
+          .reduce((count,task)=>{
+            if (
+              task['dueDate']?.slice(0, 10) >= getDateFromToday()
+              && task['dueDate']?.slice(0, 10) <= targetValue
+              && !task['completed']
+              ) count++;
               return count
             },0);
       }
@@ -60,8 +60,8 @@ function getCount (tasks, targetFeature, targetValue) {
 
 export default function TaskAppSidebar() {
   const {expander, listName} = useContext(SidebarContext)
-  const [expandSideBar, setExpandSideBar] = expander;
-  const [currentListName, setListName] = listName
+  const [expandSideBar, _setExpandSideBar] = expander;
+  const [_currentListName, setListName] = listName
   const dispatch = useDispatch()
   const history = useHistory();
   const tasks = useSelector(state => state.tasks.allTasks)
@@ -71,6 +71,11 @@ export default function TaskAppSidebar() {
   const [allTasksExpanded, setAllTasksExpanded] = useState(false)
   const [listsExpanded, setListsExpanded] = useState(false)
   const [tagsExpanded, setTagsExpanded] = useState(false)
+
+  const listRefs = useRef([])
+  const listCaretRefs = useRef([])
+  const tagRefs = useRef([])
+  const tagCaretRefs = useRef([])
 
   useEffect(() => {
     dispatch(taskActions.getAllTasks())
@@ -84,6 +89,21 @@ export default function TaskAppSidebar() {
 
 
   if (!tasks || !lists || !tags) return null
+
+  listRefs.current = Object.values(lists)
+    .map((_, i) => listRefs.current[i] ?? createRef());
+
+  listCaretRefs.current = Object.values(lists)
+    .map((_, i) => listCaretRefs.current[i] ?? createRef());
+
+  tagRefs.current = Object.values(tags)
+    .map((_, i) => tagRefs.current[i] ?? createRef());
+
+  tagCaretRefs.current = Object.values(tags)
+    .map((_, i) => tagCaretRefs.current[i] ?? createRef());
+
+
+
 
   const items = {
     'Tasks': {
@@ -110,12 +130,15 @@ export default function TaskAppSidebar() {
       title: 'Lists',
       obj: <Plus  form={<CreateTagListForm/>} feature='list' thunk={listActions.createList}/>,
       children: Object.values(lists)
-        .map(list => (
+        .map((list, idx) => (
+
           <BannerItem
+            ref={listRefs.current[idx]}
             key={list.id}
             obj={
               <>
               <DownCaret
+                ref={listCaretRefs.current[idx]}
                 itemId={list.id}
                 name={list.name}
                 feature='list'
@@ -125,9 +148,18 @@ export default function TaskAppSidebar() {
                 />
             </>
             }
-            handleClick={()=>{
-              setListName(list.name)
-              history.push(`/app/lists/${list.id}`)
+            handleClick={(e)=>{
+
+              if(e.target.isSameNode(listCaretRefs.current[idx].current)){
+                return;
+              }
+
+              if(listRefs.current[idx].current.contains(e.target)){
+                setListName(list.name)
+                history.push(`/app/lists/${list.id}`)
+              }
+              // setListName(list.name)
+              // history.push(`/app/lists/${list.id}`)
             }}
             >
             {list.name}
@@ -139,13 +171,15 @@ export default function TaskAppSidebar() {
       expander: setTagsExpanded,
       title: 'Tags',
       obj: <Plus  form={<CreateTagListForm/>} feature='tag' thunk={tagActions.createTag}/>,
-      children: Object.values(tags).map(tag => (
+      children: Object.values(tags).map((tag, idx) => (
         <BannerItem
+        ref={tagRefs.current[idx]}
           key={tag.id}
           color={tag.color ? tag.color : '#006400'}
           obj={
             <>
             <DownCaret
+              ref={tagCaretRefs.current[idx]}
               itemId={tag.id}
               name={tag.name}
               color={tag.color}
@@ -153,11 +187,17 @@ export default function TaskAppSidebar() {
               />
             <Count count={getCount(tasks, 'tags', tag.id)}/>
           </>
-        }
-          handleClick={()=>{
+        }handleClick={(e)=>{
+
+          if(e.target.isSameNode(tagCaretRefs.current[idx].current)){
+            return;
+          }
+
+          if(tagRefs.current[idx].current.contains(e.target)){
             setListName(tag.name)
             history.push(`/app/tags/${tag.id}`)
-          }}
+          }
+        }}
           >
           {tag.name}
         </BannerItem>))
