@@ -237,4 +237,4 @@ export function getListDetails({listId, filterId}, tasks, lists, tags) {
     }
 
     return listDetails
-}
+};

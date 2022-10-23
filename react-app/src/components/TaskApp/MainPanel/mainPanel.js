@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouteMatch, useParams, Redirect, Link } from 'react-router-dom';
 
@@ -7,30 +7,26 @@ import { getAllTasks } from '../../../store/tasks';
 import TaskRowItem from './taskRowItem';
 import CreateTaskSubPanel from './createTaskSubPanel';
 import { getListDetails } from '../../../utils/taskLists'
+import { SidebarContext } from '../../../context/Sidebar';
 import './mainPanel.css';
 
 export default function MainPanel() {
-
-    const { path, url } = useRouteMatch();
+    const {listName} = useContext(SidebarContext);
+    const [_listName, setListName] = listName;
     const params = useParams();
 
     const dispatch = useDispatch();
-    const tasks = useSelector(state => {
-        return state.tasks.allTasks;
-    });
-    const tags = useSelector(state => {
-        return state.tags;
-    });
-    const lists = useSelector(state => {
-        return state.lists;
-    });
+    const tasks = useSelector(state =>state.tasks.allTasks);
+    const tags = useSelector(state => state.tags);
+    const lists = useSelector(state =>state.lists);
+
 
     useEffect(() => {
         dispatch(getAllTasks());
     }, [dispatch]);
 
     let listDetails = getListDetails(params, tasks, lists, tags)
-
+    setListName(listDetails.name)
     if (typeof listDetails === "string") {
         return <Redirect to={listDetails}></Redirect>
     }
