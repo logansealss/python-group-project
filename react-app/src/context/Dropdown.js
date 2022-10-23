@@ -41,18 +41,36 @@ export function DropdownProvider(props) {
 }
 
 export default function DropDownWrapper(props) {
-  const {showMenu, setShowMenu} = useContext(DropdownContext)
+  const {location, showMenu, setShowMenu} = useContext(DropdownContext)
   const [anyDropDownsOpen, setAnyDropDownsOpen] = useContext(GlobalDropDownContext)
 
-  const closeMenu = () => {
-    // console.log('closing menu')
-    setShowMenu(false);
-    // console.log('setting global dropdowns to closed')
-    setAnyDropDownsOpen(null)
+  const closeMenu = (e) => {
+
+    // console.log("location ref: ", location)
+    // console.log("location contains target: ", e && location.contains(e.target))
+    // console.log("parent elementof event target: ", e && e.target.parentNode)
+    // console.log("target ", e && e.target)
+    // console.log("close on click ", props.closeOnClick)
+    // console.log("parent of target is location node", e.target.parentNode.isSameNode(location))
+
+    if((e && !location.contains(e.target)) 
+      || (props.closeOnClick && e && location.contains(e.target) && !e.target.parentNode.isSameNode(location))){
+      setShowMenu(false);
+      setAnyDropDownsOpen(null)
+    }
+
+    // if(e && (!location.contains(e.target) || e.target.innerText == "Update" || e.target.innerText == "Delete")){
+    //   setShowMenu(false);
+    //   setAnyDropDownsOpen(null)
+    // }
+    // // console.log('closing menu')
+    // setShowMenu(false);
+    // // console.log('setting global dropdowns to closed')
+    // setAnyDropDownsOpen(null)
   };
 
   const openMenu = (e) => {
-    e.stopPropagation();
+    // e.stopPropagation();
     // console.log('in open menu')
     if (anyDropDownsOpen) {
       // console.log('another dropdown is open')

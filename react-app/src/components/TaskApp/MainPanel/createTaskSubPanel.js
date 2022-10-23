@@ -256,6 +256,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                                         <option value=''>Start Time</option>
                                         {selectMenuTimes.map((option) =>
                                             <option
+                                                key={option.value}
                                                 value={option.value}
                                                 disabled={compareStartToCurrentTime(option.value)}
                                             >
@@ -284,6 +285,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                                         <option value=''>Due Time</option>
                                         {selectMenuTimes.map((option) =>
                                             <option
+                                                key={option.value}
                                                 value={option.value}
                                                 disabled={compareTimeToStart(option.value)}
                                             >
@@ -312,7 +314,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                                 >
                                     <option value=''>List</option>
                                     {Object.values(lists).map((l) =>
-                                        <option value={l.id}>{l.name}</option>
+                                        <option key={l.id} value={l.id}>{l.name}</option>
                                     )}
                                 </select>
                             </div>

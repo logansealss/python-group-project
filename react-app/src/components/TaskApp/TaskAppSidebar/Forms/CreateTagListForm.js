@@ -51,7 +51,7 @@ export default function CreateListTagForm(props) {
       <div
         id="form-content-container"
       >
-        <label for="modal_text_input_name">Please enter a new {props.feature} name</label>
+        <label htmlFor="modal_text_input_name">Please enter a new {props.feature} name</label>
         <input
           id='modal_text_input_name'
           className={validationErr ? 'modal-text-err' : ''}
