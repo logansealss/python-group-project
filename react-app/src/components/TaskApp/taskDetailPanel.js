@@ -87,7 +87,8 @@ export default function TaskDetailPanel() {
             return parseDateObj(tdStartDate, tdStartTime).getTime() <
                 parseDateObj(tdDueDate, tdDueTime).getTime()
         }
-        return false;
+
+        return true;
     }
 
     const compareTimeToStart = (time) => {
@@ -276,6 +277,7 @@ export default function TaskDetailPanel() {
 
         // const data = removeNullProperties(task);
         const data = {}
+        data.completed = task.completed
         if(task.note){
             data.note = task.note;
         }
