@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRouteMatch, useParams, Redirect, Link } from 'react-router-dom';
+import { useParams, Redirect, Link } from 'react-router-dom';
 
 
 import { getAllTasks } from '../../../store/tasks';

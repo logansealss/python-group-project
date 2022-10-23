@@ -1,10 +1,11 @@
 import React from 'react';
-import { Redirect, Route, useRouteMatch } from 'react-router-dom';
+import { Redirect, Route} from 'react-router-dom';
 import TaskAppSidebar from './TaskAppSidebar/taskAppSidebar.js';
 import TaskAppNav from './taskAppNav';
 import MainPanel from './MainPanel/mainPanel';
 import TaskDetailPanel from './taskDetailPanel';
 import ListDetailPanel from './listDetailPanel';
+import NotFound from '../NotFound/NotFound.js';
 import './taskApp.css';
 import { useSelector } from 'react-redux';
 import { SidebarProvider } from '../../context/Sidebar.js';
@@ -13,9 +14,7 @@ export default function TaskApp() {
 
     const user = useSelector(state => state.session.user)
 
-    const { path, url } = useRouteMatch();
-
-    if(!user){
+    if (!user) {
         return <Redirect to="/" />
     }
 
@@ -24,17 +23,17 @@ export default function TaskApp() {
             <TaskAppNav />
             <div className='ta-main-body-div'>
                 <TaskAppSidebar />
-                    <Route exact path={`${path}`}>
-                        <MainPanel />
-                    </Route>
-                    <Route exact path={`${path}/:filterId/:listId`}>
-                        <MainPanel />
-                        <ListDetailPanel />
-                    </Route>
-                    <Route path={`${path}/:filterId/:listId/:taskId`}>
-                        <MainPanel />
-                        <TaskDetailPanel />
-                    </Route>
+                <Route exact path={'/app'}>
+                    <MainPanel />
+                </Route>
+                <Route exact path={'/app/:filterId/:listId'}>
+                    <MainPanel />
+                    <ListDetailPanel />
+                </Route>
+                <Route exact path={'/app/:filterId/:listId/:taskId'}>
+                    <MainPanel />
+                    <TaskDetailPanel />
+                </Route>
             </div>
         </SidebarProvider>
     </>
