@@ -138,7 +138,7 @@ export default function TaskAppSidebar() {
             obj={<Count count={getCount(tasks, 'tasks', targetVal)}/>}
             handleClick={()=>{
               setListName(title)
-              history.push(`/app/lists/${slug}`)
+              history.push(`/app/${slug}`)
             }}
             >
             {title}

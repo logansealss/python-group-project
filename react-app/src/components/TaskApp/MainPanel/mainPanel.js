@@ -14,7 +14,7 @@ export default function MainPanel() {
     const {listName} = useContext(SidebarContext);
     const [_listName, setListName] = listName;
     const params = useParams();
-
+    console.log(params)
     const dispatch = useDispatch();
     const tasks = useSelector(state =>state.tasks.allTasks);
     const tags = useSelector(state => state.tags);
@@ -26,10 +26,9 @@ export default function MainPanel() {
     }, [dispatch]);
 
     let listDetails = getListDetails(params, tasks, lists, tags)
-    setListName(listDetails.name)
     if (typeof listDetails === "string") {
         return <Redirect to={listDetails}></Redirect>
-    }
+    } else if (listDetails) setListName(listDetails.name)
 
     return (tasks && lists && tags &&
         <div className='tam-main-div'>
@@ -39,7 +38,7 @@ export default function MainPanel() {
                     <Link
                         key={idx}
                         className='mpti-link-wrap'
-                        to={`/app/${params.filterId}/${params.listId}/${task.id}`}
+                        to={`/app/${params.filter}/${params.featureId}/${task.id}`}
                     >
                         <TaskRowItem task={task} />
                     </Link>

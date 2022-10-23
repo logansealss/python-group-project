@@ -175,65 +175,68 @@ export function getListDetailsFromDates(tasks, startDate, dueDate, showCompleted
     }, result)
 }
 
-export function getListDetails({listId, filterId}, tasks, lists, tags) {
+export function getListDetails({filter, featureId}, tasks, lists, tags) {
 
-    const baseListId = listId;
+    const baseListId = featureId;
 
-    listId = listId ? listId.toLowerCase() : listId
-    filterId = filterId ? filterId.toLowerCase() : filterId
+    featureId = featureId ? featureId.toLowerCase() : featureId
+    filter = filter ? filter.toLowerCase() : filter
 
     let listDetails = null;
     let taskObj = tasks ? tasks : {};
 
-    if (filterId === 'lists') {
-
-        if (listId === "all" || listId === undefined) {
+    switch (filter) {
+        case 'all':
             listDetails = getListDetailsFromDates(taskObj)
             listDetails.name = "All Tasks"
-        } else if (listId === "today") {
+            break
+        case 'today':
             listDetails = getListDetailsFromDates(taskObj, getDateFromToday(), getDateFromToday())
             listDetails.name = "Today"
-        } else if (listId === "tomorrow") {
+            break
+        case 'tomorrow':
             listDetails = getListDetailsFromDates(taskObj, getDateFromToday(1), getDateFromToday(1))
             listDetails.name = "Tomorrow"
-        } else if (listId === "week") {
+            break
+        case 'week':
             listDetails = getListDetailsFromDates(taskObj, getDateFromToday(), getDateFromToday(6))
-            listDetails.name = "This Week"
-        } else if (listId === "completed") {
-            listDetails = getListDetailsFromDates(taskObj, null, null, true)
-            listDetails.name = "Completed"
-        } else {
-
-            let list = lists && Object.values(lists).find(lst => lst.id === +listId)
+            break
+        case 'lists':
+            let list = lists && Object.values(lists).find(lst => lst.id === +featureId)
 
             if (list) {
-                listDetails = getListDetailsFromList(taskObj, +listId)
+                listDetails = getListDetailsFromList(taskObj, +featureId)
                 listDetails.name = list.name
             } else if (list === undefined) {
-                return "/app/lists/all"
+                return "/app"
             }
-        }
+            break
+        case 'tags':
+            if (featureId === undefined) {
+                listDetails = getListDetailsFromDates(taskObj)
+                listDetails.name = "All Tasks"
+            } else {
+                let tag = tags && Object.values(tags).find(tag => tag.id === +featureId)
 
-    } else if (filterId === 'tags') {
-
-        let tag = tags && Object.values(tags).find(tag => tag.id === +listId)
-
-        if (tag) {
-            listDetails = getListDetailsFromTag(taskObj, +listId)
-            listDetails.name = tag.name
-        } else if (tag === undefined) {
-            return "/app/lists/all"
-        }
-
-    } else if (filterId === 'search') {
-
-        if (listId) {
-            const searchList = decodeURIComponent(baseListId).split(' ')
-            listDetails = getListDetailsFromSearch(taskObj, searchList)
-            listDetails.name = `Search: ${searchList.join(' ')}`
-        }
-    } else {
-        return "/app/lists/all"
+                if (tag) {
+                    listDetails = getListDetailsFromTag(taskObj, +featureId)
+                    listDetails.name = tag.name
+                } else if (tag === undefined) {
+                    return "/app"
+                }
+            };
+            break
+        case 'search':
+            if (featureId) {
+                const searchList = decodeURIComponent(baseListId).split(' ')
+                listDetails = getListDetailsFromSearch(taskObj, searchList)
+                listDetails.name = `Search: ${searchList.join(' ')}`
+            }
+            break
+        default:
+            listDetails = getListDetailsFromDates(taskObj)
+            listDetails.name = "All Tasks"
+            break
     }
 
     return listDetails
