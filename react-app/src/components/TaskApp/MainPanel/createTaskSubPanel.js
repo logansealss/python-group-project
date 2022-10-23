@@ -105,7 +105,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
         ].join('-');
     }
 
-    useEffect(() => {
+    function resetTaskListTaskTags(){
 
         let newList = ''
         let newTags = [];
@@ -122,6 +122,11 @@ export default function CreateTaskSubPanel({ lists, tags }) {
 
         setTaskList(newList)
         setTaskTags(newTags)
+    }
+
+    useEffect(() => {
+
+        resetTaskListTaskTags()
 
     }, [filterId, listId])
 
@@ -194,14 +199,11 @@ export default function CreateTaskSubPanel({ lists, tags }) {
             setDueTime('')
             setStartDate('')
             setStartTime('')
-            setTaskList(listId)
             setPrio('')
-            setTaskTags([])
             setEstimate('')
             setEstimateUnit(1)
 
-            // const [renderCtForm, setRenderCtForm] = useState(false);
-            // const [formDiv, setFormDiv] = useState();
+            resetTaskListTaskTags()
 
             closeForm();
         }
