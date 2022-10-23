@@ -34,12 +34,12 @@ function getCount (tasks, targetFeature, targetValue) {
             },0);
         default:
           return Object.values(tasks)
-            .reduce((count,task)=>{
-              if (
-                task[targetFeature]?.slice(0, 10) >= getDateFromToday()
-                && task[targetFeature]?.slice(0, 10) <= targetValue
-                && !task['completed']
-                ) count++;
+          .reduce((count,task)=>{
+            if (
+              task['dueDate']?.slice(0, 10) >= getDateFromToday()
+              && task['dueDate']?.slice(0, 10) <= targetValue
+              && !task['completed']
+              ) count++;
               return count
             },0);
       }
@@ -102,7 +102,7 @@ export default function TaskAppSidebar() {
   tagCaretRefs.current = Object.values(tags)
     .map((_, i) => tagCaretRefs.current[i] ?? createRef());
 
-  
+
 
   console.log("listRefs: ", listRefs.current)
 
@@ -132,7 +132,7 @@ export default function TaskAppSidebar() {
       obj: <Plus  form={<CreateTagListForm/>} feature='list' thunk={listActions.createList}/>,
       children: Object.values(lists)
         .map((list, idx) => (
-          
+
           <BannerItem
             ref={listRefs.current[idx]}
             key={list.id}
@@ -150,7 +150,7 @@ export default function TaskAppSidebar() {
             </>
             }
             handleClick={(e)=>{
-              
+
               if(e.target.isSameNode(listCaretRefs.current[idx].current)){
                 console.log("refs are same, problem fixed")
                 return;
@@ -190,7 +190,7 @@ export default function TaskAppSidebar() {
             <Count count={getCount(tasks, 'tags', tag.id)}/>
           </>
         }handleClick={(e)=>{
-          
+
           if(e.target.isSameNode(tagCaretRefs.current[idx].current)){
             console.log("refs are same, problem fixed")
             return;
