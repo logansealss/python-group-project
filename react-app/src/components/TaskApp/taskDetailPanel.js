@@ -87,7 +87,8 @@ export default function TaskDetailPanel() {
             return parseDateObj(tdStartDate, tdStartTime).getTime() <
                 parseDateObj(tdDueDate, tdDueTime).getTime()
         }
-        return false;
+
+        return true;
     }
 
     const compareTimeToStart = (time) => {
