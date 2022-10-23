@@ -8,18 +8,8 @@ export function getDateFromToday(daysForward = 0) {
     return res;
 }
 
-function stringIncludesArr(string, arr) {
 
-    const lowercaseString = string.toLowerCase()
-
-    return arr.reduce((found, testStr) => {
-        if (!lowercaseString.includes(testStr.toLowerCase())) found = false
-        return found
-    }, true);
-}
-
-export function getListDetailsFromSearch(tasks, searchArr) {
-    let tasksToCheck = Object.values(tasks)
+function aggregateDetails (tasks) {
 
     let result = {
         overdueTasks: 0,
@@ -28,156 +18,77 @@ export function getListDetailsFromSearch(tasks, searchArr) {
         completedTasks: []
     }
 
-    const currentDate = getDateFromToday();
-
-    return tasksToCheck.reduce((result, task) => {
-
-        let taskDueDate = task.dueDate ? task.dueDate.slice(0, 10) : task.dueDate
-
-            if (stringIncludesArr(task.name, searchArr)) {
-                if (task.completed) {
-                    result.completedTasks.push(task);
-                } else {
-                    result.tasks.push(task)
-                    if (taskDueDate < currentDate) {
-                        result.overdueTasks++;
-                    }
-                    if (task.duration > 0) {
-                        result.estimatedTime += task.duration
-                    }
-                }
-            }
-
-        return result
-    }, result)
-}
-
-export function getListDetailsFromList(tasks, listId) {
-
-    let tasksToCheck = Object.values(tasks)
-
-    let result = {
-        overdueTasks: 0,
-        estimatedTime: 0,
-        tasks: [],
-        completedTasks: []
-    }
-
-    const currentDate = getDateFromToday();
-
-    return tasksToCheck.reduce((result, task) => {
-
-        let taskDueDate = task.dueDate ? task.dueDate.slice(0, 10) : task.dueDate
-
-        if (task.listId === listId) {
-            if (task.completed) {
-                result.completedTasks.push(task);
-            } else {
-                result.tasks.push(task)
-                if (taskDueDate < currentDate) {
-                    result.overdueTasks++;
-                }
-                if (task.duration > 0) {
-                    result.estimatedTime += task.duration
-                }
-            }
-        }
-
-        return result
-    }, result)
-}
-
-export function getListDetailsFromTag(tasks, tagId) {
-
-    let tasksToCheck = Object.values(tasks)
-
-    let result = {
-        overdueTasks: 0,
-        estimatedTime: 0,
-        tasks: [],
-        completedTasks: []
-    }
-
-    const currentDate = getDateFromToday();
-
-    return tasksToCheck.reduce((result, task) => {
-
-        let taskDueDate = task.dueDate ? task.dueDate.slice(0, 10) : task.dueDate
-
-        if (task.tags.includes(tagId)) {
-            if (task.completed) {
-                result.completedTasks.push(task);
-            } else {
-                result.tasks.push(task)
-                if (taskDueDate < currentDate) {
-                    result.overdueTasks++;
-                }
-                if (task.duration > 0) {
-                    result.estimatedTime += task.duration
-                }
-            }
-        }
-
-        return result
-    }, result)
-}
-
-export function getListDetailsFromDates(tasks, startDate, dueDate, showCompleted=false) {
-
-    let tasksToCheck = Object.values(tasks)
-
-    let result = {
-        overdueTasks: 0,
-        estimatedTime: 0,
-        tasks: [],
-        completedTasks: []
-    }
-
-    const currentDate = getDateFromToday();
-
-    return tasksToCheck.reduce((result, task) => {
-
-        let taskDueDate = task.dueDate ? task.dueDate.slice(0, 10) : task.dueDate
-
-        if (!startDate
-            || (taskDueDate >= startDate && taskDueDate <= dueDate)) {
-
-            if (task.completed) {
-                if (showCompleted) {
-                    result.tasks.push(task)
-                    if (task.duration > 0) {
-                        result.estimatedTime += task.duration
-                    }
-                };
-                result.completedTasks.push(task)
-            } else {
-                if (!showCompleted) {
-                    result.tasks.push(task)
-                    if (task.duration > 0) {
-                        result.estimatedTime += task.duration
-                    }
-                };
-            };
-        } else if (taskDueDate < currentDate && dueDate !== getDateFromToday(1)) {
-
-            if (task.completed) {
-                result.completedTasks.push(task)
-            } else {
-                result.tasks.push(task)
+    return tasks.reduce((result, task) => {
+        if (task.completed) {
+            result.completedTasks.push(task);
+        } else {
+            result.tasks.push(task)
+            if (taskDueDate < currentDate) {
                 result.overdueTasks++;
-                if (task.duration > 0) {
-                    result.estimatedTime += task.duration
-                }
+            }
+            if (task.duration > 0) {
+                result.estimatedTime += task.duration
             }
         }
-
         return result
     }, result)
 }
 
-export function getListDetails({filter, featureId}, tasks, lists, tags) {
+function taskPassesChecks (task, filterFuncs) {
+    return filterFuncs.reduce((passes, filterFunc)=>{
+        passes = passes && filterFunc(task);
+        return passes;
+    },true);
+}
 
-    const baseListId = featureId;
+function getTaskDetails (tasks, filterFuncs=[(task)=>true]) {
+    let tasksToCheck = Object.values(tasks)
+    const filteredTasks = tasksToCheck.filter(task=>{
+        taskPassesChecks(task, filterFuncs)
+    })
+    return aggregateDetails(filteredTasks)
+};
+
+
+// Filter Functions
+function stringIncludesArr(arr) {
+    return (task) => {
+        const lowercaseString = task.name.toLowerCase()
+        return arr.reduce((found, testStr) => {
+            if (!lowercaseString.includes(testStr.toLowerCase())) found = false
+            return found
+        }, true);
+    }
+}
+
+export function checkListId (listId) {
+    return (task) => {
+        return task.listId === listId
+    }
+}
+
+export function checkTagId (tagId) {
+    return (task) => {
+        return task.tags.includes(tagId)
+    };
+};
+
+export function checkDueDate (startDate, dueDate) {
+    return (task) => {
+        let taskDueDate = task.dueDate ? task.dueDate.slice(0, 10) : task.dueDate
+        return taskDueDate >= startDate && taskDueDate <= dueDate
+    };
+};
+
+export function showCompleted (showCompleted) {
+    return (task) => {
+        return task.completed === showCompleted
+    }
+}
+
+export function getTaskDetailsFromParams(params, tasks, lists, tags) {
+    const {filter, featureId} = params
+
 
     featureId = featureId ? featureId.toLowerCase() : featureId
     filter = filter ? filter.toLowerCase() : filter
@@ -187,39 +98,54 @@ export function getListDetails({filter, featureId}, tasks, lists, tags) {
 
     switch (filter) {
         case 'all':
-            listDetails = getListDetailsFromDates(taskObj)
+            listDetails = getTaskDetails(taskObj, [showCompleted(false)])
             listDetails.name = "All Tasks"
             break
         case 'today':
-            listDetails = getListDetailsFromDates(taskObj, getDateFromToday(), getDateFromToday())
+            listDetails = getTaskDetails(taskObj, [
+                checkDueDate(getDateFromToday(), getDateFromToday())
+            ]);
             listDetails.name = "Today"
             break
         case 'tomorrow':
-            listDetails = getListDetailsFromDates(taskObj, getDateFromToday(1), getDateFromToday(1))
+            listDetails = getTaskDetails(taskObj, [
+                checkDueDate(getDateFromToday(1), getDateFromToday(1)),
+                showCompleted(false)
+            ]);
             listDetails.name = "Tomorrow"
             break
         case 'week':
-            listDetails = getListDetailsFromDates(taskObj, getDateFromToday(), getDateFromToday(6))
+            listDetails = getTaskDetails(taskObj, [
+                checkDueDate(getDateFromToday(), getDateFromToday(6)),
+                showCompleted(false)
+            ]);
+            break
+        case 'completed':
+            listDetails = getTaskDetails(taskObj, [showCompleted(true)])
             break
         case 'lists':
-            let list = lists && Object.values(lists).find(lst => lst.id === +featureId)
-
-            if (list) {
-                listDetails = getListDetailsFromList(taskObj, +featureId)
-                listDetails.name = list.name
-            } else if (list === undefined) {
-                return "/app"
+            if (featureId === undefined) {
+                listDetails = getTaskDetails(taskObj)
+                listDetails.name = "All Tasks"
+            } else {
+                let list = lists && Object.values(lists).find(lst => lst.id === +featureId)
+                if (list) {
+                    listDetails = getTaskDetails(taskObj, [checkListId(+featureId), showCompleted(false)])
+                    listDetails.name = list.name
+                } else if (list === undefined) {
+                    return "/app"
+                }
             }
             break
         case 'tags':
             if (featureId === undefined) {
-                listDetails = getListDetailsFromDates(taskObj)
+                listDetails = getTaskDetails(taskObj)
                 listDetails.name = "All Tasks"
             } else {
                 let tag = tags && Object.values(tags).find(tag => tag.id === +featureId)
 
                 if (tag) {
-                    listDetails = getListDetailsFromTag(taskObj, +featureId)
+                    listDetails = getTaskDetails(taskObj, [checkTagId(+featureId), showCompleted(false)])
                     listDetails.name = tag.name
                 } else if (tag === undefined) {
                     return "/app"
@@ -228,13 +154,14 @@ export function getListDetails({filter, featureId}, tasks, lists, tags) {
             break
         case 'search':
             if (featureId) {
-                const searchList = decodeURIComponent(baseListId).split(' ')
-                listDetails = getListDetailsFromSearch(taskObj, searchList)
+                const searchParams = featureId;
+                const searchList = decodeURIComponent(searchParams).split(' ')
                 listDetails.name = `Search: ${searchList.join(' ')}`
+                listDetails = getTaskDetails(taskObj, [stringIncludesArr(searchList)])
             }
             break
         default:
-            listDetails = getListDetailsFromDates(taskObj)
+            listDetails = getTaskDetails(taskObj)
             listDetails.name = "All Tasks"
             break
     }
