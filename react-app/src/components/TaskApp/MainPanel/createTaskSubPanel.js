@@ -23,15 +23,19 @@ export default function CreateTaskSubPanel({ lists, tags }) {
 
     const params = useParams();
     const dispatch = useDispatch();
-    const { listId } = params;
+    const { filterId, listId } = params;
+
+    console.log("filterID in create task form ", filterId)
+    console.log("listID in create task form ", listId)
+
+    const [taskList, setTaskList] = useState('');
+    const [taskTags, setTaskTags] = useState([]);
     const [taskName, setTaskName] = useState('');
     const [dueDate, setDueDate] = useState('');
     const [dueTime, setDueTime] = useState('');
     const [startDate, setStartDate] = useState('');
     const [startTime, setStartTime] = useState('');
-    const [taskList, setTaskList] = useState(listId);
     const [prio, setPrio] = useState('');
-    const [taskTags, setTaskTags] = useState([]);
     const [estimate, setEstimate] = useState('');
     const [estimateUnit, setEstimateUnit] = useState(1)
     const [renderCtForm, setRenderCtForm] = useState(false);
@@ -66,11 +70,11 @@ export default function CreateTaskSubPanel({ lists, tags }) {
 
     const datesValid = () => {
         console.log(startDate, dueDate)
-        if(startDate && dueDate && dueTime){
+        if (startDate && dueDate && dueTime) {
             console.log('conditional return: ', parseDateObj(startDate, startTime).getTime() <
-            parseDateObj(dueDate, dueTime).getTime())
-        return parseDateObj(startDate, startTime).getTime() <
-               parseDateObj(dueDate, dueTime).getTime()
+                parseDateObj(dueDate, dueTime).getTime())
+            return parseDateObj(startDate, startTime).getTime() <
+                parseDateObj(dueDate, dueTime).getTime()
         }
         console.log('default return true')
         return true;
@@ -79,7 +83,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
     const compareTimeToStart = (time) => {
         if (startDate === dueDate) {
             return parseDateObj(startDate, startTime).getTime() >
-            parseDateObj(startDate, time).getTime()
+                parseDateObj(startDate, time).getTime()
         } else {
             return false;
         }
@@ -88,7 +92,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
     const compareStartToCurrentTime = (time) => {
         if (startDate) {
             return parseDateObj(startDate, time).getTime() <
-            new Date().getTime();
+                new Date().getTime();
         }
         return false;
     }
@@ -102,15 +106,35 @@ export default function CreateTaskSubPanel({ lists, tags }) {
     }
 
     useEffect(() => {
-        if (!datesValid()){
+
+        let newList = ''
+        let newTags = [];
+
+        if (filterId === "tags") {
+            if (tags[listId]) {
+                newTags = [listId]
+            }
+        }else if(filterId === 'lists'){
+            if(lists[listId]){
+                newList = listId
+            }
+        }
+
+        setTaskList(newList)
+        setTaskTags(newTags)
+
+    }, [filterId, listId])
+
+    useEffect(() => {
+        if (!datesValid()) {
             setDueDate(startDate)
             setDueTime(startTime)
         }
 
-        if(!dueDate){
+        if (!dueDate) {
             setDueTime('');
         }
-        if(!startDate){
+        if (!startDate) {
             setStartTime('');
         }
 
@@ -145,13 +169,13 @@ export default function CreateTaskSubPanel({ lists, tags }) {
             console.log('true:', prio)
             data.priority = 0;
         }
-        if (startDate.length && startTime.length){
+        if (startDate.length && startTime.length) {
             data.start_date = startDate + ' ' + startTime
         } else if (startDate.length && !startTime.length) {
             data.start_date = startDate + ' ' + '00:01:00'
         }
 
-        if (dueDate.length && dueTime.length){
+        if (dueDate.length && dueTime.length) {
             data.due_date = dueDate + ' ' + dueTime
         } else if (dueDate.length && !dueTime.length) {
             data.due_date = dueDate + ' ' + '00:01:00'
@@ -165,6 +189,20 @@ export default function CreateTaskSubPanel({ lists, tags }) {
             for (let tagId of taskTags) {
                 await dispatch(addTagToTask(response.id, +tagId))
             }
+            setTaskName('');
+            setDueDate('')
+            setDueTime('')
+            setStartDate('')
+            setStartTime('')
+            setTaskList(listId)
+            setPrio('')
+            setTaskTags([])
+            setEstimate('')
+            setEstimateUnit(1)
+
+            // const [renderCtForm, setRenderCtForm] = useState(false);
+            // const [formDiv, setFormDiv] = useState();
+
             closeForm();
         }
 
