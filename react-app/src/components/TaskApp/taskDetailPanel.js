@@ -155,18 +155,14 @@ export default function TaskDetailPanel() {
         const hours = Number(timeArr[0]);
         const mins = timeArr[1];
         if (hours > 12) {
-            console.log('-------------------1')
-            return `${(hours - 12)} ${mins} pm`;
+            return `${(hours - 12)}:${mins} pm`;
         }
         if (hours < 12 && hours > 0) {
-            console.log('-------------------2')
             return `${hours}:${mins} am`;
         }
         if (hours === 0 && mins){
-            console.log('-------------------3')
             return `12:${mins} am`;
         } else {
-            console.log('-------------------4')
             return `12:01 am`
         }
     }
