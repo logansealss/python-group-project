@@ -73,6 +73,7 @@ export default function TaskAppSidebar() {
   const [tagsExpanded, setTagsExpanded] = useState(false)
 
   const listRefs = useRef([])
+  const listCaretRefs = useRef([])
   const tagRefs = useRef([])
   const tagCaretRefs = useRef([])
 
@@ -91,6 +92,9 @@ export default function TaskAppSidebar() {
 
   listRefs.current = Object.values(lists)
     .map((_, i) => listRefs.current[i] ?? createRef());
+
+  listCaretRefs.current = Object.values(lists)
+    .map((_, i) => listCaretRefs.current[i] ?? createRef());
 
   tagRefs.current = Object.values(tags)
     .map((_, i) => tagRefs.current[i] ?? createRef());
@@ -135,6 +139,7 @@ export default function TaskAppSidebar() {
             obj={
               <>
               <DownCaret
+                ref={listCaretRefs.current[idx]}
                 itemId={list.id}
                 name={list.name}
                 feature='list'
@@ -146,7 +151,8 @@ export default function TaskAppSidebar() {
             }
             handleClick={(e)=>{
               
-              if(e.target.className == "dropdown_caret"){
+              if(e.target.isSameNode(listCaretRefs.current[idx].current)){
+                console.log("refs are same, problem fixed")
                 return;
               }
 
