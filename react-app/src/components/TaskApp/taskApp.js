@@ -24,7 +24,7 @@ export default function TaskApp() {
             <TaskAppNav />
             <div className='ta-main-body-div'>
                 <TaskAppSidebar />
-                    <Route path={`${path}`}>
+                    <Route exact path={`${path}`}>
                         <MainPanel />
                     </Route>
                     <Route exact path={`${path}/:filterId/:listId`}>

@@ -34,19 +34,19 @@ export function getListDetailsFromSearch(tasks, searchArr) {
 
         let taskDueDate = task.dueDate ? task.dueDate.slice(0, 10) : task.dueDate
 
-        if (stringIncludesArr(task.name, searchArr)) {
-            if (task.completed) {
-                result.completedTasks.push(task);
-            } else {
-                result.tasks.push(task)
-                if (taskDueDate < currentDate) {
-                    result.overdueTasks++;
-                }
-                if (task.duration > 0) {
-                    result.estimatedTime += task.duration
+            if (stringIncludesArr(task.name, searchArr)) {
+                if (task.completed) {
+                    result.completedTasks.push(task);
+                } else {
+                    result.tasks.push(task)
+                    if (taskDueDate < currentDate) {
+                        result.overdueTasks++;
+                    }
+                    if (task.duration > 0) {
+                        result.estimatedTime += task.duration
+                    }
                 }
             }
-        }
 
         return result
     }, result)

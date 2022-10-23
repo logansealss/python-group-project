@@ -26,10 +26,14 @@ export default function TaskAppNav() {
 
     function runSearch(searchInput) {
         const trimmedInput = searchInput.trim()
-        if (trimmedInput === '') {
-            history.push('/app/lists/all')
-        } else {
-            history.push(`/app/search/${encodeURIComponent(trimmedInput.split(' ').filter(str => str !== '').join(' '))}`)
+        const searchInputDOMNode = document.getElementById('search-input-field')
+        if (searchInputDOMNode.matches(':focus')) {
+            if (!searchInput) {
+                history.push('/app')
+            } else {
+                history.push(`/app/search/${encodeURIComponent(trimmedInput.split(' ')
+                .filter(str => str !== '').join(' '))}`);
+            }
         };
     };
 
@@ -68,6 +72,7 @@ export default function TaskAppNav() {
                     />
                     <form onSubmit={(e) => {
                         e.preventDefault()
+                        history.push()
                         document.getElementById('search-input-field').blur();
                     }}>
                         <input
