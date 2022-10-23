@@ -102,10 +102,6 @@ export default function TaskAppSidebar() {
   tagCaretRefs.current = Object.values(tags)
     .map((_, i) => tagCaretRefs.current[i] ?? createRef());
 
-
-
-  console.log("listRefs: ", listRefs.current)
-
   const items = {
     'Tasks': {
       expanded: allTasksExpanded,
@@ -152,7 +148,6 @@ export default function TaskAppSidebar() {
             handleClick={(e)=>{
 
               if(e.target.isSameNode(listCaretRefs.current[idx].current)){
-                console.log("refs are same, problem fixed")
                 return;
               }
 
@@ -192,7 +187,6 @@ export default function TaskAppSidebar() {
         }handleClick={(e)=>{
 
           if(e.target.isSameNode(tagCaretRefs.current[idx].current)){
-            console.log("refs are same, problem fixed")
             return;
           }
 
@@ -207,9 +201,7 @@ export default function TaskAppSidebar() {
 
 
           // handleClick={(e)=>{
-          //   console.log("event classname: ", e.target.className)
           //   if(e.target.className !== "dropdown_caret" && e.target.className != "sidebar_dropdown_button"){
-          //     console.log("classnames don't match")
           //     setListName(tag.name)
           //     history.push(`/app/tags/${tag.id}`)
           //   }
