@@ -74,6 +74,7 @@ export default function TaskAppSidebar() {
 
   const listRefs = useRef([])
   const tagRefs = useRef([])
+  const tagCaretRefs = useRef([])
 
   useEffect(() => {
     dispatch(taskActions.getAllTasks())
@@ -93,6 +94,11 @@ export default function TaskAppSidebar() {
 
   tagRefs.current = Object.values(tags)
     .map((_, i) => tagRefs.current[i] ?? createRef());
+
+  tagCaretRefs.current = Object.values(tags)
+    .map((_, i) => tagCaretRefs.current[i] ?? createRef());
+
+  
 
   console.log("listRefs: ", listRefs.current)
 
@@ -169,6 +175,7 @@ export default function TaskAppSidebar() {
           obj={
             <>
             <DownCaret
+              ref={tagCaretRefs.current[idx]}
               itemId={tag.id}
               name={tag.name}
               color={tag.color}
@@ -177,8 +184,9 @@ export default function TaskAppSidebar() {
             <Count count={getCount(tasks, 'tags', tag.id)}/>
           </>
         }handleClick={(e)=>{
-              
-          if(e.target.className == "dropdown_caret"){
+          
+          if(e.target.isSameNode(tagCaretRefs.current[idx].current)){
+            console.log("refs are same, problem fixed")
             return;
           }
 
