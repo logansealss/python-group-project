@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRouteMatch, useParams, Redirect, Link } from 'react-router-dom';
+import { useParams, Redirect, Link } from 'react-router-dom';
 
 
 import { getAllTasks } from '../../../store/tasks';
@@ -11,7 +11,6 @@ import './mainPanel.css';
 
 export default function MainPanel() {
 
-    const { path, url } = useRouteMatch();
     const params = useParams();
 
     const dispatch = useDispatch();

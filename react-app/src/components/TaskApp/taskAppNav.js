@@ -27,7 +27,7 @@ export default function TaskAppNav() {
     function runSearch(searchInput) {
         const trimmedInput = searchInput.trim()
         if (trimmedInput === '') {
-            history.push('/app/lists/all')
+            // history.push('/app/lists/all')
         } else {
             history.push(`/app/search/${encodeURIComponent(trimmedInput.split(' ').filter(str => str !== '').join(' '))}`)
         };
