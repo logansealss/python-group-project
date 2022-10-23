@@ -38,6 +38,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
     const [estimateUnit, setEstimateUnit] = useState(1)
     const [renderCtForm, setRenderCtForm] = useState(false);
     const [formDiv, setFormDiv] = useState();
+    const [taskNameErr, setTaskNameErr] = useState()
 
     const [renderTaskFormIconClass, setRenderTaskFormIconClass] = useState(
         'ctsp-ratig-false'
@@ -151,10 +152,22 @@ export default function CreateTaskSubPanel({ lists, tags }) {
             closeForm();
         }
 
+        console.log("taskname in useEffect", taskName.length)
+
+        if(taskName.length > 150){
+            setTaskNameErr("Name is too long. Please choose a shorter name.")
+        }else{
+            setTaskNameErr()
+        }
+
     }, [taskName]);
 
     const handleCtSubmit = async (e) => {
         e.preventDefault();
+
+        if(taskNameErr){
+            return;
+        }
 
         const data = {}
 
@@ -217,6 +230,11 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                         onChange={(e) => setTaskName(e.target.value)}
                     />
                 </div>
+                {taskNameErr && (
+                    <div id="name-error">
+                        {taskNameErr}
+                    </div>
+                )}
                 <div
                     className={'ctsp-add-task-grp'}
                     id='ctsp-form-div'
