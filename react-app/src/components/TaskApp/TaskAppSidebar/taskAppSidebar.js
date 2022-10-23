@@ -33,15 +33,36 @@ function getCount (tasks, targetFeature, targetValue) {
               return count
             },0);
         default:
-          return Object.values(tasks)
-          .reduce((count,task)=>{
-            if (
-              task['dueDate']?.slice(0, 10) >= getDateFromToday()
-              && task['dueDate']?.slice(0, 10) <= targetValue
-              && !task['completed']
-              ) count++;
-              return count
-            },0);
+          switch (targetValue) {
+            case getDateFromToday():
+              return Object.values(tasks)
+              .reduce((count,task)=>{
+                if (
+                  task['dueDate']?.slice(0, 10) === targetValue
+                  && !task['completed']
+                  ) count++;
+                  return count
+                },0);
+            case getDateFromToday(1):
+              return Object.values(tasks)
+              .reduce((count,task)=>{
+                if (
+                  task['dueDate']?.slice(0, 10) === targetValue
+                  && !task['completed']
+                  ) count++;
+                  return count
+                },0);
+            case getDateFromToday(6):
+              return Object.values(tasks)
+              .reduce((count,task)=>{
+                if (
+                  task['dueDate']?.slice(0, 10) >= getDateFromToday()
+                  && task['dueDate']?.slice(0, 10) <= targetValue
+                  && !task['completed']
+                  ) count++;
+                  return count
+                },0);
+          };
       }
     case 'listId':
       return Object.values(tasks)
