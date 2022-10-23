@@ -276,6 +276,7 @@ export default function TaskDetailPanel() {
 
         // const data = removeNullProperties(task);
         const data = {}
+        data.completed = task.completed
         if(task.note){
             data.note = task.note;
         }
