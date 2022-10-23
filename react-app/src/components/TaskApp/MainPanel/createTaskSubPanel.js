@@ -25,8 +25,6 @@ export default function CreateTaskSubPanel({ lists, tags }) {
     const dispatch = useDispatch();
     const { filterId, listId } = params;
 
-    console.log("filterID in create task form ", filterId)
-    console.log("listID in create task form ", listId)
 
     const [taskList, setTaskList] = useState('');
     const [taskTags, setTaskTags] = useState([]);
@@ -49,13 +47,11 @@ export default function CreateTaskSubPanel({ lists, tags }) {
 
 
     const openForm = () => {
-        console.log('openForm');
         setRenderCtForm(true);
         formDiv.style.height = '340px'
     }
 
     const closeForm = () => {
-        console.log('closeForm')
         setRenderCtForm(false);
         formDiv.style.height = '0px';
     }
@@ -69,14 +65,10 @@ export default function CreateTaskSubPanel({ lists, tags }) {
     }
 
     const datesValid = () => {
-        console.log(startDate, dueDate)
         if (startDate && dueDate && dueTime) {
-            console.log('conditional return: ', parseDateObj(startDate, startTime).getTime() <
-                parseDateObj(dueDate, dueTime).getTime())
             return parseDateObj(startDate, startTime).getTime() <
                 parseDateObj(dueDate, dueTime).getTime()
         }
-        console.log('default return true')
         return true;
     }
 
@@ -168,10 +160,8 @@ export default function CreateTaskSubPanel({ lists, tags }) {
 
         if (taskName.length) data.name = taskName
         if (Number(prio) && prio >= 0 && prio <= 3) {
-            console.log('true:', prio)
             data.priority = prio;
         } else {
-            console.log('true:', prio)
             data.priority = 0;
         }
         if (startDate.length && startTime.length) {

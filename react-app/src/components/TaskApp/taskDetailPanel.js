@@ -83,14 +83,10 @@ export default function TaskDetailPanel() {
     }
 
     const datesValid = () => {
-        console.log('datesValid dates : ', tdStartDate, tdDueDate)
         if (tdStartDate && tdStartTime && tdDueDate && tdDueTime) {
-            console.log('conditional return: ', parseDateObj(tdStartDate, tdStartTime).getTime() <
-                parseDateObj(tdDueDate, tdDueTime).getTime())
             return parseDateObj(tdStartDate, tdStartTime).getTime() <
                 parseDateObj(tdDueDate, tdDueTime).getTime()
         }
-        console.log('default return true')
         return false;
     }
 
@@ -127,7 +123,6 @@ export default function TaskDetailPanel() {
 
     useEffect(() => {
         if (!datesValid()) {
-            console.log('datesvalid(): ', datesValid())
             setTdDueDate(tdStartDate)
             setTdDueTime(tdStartTime)
         }
@@ -225,11 +220,9 @@ export default function TaskDetailPanel() {
                 setTdDueTime('');
             }
             if(task.startDate){
-                console.log('task.startDate: ', task.startDate)
                 setTdStartDate(task.startDate.split(' ')[0]);
                 setTdStartTime(task.startDate.split(' ')[1]);
             } else {
-                console.log('NOT task.startDate: ', task.startDate)
                 setTdStartDate('');
                 setTdStartTime('');
             }
@@ -276,7 +269,6 @@ export default function TaskDetailPanel() {
     }
 
     useEffect(() => {
-        console.log(`tdprio: ${tdPrio}`)
     }, [tdPrio])
 
     const handleUtSubmit = async (e) => {
@@ -339,7 +331,6 @@ export default function TaskDetailPanel() {
         }
 
 
-        console.log('form data: ', data);
         const res = (dispatch(updateATask(task.id, data)))
         // await dispatch(getSingleTask(task.id));
         // await dispatch(getAllTasks());
