@@ -102,6 +102,9 @@ export default function TaskAppSidebar() {
   tagCaretRefs.current = Object.values(tags)
     .map((_, i) => tagCaretRefs.current[i] ?? createRef());
 
+
+
+
   const items = {
     'Tasks': {
       expanded: allTasksExpanded,
@@ -194,20 +197,7 @@ export default function TaskAppSidebar() {
             setListName(tag.name)
             history.push(`/app/tags/${tag.id}`)
           }
-          // setListName(list.name)
-          // history.push(`/app/lists/${list.id}`)
         }}
-
-
-
-          // handleClick={(e)=>{
-          //   if(e.target.className !== "dropdown_caret" && e.target.className != "sidebar_dropdown_button"){
-          //     setListName(tag.name)
-          //     history.push(`/app/tags/${tag.id}`)
-          //   }
-            // setListName(tag.name)
-            // history.push(`/app/tags/${tag.id}`)
-          // }}
           >
           {tag.name}
         </BannerItem>))
