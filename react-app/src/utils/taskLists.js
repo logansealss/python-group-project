@@ -1,5 +1,6 @@
 export function getDateFromToday(daysForward = 0) {
     let res = new Date();
+    res.setHours(res.getHours() - 6)
     res.setDate(res.getDate() + daysForward)
     res = res.toISOString();
     res = res.slice(0, 10)
@@ -20,7 +21,7 @@ export function aggregateDetails (tasks, showCompleted) {
 
     const aggregateDetails = tasks.reduce((result, task) => {
         let taskDueDate = task.dueDate ? task.dueDate.slice(0, 10) : task.dueDate
-        if (task.completed === showCompleted) {
+        if (!task.completed && !showCompleted) {
             result.tasks.push(task)
             if (taskDueDate < currentDate) {
                 result.overdueTasks++;
@@ -29,7 +30,13 @@ export function aggregateDetails (tasks, showCompleted) {
                 result.estimatedTime += task.duration
             }
         }
-        if (task.completed) result.completedTasks.push(task);
+        if (task.completed) {
+            result.completedTasks.push(task)
+            if (showCompleted) result.tasks.push(task)
+            if (task.duration > 0) {
+                result.estimatedTime += task.duration
+            }
+        };
         return result
     }, result)
     return aggregateDetails;
@@ -79,7 +86,7 @@ export function checkTagId (tagId) {
 export function checkDueDate (startDate, dueDate) {
     return (task) => {
         let taskDueDate = task.dueDate ? task.dueDate.slice(0, 10) : task.dueDate
-        console.log(startDate, dueDate, taskDueDate)
+        console.log('targetStart',startDate, 'TargetEnd', dueDate, 'TaskDueDate',taskDueDate)
         return taskDueDate >= startDate && taskDueDate <= dueDate
     };
 };
@@ -114,6 +121,7 @@ export function getTaskDetailsFromParams(params, tasks, lists, tags) {
                     listDetails.name = "All Tasks"
                     break
                 case 'today':
+                    console.log('today',getDateFromToday())
                     listDetails = getTaskDetails(taskObj,showCompleted=false, [
                         checkDueDate(getDateFromToday(), getDateFromToday())
                     ]);
@@ -130,9 +138,11 @@ export function getTaskDetailsFromParams(params, tasks, lists, tags) {
                     listDetails = getTaskDetails(taskObj,showCompleted=false,
                         [checkDueDate(getDateFromToday(), getDateFromToday(6))]
                         );
+                        listDetails.name = "This Week"
                     break
                 case 'completed':
                     listDetails = getTaskDetails(taskObj, showCompleted=true)
+                    listDetails.name = "Completed"
                     break
                 default:
                     return "/app"
@@ -175,7 +185,7 @@ export function getTaskDetailsFromParams(params, tasks, lists, tags) {
             }
             break
         default:
-            listDetails = getTaskDetails(taskObj, [showCompleted(false)])
+            listDetails = getTaskDetails(taskObj)
             listDetails.name = "All Tasks"
             break
     }
