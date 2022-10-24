@@ -24,7 +24,7 @@ export default function TaskRowItem({ task }) {
         e.preventDefault();
         dispatch(deleteSingleTask(task.id));
         if (Number(params.taskId) === task.id) {
-            history.push(`/app/lists/${params.listId}`);
+            history.push(`/app/${params.filter}/${params.featureId}`);
         }
     }
 
@@ -33,9 +33,6 @@ export default function TaskRowItem({ task }) {
         e.preventDefault();
 
         dispatch(updateATask(task.id, { ...removeNullProperties(task), completed: !task.completed }));
-
-        // dispatch(updateATask(task.id, { name: task.name, completed: !task.completed }));
-        // history.push(`/app/lists/${params.listId}`);
     }
 
     let priorityClassName = 'tri-prio-indi';
