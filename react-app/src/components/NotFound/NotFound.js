@@ -16,7 +16,7 @@ export default function NotFound() {
                         Home
                     </button>
                 </Link>
-                <Link to='/app'>
+                <Link to='/app/tasks/all'>
                     <button className='nf-nav-btn'>
                         App
                     </button>
