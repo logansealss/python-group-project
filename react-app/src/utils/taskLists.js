@@ -32,9 +32,11 @@ export function aggregateDetails (tasks, showCompleted) {
         }
         if (task.completed) {
             result.completedTasks.push(task)
-            if (showCompleted) result.tasks.push(task)
-            if (task.duration > 0) {
+            if (showCompleted) {
+                result.tasks.push(task)
+                if (task.duration > 0) {
                 result.estimatedTime += task.duration
+                }
             }
         };
         return result
