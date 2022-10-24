@@ -152,7 +152,7 @@ export function getTaskDetailsFromParams(params, tasks, lists, tags) {
                     listDetails = getTaskDetails(taskObj, showCompleted=false, [checkListId(+featureId)])
                     listDetails.name = list.name
                 } else if (list === undefined) {
-
+                    return "/rip"
                 }
             }
             break

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, Route} from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import TaskAppSidebar from './TaskAppSidebar/taskAppSidebar.js';
 import TaskAppNav from './taskAppNav';
 import MainPanel from './MainPanel/mainPanel';
@@ -22,17 +22,25 @@ export default function TaskApp() {
             <TaskAppNav />
             <div className='ta-main-body-div'>
                 <TaskAppSidebar />
-                <Route exact path={'/app'}>
-                    <MainPanel />
-                </Route>
-                <Route exact path={'/app/:filter/:featureId'}>
-                    <MainPanel />
-                    <ListDetailPanel />
-                </Route>
-                <Route exact path={'/app/:filter/:featureId/:taskId'}>
-                    <MainPanel />
-                    <TaskDetailPanel />
-                </Route>
+                <Switch>
+                    <Route exact path={'/app'}>
+                        <MainPanel />
+                    </Route>
+                    <Route exact path={'/app/:filter'}>
+                        <Redirect to='/rip' />
+                    </Route>
+                    <Route exact path={'/app/:filter/:featureId'}>
+                        <MainPanel />
+                        <ListDetailPanel />
+                    </Route>
+                    <Route exact path={'/app/:filter/:featureId/:taskId'}>
+                        <MainPanel />
+                        <TaskDetailPanel />
+                    </Route>
+                    <Route>
+                        <Redirect to="/rip" />
+                    </Route>
+                </Switch>
             </div>
         </SidebarProvider>
     </>
