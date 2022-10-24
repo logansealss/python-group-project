@@ -38,6 +38,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
     const [estimateUnit, setEstimateUnit] = useState(1)
     const [renderCtForm, setRenderCtForm] = useState(false);
     const [formDiv, setFormDiv] = useState();
+    const [taskNameErr, setTaskNameErr] = useState()
 
     const [renderTaskFormIconClass, setRenderTaskFormIconClass] = useState(
         'ctsp-ratig-false'
