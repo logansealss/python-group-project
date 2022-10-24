@@ -142,6 +142,7 @@ export function getTaskDetailsFromParams(params, tasks, lists, tags) {
                 default:
                     return "/rip"
             }
+            break
         case 'lists':
             if (featureId === undefined) {
                 listDetails = getTaskDetails(taskObj)

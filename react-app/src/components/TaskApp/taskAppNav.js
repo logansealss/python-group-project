@@ -29,7 +29,7 @@ export default function TaskAppNav() {
         const searchInputDOMNode = document.getElementById('search-input-field')
         if (searchInputDOMNode.matches(':focus')) {
             if (!searchInput) {
-                history.push('/app')
+                history.push('/app/tasks/all')
             } else {
                 history.push(`/app/search/${encodeURIComponent(trimmedInput.split(' ')
                 .filter(str => str !== '').join(' '))}`);
