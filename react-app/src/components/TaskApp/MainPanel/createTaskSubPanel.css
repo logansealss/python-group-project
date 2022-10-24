@@ -9,6 +9,12 @@
     padding-right: 14.5px;
 }
 
+#name-error{
+    font-size: .8125rem;
+    color: #b84a47;
+    padding: 4px 0;
+}
+
 .ctsp-ct-pseudo-input{
     display: flex;
     flex-direction: row;
