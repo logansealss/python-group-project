@@ -163,6 +163,10 @@ export default function CreateTaskSubPanel({ lists, tags }) {
     const handleCtSubmit = async (e) => {
         e.preventDefault();
 
+        if(taskNameErr){
+            return;
+        }
+
         const data = {}
 
         if (taskName.length) data.name = taskName
@@ -224,6 +228,11 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                         onChange={(e) => setTaskName(e.target.value)}
                     />
                 </div>
+                {taskNameErr && (
+                    <div id="name-error">
+                        {taskNameErr}
+                    </div>
+                )}
                 <div
                     className={'ctsp-add-task-grp'}
                     id='ctsp-form-div'
