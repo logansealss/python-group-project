@@ -330,6 +330,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                                     placeholder='Time estimate'
                                     type='number'
                                     min={1}
+                                    max={72*60}
                                     value={estimate}
                                     onChange={(e) => setEstimate(e.target.value)}
                                 />
