@@ -1,6 +1,6 @@
-# leet-up
+# Task Maker
 
-description placeholder 
+Task maker is a web app clone of 'Remember the Milk.' It's a productivity app centered around making and keeping track of tasks and to-do's.
 
 live site: https://task-maker-jjl.herokuapp.com
 
@@ -58,46 +58,55 @@ live site: https://task-maker-jjl.herokuapp.com
 ## Landing Page
 
 Users start here.
+![image](https://user-images.githubusercontent.com/105324675/197429581-89e2d27a-7d62-4d22-8ce6-71d8f8976cec.png)
 
 
 ## Login Page
 
 The login button greets users with a snazzy login page and random, inspirational productivity quote.
+![image](https://user-images.githubusercontent.com/105324675/197429524-389dc7f3-20c5-43d0-81c1-f0b022ee00c3.png)
 
 
 ## Sign Up Page
 
 
-If not already registered, users can sign up with a new account
 
+If not already registered, users can sign up with a new account
+![image](https://user-images.githubusercontent.com/105324675/197429491-89457282-de12-411a-8ceb-946d02a81473.png)
 
 ## View and Create Tasks
 
 
 Users can create their own tasks and view them under various filters!
+![image](https://user-images.githubusercontent.com/105324675/197429600-4fb6d639-337d-4f04-ad7f-421d3d334360.png)
 
 
  
 ## View Task Details and Edit Tasks
 
 Users are able to view all the details of a single task in the task detail pane, and make edits to a task using the edit button to open the form.
+![image](https://user-images.githubusercontent.com/105324675/197429650-610f7f4d-2419-49a9-b96d-a7391bf1501e.png)
 
 
 
 ## Lists
 
 Users are able to create and manage lists for organizing tasks within the app, supported features are Create, Read, Update, Delete.
+![image](https://user-images.githubusercontent.com/105324675/197429662-05547954-b232-4fc5-86bc-c5ce9fad6979.png)
 
 
 
 ## Tags 
 
 Users can create tags to categorize tasks and even filter task view by tag, supported features for tags are Create, Read, Update, Delete.
+![image](https://user-images.githubusercontent.com/105324675/197429683-f733a5d9-ba9c-4946-a0f1-b6e8f67b11e1.png)
+
 
 
 ## Custom 404
 
 Lost? Our custom 404 page will guide you back to the right place.
+![image](https://user-images.githubusercontent.com/105324675/197429750-fc785337-d2cf-45f7-8ebb-c9bd5351244d.png)
 
 
 
