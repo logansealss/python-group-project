@@ -27,7 +27,7 @@ import './taskDetailPanel.css';
 export default function TaskDetailPanel() {
 
     const params = useParams();
-    const { listId, taskId } = params;
+    const { featureId, taskId } = params;
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -49,7 +49,7 @@ export default function TaskDetailPanel() {
     const [tdDueTime, setTdDueTime] = useState('');
     const [tdStartDate, setTdStartDate] = useState('');
     const [tdStartTime, setTdStartTime] = useState('');
-    const [tdTaskList, setTdTaskList] = useState(listId);
+    const [tdTaskList, setTdTaskList] = useState(featureId);
     const [tdPrio, setTdPrio] = useState('');
     const [tdTaskTags, setTdTaskTags] = useState([]);
     const [tdEstimate, setTdEstimate] = useState('');
