@@ -106,3 +106,7 @@ Lost? Our custom 404 page will guide you back to the right place.
 John Carrera, Jack Fisher, Logan Seals 
 
 johnrcarrera@gmail.com
+
+jfisher9882@gmail.com
+
+richard.logan.seals@gmail.com
