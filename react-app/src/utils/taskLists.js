@@ -140,7 +140,7 @@ export function getTaskDetailsFromParams(params, tasks, lists, tags) {
                     listDetails.name = "Completed"
                     break
                 default:
-                    return "/app"
+                    return "/rip"
             }
         case 'lists':
             if (featureId === undefined) {
@@ -167,7 +167,7 @@ export function getTaskDetailsFromParams(params, tasks, lists, tags) {
                     listDetails = getTaskDetails(taskObj, showCompleted=false, [checkTagId(+featureId)])
                     listDetails.name = tag.name
                 } else if (tag === undefined) {
-                    return "/app"
+                    return "/rip"
                 }
             };
             break
@@ -178,10 +178,6 @@ export function getTaskDetailsFromParams(params, tasks, lists, tags) {
                 listDetails = getTaskDetails(taskObj,showCompleted=false, [stringIncludesArr(searchList)])
                 listDetails.name = `Search: ${searchList.join(' ')}`
             }
-            break
-        default:
-            listDetails = getTaskDetails(taskObj)
-            listDetails.name = "All Tasks"
             break
     }
 
