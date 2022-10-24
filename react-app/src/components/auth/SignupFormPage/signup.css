@@ -83,7 +83,7 @@
     display: flex;
     justify-content: flex-end;
     width: 400px;
-    height: 200px
+    /* height: 200px */
 }
 
 .su-login-btn{

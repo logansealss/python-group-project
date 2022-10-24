@@ -478,6 +478,7 @@ export default function TaskDetailPanel() {
                                         placeholder='Time estimate'
                                         type='number'
                                         min={1}
+                                        max={72*60}
                                         value={tdEstimate}
                                         onChange={(e) => setTdEstimate(e.target.value)}
                                     />
