@@ -140,7 +140,7 @@ export function getTaskDetailsFromParams(params, tasks, lists, tags) {
                     listDetails.name = "Completed"
                     break
                 default:
-                    return "/app/tasks"
+                    return "/rip"
             }
             break
         case 'lists':
@@ -153,7 +153,7 @@ export function getTaskDetailsFromParams(params, tasks, lists, tags) {
                     listDetails = getTaskDetails(taskObj, showCompleted=false, [checkListId(+featureId)])
                     listDetails.name = list.name
                 } else if (list === undefined) {
-                    return "/app/lists"
+                    return "/rip"
                 }
             }
             break
@@ -168,7 +168,7 @@ export function getTaskDetailsFromParams(params, tasks, lists, tags) {
                     listDetails = getTaskDetails(taskObj, showCompleted=false, [checkTagId(+featureId)])
                     listDetails.name = tag.name
                 } else if (tag === undefined) {
-                    return "/app/tags"
+                    return "/rip"
                 }
             };
             break
