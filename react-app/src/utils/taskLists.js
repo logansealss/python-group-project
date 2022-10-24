@@ -32,9 +32,11 @@ export function aggregateDetails (tasks, showCompleted) {
         }
         if (task.completed) {
             result.completedTasks.push(task)
-            if (showCompleted) result.tasks.push(task)
-            if (task.duration > 0) {
+            if (showCompleted) {
+                result.tasks.push(task)
+                if (task.duration > 0) {
                 result.estimatedTime += task.duration
+                }
             }
         };
         return result
@@ -63,7 +65,6 @@ export function stringIncludesArr(arr) {
     return (task) => {
         const lowercaseString = task.name.toLowerCase()
         return arr.reduce((found, testStr) => {
-            console.log(lowercaseString, 'in', testStr.toLowerCase())
             if (!lowercaseString.includes(testStr.toLowerCase())) found = false
             return found
         }, true);
@@ -140,7 +141,7 @@ export function getTaskDetailsFromParams(params, tasks, lists, tags) {
                     listDetails.name = "Completed"
                     break
                 default:
-                    return "/rip"
+                    return "/app/tasks/all"
             }
             break
         case 'lists':
@@ -152,8 +153,8 @@ export function getTaskDetailsFromParams(params, tasks, lists, tags) {
                 if (list) {
                     listDetails = getTaskDetails(taskObj, showCompleted=false, [checkListId(+featureId)])
                     listDetails.name = list.name
-                } else if (list === undefined) {
-                    return "/rip"
+                } else if (!list) {
+                    return "/app/tasks/all"
                 }
             }
             break
@@ -167,8 +168,8 @@ export function getTaskDetailsFromParams(params, tasks, lists, tags) {
                 if (tag) {
                     listDetails = getTaskDetails(taskObj, showCompleted=false, [checkTagId(+featureId)])
                     listDetails.name = tag.name
-                } else if (tag === undefined) {
-                    return "/rip"
+                } else if (!tag) {
+                    return "/app/tasks/all"
                 }
             };
             break

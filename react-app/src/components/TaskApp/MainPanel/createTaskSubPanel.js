@@ -23,7 +23,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
 
     const params = useParams();
     const dispatch = useDispatch();
-    const { filterId, listId } = params;
+    const { filter, featureId } = params;
 
 
     const [taskList, setTaskList] = useState('');
@@ -38,6 +38,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
     const [estimateUnit, setEstimateUnit] = useState(1)
     const [renderCtForm, setRenderCtForm] = useState(false);
     const [formDiv, setFormDiv] = useState();
+    const [taskNameErr, setTaskNameErr] = useState()
 
     const [renderTaskFormIconClass, setRenderTaskFormIconClass] = useState(
         'ctsp-ratig-false'
@@ -102,13 +103,13 @@ export default function CreateTaskSubPanel({ lists, tags }) {
         let newList = ''
         let newTags = [];
 
-        if (filterId === "tags") {
-            if (tags[listId]) {
-                newTags = [listId]
+        if (filter === "tags") {
+            if (tags[featureId]) {
+                newTags = [featureId]
             }
-        }else if(filterId === 'lists'){
-            if(lists[listId]){
-                newList = listId
+        }else if(filter === 'lists'){
+            if(lists[featureId]){
+                newList = featureId
             }
         }
 
@@ -120,7 +121,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
 
         resetTaskListTaskTags()
 
-    }, [filterId, listId])
+    }, [featureId, filter])
 
     useEffect(() => {
         if (!datesValid()) {
@@ -151,10 +152,20 @@ export default function CreateTaskSubPanel({ lists, tags }) {
             closeForm();
         }
 
+        if(taskName.length > 150){
+            setTaskNameErr("Name is too long. Please choose a shorter name.")
+        }else{
+            setTaskNameErr()
+        }
+
     }, [taskName]);
 
     const handleCtSubmit = async (e) => {
         e.preventDefault();
+
+        if(taskNameErr){
+            return;
+        }
 
         const data = {}
 
@@ -217,6 +228,11 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                         onChange={(e) => setTaskName(e.target.value)}
                     />
                 </div>
+                {taskNameErr && (
+                    <div id="name-error">
+                        {taskNameErr}
+                    </div>
+                )}
                 <div
                     className={'ctsp-add-task-grp'}
                     id='ctsp-form-div'

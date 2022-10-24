@@ -18,7 +18,7 @@ export default function Splash() {
             )
         } else {
             return (
-            <Link className='main-su-btn-link-wrap' to="/app">
+            <Link className='main-su-btn-link-wrap' to="/app/tasks/all">
                 <button className='main-body-sign-up-btn'> Go To App</button>
             </Link>
             )

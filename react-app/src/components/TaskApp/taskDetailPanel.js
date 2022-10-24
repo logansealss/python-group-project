@@ -27,7 +27,7 @@ import './taskDetailPanel.css';
 export default function TaskDetailPanel() {
 
     const params = useParams();
-    const { listId, taskId } = params;
+    const { featureId, taskId } = params;
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -49,13 +49,14 @@ export default function TaskDetailPanel() {
     const [tdDueTime, setTdDueTime] = useState('');
     const [tdStartDate, setTdStartDate] = useState('');
     const [tdStartTime, setTdStartTime] = useState('');
-    const [tdTaskList, setTdTaskList] = useState(listId);
+    const [tdTaskList, setTdTaskList] = useState(featureId);
     const [tdPrio, setTdPrio] = useState('');
     const [tdTaskTags, setTdTaskTags] = useState([]);
     const [tdEstimate, setTdEstimate] = useState('');
     const [tdEstimateUnit, setTdEstimateUnit] = useState(1)
     const [tdNotes, setTdNotes] = useState('')
     const [tdNotesSaved, setTdNotesSaved] = useState(true);
+    const [taskNameErr, setTaskNameErr] = useState()
 
     const [renderTadForm, setRenderTadForm] = useState(false);
     const [tadFormDiv, setTadFormDiv] = useState();
@@ -192,6 +193,14 @@ export default function TaskDetailPanel() {
     }
 
     useEffect(() => {
+        if(tdTaskName.length > 150){
+            setTaskNameErr("Name is too long. Please choose a shorter name.")
+        }else{
+            setTaskNameErr()
+        }
+    }, [tdTaskName])
+
+    useEffect(() => {
 
         if (task && tdNotes !== task.note) {
             setTdNotesSaved(false);
@@ -274,6 +283,10 @@ export default function TaskDetailPanel() {
 
     const handleUtSubmit = async (e) => {
         e.preventDefault();
+
+        if(taskNameErr){
+            return;
+        }
 
         // const data = removeNullProperties(task);
         const data = {}
@@ -364,6 +377,11 @@ export default function TaskDetailPanel() {
                             <img className='tad-edit-icon' src={editIcon} />
                         </div>
                     </div>
+                    {taskNameErr && (
+                        <div id="name-error">
+                            {taskNameErr}
+                        </div>
+                    )}
                     <div
                         className={'tad-add-task-grp'}
                         id='tad-form-div'

@@ -179,8 +179,6 @@ export default function TaskAppSidebar() {
                 setListName(list.name)
                 history.push(`/app/lists/${list.id}`)
               }
-              // setListName(list.name)
-              // history.push(`/app/lists/${list.id}`)
             }}
             >
             {list.name}

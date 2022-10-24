@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import * as listActions from '../../../../store/lists'
 import * as tagActions from '../../../../store/tags'
@@ -7,7 +8,7 @@ import * as tagActions from '../../../../store/tags'
 export default function RemoveTagListForm(props) {
   const dispatch = useDispatch()
   const mountedRef = useRef(true)
-
+  const history = useHistory()
   const actions = {
     'list': listActions.deleteList,
     'tag': tagActions.deleteTag
@@ -27,7 +28,7 @@ export default function RemoveTagListForm(props) {
 
 
   return (
-    <form 
+    <form
       onSubmit={handleSubmit}
       style={{width: '400px'}}
     >
