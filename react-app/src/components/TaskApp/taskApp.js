@@ -5,7 +5,6 @@ import TaskAppNav from './taskAppNav';
 import MainPanel from './MainPanel/mainPanel';
 import TaskDetailPanel from './taskDetailPanel';
 import ListDetailPanel from './listDetailPanel';
-import NotFound from '../NotFound/NotFound.js';
 import './taskApp.css';
 import { useSelector } from 'react-redux';
 import { SidebarProvider } from '../../context/Sidebar.js';

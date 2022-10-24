@@ -45,7 +45,6 @@ export function aggregateDetails (tasks, showCompleted) {
 export function taskPassesChecks (task, filterFuncs) {
     return filterFuncs.reduce((passes, filterFunc)=>{
         passes = passes && filterFunc(task);
-        console.log('passed?',passes)
         return passes;
     },true);
 }
@@ -55,7 +54,6 @@ export function getTaskDetails (tasks, showCompleted=false, filterFuncs=[(task)=
     const filteredTasks = tasksToCheck.filter(task=>{
         return taskPassesChecks(task, filterFuncs)
     })
-    console.log('filtered tasks', filteredTasks)
     return aggregateDetails(filteredTasks, showCompleted)
 };
 
@@ -65,6 +63,7 @@ export function stringIncludesArr(arr) {
     return (task) => {
         const lowercaseString = task.name.toLowerCase()
         return arr.reduce((found, testStr) => {
+            console.log(lowercaseString, 'in', testStr.toLowerCase())
             if (!lowercaseString.includes(testStr.toLowerCase())) found = false
             return found
         }, true);
@@ -86,7 +85,6 @@ export function checkTagId (tagId) {
 export function checkDueDate (startDate, dueDate) {
     return (task) => {
         let taskDueDate = task.dueDate ? task.dueDate.slice(0, 10) : task.dueDate
-        console.log('targetStart',startDate, 'TargetEnd', dueDate, 'TaskDueDate',taskDueDate)
         return taskDueDate >= startDate && taskDueDate <= dueDate
     };
 };
@@ -111,8 +109,6 @@ export function getTaskDetailsFromParams(params, tasks, lists, tags) {
     let listDetails = null;
     let taskObj = tasks ? tasks : {};
 
-    console.log('In getTaskDetailsFrom Params','filter', filter, 'featureId', featureId)
-
     switch (filter) {
         case 'tasks':
             switch (featureId) {
@@ -121,7 +117,6 @@ export function getTaskDetailsFromParams(params, tasks, lists, tags) {
                     listDetails.name = "All Tasks"
                     break
                 case 'today':
-                    console.log('today',getDateFromToday())
                     listDetails = getTaskDetails(taskObj,showCompleted=false, [
                         checkDueDate(getDateFromToday(), getDateFromToday())
                     ]);
@@ -154,7 +149,7 @@ export function getTaskDetailsFromParams(params, tasks, lists, tags) {
             } else {
                 let list = lists && Object.values(lists).find(lst => lst.id === +featureId)
                 if (list) {
-                    listDetails = getTaskDetails(taskObj, [checkListId(+featureId)])
+                    listDetails = getTaskDetails(taskObj, showCompleted=false, [checkListId(+featureId)])
                     listDetails.name = list.name
                 } else if (list === undefined) {
 
@@ -169,7 +164,7 @@ export function getTaskDetailsFromParams(params, tasks, lists, tags) {
                 let tag = tags && Object.values(tags).find(tag => tag.id === +featureId)
 
                 if (tag) {
-                    listDetails = getTaskDetails(taskObj, [checkTagId(+featureId)])
+                    listDetails = getTaskDetails(taskObj, showCompleted=false, [checkTagId(+featureId)])
                     listDetails.name = tag.name
                 } else if (tag === undefined) {
                     return "/app"
@@ -180,8 +175,8 @@ export function getTaskDetailsFromParams(params, tasks, lists, tags) {
             if (featureId) {
                 const searchParams = featureId;
                 const searchList = decodeURIComponent(searchParams).split(' ')
+                listDetails = getTaskDetails(taskObj,showCompleted=false, [stringIncludesArr(searchList)])
                 listDetails.name = `Search: ${searchList.join(' ')}`
-                listDetails = getTaskDetails(taskObj, [stringIncludesArr(searchList)])
             }
             break
         default:

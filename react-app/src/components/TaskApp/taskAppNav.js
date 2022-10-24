@@ -22,7 +22,7 @@ export default function TaskAppNav() {
     const [searchIconFocusStyle, setSearchIconFocusStyle] = useState('');
     const { expander, listName } = useContext(SidebarContext);
     const [expandSideBar, setExpandSideBar] = expander;
-    const [currentListName, setListName] = listName;
+    const [currentListName, _setListName] = listName;
 
     function runSearch(searchInput) {
         const trimmedInput = searchInput.trim()

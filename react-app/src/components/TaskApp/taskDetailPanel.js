@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
-import { getSingleTask, updateATask, getAllTasks, addTagToTask, removeTagFromTask } from '../../store/tasks';
+import { getSingleTask, updateATask, addTagToTask, removeTagFromTask } from '../../store/tasks';
 import removeNullProperties from '../../utils/updateFunction';
 
 import selectMenuTimes from '../../data/selectMenuTimes.json';
@@ -390,8 +390,9 @@ export default function TaskDetailPanel() {
                                             onChange={(e) => setTdStartTime(e.target.value)}
                                         >
                                             <option value=''>Start Time</option>
-                                            {selectMenuTimes.map((option) =>
+                                            {selectMenuTimes.map((option, idx) =>
                                                 <option
+                                                    key={idx}
                                                     value={option.value}
                                                     disabled={compareStartToCurrentTime(option.value)}
                                                 >
@@ -418,8 +419,9 @@ export default function TaskDetailPanel() {
                                             onChange={(e) => setTdDueTime(e.target.value)}
                                         >
                                             <option value=''>Due Time</option>
-                                            {selectMenuTimes.map((option) =>
+                                            {selectMenuTimes.map((option, idx) =>
                                                 <option
+                                                    key={idx}
                                                     value={option.value}
                                                     disabled={compareTimeToStart(option.value)}
                                                 >
@@ -448,7 +450,7 @@ export default function TaskDetailPanel() {
                                     >
                                         <option value=''>List</option>
                                         {Object.values(lists).map((l) =>
-                                            <option value={l.id}>{l.name}</option>
+                                            <option key={l.id} value={l.id}>{l.name}</option>
                                         )}
                                     </select>
                                 </div>
@@ -484,7 +486,7 @@ export default function TaskDetailPanel() {
                                 >
                                     <optgroup label='Tags' />
                                     {Object.values(tags).map((t) =>
-                                        <option className='sel-op' value={t.id}>{t.name}</option>
+                                        <option key={t.id} className='sel-op' value={t.id}>{t.name}</option>
                                     )}
                                 </select>
                             </div>
@@ -577,7 +579,7 @@ export default function TaskDetailPanel() {
 
                         {task.tags && task.tags.map((tagId) =>
                             tags[tagId] ? (
-                            <Link className='td-data-link' to={`/app/tags/${tagId}`}>
+                            <Link key={tagId} className='td-data-link' to={`/app/tags/${tagId}`}>
                                 <div className={'td-tag'}
                                     style={{ color: 'white', backgroundColor: tags[String(tagId)].color }}
                                 >

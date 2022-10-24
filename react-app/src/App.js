@@ -6,11 +6,7 @@ import SignupFormPage from './components/auth/SignupFormPage/signup';
 import Navi from './components/Navi/navi';
 // import BotNavi from './components/BotNavi/botNavi';
 import NotFound from './components/NotFound/NotFound';
-import ProtectedRoute from './components/auth/ProtectedRoute';
 import Splash from './components/Splash/splash';
-import UsersList from './components/UsersList';
-import User from './components/User';
-import TaskAppNav from './components/TaskApp/taskAppNav';
 import TaskApp from './components/TaskApp/taskApp';
 import { authenticate } from './store/session';
 
