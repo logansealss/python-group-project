@@ -123,7 +123,7 @@ function SignupFormPage() {
                 });
 
             if (!response) {
-                history.push('/app/lists/all')
+                history.push('/app/tasks/all')
             }
             else {
                 const err = response.map(err => err.split(': ')[1])

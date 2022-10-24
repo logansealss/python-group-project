@@ -85,7 +85,7 @@ function LoginFormPage() {
             const response = await dispatch(sessionActions.login(credential, password))
 
             if(!response){
-                history.push('/app/lists/all')
+                history.push('/app/tasks/all')
             }
             else{
                 const err = response[0].split(': ')[1]
