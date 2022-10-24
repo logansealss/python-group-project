@@ -6,7 +6,7 @@ import { useParams, Redirect, Link } from 'react-router-dom';
 import { getAllTasks } from '../../../store/tasks';
 import TaskRowItem from './taskRowItem';
 import CreateTaskSubPanel from './createTaskSubPanel';
-import { getListDetails } from '../../../utils/taskLists'
+import { getTaskDetailsFromParams } from '../../../utils/taskLists'
 import { SidebarContext } from '../../../context/Sidebar';
 import './mainPanel.css';
 
@@ -14,7 +14,6 @@ export default function MainPanel() {
     const {listName} = useContext(SidebarContext);
     const [_listName, setListName] = listName;
     const params = useParams();
-    console.log(params)
     const dispatch = useDispatch();
     const tasks = useSelector(state =>state.tasks.allTasks);
     const tags = useSelector(state => state.tags);
@@ -25,7 +24,7 @@ export default function MainPanel() {
         dispatch(getAllTasks());
     }, [dispatch]);
 
-    let listDetails = getListDetails(params, tasks, lists, tags)
+    let listDetails = getTaskDetailsFromParams(params, tasks, lists, tags)
     if (typeof listDetails === "string") {
         return <Redirect to={listDetails}></Redirect>
     } else if (listDetails) setListName(listDetails.name)
