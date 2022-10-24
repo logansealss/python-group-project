@@ -95,7 +95,7 @@ function SignupFormPage() {
         renderErrors
     ]);
 
-    if (sessionUser) return <Redirect to="/app/lists/all" />;
+    if (sessionUser) return <Redirect to="/app/tasks/all" />;
 
     const emailCheck = (str) => {
         return /\S+@\S+\.\S+/.test(str);
@@ -123,7 +123,7 @@ function SignupFormPage() {
                 });
 
             if (!response) {
-                history.push('/app/lists/all')
+                history.push('/app/tasks/all')
             }
             else {
                 const err = response.map(err => err.split(': ')[1])

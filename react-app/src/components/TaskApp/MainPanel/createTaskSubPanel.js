@@ -340,7 +340,7 @@ export default function CreateTaskSubPanel({ lists, tags }) {
                             >
                                 <optgroup label='Tags' />
                                 {Object.values(tags).map((t) =>
-                                    <option className='sel-op' value={t.id}>{t.name}</option>
+                                    <option key={t.id} className='sel-op' value={t.id}>{t.name}</option>
                                 )}
                             </select>
                         </div>

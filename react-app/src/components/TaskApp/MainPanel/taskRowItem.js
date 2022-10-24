@@ -1,7 +1,6 @@
 import React from 'react';
 import { deleteSingleTask } from '../../../store/tasks';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { updateATask } from '../../../store/tasks';
 // import moveIcon from '../../../img/ellipsis-vertical.svg';

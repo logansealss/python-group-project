@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, Route, useRouteMatch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import TaskAppSidebar from './TaskAppSidebar/taskAppSidebar.js';
 import TaskAppNav from './taskAppNav';
 import MainPanel from './MainPanel/mainPanel';
@@ -13,9 +13,7 @@ export default function TaskApp() {
 
     const user = useSelector(state => state.session.user)
 
-    const { path, url } = useRouteMatch();
-
-    if(!user){
+    if (!user) {
         return <Redirect to="/" />
     }
 
@@ -24,17 +22,25 @@ export default function TaskApp() {
             <TaskAppNav />
             <div className='ta-main-body-div'>
                 <TaskAppSidebar />
-                    <Route path={`${path}`}>
+                <Switch>
+                    <Route exact path={'/app'}>
                         <MainPanel />
                     </Route>
-                    <Route exact path={`${path}/:filterId/:listId`}>
+                    <Route exact path={'/app/:filter'}>
+                        <Redirect to='/rip' />
+                    </Route>
+                    <Route exact path={'/app/:filter/:featureId'}>
                         <MainPanel />
                         <ListDetailPanel />
                     </Route>
-                    <Route path={`${path}/:filterId/:listId/:taskId`}>
+                    <Route exact path={'/app/:filter/:featureId/:taskId'}>
                         <MainPanel />
                         <TaskDetailPanel />
                     </Route>
+                    <Route>
+                        <Redirect to="/rip" />
+                    </Route>
+                </Switch>
             </div>
         </SidebarProvider>
     </>
