@@ -63,7 +63,6 @@ export function stringIncludesArr(arr) {
     return (task) => {
         const lowercaseString = task.name.toLowerCase()
         return arr.reduce((found, testStr) => {
-            console.log(lowercaseString, 'in', testStr.toLowerCase())
             if (!lowercaseString.includes(testStr.toLowerCase())) found = false
             return found
         }, true);
