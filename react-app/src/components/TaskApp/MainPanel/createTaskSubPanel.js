@@ -152,6 +152,12 @@ export default function CreateTaskSubPanel({ lists, tags }) {
             closeForm();
         }
 
+        if(taskName.length > 150){
+            setTaskNameErr("Name is too long. Please choose a shorter name.")
+        }else{
+            setTaskNameErr()
+        }
+
     }, [taskName]);
 
     const handleCtSubmit = async (e) => {
